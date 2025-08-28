@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Logo from '../../../public/Snap save pro.png'
+import Link from 'next/link';
 export default function ProfessionalHeader() {
   const [activeTab, setActiveTab] = useState('youtube');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -59,6 +60,8 @@ export default function ProfessionalHeader() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo Section */}
+             <Link href='/' >
+
           <div className="flex items-center gap-3 flex-shrink-0">
             <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-cyan-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-cyan-500/20">
              <Image src={Logo} height={400} width={500} className=' w-auto'  alt="Snap Save Pro"/>
@@ -75,6 +78,7 @@ export default function ProfessionalHeader() {
               </h1>
             </div>
           </div>
+             </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-2">
