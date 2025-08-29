@@ -1,13 +1,24 @@
 'use client'
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Logo from '../../../public/Snap save pro.png'
 import Link from 'next/link';
+
+interface Platform {
+  id: string;
+  name: string;
+  icon: React.ReactElement;
+  available: boolean;
+  gradient: string;
+  route: string;
+}
+
 export default function ProfessionalHeader() {
-  const [activeTab, setActiveTab] = useState('youtube');
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const platforms = [
+  const platforms: Platform[] = [
     {
       id: 'youtube',
       name: 'YouTube',
@@ -17,7 +28,8 @@ export default function ProfessionalHeader() {
         </svg>
       ),
       available: true,
-      gradient: 'from-cyan-500 to-emerald-500'
+      gradient: 'from-cyan-500 to-emerald-500',
+      route: '/'
     },
     {
       id: 'instagram',
@@ -27,8 +39,9 @@ export default function ProfessionalHeader() {
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
         </svg>
       ),
-      available: false,
-      gradient: 'from-purple-500 to-pink-500'
+      available: true,
+      gradient: 'from-purple-500 to-pink-500',
+      route: '/pages/instagram'
     },
     {
       id: 'tiktok',
@@ -38,8 +51,9 @@ export default function ProfessionalHeader() {
           <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-.88-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
         </svg>
       ),
-      available: false,
-      gradient: 'from-pink-500 to-red-500'
+      available: true,
+      gradient: 'from-pink-500 to-red-500',
+      route: '/pages/tiktok'
     },
     {
       id: 'facebook',
@@ -50,9 +64,25 @@ export default function ProfessionalHeader() {
         </svg>
       ),
       available: false,
-      gradient: 'from-blue-500 to-blue-600'
+      gradient: 'from-blue-500 to-blue-600',
+      route: '/facebook'
     }
   ];
+
+  // Function to determine active tab based on current pathname
+  const getActiveTab = () => {
+    const currentPlatform = platforms.find(platform => platform.route === pathname);
+    return currentPlatform ? currentPlatform.id : 'youtube'; // Default to youtube if no match
+  };
+
+  const activeTab = getActiveTab();
+
+  const handlePlatformClick = (platform: Platform) => {
+    if (platform.available) {
+      // Remove window.location.href since we're using Link components
+      // The Link component will handle navigation
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-700/20 bg-gradient-to-r from-slate-900 via-gray-900 to-zinc-900 backdrop-blur-xl shadow-lg">
@@ -60,44 +90,55 @@ export default function ProfessionalHeader() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo Section */}
-             <Link href='/' >
-
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-cyan-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-cyan-500/20">
-             <Image src={Logo} height={400} width={500} className=' w-auto'  alt="Snap Save Pro"/>
+          <Link href='/' >
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-cyan-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-cyan-500/20">
+               <Image src={Logo} height={400} width={500} className=' w-auto'  alt="Snap Save Pro"/>
+              </div>
+              <div className=" hidden sm:block">
+                <h1 className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400">
+                  Snap Save Pro
+                </h1>
+                <p className="text-xs lg:text-sm text-gray-300">Multi-Platform Video Downloader</p>
+              </div>
+              <div className="sm:hidden">
+                <h1 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400">
+                  Snap Save Pro
+                </h1>
+              </div>
             </div>
-            <div className=" hidden sm:block">
-              <h1 className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400">
-                Snap Save Pro
-              </h1>
-              <p className="text-xs lg:text-sm text-gray-300">Multi-Platform Video Downloader</p>
-            </div>
-            <div className="sm:hidden">
-              <h1 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400">
-                DL Pro
-              </h1>
-            </div>
-          </div>
-             </Link>
+          </Link>
           
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-2">
             {platforms.map((platform) => (
               <div key={platform.id} className="relative">
-                <button 
-                  onClick={() => platform.available && setActiveTab(platform.id)}
-                  disabled={!platform.available}
-                  className={`px-4 py-2.5 font-medium rounded-xl shadow-sm flex items-center gap-2.5 transition-all duration-300 ${
-                    platform.available && activeTab === platform.id
-                      ? `bg-gradient-to-r ${platform.gradient} text-white shadow-lg scale-105` 
-                      : platform.available
-                      ? 'bg-slate-800/80 text-gray-300 hover:bg-slate-700/80 hover:text-white hover:scale-102 backdrop-blur-sm'
-                      : 'bg-slate-700/50 text-slate-400 cursor-not-allowed opacity-60'
-                  }`}
-                >
-                  {platform.icon}
-                  <span className="text-sm font-semibold">{platform.name}</span>
-                </button>
+                {platform.available ? (
+                  <Link 
+                    href={platform.route}
+                    className={`px-4 py-2.5 font-medium rounded-xl shadow-sm flex items-center gap-2.5 transition-all duration-300 ${
+                      activeTab === platform.id
+                        ? `bg-gradient-to-r ${platform.gradient} text-white shadow-lg scale-105` 
+                        : 'bg-slate-800/80 text-gray-300 hover:bg-slate-700/80 hover:text-white hover:scale-102 backdrop-blur-sm'
+                    }`}
+                  >
+                    {platform.icon}
+                    <span className="text-sm font-semibold">{platform.name}</span>
+                    {platform.id === 'tiktok' && platform.available && (
+                      <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">
+                        NEW
+                      </span>
+                    )}
+                  </Link>
+                ) : (
+                  <button 
+                    disabled={true}
+                    className="px-4 py-2.5 font-medium rounded-xl shadow-sm flex items-center gap-2.5 transition-all duration-300 bg-slate-700/50 text-slate-400 cursor-not-allowed opacity-60"
+                  >
+                    {platform.icon}
+                    <span className="text-sm font-semibold">{platform.name}</span>
+                  </button>
+                )}
                 {!platform.available && (
                   <div className={`absolute -top-2 -right-2 bg-gradient-to-r ${platform.gradient} text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse`}>
                     Soon
@@ -135,25 +176,33 @@ export default function ProfessionalHeader() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4">
             {platforms.map((platform) => (
               <div key={platform.id} className="relative">
-                <button 
-                  onClick={() => {
-                    if (platform.available) {
-                      setActiveTab(platform.id);
-                      setMobileMenuOpen(false);
-                    }
-                  }}
-                  disabled={!platform.available}
-                  className={`w-full p-4 font-medium rounded-xl shadow-sm flex items-center justify-center gap-3 transition-all duration-300 ${
-                    platform.available && activeTab === platform.id
-                      ? `bg-gradient-to-r ${platform.gradient} text-white shadow-lg` 
-                      : platform.available
-                      ? 'bg-slate-800/80 text-gray-300 hover:bg-slate-700/80 hover:text-white backdrop-blur-sm'
-                      : 'bg-slate-700/50 text-slate-400 cursor-not-allowed opacity-60'
-                  }`}
-                >
-                  {platform.icon}
-                  <span className="text-sm font-semibold">{platform.name}</span>
-                </button>
+                {platform.available ? (
+                  <Link 
+                    href={platform.route}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`w-full p-4 font-medium rounded-xl shadow-sm flex items-center justify-center gap-3 transition-all duration-300 ${
+                      activeTab === platform.id
+                        ? `bg-gradient-to-r ${platform.gradient} text-white shadow-lg` 
+                        : 'bg-slate-800/80 text-gray-300 hover:bg-slate-700/80 hover:text-white backdrop-blur-sm'
+                    }`}
+                  >
+                    {platform.icon}
+                    <span className="text-sm font-semibold">{platform.name}</span>
+                    {platform.id === 'tiktok' && platform.available && (
+                      <span className="bg-emerald-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full animate-pulse ml-1">
+                        NEW
+                      </span>
+                    )}
+                  </Link>
+                ) : (
+                  <button 
+                    disabled={true}
+                    className="w-full p-4 font-medium rounded-xl shadow-sm flex items-center justify-center gap-3 transition-all duration-300 bg-slate-700/50 text-slate-400 cursor-not-allowed opacity-60"
+                  >
+                    {platform.icon}
+                    <span className="text-sm font-semibold">{platform.name}</span>
+                  </button>
+                )}
                 {!platform.available && (
                   <div className={`absolute -top-1.5 -right-1.5 bg-gradient-to-r ${platform.gradient} text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse`}>
                     Soon

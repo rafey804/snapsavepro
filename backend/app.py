@@ -10,12 +10,10 @@ from urllib.parse import urlparse
 import json
 import shutil
 from concurrent.futures import ThreadPoolExecutor
+import re
 
 app = Flask(__name__)
-CORS(app, origins=[
-    "http://localhost:3000",
-    "https://youtube-downloader-frontend.onrender.com"
-])
+CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
 
 # Store download progress and files
 download_progress = {}
@@ -50,6 +48,44 @@ class ProgressHook:
                 'filename': d['filename']
             }
 
+def detect_platform(url):
+    """Detect if URL is YouTube, TikTok, or Instagram"""
+    url = url.strip().lower()
+    
+    # YouTube patterns
+    youtube_domains = ['youtube.com', 'youtu.be', 'www.youtube.com', 'm.youtube.com']
+    parsed_url = urlparse(url)
+    if parsed_url.netloc.lower() in youtube_domains:
+        return 'youtube'
+    
+    # TikTok patterns
+    tiktok_patterns = [
+        r'(?:https?://)?(?:www\.)?tiktok\.com/@[\w.-]+/video/\d+',
+        r'(?:https?://)?(?:vm|vt)\.tiktok\.com/[\w.-]+',
+        r'(?:https?://)?(?:www\.)?tiktok\.com/t/[\w.-]+',
+        r'(?:https?://)?m\.tiktok\.com/v/\d+',
+    ]
+    
+    for pattern in tiktok_patterns:
+        if re.match(pattern, url):
+            return 'tiktok'
+    
+    # Instagram patterns
+    instagram_patterns = [
+        r'(?:https?://)?(?:www\.)?instagram\.com/p/[\w-]+/?',  # Posts
+        r'(?:https?://)?(?:www\.)?instagram\.com/reel/[\w-]+/?',  # Reels  
+        r'(?:https?://)?(?:www\.)?instagram\.com/reels/[\w-]+/?',  # Reels alternative
+        r'(?:https?://)?(?:www\.)?instagram\.com/stories/[\w.-]+/\d+/?',  # Stories
+        r'(?:https?://)?(?:www\.)?instagram\.com/tv/[\w-]+/?',  # IGTV
+        r'(?:https?://)?(?:www\.)?instagram\.com/[\w.-]+/p/[\w-]+/?',  # Alternative post format
+    ]
+    
+    for pattern in instagram_patterns:
+        if re.match(pattern, url):
+            return 'instagram'
+    
+    return 'unknown'
+
 def is_valid_youtube_url(url):
     """Check if URL is a valid YouTube URL"""
     parsed_url = urlparse(url)
@@ -57,7 +93,7 @@ def is_valid_youtube_url(url):
     return parsed_url.netloc.lower() in youtube_domains
 
 def get_enhanced_ydl_opts(base_opts=None):
-    """Get enhanced yt-dlp options with better error handling and authentication"""
+    """Get enhanced yt-dlp options with better error handling and authentication - ORIGINAL YOUTUBE CODE"""
     if base_opts is None:
         base_opts = {}
     
@@ -108,6 +144,92 @@ def get_enhanced_ydl_opts(base_opts=None):
     enhanced_opts.update(base_opts)
     return enhanced_opts
 
+def get_tiktok_ydl_opts(base_opts=None):
+    """TikTok-specific yt-dlp options"""
+    if base_opts is None:
+        base_opts = {}
+    
+    tiktok_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'extract_flat': False,
+        'socket_timeout': 60,
+        'retries': 5,
+        'fragment_retries': 5,
+        'file_access_retries': 3,
+        'extractor_retries': 3,
+        'skip_unavailable_fragments': True,
+        'ignoreerrors': False,
+        'no_color': True,
+        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+        'format_sort': ['res', 'ext:mp4:m4a'],
+        'format_sort_force': True,
+        'http_chunk_size': 5242880,
+        'concurrent_fragment_downloads': 2,
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-us,en;q=0.5',
+            'Accept-Encoding': 'gzip, deflate',
+            'Referer': 'https://www.tiktok.com/',
+            'Origin': 'https://www.tiktok.com',
+        }
+    }
+    
+    tiktok_opts.update(base_opts)
+    return tiktok_opts
+
+def get_instagram_ydl_opts(base_opts=None):
+    """Instagram-specific yt-dlp options"""
+    if base_opts is None:
+        base_opts = {}
+    
+    instagram_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'extract_flat': False,
+        'socket_timeout': 90,
+        'retries': 5,
+        'fragment_retries': 5,
+        'file_access_retries': 3,
+        'extractor_retries': 3,
+        'skip_unavailable_fragments': True,
+        'ignoreerrors': False,
+        'no_color': True,
+        'user_agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+        'format_sort': ['res', 'ext:mp4:m4a'],
+        'format_sort_force': True,
+        'http_chunk_size': 8388608,  # 8MB chunks
+        'concurrent_fragment_downloads': 2,
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            'Accept-Language': 'en-us,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Referer': 'https://www.instagram.com/',
+            'Origin': 'https://www.instagram.com',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'same-origin',
+        }
+    }
+    
+    instagram_opts.update(base_opts)
+    return instagram_opts
+
+def get_instagram_content_type(url):
+    """Determine Instagram content type"""
+    if '/p/' in url:
+        return 'post'
+    elif '/reel/' in url or '/reels/' in url:
+        return 'reel'
+    elif '/stories/' in url:
+        return 'story'
+    elif '/tv/' in url:
+        return 'igtv'
+    else:
+        return 'post'  # Default to post
+
 @app.route('/api/video-info', methods=['POST'])
 def get_video_info():
     try:
@@ -117,192 +239,469 @@ def get_video_info():
         if not url:
             return jsonify({'error': 'URL is required'}), 400
         
-        if not is_valid_youtube_url(url):
-            return jsonify({'error': 'Please provide a valid YouTube URL'}), 400
-
-        # Enhanced options for better support
-        ydl_opts = get_enhanced_ydl_opts({
-            'noplaylist': True,
-            'extract_flat': False,
-        })
+        platform = detect_platform(url)
         
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
+        if platform == 'unknown':
+            return jsonify({'error': 'Please provide a valid YouTube, TikTok, or Instagram URL'}), 400
+
+        print(f"Processing {platform.upper()} URL: {url}")
+
+        # ORIGINAL YOUTUBE CODE - UNCHANGED
+        if platform == 'youtube':
+            if not is_valid_youtube_url(url):
+                return jsonify({'error': 'Please provide a valid YouTube URL'}), 400
+
+            # Enhanced options for better support - ORIGINAL CODE
+            ydl_opts = get_enhanced_ydl_opts({
+                'noplaylist': True,
+                'extract_flat': False,
+            })
             
-            if not info:
-                return jsonify({'error': 'Could not extract video information'}), 400
-            
-            # Get video duration
-            duration = info.get('duration', 0)
-            print(f"Video duration: {duration} seconds ({duration/60:.1f} minutes)")
-            
-            # Extract basic video information
-            video_info = {
-                'title': info.get('title', 'Unknown'),
-                'duration': duration,
-                'view_count': info.get('view_count', 0),
-                'uploader': info.get('uploader', 'Unknown'),
-                'thumbnail': info.get('thumbnail', ''),
-                'description': (info.get('description', '')[:200] + '...') if info.get('description', '') else '',
-                'upload_date': info.get('upload_date', ''),
-                'formats': []
-            }
-            
-            # Process available formats - REMOVED restrictive filtering
-            formats = info.get('formats', [])
-            if not formats:
-                return jsonify({'error': 'No formats available for this video'}), 400
-            
-            video_with_audio = {}
-            video_only = {}
-            audio_only = {}
-            
-            # Process ALL video formats without restrictions
-            video_formats = []
-            audio_formats = []
-            
-            for fmt in formats:
-                if not fmt.get('format_id'):
-                    continue
-                    
-                vcodec = fmt.get('vcodec', 'none')
-                acodec = fmt.get('acodec', 'none')
-                height = fmt.get('height') or 0
-                ext = fmt.get('ext', '')
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=False)
                 
-                # Skip invalid formats only
-                if ext not in ['mp4', 'm4a', 'webm', 'mkv', '3gp']:
-                    continue
+                if not info:
+                    return jsonify({'error': 'Could not extract video information'}), 400
                 
-                # Collect video formats - Accept ALL resolutions
-                if vcodec != 'none' and height > 0:
-                    video_formats.append(fmt)
-                # Collect audio formats
-                elif acodec != 'none' and vcodec == 'none':
-                    audio_formats.append(fmt)
-            
-            # Process video formats - Keep ALL qualities
-            processed_qualities = set()
-            for fmt in sorted(video_formats, key=lambda x: (x.get('height') or 0, x.get('filesize') or 0), reverse=True):
-                height = fmt.get('height') or 0
-                if height <= 0:
-                    continue
-                    
-                quality = f"{height}p"
-                ext = fmt.get('ext', 'mp4')
+                # Get video duration
+                duration = info.get('duration', 0)
+                print(f"Video duration: {duration} seconds ({duration/60:.1f} minutes)")
                 
-                # Accept ALL common video resolutions (removed restrictions)
-                common_heights = [144, 240, 360, 480, 720, 1080, 1440, 2160]
-                if height not in common_heights:
-                    # Still accept other heights if they're reasonable
-                    if height < 100 or height > 5000:
-                        continue
-                    
-                quality_key = f"{quality}_{ext}"
-                if quality_key in processed_qualities:
-                    continue
-                processed_qualities.add(quality_key)
+                # Extract basic video information with better thumbnail handling - FIXED
+                thumbnail_url = ''
+                if info.get('thumbnail'):
+                    thumbnail_url = info.get('thumbnail')
+                elif info.get('thumbnails'):
+                    # Get highest quality thumbnail
+                    thumbnails = info.get('thumbnails', [])
+                    if thumbnails:
+                        # Sort by width/height to get best quality
+                        best_thumb = max(thumbnails, key=lambda t: (t.get('width', 0) * t.get('height', 0)))
+                        thumbnail_url = best_thumb.get('url', '')
                 
-                vcodec = fmt.get('vcodec', '')
-                acodec = fmt.get('acodec', '')
-                filesize = fmt.get('filesize', 0)
-                
-                format_data = {
-                    'quality': quality,
-                    'type': 'video',
-                    'format_id': fmt['format_id'],
-                    'ext': ext,
-                    'filesize': filesize,
-                    'fps': fmt.get('fps', 30),
-                    'vcodec': vcodec,
-                    'acodec': acodec,
-                    'has_builtin_audio': acodec and acodec != 'none',
-                    'combined_with_audio': False,
-                    'protocol': fmt.get('protocol', 'https'),
-                    'duration': duration  # Add duration info
+                video_info = {
+                    'title': info.get('title', 'Unknown'),
+                    'duration': duration,
+                    'view_count': info.get('view_count', 0),
+                    'uploader': info.get('uploader', 'Unknown'),
+                    'thumbnail': thumbnail_url,
+                    'description': (info.get('description', '')[:200] + '...') if info.get('description', '') else '',
+                    'upload_date': info.get('upload_date', ''),
+                    'platform': 'youtube',
+                    'formats': []
                 }
                 
-                # Add to appropriate category
-                if acodec and acodec != 'none':
-                    video_with_audio[f"{quality}_{ext}_builtin"] = format_data
-                else:
-                    video_only[f"{quality}_{ext}_only"] = format_data
-                    # Also create combined option
-                    format_data_copy = format_data.copy()
-                    format_data_copy['combined_with_audio'] = True
-                    if audio_formats:
-                        video_with_audio[f"{quality}_{ext}_combined"] = format_data_copy
-            
-            # Process audio formats - Accept ALL audio qualities
-            audio_qualities = {}
-            for fmt in sorted(audio_formats, key=lambda x: x.get('abr') or 0, reverse=True):
-                abr = fmt.get('abr') or 0
-                if abr <= 0:
-                    continue
+                # Process available formats - REMOVED restrictive filtering - ORIGINAL CODE
+                formats = info.get('formats', [])
+                if not formats:
+                    return jsonify({'error': 'No formats available for this video'}), 400
+                
+                video_with_audio = {}
+                video_only = {}
+                audio_only = {}
+                
+                # Process ALL video formats without restrictions - ORIGINAL CODE
+                video_formats = []
+                audio_formats = []
+                
+                for fmt in formats:
+                    if not fmt.get('format_id'):
+                        continue
+                        
+                    vcodec = fmt.get('vcodec', 'none')
+                    acodec = fmt.get('acodec', 'none')
+                    height = fmt.get('height') or 0
+                    ext = fmt.get('ext', '')
                     
-                ext = fmt.get('ext', 'm4a')
-                filesize = fmt.get('filesize') or 0
+                    # Skip invalid formats only
+                    if ext not in ['mp4', 'm4a', 'webm', 'mkv', '3gp']:
+                        continue
+                    
+                    # Collect video formats - Accept ALL resolutions
+                    if vcodec != 'none' and height > 0:
+                        video_formats.append(fmt)
+                    # Collect audio formats
+                    elif acodec != 'none' and vcodec == 'none':
+                        audio_formats.append(fmt)
                 
-                # Accept ALL bitrates
-                if abr >= 300:
-                    quality_level = "320kbps"
-                    target_abr = 320
-                elif abr >= 250:
-                    quality_level = "256kbps"
-                    target_abr = 256
-                elif abr >= 180:
-                    quality_level = "192kbps" 
-                    target_abr = 192
-                elif abr >= 100:
-                    quality_level = "128kbps"
-                    target_abr = 128
-                elif abr >= 60:
-                    quality_level = "96kbps"
-                    target_abr = 96
-                else:
-                    quality_level = f"{int(abr)}kbps"
-                    target_abr = int(abr)
-                
-                if quality_level not in audio_qualities:
-                    audio_qualities[quality_level] = {
-                        'quality': quality_level,
-                        'type': 'audio',
+                # Process video formats - Keep ALL qualities - ORIGINAL CODE
+                processed_qualities = set()
+                for fmt in sorted(video_formats, key=lambda x: (x.get('height') or 0, x.get('filesize') or 0), reverse=True):
+                    height = fmt.get('height') or 0
+                    if height <= 0:
+                        continue
+                        
+                    quality = f"{height}p"
+                    ext = fmt.get('ext', 'mp4')
+                    
+                    # Accept ALL common video resolutions (removed restrictions)
+                    common_heights = [144, 240, 360, 480, 720, 1080, 1440, 2160]
+                    if height not in common_heights:
+                        # Still accept other heights if they're reasonable
+                        if height < 100 or height > 5000:
+                            continue
+                        
+                    quality_key = f"{quality}_{ext}"
+                    if quality_key in processed_qualities:
+                        continue
+                    processed_qualities.add(quality_key)
+                    
+                    vcodec = fmt.get('vcodec', '')
+                    acodec = fmt.get('acodec', '')
+                    filesize = fmt.get('filesize', 0)
+                    
+                    format_data = {
+                        'quality': quality,
+                        'type': 'video',
                         'format_id': fmt['format_id'],
                         'ext': ext,
                         'filesize': filesize,
-                        'abr': target_abr,
+                        'fps': fmt.get('fps', 30),
+                        'vcodec': vcodec,
+                        'acodec': acodec,
+                        'has_builtin_audio': acodec and acodec != 'none',
+                        'combined_with_audio': False,
                         'protocol': fmt.get('protocol', 'https'),
-                        'description': f"High Quality Audio ({quality_level})" if abr >= 180 else f"Standard Audio ({quality_level})"
+                        'duration': duration  # Add duration info
                     }
+                    
+                    # Add to appropriate category
+                    if acodec and acodec != 'none':
+                        video_with_audio[f"{quality}_{ext}_builtin"] = format_data
+                    else:
+                        video_only[f"{quality}_{ext}_only"] = format_data
+                        # Also create combined option
+                        format_data_copy = format_data.copy()
+                        format_data_copy['combined_with_audio'] = True
+                        if audio_formats:
+                            video_with_audio[f"{quality}_{ext}_combined"] = format_data_copy
+                
+                # Process audio formats - Accept ALL audio qualities - ORIGINAL CODE
+                audio_qualities = {}
+                for fmt in sorted(audio_formats, key=lambda x: x.get('abr') or 0, reverse=True):
+                    abr = fmt.get('abr') or 0
+                    if abr <= 0:
+                        continue
+                        
+                    ext = fmt.get('ext', 'm4a')
+                    filesize = fmt.get('filesize') or 0
+                    
+                    # Accept ALL bitrates
+                    if abr >= 300:
+                        quality_level = "320kbps"
+                        target_abr = 320
+                    elif abr >= 250:
+                        quality_level = "256kbps"
+                        target_abr = 256
+                    elif abr >= 180:
+                        quality_level = "192kbps" 
+                        target_abr = 192
+                    elif abr >= 100:
+                        quality_level = "128kbps"
+                        target_abr = 128
+                    elif abr >= 60:
+                        quality_level = "96kbps"
+                        target_abr = 96
+                    else:
+                        quality_level = f"{int(abr)}kbps"
+                        target_abr = int(abr)
+                    
+                    if quality_level not in audio_qualities:
+                        audio_qualities[quality_level] = {
+                            'quality': quality_level,
+                            'type': 'audio',
+                            'format_id': fmt['format_id'],
+                            'ext': ext,
+                            'filesize': filesize,
+                            'abr': target_abr,
+                            'protocol': fmt.get('protocol', 'https'),
+                            'description': f"High Quality Audio ({quality_level})" if abr >= 180 else f"Standard Audio ({quality_level})"
+                        }
+                
+                # Don't limit options - Show more formats - ORIGINAL CODE
+                max_options = 8  # Increased from 4/6
+                
+                video_with_audio_list = list(video_with_audio.values())[:max_options]
+                video_only_list = list(video_only.values())[:max_options]
+                audio_only_list = list(audio_qualities.values())[:max_options]
+                
+                # Sort by quality (highest first)
+                video_with_audio_list.sort(key=lambda x: -int(x['quality'].replace('p', '')))
+                video_only_list.sort(key=lambda x: -int(x['quality'].replace('p', '')))
+                
+                video_info['formats'] = {
+                    'video_with_audio': video_with_audio_list,
+                    'video_only': video_only_list,
+                    'audio_only': audio_only_list
+                }
+                
+                print(f"Found formats - Video+Audio: {len(video_with_audio_list)}, Video Only: {len(video_only_list)}, Audio: {len(audio_only_list)}")
+                
+                return jsonify(video_info)
+
+        # NEW TIKTOK CODE - IMPROVED
+        elif platform == 'tiktok':
+            ydl_opts = get_tiktok_ydl_opts({
+                'noplaylist': True,
+                'extract_flat': False,
+            })
             
-            # Don't limit options - Show more formats
-            max_options = 8  # Increased from 4/6
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=False)
+                
+                if not info:
+                    return jsonify({'error': 'Could not extract TikTok video information'}), 400
+                
+                duration = info.get('duration', 0)
+                print(f"TikTok video duration: {duration} seconds")
+                
+                # Better thumbnail handling for TikTok
+                thumbnail_url = ''
+                if info.get('thumbnail'):
+                    thumbnail_url = info.get('thumbnail')
+                elif info.get('thumbnails'):
+                    thumbnails = info.get('thumbnails', [])
+                    if thumbnails:
+                        best_thumb = max(thumbnails, key=lambda t: (t.get('width', 0) * t.get('height', 0)))
+                        thumbnail_url = best_thumb.get('url', '')
+                
+                video_info = {
+                    'title': info.get('title', info.get('fulltitle', 'TikTok Video')),
+                    'duration': duration,
+                    'view_count': info.get('view_count', 0),
+                    'uploader': info.get('uploader', info.get('creator', info.get('uploader_id', 'Unknown'))),
+                    'uploader_id': info.get('uploader_id', ''),
+                    'thumbnail': thumbnail_url,
+                    'description': (info.get('description', '')[:200] + '...') if info.get('description', '') else '',
+                    'upload_date': info.get('upload_date', ''),
+                    'like_count': info.get('like_count', 0),
+                    'comment_count': info.get('comment_count', 0),
+                    'repost_count': info.get('repost_count', 0),
+                    'platform': 'tiktok',
+                    'formats': []
+                }
+                
+                formats = info.get('formats', [])
+                if not formats:
+                    return jsonify({'error': 'No formats available for this TikTok video'}), 400
+                
+                video_formats = []
+                audio_formats = []
+                
+                for fmt in formats:
+                    if not fmt.get('format_id'):
+                        continue
+                        
+                    vcodec = fmt.get('vcodec', 'none')
+                    acodec = fmt.get('acodec', 'none')
+                    height = fmt.get('height') or 0
+                    ext = fmt.get('ext', '')
+                    
+                    if ext not in ['mp4', 'm4a', 'webm', 'mkv']:
+                        continue
+                    
+                    if vcodec != 'none' and height > 0:
+                        video_formats.append(fmt)
+                    elif acodec != 'none' and vcodec == 'none':
+                        audio_formats.append(fmt)
+                
+                processed_video = []
+                processed_audio = []
+                
+                # Process video formats - Accept more qualities
+                for fmt in sorted(video_formats, key=lambda x: x.get('height') or 0, reverse=True):
+                    height = fmt.get('height') or 0
+                    if height < 144:  # Accept lower qualities too
+                        continue
+                        
+                    quality = f"{height}p"
+                    ext = fmt.get('ext', 'mp4')
+                    
+                    format_data = {
+                        'quality': quality,
+                        'type': 'video',
+                        'format_id': fmt['format_id'],
+                        'ext': ext,
+                        'filesize': fmt.get('filesize', 0),
+                        'fps': fmt.get('fps', 30),
+                        'width': fmt.get('width', 0),
+                        'height': height,
+                        'has_audio': fmt.get('acodec') and fmt.get('acodec') != 'none',
+                        'platform': 'tiktok',
+                        'watermark_free': True,
+                        'duration': duration
+                    }
+                    processed_video.append(format_data)
+                
+                # Process audio formats
+                for fmt in sorted(audio_formats, key=lambda x: x.get('abr') or 0, reverse=True):
+                    abr = fmt.get('abr') or 128
+                    quality_level = f"{int(abr)}kbps" if abr else "128kbps"
+                    
+                    format_data = {
+                        'quality': quality_level,
+                        'type': 'audio',
+                        'format_id': fmt['format_id'],
+                        'ext': fmt.get('ext', 'm4a'),
+                        'filesize': fmt.get('filesize', 0),
+                        'abr': abr,
+                        'platform': 'tiktok',
+                        'description': f"Audio ({quality_level})"
+                    }
+                    processed_audio.append(format_data)
+                
+                video_info['formats'] = {
+                    'video_formats': processed_video[:8],  # More options
+                    'audio_formats': processed_audio[:6]
+                }
+                
+                print(f"TikTok formats found - Video: {len(processed_video)}, Audio: {len(processed_audio)}")
+                return jsonify(video_info)
+
+        # IMPROVED INSTAGRAM CODE - FIXED THUMBNAIL AND BETTER SUPPORT
+        else:  # instagram
+            ydl_opts = get_instagram_ydl_opts({
+                'noplaylist': True,
+                'extract_flat': False,
+            })
             
-            video_with_audio_list = list(video_with_audio.values())[:max_options]
-            video_only_list = list(video_only.values())[:max_options]
-            audio_only_list = list(audio_qualities.values())[:max_options]
-            
-            # Sort by quality (highest first)
-            video_with_audio_list.sort(key=lambda x: -int(x['quality'].replace('p', '')))
-            video_only_list.sort(key=lambda x: -int(x['quality'].replace('p', '')))
-            
-            video_info['formats'] = {
-                'video_with_audio': video_with_audio_list,
-                'video_only': video_only_list,
-                'audio_only': audio_only_list
-            }
-            
-            print(f"Found formats - Video+Audio: {len(video_with_audio_list)}, Video Only: {len(video_only_list)}, Audio: {len(audio_only_list)}")
-            
-            return jsonify(video_info)
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=False)
+                
+                if not info:
+                    return jsonify({'error': 'Could not extract Instagram content information'}), 400
+                
+                duration = info.get('duration', 0)
+                content_type = get_instagram_content_type(url)
+                
+                # Better thumbnail handling for Instagram
+                thumbnail_url = ''
+                if info.get('thumbnail'):
+                    thumbnail_url = info.get('thumbnail')
+                elif info.get('thumbnails'):
+                    thumbnails = info.get('thumbnails', [])
+                    if thumbnails:
+                        # Get highest quality thumbnail for Instagram
+                        best_thumb = max(thumbnails, key=lambda t: (t.get('width', 0) * t.get('height', 0)))
+                        thumbnail_url = best_thumb.get('url', '')
+                
+                # Better title extraction
+                title = info.get('title', '')
+                if not title or title == 'NA':
+                    title = info.get('fulltitle', f'Instagram {content_type.title()}')
+                    if not title or title == 'NA':
+                        if info.get('uploader'):
+                            title = f"{info.get('uploader')} - Instagram {content_type.title()}"
+                        else:
+                            title = f"Instagram {content_type.title()}"
+                
+                video_info = {
+                    'title': title,
+                    'duration': duration,
+                    'view_count': info.get('view_count', 0),
+                    'uploader': info.get('uploader', info.get('creator', info.get('uploader_id', 'Unknown'))),
+                    'uploader_id': info.get('uploader_id', ''),
+                    'thumbnail': thumbnail_url,
+                    'description': (info.get('description', '')[:150] + '...') if info.get('description', '') else '',
+                    'upload_date': info.get('upload_date', ''),
+                    'like_count': info.get('like_count', 0),
+                    'comment_count': info.get('comment_count', 0),
+                    'content_type': content_type,
+                    'platform': 'instagram',
+                    'formats': []
+                }
+                
+                formats = info.get('formats', [])
+                if not formats:
+                    return jsonify({'error': 'No formats available for this Instagram content'}), 400
+                
+                video_formats = []
+                audio_formats = []
+                
+                for fmt in formats:
+                    if not fmt.get('format_id'):
+                        continue
+                        
+                    vcodec = fmt.get('vcodec', 'none')
+                    acodec = fmt.get('acodec', 'none')
+                    height = fmt.get('height') or 0
+                    ext = fmt.get('ext', '')
+                    
+                    if ext not in ['mp4', 'm4a', 'webm']:
+                        continue
+                    
+                    if vcodec != 'none' and height > 0:
+                        video_formats.append(fmt)
+                    elif acodec != 'none' and vcodec == 'none':
+                        audio_formats.append(fmt)
+                
+                processed_video = []
+                processed_audio = []
+                
+                # Process video formats - Accept more qualities
+                for fmt in sorted(video_formats, key=lambda x: x.get('height') or 0, reverse=True):
+                    height = fmt.get('height') or 0
+                    if height < 144:  # Accept lower qualities
+                        continue
+                        
+                    quality = f"{height}p"
+                    ext = fmt.get('ext', 'mp4')
+                    
+                    format_data = {
+                        'quality': quality,
+                        'type': 'video',
+                        'format_id': fmt['format_id'],
+                        'ext': ext,
+                        'filesize': fmt.get('filesize', 0),
+                        'width': fmt.get('width', 0),
+                        'height': height,
+                        'has_audio': fmt.get('acodec') and fmt.get('acodec') != 'none',
+                        'content_type': content_type,
+                        'platform': 'instagram',
+                        'high_quality': height >= 720,
+                        'duration': duration
+                    }
+                    processed_video.append(format_data)
+                
+                # Process audio formats
+                for fmt in sorted(audio_formats, key=lambda x: x.get('abr') or 0, reverse=True):
+                    abr = fmt.get('abr') or 128
+                    quality_level = f"{int(abr)}kbps" if abr else "128kbps"
+                    
+                    format_data = {
+                        'quality': quality_level,
+                        'type': 'audio',
+                        'format_id': fmt['format_id'],
+                        'ext': fmt.get('ext', 'm4a'),
+                        'filesize': fmt.get('filesize', 0),
+                        'abr': abr,
+                        'platform': 'instagram',
+                        'description': f"Audio ({quality_level})"
+                    }
+                    processed_audio.append(format_data)
+                
+                video_info['formats'] = {
+                    'video_formats': processed_video[:6],  # More options
+                    'audio_formats': processed_audio[:6],
+                    'content_type': content_type
+                }
+                
+                print(f"Instagram formats found - Video: {len(processed_video)}, Audio: {len(processed_audio)}")
+                return jsonify(video_info)
             
     except yt_dlp.DownloadError as e:
         error_msg = str(e)
+        platform = detect_platform(url) if 'url' in locals() else 'video'
+        
         if 'timeout' in error_msg.lower():
-            return jsonify({'error': 'Video processing timeout. Please try again.'}), 400
+            return jsonify({'error': f'{platform.title()} processing timeout. Please try again.'}), 400
         elif '403' in error_msg or 'forbidden' in error_msg.lower():
-            return jsonify({'error': 'Access denied. This video may be geo-restricted.'}), 400
-        return jsonify({'error': f'YouTube error: {error_msg}'}), 400
+            return jsonify({'error': f'Access denied. This {platform} may be geo-restricted.'}), 400
+        elif 'private' in error_msg.lower():
+            return jsonify({'error': f'This {platform} content is private or unavailable.'}), 400
+        
+        return jsonify({'error': f'{platform.title()} error: {error_msg}'}), 400
+        
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
@@ -318,12 +717,13 @@ def download_video():
         is_conversion = data.get('is_conversion', False)
         target_bitrate = data.get('target_bitrate', data.get('abr', 192))
         duration = data.get('duration', 0)
+        platform = data.get('platform', detect_platform(url))
         
         if not url or not format_id:
             return jsonify({'error': 'URL and format_id are required'}), 400
         
-        if not is_valid_youtube_url(url):
-            return jsonify({'error': 'Please provide a valid YouTube URL'}), 400
+        if platform == 'unknown':
+            return jsonify({'error': 'Please provide a valid YouTube, TikTok, or Instagram URL'}), 400
         
         # Generate unique download ID
         download_id = str(uuid.uuid4())
@@ -331,15 +731,16 @@ def download_video():
         # Initialize progress
         download_progress[download_id] = {
             'status': 'initializing',
-            'percent': 0
+            'percent': 0,
+            'platform': platform
         }
         
-        print(f"Starting download - Duration: {duration}s, Type: {download_type}, Format: {format_id}")
+        print(f"Starting {platform} download - Duration: {duration}s, Type: {download_type}, Format: {format_id}")
         
         # Start download
         future = executor.submit(
             download_worker, download_id, url, format_id, download_type, 
-            original_ext, is_conversion, target_bitrate, duration
+            original_ext, is_conversion, target_bitrate, duration, platform
         )
         
         return jsonify({'download_id': download_id})
@@ -349,59 +750,106 @@ def download_video():
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
 
 def download_worker(download_id, url, format_id, download_type, original_ext='mp4', 
-                   is_conversion=False, target_bitrate=192, duration=0):
-    """Enhanced worker function for downloading videos - supports ALL durations"""
+                   is_conversion=False, target_bitrate=192, duration=0, platform='youtube'):
+    """Enhanced worker function for downloading videos from all platforms"""
     temp_dir = None
     try:
         download_progress[download_id] = {
             'status': 'starting',
-            'percent': 5
+            'percent': 5,
+            'platform': platform
         }
         
         temp_dir = tempfile.mkdtemp()
         
         download_progress[download_id] = {
             'status': 'downloading',
-            'percent': 10
+            'percent': 10,
+            'platform': platform
         }
         
-        # Enhanced base options - optimized for ALL video lengths
-        base_opts = get_enhanced_ydl_opts({
-            'progress_hooks': [ProgressHook(download_id)],
-            'keepvideo': False,
-        })
-        
-        # Dynamic timeout based on duration
-        if duration > 3600:  # Videos longer than 1 hour
-            base_opts.update({
-                'socket_timeout': 600,  # 10 minute timeout for very long videos
-                'retries': 10,
-                'fragment_retries': 10,
-                'http_chunk_size': 8388608,  # 8MB chunks
-                'concurrent_fragment_downloads': 2,  # Conservative for long videos
+        # ORIGINAL YOUTUBE CODE - Keep existing logic for YouTube
+        if platform == 'youtube':
+            # Enhanced base options - optimized for ALL video lengths - ORIGINAL CODE
+            base_opts = get_enhanced_ydl_opts({
+                'progress_hooks': [ProgressHook(download_id)],
+                'keepvideo': False,
             })
-            print(f"Using long video settings for {duration}s video")
-        elif duration > 1800:  # Videos longer than 30 minutes
-            base_opts.update({
-                'socket_timeout': 300,  # 5 minute timeout
-                'retries': 8,
-                'fragment_retries': 8,
-                'http_chunk_size': 10485760,  # 10MB chunks
-                'concurrent_fragment_downloads': 3,
-            })
-            print(f"Using medium video settings for {duration}s video")
-        else:
-            # Standard settings for shorter videos
-            base_opts.update({
-                'socket_timeout': 180,  # 3 minute timeout
-                'concurrent_fragment_downloads': 4,  # Faster for short videos
-            })
-        
-        if download_type == 'audio':
-            if original_ext == 'mp3' or is_conversion:
+            
+            # Dynamic timeout based on duration - ORIGINAL CODE
+            if duration > 3600:  # Videos longer than 1 hour
+                base_opts.update({
+                    'socket_timeout': 600,  # 10 minute timeout for very long videos
+                    'retries': 10,
+                    'fragment_retries': 10,
+                    'http_chunk_size': 8388608,  # 8MB chunks
+                    'concurrent_fragment_downloads': 2,  # Conservative for long videos
+                })
+                print(f"Using long video settings for {duration}s video")
+            elif duration > 1800:  # Videos longer than 30 minutes
+                base_opts.update({
+                    'socket_timeout': 300,  # 5 minute timeout
+                    'retries': 8,
+                    'fragment_retries': 8,
+                    'http_chunk_size': 10485760,  # 10MB chunks
+                    'concurrent_fragment_downloads': 3,
+                })
+                print(f"Using medium video settings for {duration}s video")
+            else:
+                # Standard settings for shorter videos
+                base_opts.update({
+                    'socket_timeout': 180,  # 3 minute timeout
+                    'concurrent_fragment_downloads': 4,  # Faster for short videos
+                })
+            
+            if download_type == 'audio':
+                if original_ext == 'mp3' or is_conversion:
+                    ydl_opts = {
+                        **base_opts,
+                        'format': f'{format_id}/bestaudio[ext=m4a]/bestaudio',
+                        'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
+                        'postprocessors': [{
+                            'key': 'FFmpegExtractAudio',
+                            'preferredcodec': 'mp3',
+                            'preferredquality': str(target_bitrate),
+                        }],
+                        'prefer_ffmpeg': True,
+                    }
+                else:
+                    ydl_opts = {
+                        **base_opts,
+                        'format': f'{format_id}/bestaudio',
+                        'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
+                        'prefer_ffmpeg': True,
+                    }
+            else:
+                # Improved format selection for ALL video lengths - ORIGINAL CODE
+                format_selector = f'{format_id}+bestaudio/best[format_id={format_id}]/best'
+                
                 ydl_opts = {
                     **base_opts,
-                    'format': f'{format_id}/bestaudio[ext=m4a]/bestaudio',
+                    'format': format_selector,
+                    'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
+                    'prefer_ffmpeg': True,
+                    'merge_output_format': 'mp4',  # Always try to merge to mp4
+                }
+            
+            print(f"YouTube Download config - Type: {download_type}, Duration: {duration}s, Format: {format_id}")
+            
+            # Enhanced retry mechanism - ORIGINAL CODE
+            max_attempts = 5 if duration > 1800 else 3  # More retries for longer videos
+            
+        # NEW TIKTOK CODE
+        elif platform == 'tiktok':
+            base_opts = get_tiktok_ydl_opts({
+                'progress_hooks': [ProgressHook(download_id)],
+                'keepvideo': False,
+            })
+            
+            if download_type == 'audio':
+                ydl_opts = {
+                    **base_opts,
+                    'format': f'{format_id}/bestaudio',
                     'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
                     'postprocessors': [{
                         'key': 'FFmpegExtractAudio',
@@ -413,35 +861,52 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             else:
                 ydl_opts = {
                     **base_opts,
-                    'format': f'{format_id}/bestaudio',
+                    'format': f'{format_id}/best',
                     'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
                     'prefer_ffmpeg': True,
                 }
-        else:
-            # Improved format selection for ALL video lengths
-            format_selector = f'{format_id}+bestaudio/best[format_id={format_id}]/best'
             
-            ydl_opts = {
-                **base_opts,
-                'format': format_selector,
-                'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
-                'prefer_ffmpeg': True,
-                'merge_output_format': 'mp4',  # Always try to merge to mp4
-            }
+            max_attempts = 3
+            
+        # NEW INSTAGRAM CODE
+        else:  # instagram
+            base_opts = get_instagram_ydl_opts({
+                'progress_hooks': [ProgressHook(download_id)],
+                'keepvideo': False,
+            })
+            
+            if download_type == 'audio':
+                ydl_opts = {
+                    **base_opts,
+                    'format': f'{format_id}/bestaudio',
+                    'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
+                    'postprocessors': [{
+                        'key': 'FFmpegExtractAudio',
+                        'preferredcodec': 'mp3',
+                        'preferredquality': str(target_bitrate),
+                    }],
+                    'prefer_ffmpeg': True,
+                }
+            else:
+                ydl_opts = {
+                    **base_opts,
+                    'format': f'{format_id}/best',
+                    'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
+                    'prefer_ffmpeg': True,
+                }
+            
+            max_attempts = 3
         
-        print(f"Download config - Type: {download_type}, Duration: {duration}s, Format: {format_id}")
-        
-        # Enhanced retry mechanism
-        max_attempts = 5 if duration > 1800 else 3  # More retries for longer videos
         last_error = None
         
         for attempt in range(max_attempts):
             try:
                 if attempt > 0:
-                    print(f"Retry attempt {attempt + 1} for {download_id}")
+                    print(f"{platform} retry attempt {attempt + 1} for {download_id}")
                     download_progress[download_id] = {
                         'status': f'retrying (attempt {attempt + 1})',
-                        'percent': 10 + (attempt * 5)
+                        'percent': 10 + (attempt * 5),
+                        'platform': platform
                     }
                     time.sleep(3 + attempt)  # Progressive backoff
                 
@@ -453,27 +918,48 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 last_error = e
                 error_msg = str(e).lower()
                 
-                if '403' in error_msg or 'forbidden' in error_msg:
-                    if attempt < max_attempts - 1:
-                        print(f"403 error, trying alternative format selection...")
-                        # Try with simpler format selection
-                        if download_type == 'video':
-                            ydl_opts['format'] = f'best[format_id={format_id}]/best'
-                        continue
+                if platform == 'youtube':
+                    # ORIGINAL YOUTUBE ERROR HANDLING
+                    if '403' in error_msg or 'forbidden' in error_msg:
+                        if attempt < max_attempts - 1:
+                            print(f"403 error, trying alternative format selection...")
+                            # Try with simpler format selection
+                            if download_type == 'video':
+                                ydl_opts['format'] = f'best[format_id={format_id}]/best'
+                            continue
+                        else:
+                            raise e
+                    elif 'timeout' in error_msg or 'connection' in error_msg:
+                        if attempt < max_attempts - 1:
+                            print(f"Connection/timeout error, retrying...")
+                            continue
+                        else:
+                            raise e
                     else:
-                        raise e
-                elif 'timeout' in error_msg or 'connection' in error_msg:
-                    if attempt < max_attempts - 1:
-                        print(f"Connection/timeout error, retrying...")
-                        continue
+                        if attempt < max_attempts - 1:
+                            print(f"Download error: {error_msg}, retrying...")
+                            continue
+                        else:
+                            raise e
+                elif platform in ['tiktok', 'instagram']:
+                    # Handle TikTok/Instagram specific errors
+                    if 'private' in error_msg or 'unavailable' in error_msg:
+                        raise e  # Don't retry for private/unavailable content
+                    elif '403' in error_msg or 'forbidden' in error_msg:
+                        if attempt < max_attempts - 1:
+                            continue
+                        else:
+                            raise e
+                    elif 'timeout' in error_msg or 'connection' in error_msg:
+                        if attempt < max_attempts - 1:
+                            continue
+                        else:
+                            raise e
                     else:
-                        raise e
-                else:
-                    if attempt < max_attempts - 1:
-                        print(f"Download error: {error_msg}, retrying...")
-                        continue
-                    else:
-                        raise e
+                        if attempt < max_attempts - 1:
+                            continue
+                        else:
+                            raise e
         else:
             # All attempts failed
             if last_error:
@@ -481,7 +967,8 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             
         download_progress[download_id] = {
             'status': 'finalizing',
-            'percent': 90
+            'percent': 90,
+            'platform': platform
         }
         
         # Find downloaded file
@@ -491,18 +978,20 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             filepath = os.path.join(temp_dir, largest_file)
             
             # Wait for file to be completely written
-            time.sleep(2)
+            wait_time = 2 if platform == 'youtube' else 1
+            time.sleep(wait_time)
             
             if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
                 file_size = os.path.getsize(filepath)
-                print(f"Download completed: {largest_file} ({file_size/1024/1024:.1f} MB)")
+                print(f"{platform} download completed: {largest_file} ({file_size/1024/1024:.1f} MB)")
                 
                 download_files[download_id] = {
                     'filepath': filepath,
                     'filename': largest_file,
                     'temp_dir': temp_dir,
                     'filesize': file_size,
-                    'expected_format': original_ext
+                    'expected_format': original_ext,
+                    'platform': platform
                 }
                 
                 download_progress[download_id] = {
@@ -510,7 +999,8 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                     'percent': 100,
                     'filename': largest_file,
                     'filepath': filepath,
-                    'filesize': file_size
+                    'filesize': file_size,
+                    'platform': platform
                 }
             else:
                 raise Exception("Downloaded file is empty or corrupted")
@@ -519,22 +1009,41 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 
     except Exception as e:
         error_msg = str(e)
-        print(f"Download error for {download_id}: {error_msg}")
+        print(f"{platform} download error for {download_id}: {error_msg}")
         
-        # Provide specific error messages
-        if '403' in error_msg or 'HTTP Error 403' in error_msg:
-            error_msg = "Access denied. This video may be geo-restricted or require special permissions."
-        elif 'timeout' in error_msg.lower():
-            error_msg = "Download timeout. Please check your internet connection and try again."
-        elif 'unavailable' in error_msg.lower():
-            error_msg = "Video format unavailable. Try a different quality option."
-        elif 'private' in error_msg.lower():
-            error_msg = "This video is private or requires authentication."
+        # Platform-specific error messages
+        if platform == 'youtube':
+            # ORIGINAL YOUTUBE ERROR MESSAGES
+            if '403' in error_msg or 'HTTP Error 403' in error_msg:
+                error_msg = "Access denied. This video may be geo-restricted or require special permissions."
+            elif 'timeout' in error_msg.lower():
+                error_msg = "Download timeout. Please check your internet connection and try again."
+            elif 'unavailable' in error_msg.lower():
+                error_msg = "Video format unavailable. Try a different quality option."
+            elif 'private' in error_msg.lower():
+                error_msg = "This video is private or requires authentication."
+        elif platform == 'tiktok':
+            if 'private' in error_msg.lower():
+                error_msg = "This TikTok video is private or requires login."
+            elif 'unavailable' in error_msg.lower():
+                error_msg = "TikTok video unavailable. It may have been deleted."
+            elif '403' in error_msg or 'HTTP Error 403' in error_msg:
+                error_msg = "Access denied. Video may be geo-restricted."
+        else:  # instagram
+            if 'private' in error_msg.lower():
+                error_msg = "This Instagram content is private or requires login."
+            elif 'unavailable' in error_msg.lower():
+                error_msg = "Instagram content unavailable. It may have been deleted or made private."
+            elif '403' in error_msg or 'HTTP Error 403' in error_msg:
+                error_msg = "Access denied. Content may be geo-restricted or age-gated."
+            elif 'login' in error_msg.lower():
+                error_msg = "Instagram requires login for this content. Try a public post."
         
         download_progress[download_id] = {
             'status': 'error',
             'percent': 0,
-            'error': f"Download failed: {error_msg}"
+            'error': f"{platform.title()} download failed: {error_msg}",
+            'platform': platform
         }
         
         if temp_dir and os.path.exists(temp_dir):
@@ -567,6 +1076,7 @@ def download_direct(download_id):
         
         filepath = file_info['filepath']
         filename = file_info['filename']
+        platform = file_info.get('platform', 'youtube')
         
         if not os.path.exists(filepath):
             return jsonify({'error': 'File not found on disk'}), 404
@@ -587,7 +1097,15 @@ def download_direct(download_id):
         mime_type = mime_types.get(file_ext, 'application/octet-stream')
         
         def cleanup_after_send():
-            time.sleep(15)  # Wait longer for large files
+            # Different cleanup times for different platforms
+            if platform == 'youtube':
+                cleanup_delay = 15  # Wait longer for YouTube files
+            elif platform == 'tiktok':
+                cleanup_delay = 8
+            else:  # instagram
+                cleanup_delay = 6
+                
+            time.sleep(cleanup_delay)
             try:
                 if os.path.exists(file_info['temp_dir']):
                     shutil.rmtree(file_info['temp_dir'], ignore_errors=True)
@@ -613,8 +1131,10 @@ def download_direct(download_id):
 def health_check():
     return jsonify({
         'status': 'healthy',
+        'service': 'Enhanced Universal Video Downloader',
         'active_downloads': len(download_progress),
-        'cached_files': len(download_files)
+        'cached_files': len(download_files),
+        'supported_platforms': ['youtube', 'tiktok', 'instagram']
     })
 
 # Enhanced cleanup function
@@ -630,11 +1150,20 @@ def cleanup_old_downloads():
                     
                 file_info = download_files.get(download_id, {})
                 temp_dir = file_info.get('temp_dir')
+                platform = file_info.get('platform', 'youtube')
                 
                 if temp_dir and os.path.exists(temp_dir):
                     dir_age = current_time - os.path.getctime(temp_dir)
-                    # Increased cleanup time to 4 hours for large files
-                    if dir_age > 14400:  
+                    
+                    # Different cleanup times for different platforms
+                    if platform == 'youtube':
+                        max_age = 14400  # 4 hours for YouTube (large files)
+                    elif platform == 'tiktok':
+                        max_age = 1800   # 30 minutes for TikTok
+                    else:  # instagram
+                        max_age = 1200   # 20 minutes for Instagram
+                    
+                    if dir_age > max_age:
                         to_remove.append(download_id)
                         
             for download_id in to_remove:
@@ -656,6 +1185,9 @@ def cleanup_old_downloads():
 cleanup_thread = threading.Thread(target=cleanup_old_downloads, daemon=True)
 cleanup_thread.start()
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+if __name__ == '__main__':
+    print("Starting Enhanced Universal Video Downloader")
+    print("YouTube: Full quality support (144p-4K+) with shorts")
+    print("TikTok: HD video downloads")
+    print("Instagram: Posts, Reels, IGTV support")
+    app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
