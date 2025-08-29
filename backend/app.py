@@ -12,7 +12,10 @@ import shutil
 from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
-CORS(app, origins=["https://snapsavepro.com"], supports_credentials=True)
+CORS(app, origins=[
+    "http://localhost:3000",
+    "https://youtube-downloader-frontend.onrender.com"
+])
 
 # Store download progress and files
 download_progress = {}
@@ -653,5 +656,6 @@ def cleanup_old_downloads():
 cleanup_thread = threading.Thread(target=cleanup_old_downloads, daemon=True)
 cleanup_thread.start()
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
