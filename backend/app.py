@@ -11,13 +11,27 @@ import json
 import shutil
 from concurrent.futures import ThreadPoolExecutor
 import re
-
+from dotenv import load_dotenv
 app = Flask(__name__)
-CORS(app, origins=[
-    "http://localhost:3000", 
-    "https://snapsavepro.com", 
-    "http://snapsavepro.com"
-], supports_credentials=True)
+load_dotenv()
+
+# Railway-compatible CORS setup
+allowed_origins = [
+    "http://localhost:3000",
+    "https://localhost:3000",
+]
+
+# Add Railway URLs when available
+railway_frontend = os.environ.get('FRONTEND_URL')
+if railway_frontend:
+    allowed_origins.append(railway_frontend)
+
+# Railway provides RAILWAY_STATIC_URL for connected frontend
+railway_static = os.environ.get('RAILWAY_STATIC_URL')
+if railway_static:
+    allowed_origins.append(f"https://{railway_static}")
+
+CORS(app, origins=allowed_origins, supports_credentials=True)
 
 # Store download progress and files
 download_progress = {}
@@ -1190,8 +1204,6 @@ cleanup_thread = threading.Thread(target=cleanup_old_downloads, daemon=True)
 cleanup_thread.start()
 
 if __name__ == '__main__':
-    print("Starting Enhanced Universal Video Downloader")
-    print("YouTube: Full quality support (144p-4K+) with shorts")
-    print("TikTok: HD video downloads")
-    print("Instagram: Posts, Reels, IGTV support")
-    app.run(debug=True, host='0.0.0.0', port=5000, threaded=True)
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('RAILWAY_ENVIRONMENT') != 'production'
+    app.run(debug=debug, host='0.0.0.0', port=port, threaded=True)
