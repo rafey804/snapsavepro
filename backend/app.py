@@ -13,7 +13,11 @@ from concurrent.futures import ThreadPoolExecutor
 import re
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:3000"], supports_credentials=True)
+CORS(app, origins=[
+    "http://localhost:3000", 
+    "https://snapsavepro.com", 
+    "http://snapsavepro.com"
+], supports_credentials=True)
 
 # Store download progress and files
 download_progress = {}
