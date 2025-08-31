@@ -20,15 +20,15 @@ export default function ProfessionalHeader() {
 
   const platforms: Platform[] = [
     {
-      id: 'youtube',
-      name: 'YouTube',
+      id: 'tiktok',
+      name: 'TikTok',
       icon: (
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-.88-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
         </svg>
       ),
       available: true,
-      gradient: 'from-cyan-500 to-emerald-500',
+      gradient: 'from-pink-500 to-red-500',
       route: '/'
     },
     {
@@ -42,18 +42,6 @@ export default function ProfessionalHeader() {
       available: true,
       gradient: 'from-purple-500 to-pink-500',
       route: '/pages/instagram'
-    },
-    {
-      id: 'tiktok',
-      name: 'TikTok',
-      icon: (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-.88-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-        </svg>
-      ),
-      available: true,
-      gradient: 'from-pink-500 to-red-500',
-      route: '/pages/tiktok'
     },
     {
       id: 'facebook',
@@ -72,7 +60,7 @@ export default function ProfessionalHeader() {
   // Function to determine active tab based on current pathname
   const getActiveTab = () => {
     const currentPlatform = platforms.find(platform => platform.route === pathname);
-    return currentPlatform ? currentPlatform.id : 'youtube'; // Default to youtube if no match
+    return currentPlatform ? currentPlatform.id : 'tiktok'; // Default to tiktok since it's now the main platform
   };
 
   const activeTab = getActiveTab();
@@ -86,23 +74,23 @@ export default function ProfessionalHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-700/20 bg-gradient-to-r from-slate-900 via-gray-900 to-zinc-900 backdrop-blur-xl shadow-lg">
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/10 via-emerald-600/5 to-purple-600/10" />
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-600/10 via-purple-600/5 to-blue-600/10" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo Section */}
           <Link href='/' >
             <div className="flex items-center gap-3 flex-shrink-0">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-cyan-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-cyan-500/20">
+              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-pink-500/20">
                <Image src={Logo} height={400} width={500} className=' w-auto'  alt="Snap Save Pro"/>
               </div>
               <div className=" hidden sm:block">
-                <h1 className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400">
+                <h1 className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400">
                   Snap Save Pro
                 </h1>
-                <p className="text-xs lg:text-sm text-gray-300">Multi-Platform Video Downloader</p>
+                <p className="text-xs lg:text-sm text-gray-300">TikTok & Instagram Downloader</p>
               </div>
               <div className="sm:hidden">
-                <h1 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400">
+                <h1 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400">
                   Snap Save Pro
                 </h1>
               </div>
@@ -124,11 +112,6 @@ export default function ProfessionalHeader() {
                   >
                     {platform.icon}
                     <span className="text-sm font-semibold">{platform.name}</span>
-                    {platform.id === 'tiktok' && platform.available && (
-                      <span className="bg-emerald-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">
-                        NEW
-                      </span>
-                    )}
                   </Link>
                 ) : (
                   <button 
@@ -188,11 +171,6 @@ export default function ProfessionalHeader() {
                   >
                     {platform.icon}
                     <span className="text-sm font-semibold">{platform.name}</span>
-                    {platform.id === 'tiktok' && platform.available && (
-                      <span className="bg-emerald-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full animate-pulse ml-1">
-                        NEW
-                      </span>
-                    )}
                   </Link>
                 ) : (
                   <button 

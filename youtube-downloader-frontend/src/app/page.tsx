@@ -1,11 +1,12 @@
 import YouTubeDownloadGuide from '@/components/details/YtDetails'
-import YouTubeDownloader from '@/components/home/YtDownloader'
+import TikTokDownloader from '@/components/home/TikTokDownloader'
+
 import React from 'react'
 
 const page = () => {
   return (
     <div className=''>
-      <YouTubeDownloader/>
+      <TikTokDownloader/>
       <YouTubeDownloadGuide/>
     </div>
   )

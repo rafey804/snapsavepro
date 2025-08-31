@@ -1,8 +1,8 @@
 'use client'
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Play, Download, Shield, Zap, Globe, CheckCircle, AlertCircle, Monitor, Smartphone } from 'lucide-react';
+import { ChevronDown, ChevronUp, Play, Download, Shield, Zap, Globe, CheckCircle, AlertCircle, Monitor, Smartphone, Music, Video, Star, Heart } from 'lucide-react';
 
-export default function YouTubeDownloadGuide() {
+export default function TikTokDownloadGuide() {
   const [activeAccordion, setActiveAccordion] = useState(null);
 
   const toggleAccordion = (index:any) => {
@@ -11,19 +11,19 @@ export default function YouTubeDownloadGuide() {
 
   const features = [
     {
-      icon: <Zap className="h-6 w-6 text-cyan-400" />,
+      icon: <Zap className="h-6 w-6 text-pink-400" />,
       title: "Lightning Fast Downloads",
-      description: "Download YouTube videos at maximum speed with our optimized servers"
+      description: "Download TikTok videos at maximum speed without watermarks"
     },
     {
       icon: <Shield className="h-6 w-6 text-emerald-400" />,
       title: "100% Safe & Secure",
-      description: "No malware, no ads, completely secure YouTube video downloading"
+      description: "No malware, no ads, completely secure TikTok video downloading"
     },
     {
-      icon: <Globe className="h-6 w-6 text-purple-400" />,
-      title: "All Quality Options",
-      description: "Download in 4K, 1080p, 720p, 480p, or extract MP3 audio files"
+      icon: <Star className="h-6 w-6 text-purple-400" />,
+      title: "Watermark-Free Downloads",
+      description: "Remove TikTok watermarks automatically for clean video downloads"
     },
     {
       icon: <Monitor className="h-6 w-6 text-blue-400" />,
@@ -35,84 +35,111 @@ export default function YouTubeDownloadGuide() {
   const steps = [
     {
       step: "1",
-      title: "Copy YouTube Video URL",
-      description: "Navigate to YouTube.com and find the video you want to download. Copy the video URL from your browser's address bar or click the 'Share' button under the video and copy the link.",
-      tips: ["Works with any YouTube video URL format", "Supports both youtube.com and youtu.be links", "No account registration required"]
+      title: "Copy TikTok Video URL",
+      description: "Open TikTok app or website and find the video you want to download. Tap the 'Share' button and select 'Copy Link' to copy the TikTok video URL to your clipboard.",
+      tips: ["Works with all TikTok video URLs", "Supports @username/video/ID format", "Works with vm.tiktok.com short links"]
     },
     {
       step: "2", 
-      title: "Paste URL in Downloader",
-      description: "Return to our YouTube downloader tool above. Paste the copied URL into the input field and click the 'Search' button. Our system will instantly analyze the video and extract all available formats.",
-      tips: ["Supports videos up to 2+ hours long", "Automatically detects video information", "Shows thumbnail and video details"]
+      title: "Paste URL in TikTok Downloader",
+      description: "Return to our TikTok downloader tool above. Paste the copied URL into the input field and click 'Get Video'. Our system will instantly analyze the TikTok video and remove watermarks.",
+      tips: ["Automatically removes TikTok watermarks", "Extracts video information instantly", "Shows creator details and video stats"]
     },
     {
       step: "3",
       title: "Choose Download Quality",
-      description: "Select your preferred video quality and format. Choose from HD video with audio, video-only files, or extract audio as MP3. Higher quality files will be larger in size.",
-      tips: ["4K and 1080p for best quality", "720p for balanced size and quality", "MP3 audio extraction available"]
+      description: "Select your preferred video quality and format. Choose from HD video without watermark, or extract audio as MP3. All downloads are completely watermark-free.",
+      tips: ["HD quality up to 1080p", "Watermark-free downloads", "MP3 audio extraction available"]
     },
     {
       step: "4",
-      title: "Download YouTube Video",
-      description: "Click the download button for your chosen format. The download will start automatically and save to your device's default download folder. Large files may take a few minutes to process.",
-      tips: ["Downloads save to your default folder", "Progress tracking available", "Multiple simultaneous downloads supported"]
+      title: "Download TikTok Video",
+      description: "Click the download button for your chosen format. The watermark-free TikTok video will download automatically to your device's download folder.",
+      tips: ["Downloads save without watermarks", "Progress tracking available", "Multiple downloads supported"]
     }
   ];
 
   const faqs = [
     {
-      question: "Is it legal to download YouTube videos?",
-      answer: "Downloading YouTube videos for personal use is generally acceptable, but you should respect copyright laws and YouTube's terms of service. Only download videos you have permission to use or that are in the public domain."
+      question: "Is it legal to download TikTok videos?",
+      answer: "Downloading TikTok videos for personal use is generally acceptable, but you should respect copyright laws and creators' rights. Only download videos you have permission to use or for educational/research purposes."
     },
     {
-      question: "What video qualities can I download from YouTube?",
-      answer: "Our YouTube downloader supports all available qualities including 4K (2160p), Full HD (1080p), HD (720p), and standard definition (480p, 360p). We also offer audio-only downloads in MP3 format with various bitrates."
+      question: "Can I download TikTok videos without watermark?",
+      answer: "Yes! Our TikTok downloader automatically removes watermarks from downloaded videos. You'll get clean, watermark-free TikTok videos in their original quality without the TikTok logo overlay."
     },
     {
-      question: "How long does it take to download a YouTube video?",
-      answer: "Download speed depends on video length, quality, and your internet connection. Most videos under 10 minutes download within 1-2 minutes. Longer videos (1-2 hours) may take 5-15 minutes to process and download."
+      question: "What video qualities can I download from TikTok?",
+      answer: "Our TikTok downloader supports HD quality downloads up to 1080p. TikTok videos are typically uploaded in vertical format (9:16 aspect ratio) and we preserve the original quality while removing watermarks."
     },
     {
-      question: "Can I download YouTube videos on mobile devices?",
-      answer: "Yes! Our YouTube video downloader works perfectly on all mobile devices including Android phones, iPhones, and tablets. Simply use your mobile browser to access our downloader - no app installation required."
+      question: "Can I extract audio from TikTok videos?",
+      answer: "Absolutely! You can download TikTok audio as MP3 files. This is perfect for saving TikTok sounds, music, or audio content for personal use. The audio extraction maintains high quality."
     },
     {
-      question: "Is there a limit on how many YouTube videos I can download?",
-      answer: "There are no daily limits on downloads. You can download as many YouTube videos as you need. However, we recommend being respectful of bandwidth and only downloading videos you actually need."
+      question: "How long does it take to download a TikTok video?",
+      answer: "TikTok video downloads are very fast since most TikTok videos are 15-60 seconds long. Typical download time is 10-30 seconds, including watermark removal processing."
     },
     {
-      question: "What file formats are supported for YouTube downloads?",
-      answer: "We support MP4 for videos (most compatible format), WEBM for high-efficiency downloads, and MP3 for audio extraction. MP4 is recommended for maximum compatibility across all devices and players."
+      question: "Can I download TikTok videos on mobile devices?",
+      answer: "Yes! Our TikTok video downloader works perfectly on all mobile devices including Android phones, iPhones, and tablets. Simply use your mobile browser - no app installation required."
+    },
+    {
+      question: "Do downloaded TikTok videos have watermarks?",
+      answer: "No! All TikTok videos downloaded through our service are completely watermark-free. We automatically remove the TikTok logo and username watermarks that appear on the original videos."
+    },
+    {
+      question: "What is TikTok and why download videos?",
+      answer: "TikTok is a popular social media platform for short-form videos. Users download TikTok videos to save favorites offline, share without watermarks, create compilations, or use content for educational purposes."
+    }
+  ];
+
+  const tiktokInfo = [
+    { 
+      title: "What is TikTok?", 
+      content: "TikTok is a social media platform owned by ByteDance that allows users to create and share short-form videos. Launched globally in 2018, TikTok has become one of the most popular apps worldwide with over 1 billion active users." 
+    },
+    { 
+      title: "TikTok Video Formats", 
+      content: "TikTok videos are typically 15-60 seconds long in vertical format (9:16 aspect ratio). Videos can be up to 10 minutes long for some creators. The platform supports HD quality up to 1080p resolution." 
+    },
+    { 
+      title: "TikTok Algorithm", 
+      content: "TikTok's algorithm uses machine learning to curate personalized content feeds. It analyzes user interactions, video completion rates, likes, shares, and comments to determine what content to show each user." 
+    },
+    { 
+      title: "TikTok Features", 
+      content: "TikTok offers various creative tools including filters, effects, music library, duets, stitches, live streaming, and editing features. The platform is known for its extensive collection of trending sounds and music." 
     }
   ];
 
   const qualityGuide = [
-    { quality: "4K (2160p)", fileSize: "~200-800MB", description: "Ultra High Definition - Best quality for large screens and professional use", recommended: "Large displays, editing" },
-    { quality: "1080p Full HD", fileSize: "~100-300MB", description: "High Definition - Perfect balance of quality and file size", recommended: "Most users, general viewing" },
-    { quality: "720p HD", fileSize: "~50-150MB", description: "Standard HD quality - Good for mobile devices and moderate file sizes", recommended: "Mobile devices, limited storage" },
-    { quality: "480p", fileSize: "~25-75MB", description: "Standard Definition - Smaller files, suitable for basic viewing needs", recommended: "Slow internet, basic quality needs" }
+    { quality: "HD (1080p)", fileSize: "~5-20MB", description: "High Definition vertical video - Best quality for TikTok content", recommended: "Best overall quality" },
+    { quality: "Standard (720p)", fileSize: "~3-10MB", description: "Good quality for most viewing needs and faster downloads", recommended: "Balanced quality and size" },
+    { quality: "Mobile (480p)", fileSize: "~1-5MB", description: "Optimized for mobile viewing with smaller file sizes", recommended: "Mobile devices, limited storage" },
+    { quality: "Audio (MP3)", fileSize: "~1-3MB", description: "Extract audio/music from TikTok videos in MP3 format", recommended: "Music and sounds only" }
   ];
 
   return (
     <section className="bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 py-16 lg:py-24" itemScope itemType="https://schema.org/Article">
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/5 via-emerald-600/5 to-purple-600/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-600/5 via-purple-600/5 to-blue-600/5" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6" itemProp="headline">
-            How to Download YouTube Videos: Complete Step-by-Step Guide 2025
+            How to Download TikTok Videos Without Watermark: Complete Guide 2025
           </h2>
           <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed" itemProp="description">
-            Learn how to download YouTube videos in HD quality using our free online YouTube downloader. 
-            Download any YouTube video in MP4, extract MP3 audio, or save in multiple formats - no software installation required.
+            Learn how to download TikTok videos without watermarks using our free online TikTok downloader. 
+            Save TikTok videos in HD quality, extract MP3 audio, and remove watermarks automatically - no app installation required.
           </p>
         </div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {features.map((feature, index) => (
-            <div key={index} className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-slate-700/50 hover:border-cyan-500/30 transition-all duration-300">
+            <div key={index} className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-slate-700/50 hover:border-pink-500/30 transition-all duration-300">
               <div className="flex items-center gap-4 mb-3">
                 {feature.icon}
                 <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
@@ -122,17 +149,33 @@ export default function YouTubeDownloadGuide() {
           ))}
         </div>
 
+        {/* TikTok Information Section */}
+        <div className="mb-16">
+          <h3 className="text-3xl font-bold text-white text-center mb-12">
+            Everything You Need to Know About TikTok
+          </h3>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {tiktokInfo.map((info, index) => (
+              <div key={index} className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-8 border border-slate-700/50">
+                <h4 className="text-xl font-semibold text-pink-400 mb-4">{info.title}</h4>
+                <p className="text-gray-300 leading-relaxed">{info.content}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Step-by-Step Guide */}
         <div className="mb-16" itemScope itemType="https://schema.org/HowTo">
           <h3 className="text-3xl font-bold text-white text-center mb-12" itemProp="name">
-            How to Download YouTube Videos in 4 Easy Steps
+            How to Download TikTok Videos Without Watermark in 4 Easy Steps
           </h3>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {steps.map((step, index) => (
               <div key={index} className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-8 border border-slate-700/50" itemScope itemType="https://schema.org/HowToStep">
                 <div className="flex items-start gap-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-xl flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                  <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                     {step.step}
                   </div>
                   <div>
@@ -156,7 +199,7 @@ export default function YouTubeDownloadGuide() {
         {/* Quality Guide */}
         <div className="mb-16">
           <h3 className="text-3xl font-bold text-white text-center mb-12">
-            YouTube Video Quality Guide: Choose the Right Format
+            TikTok Video Quality Guide: Choose the Right Format
           </h3>
           
           <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden">
@@ -173,7 +216,7 @@ export default function YouTubeDownloadGuide() {
                 <tbody>
                   {qualityGuide.map((item, index) => (
                     <tr key={index} className="border-t border-slate-700/30 hover:bg-slate-700/30 transition-colors">
-                      <td className="p-6 text-cyan-400 font-medium">{item.quality}</td>
+                      <td className="p-6 text-pink-400 font-medium">{item.quality}</td>
                       <td className="p-6 text-gray-300">{item.fileSize}</td>
                       <td className="p-6 text-gray-300">{item.description}</td>
                       <td className="p-6 text-emerald-400">{item.recommended}</td>
@@ -181,6 +224,32 @@ export default function YouTubeDownloadGuide() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+
+        {/* TikTok Statistics */}
+        <div className="mb-16">
+          <h3 className="text-3xl font-bold text-white text-center mb-12">
+            TikTok Platform Statistics & Facts
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-pink-500/30 text-center">
+              <div className="text-3xl font-bold text-pink-400 mb-2">1B+</div>
+              <div className="text-gray-300">Monthly Active Users</div>
+            </div>
+            <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/30 text-center">
+              <div className="text-3xl font-bold text-purple-400 mb-2">150+</div>
+              <div className="text-gray-300">Countries Available</div>
+            </div>
+            <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/30 text-center">
+              <div className="text-3xl font-bold text-blue-400 mb-2">95%</div>
+              <div className="text-gray-300">Mobile Usage</div>
+            </div>
+            <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-emerald-500/30 text-center">
+              <div className="text-3xl font-bold text-emerald-400 mb-2">60 min</div>
+              <div className="text-gray-300">Daily Average Usage</div>
             </div>
           </div>
         </div>
@@ -193,9 +262,10 @@ export default function YouTubeDownloadGuide() {
               <div>
                 <h4 className="text-xl font-semibold text-white mb-4">Important Legal and Usage Information</h4>
                 <div className="space-y-3 text-gray-300">
-                  <p><strong className="text-amber-400">Copyright Compliance:</strong> Only download YouTube videos that you have permission to use, are in the public domain, or fall under fair use guidelines.</p>
+                  <p><strong className="text-amber-400">Copyright Compliance:</strong> Only download TikTok videos that you have permission to use, are in the public domain, or fall under fair use guidelines.</p>
                   <p><strong className="text-amber-400">Personal Use:</strong> Downloads should primarily be for personal, educational, or research purposes in compliance with copyright laws.</p>
-                  <p><strong className="text-amber-400">Respect Creators:</strong> Consider supporting content creators through official channels, subscriptions, or purchasing their content when available.</p>
+                  <p><strong className="text-amber-400">Respect Creators:</strong> Consider supporting TikTok creators through official channels, following their accounts, or engaging with their content on the platform.</p>
+                  <p><strong className="text-amber-400">Watermark Removal:</strong> While we remove watermarks for clean viewing, always credit original creators when sharing or reusing content.</p>
                 </div>
               </div>
             </div>
@@ -205,7 +275,7 @@ export default function YouTubeDownloadGuide() {
         {/* FAQ Section */}
         <div className="mb-16" itemScope itemType="https://schema.org/FAQPage">
           <h3 className="text-3xl font-bold text-white text-center mb-12">
-            Frequently Asked Questions About YouTube Video Downloads
+            Frequently Asked Questions About TikTok Video Downloads
           </h3>
           
           <div className="space-y-4 max-w-4xl mx-auto">
@@ -217,9 +287,9 @@ export default function YouTubeDownloadGuide() {
                 >
                   <h4 className="text-lg font-semibold text-white pr-4" itemProp="name">{faq.question}</h4>
                   {activeAccordion === index ? (
-                    <ChevronUp className="h-5 w-5 text-cyan-400 flex-shrink-0" />
+                    <ChevronUp className="h-5 w-5 text-pink-400 flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="h-5 w-5 text-cyan-400 flex-shrink-0" />
+                    <ChevronDown className="h-5 w-5 text-pink-400 flex-shrink-0" />
                   )}
                 </button>
                 {activeAccordion === index && (
@@ -232,21 +302,59 @@ export default function YouTubeDownloadGuide() {
           </div>
         </div>
 
+        {/* TikTok Tips Section */}
+        <div className="mb-16">
+          <h3 className="text-3xl font-bold text-white text-center mb-12">
+            Pro Tips for Using TikTok Downloader
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-pink-500/30">
+              <Video className="h-8 w-8 text-pink-400 mb-4" />
+              <h4 className="text-lg font-semibold text-white mb-3">Video Quality</h4>
+              <p className="text-gray-300 text-sm">Always choose the highest quality available for best results. HD downloads preserve the original TikTok video quality without compression.</p>
+            </div>
+            <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/30">
+              <Music className="h-8 w-8 text-purple-400 mb-4" />
+              <h4 className="text-lg font-semibold text-white mb-3">Audio Extraction</h4>
+              <p className="text-gray-300 text-sm">Use MP3 extraction for TikTok sounds and music. Perfect for creating your own content or saving trending audio clips.</p>
+            </div>
+            <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/30">
+              <Star className="h-8 w-8 text-blue-400 mb-4" />
+              <h4 className="text-lg font-semibold text-white mb-3">Watermark-Free</h4>
+              <p className="text-gray-300 text-sm">All our downloads automatically remove TikTok watermarks, giving you clean videos perfect for repurposing or offline viewing.</p>
+            </div>
+          </div>
+        </div>
+
         {/* SEO Keywords Section */}
         <div className="text-center">
           <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl p-8 border border-slate-700/50">
             <h3 className="text-2xl font-bold text-white mb-6">
-              Free YouTube Video Downloader - All Formats Supported
+              Free TikTok Video Downloader - No Watermark, HD Quality
             </h3>
             <p className="text-gray-300 leading-relaxed max-w-4xl mx-auto">
-              Our free YouTube video downloader supports downloading YouTube videos in MP4, WEBM, and MP3 formats. 
-              Download YouTube videos in 4K, 1080p, 720p quality for offline viewing. Fast, secure, and completely free 
-              YouTube to MP4 converter with no registration required. Compatible with all devices and browsers for the 
-              best YouTube video download experience.
+              Our free TikTok video downloader removes watermarks and supports downloading TikTok videos in HD quality. 
+              Download TikTok videos without watermark, extract TikTok audio as MP3, and save TikTok content for offline viewing. 
+              Fast, secure, and completely free TikTok to MP4 converter with no registration required. Compatible with all devices 
+              and browsers for the best TikTok video download experience.
             </p>
             <div className="flex flex-wrap justify-center gap-2 mt-6">
-              {['YouTube Downloader', 'YouTube to MP4', 'Download YouTube Videos', 'YouTube MP3 Converter', 'Free YouTube Downloader', 'YouTube Video Download', 'Save YouTube Videos', 'YouTube Downloader Online'].map((keyword, index) => (
-                <span key={index} className="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 rounded-full text-xs text-cyan-300 border border-cyan-500/20">
+              {[
+                'TikTok Downloader', 
+                'TikTok Video Download', 
+                'Download TikTok Without Watermark', 
+                'TikTok to MP4', 
+                'TikTok MP3 Converter', 
+                'Free TikTok Downloader', 
+                'Save TikTok Videos', 
+                'TikTok Downloader Online',
+                'Remove TikTok Watermark',
+                'TikTok Video Saver',
+                'Download TikTok HD',
+                'TikTok Audio Extractor'
+              ].map((keyword, index) => (
+                <span key={index} className="px-3 py-1 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-full text-xs text-pink-300 border border-pink-500/20">
                   {keyword}
                 </span>
               ))}
@@ -260,18 +368,24 @@ export default function YouTubeDownloadGuide() {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Article",
-          "headline": "How to Download YouTube Videos: Complete Step-by-Step Guide 2025",
-          "description": "Learn how to download YouTube videos in HD quality using our free online YouTube downloader. Download any YouTube video in MP4, extract MP3 audio, or save in multiple formats.",
+          "headline": "How to Download TikTok Videos Without Watermark: Complete Guide 2025",
+          "description": "Learn how to download TikTok videos without watermarks using our free online TikTok downloader. Save TikTok videos in HD quality, extract MP3 audio, and remove watermarks automatically.",
           "author": {
             "@type": "Organization",
-            "name": "Downloader Pro"
+            "name": "Snap Save Pro"
           },
           "publisher": {
             "@type": "Organization", 
-            "name": "Downloader Pro"
+            "name": "Snap Save Pro"
           },
           "datePublished": "2025-01-01",
-          "dateModified": "2025-01-01"
+          "dateModified": "2025-01-01",
+          "keywords": "TikTok downloader, download TikTok videos, TikTok without watermark, TikTok to MP4, TikTok MP3 converter",
+          "about": {
+            "@type": "Thing",
+            "name": "TikTok Video Downloading",
+            "description": "Methods and tools for downloading TikTok videos without watermarks"
+          }
         })
       }} />
     </section>
