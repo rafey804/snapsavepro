@@ -43,7 +43,7 @@ export default function ProfessionalHeader() {
       ),
       available: true,
       gradient: 'from-purple-500 to-pink-500',
-      route: '/pages/instagram',
+      route: '/pages/instagram-video-download',
       isNew: true
     },
     {
@@ -56,7 +56,7 @@ export default function ProfessionalHeader() {
       ),
       available: true,
       gradient: 'from-blue-500 to-blue-600',
-      route: '/pages/facebook',
+      route: '/pages/facebook-video-download',
       isNew: true
     },
     {

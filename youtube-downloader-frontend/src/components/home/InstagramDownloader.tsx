@@ -1,9 +1,9 @@
-"use client"
-import React, { useState } from 'react';
-import { Search, Download, Clock, Eye, User, FileVideo, Music, Loader, CheckCircle, AlertTriangle, Heart, MessageCircle, Camera, Film, PlayCircle, ImageIcon, Volume2, VolumeX } from 'lucide-react';
-import InstagramDownloadGuide from '../details/InstagramDownloadGuide';
+'use client';
 
-// ... (keep all existing interfaces)
+import React, { useState } from 'react';
+import { Search, Download, Play, Clock, Eye, User, FileVideo, Music, Loader, CheckCircle, AlertTriangle, Heart, MessageCircle, Share2, Camera, Film, PlayCircle } from 'lucide-react';
+import InstagramDownloadGuide from './../details/InstagramDownloadGuide';
+
 interface VideoFormat {
   quality: string;
   type: 'video' | 'audio';
@@ -23,8 +23,6 @@ interface VideoFormat {
   protocol?: string;
   duration?: number;
   platform?: string;
-  source?: string;
-  audio_description?: string;
 }
 
 interface VideoInfo {
@@ -63,7 +61,7 @@ interface ProcessingStatus {
   percent: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
 
 export default function InstagramDownloader() {
   const [url, setUrl] = useState('');
@@ -74,7 +72,6 @@ export default function InstagramDownloader() {
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null);
   const [downloadMode, setDownloadMode] = useState<'video' | 'audio'>('video');
 
-  // ... (keep all existing utility functions)
   const formatDuration = (seconds: number): string => {
     if (seconds < 60) {
       return `${seconds}s`;
@@ -140,65 +137,12 @@ export default function InstagramDownloader() {
     }
   };
 
-  // Enhanced thumbnail component with better error handling
-  const ThumbnailImage = ({ src, alt, className }: { src: string, alt: string, className: string }) => {
-    const [imgError, setImgError] = useState(false);
-    const [imgLoading, setImgLoading] = useState(true);
-
-    const handleImageError = () => {
-      console.log('Thumbnail failed to load:', src);
-      setImgError(true);
-      setImgLoading(false);
-    };
-
-    const handleImageLoad = () => {
-      console.log('Thumbnail loaded successfully:', src);
-      setImgLoading(false);
-    };
-
-    if (imgError || !src) {
-      return (
-        <div className={`${className} bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center border-2 border-dashed border-slate-600`}>
-          <div className="text-center">
-            <ImageIcon className="h-12 w-12 text-slate-500 mx-auto mb-2" />
-            <p className="text-slate-400 text-sm font-medium">Instagram Content</p>
-            <p className="text-slate-500 text-xs">Thumbnail unavailable</p>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="relative">
-        {imgLoading && (
-          <div className={`${className} bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center absolute inset-0 z-10 rounded-xl`}>
-            <div className="text-center">
-              <Loader className="h-8 w-8 text-purple-400 animate-spin mx-auto mb-2" />
-              <p className="text-slate-400 text-sm">Loading thumbnail...</p>
-            </div>
-          </div>
-        )}
-        <img
-          src={src}
-          alt={alt}
-          className={`${className} ${imgLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-          onError={handleImageError}
-          onLoad={handleImageLoad}
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
-      </div>
-    );
-  };
-
-  // ... (keep existing processing functions)
   const simulateProcessingStages = () => {
     const stages = [
       { stage: 'validating', message: 'Validating Instagram URL...', percent: 15 },
       { stage: 'connecting', message: 'Connecting to Instagram servers...', percent: 35 },
       { stage: 'extracting', message: 'Extracting content information...', percent: 60 },
-      { stage: 'thumbnails', message: 'Loading thumbnail and media...', percent: 75 },
-      { stage: 'analyzing', message: 'Analyzing available formats...', percent: 85 },
+      { stage: 'analyzing', message: 'Analyzing available formats...', percent: 80 },
       { stage: 'finalizing', message: 'Preparing download options...', percent: 95 },
       { stage: 'complete', message: 'Ready to download!', percent: 100 }
     ];
@@ -211,7 +155,7 @@ export default function InstagramDownloader() {
         currentStage++;
         
         if (currentStage < stages.length) {
-          const delay = currentStage === 4 ? 1500 : currentStage === 2 ? 1000 : 700;
+          const delay = currentStage === 2 ? 1000 : currentStage === 3 ? 1200 : 700;
           setTimeout(updateStage, delay);
         }
       }
@@ -237,6 +181,7 @@ export default function InstagramDownloader() {
     e.preventDefault();
     if (!url.trim()) return;
 
+    // Validate Instagram URL before processing
     if (!validateInstagramURL(url.trim())) {
       setError('Please provide a valid Instagram URL (posts, reels, stories, or IGTV)');
       return;
@@ -268,7 +213,6 @@ export default function InstagramDownloader() {
         throw new Error(data.error || 'Failed to fetch content information');
       }
 
-      console.log('Instagram data received:', data);
       setVideoInfo(data);
       setProcessingStatus({ stage: 'complete', message: 'Instagram content ready!', percent: 100 });
       
@@ -283,7 +227,6 @@ export default function InstagramDownloader() {
     }
   };
 
-  // ... (keep existing download handler)
   const handleDownload = async (format: VideoFormat) => {
     const downloadKey = `${format.format_id}_${Date.now()}`;
     
@@ -293,25 +236,19 @@ export default function InstagramDownloader() {
         [downloadKey]: { status: 'initializing', percent: 0 }
       }));
 
-      const downloadParams = {
-        url: url.trim(),
-        format_id: format.format_id,
-        type: format.type,
-        ext: format.type === 'audio' ? 'mp3' : format.ext,
-        duration: videoInfo?.duration || 0,
-        platform: videoInfo?.platform || 'instagram',
-        target_bitrate: format.abr || 192,
-        is_conversion: format.type === 'audio' || format.source === 'video'
-      };
-
-      console.log('Download parameters:', downloadParams);
-
       const response = await fetch(`${API_BASE_URL}/download`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(downloadParams),
+        body: JSON.stringify({
+          url: url.trim(),
+          format_id: format.format_id,
+          type: format.type,
+          ext: format.ext,
+          duration: videoInfo?.duration || 0,
+          platform: 'instagram',
+        }),
       });
 
       const data = await response.json();
@@ -339,9 +276,7 @@ export default function InstagramDownloader() {
                 
                 const link = document.createElement('a');
                 link.href = downloadUrl;
-                link.download = '';
                 link.style.display = 'none';
-                link.target = '_blank';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -354,7 +289,7 @@ export default function InstagramDownloader() {
               } catch (downloadError) {
                 console.error('Download error:', downloadError);
                 try {
-                  window.open(`${API_BASE_URL}/download-direct/${downloadId}`, '_blank');
+                  window.location.href = `${API_BASE_URL}/download-direct/${downloadId}`;
                 } catch (fallbackError) {
                   setDownloadProgress(prev => ({
                     ...prev,
@@ -440,27 +375,27 @@ export default function InstagramDownloader() {
   );
 
   const ProcessingIndicator = ({ status }: { status: ProcessingStatus }) => (
-    <div className="max-w-4xl mx-auto mb-6 sm:mb-8 px-4">
-      <div className="bg-slate-800/80 border border-purple-400/30 rounded-xl p-4 sm:p-6 text-center backdrop-blur-sm">
-        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+    <div className="max-w-4xl mx-auto mb-8">
+      <div className="bg-slate-800/80 border border-purple-400/30 rounded-xl p-6 text-center backdrop-blur-sm">
+        <div className="flex items-center justify-center gap-3 mb-4">
           {status.stage === 'complete' ? (
-            <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400" />
+            <CheckCircle className="h-6 w-6 text-emerald-400" />
           ) : (
-            <Loader className="h-5 w-5 sm:h-6 sm:w-6 text-purple-400 animate-spin" />
+            <Loader className="h-6 w-6 text-purple-400 animate-spin" />
           )}
-          <span className="text-base sm:text-lg font-medium text-white">{status.message}</span>
+          <span className="text-lg font-medium text-white">{status.message}</span>
         </div>
         
-        <div className="w-full bg-slate-700 rounded-full h-2 sm:h-3 mb-2">
+        <div className="w-full bg-slate-700 rounded-full h-3 mb-2">
           <div
-            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${
+            className={`h-3 rounded-full transition-all duration-500 ${
               status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-purple-500 to-pink-500'
             }`}
             style={{ width: `${status.percent}%` }}
           />
         </div>
         
-        <div className="flex justify-between text-xs sm:text-sm text-gray-300">
+        <div className="flex justify-between text-sm text-gray-300">
           <span>Processing Instagram content...</span>
           <span>{status.percent}%</span>
         </div>
@@ -469,95 +404,39 @@ export default function InstagramDownloader() {
   );
 
   return (
-    <div className="min-h-screen pt-4 sm:pt-20 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900">
+    <div className="min-h-screen sm:pt-20 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 via-pink-600/5 to-orange-600/10" />
-      <div className="relative z-10 container mx-auto px-4 py-4 sm:py-8">
-        
-        {/* Mobile Responsive Header */}
-        <div className="text-center mb-6 sm:mb-12">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
+      <div className="relative z-10 container mx-auto px-4 py-8">
+        <div className="text-center mb-12">
+          <h1 className="sm:text-5xl text-3xl font-bold text-white mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
             Instagram Downloader
           </h1>
-          <p className="text-sm sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-            Download Instagram posts, reels, stories, and IGTV videos in high quality with audio
+          <p className="text-md sm:text-xl text-gray-300 max-w-2xl mx-auto">
+            Download Instagram posts, reels, stories, and IGTV videos in high quality
           </p>
-          <div className="flex justify-center items-center gap-2 sm:gap-4 mt-3 sm:mt-4 flex-wrap">
-            <div className="flex items-center gap-1 sm:gap-2 bg-purple-500/20 text-purple-300 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
-              <Camera className="h-3 w-3 sm:h-4 sm:w-4" />
+          <div className="flex justify-center items-center gap-4 mt-4 flex-wrap">
+            <div className="flex items-center gap-2 bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm">
+              <Camera className="h-4 w-4" />
               Posts
             </div>
-            <div className="flex items-center gap-1 sm:gap-2 bg-pink-500/20 text-pink-300 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
-              <PlayCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+            <div className="flex items-center gap-2 bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm">
+              <PlayCircle className="h-4 w-4" />
               Reels
             </div>
-            <div className="flex items-center gap-1 sm:gap-2 bg-orange-500/20 text-orange-300 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
-              <Film className="h-3 w-3 sm:h-4 sm:w-4" />
+            <div className="flex items-center gap-2 bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-sm">
+              <Film className="h-4 w-4" />
               Stories
             </div>
-            <div className="flex items-center gap-1 sm:gap-2 bg-blue-500/20 text-blue-300 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm">
-              <FileVideo className="h-3 w-3 sm:h-4 sm:w-4" />
+            <div className="flex items-center gap-2 bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm">
+              <FileVideo className="h-4 w-4" />
               IGTV
             </div>
           </div>
         </div>
 
-        {/* MOBILE RESPONSIVE INPUT SECTION */}
-        <div className="max-w-4xl mx-auto mb-6 sm:mb-8">
+        <div className="max-w-4xl mx-auto mb-8">
           <div className="relative">
-            
-            {/* Mobile Layout - Input with Paste button inside, Get Content button below */}
-            <div className="block md:hidden">
-              <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
-                <div className="p-3 sm:p-4">
-                  <div className="relative">
-                    <input
-                      type="url"
-                      value={url}
-                      onChange={(e) => setUrl(e.target.value)}
-                      placeholder="Paste Instagram URL here..."
-                      className="w-full px-4 py-3 sm:py-4 bg-slate-700/50 text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none rounded-xl border border-slate-600/50 focus:border-purple-500/50 pr-16 sm:pr-20"
-                      disabled={loading}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter' && url.trim()) {
-                          handleSubmit(e);
-                        }
-                      }}
-                    />
-                    {/* Transparent Paste Button Inside Input */}
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.readText().then(text => {
-                          setUrl(text);
-                        }).catch(err => {
-                          console.log('Failed to read clipboard');
-                        });
-                      }}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 px-2 sm:px-3 py-1 sm:py-2 text-purple-400 hover:text-purple-300 transition-colors text-xs sm:text-sm font-medium bg-transparent hover:bg-slate-600/20 rounded-lg border border-purple-500/30 backdrop-blur-sm"
-                      disabled={loading}
-                    >
-                      Paste
-                    </button>
-                  </div>
-                  
-                  {/* Get Content Button Below Input - Mobile Only */}
-                  <button
-                    onClick={handleSubmit}
-                    disabled={loading || !url.trim()}
-                    className="w-full mt-3 sm:mt-4 px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 rounded-xl text-sm sm:text-base"
-                  >
-                    {loading ? (
-                      <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-2 border-white border-t-transparent" />
-                    ) : (
-                      <Search className="h-4 w-4 sm:h-5 sm:w-5" />
-                    )}
-                    {loading ? 'Processing...' : 'Get Content'}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Desktop Layout - Original Side by Side Design */}
-            <div className="hidden md:flex rounded-2xl overflow-hidden shadow-2xl bg-slate-800/80 backdrop-blur-lg border border-slate-700/50">
+            <div className="flex rounded-2xl overflow-hidden shadow-2xl bg-slate-800/80 backdrop-blur-lg border border-slate-700/50">
               <input
                 type="url"
                 value={url}
@@ -589,68 +468,61 @@ export default function InstagramDownloader() {
 
         {processingStatus && <ProcessingIndicator status={processingStatus} />}
 
-        {/* Mobile Responsive Download Mode Selector */}
         {videoInfo && (
-          <div className="max-w-4xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0">
+          <div className="max-w-4xl mx-auto mb-8">
             <div className="flex justify-center">
-              <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 p-1 sm:p-2 flex gap-1 sm:gap-2 w-full sm:w-auto">
+              <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 p-2 flex gap-2">
                 <button
                   onClick={() => setDownloadMode('video')}
-                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
                     downloadMode === 'video'
                       ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
                       : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
                   }`}
                 >
-                  <FileVideo className="h-3 w-3 sm:h-5 sm:w-5" />
-                  <span className="hidden sm:inline">Video Downloads</span>
-                  <span className="sm:hidden">Video</span>
+                  <FileVideo className="h-5 w-5" />
+                  Video Downloads
                 </button>
                 <button
                   onClick={() => setDownloadMode('audio')}
-                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 ${
                     downloadMode === 'audio'
                       ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white shadow-lg'
                       : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
                   }`}
                 >
-                  <Music className="h-3 w-3 sm:h-5 sm:w-5" />
-                  <span className="hidden sm:inline">Audio Only (MP3)</span>
-                  <span className="sm:hidden">Audio</span>
+                  <Music className="h-5 w-5" />
+                  Audio Only (MP3)
                 </button>
               </div>
             </div>
           </div>
         )}
 
-        {/* Error Display */}
         {error && (
-          <div className="max-w-4xl mx-auto mb-6 sm:mb-8 px-4 sm:px-0">
-            <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 sm:p-4 text-red-200 backdrop-blur-sm">
+          <div className="max-w-4xl mx-auto mb-8">
+            <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-4 text-red-200 backdrop-blur-sm">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-red-400 flex-shrink-0" />
-                <p className="font-medium text-sm sm:text-base">Error: {error}</p>
+                <AlertTriangle className="h-5 w-5 text-red-400" />
+                <p className="font-medium">Error: {error}</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Video Info and Download Section - Mobile Responsive */}
         {videoInfo && (
-          <div className="max-w-6xl mx-auto px-4 sm:px-0">
+          <div className="max-w-6xl mx-auto">
             <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
-              <div className="p-4 sm:p-6 md:p-8">
-                
-                {/* Mobile Responsive Video Info Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="p-6 md:p-8">
+                <div className="grid md:grid-cols-3 gap-6 mb-8">
                   <div className="md:col-span-1">
                     <div className="relative">
-                      <ThumbnailImage
+                      <img
                         src={videoInfo.thumbnail}
                         alt={videoInfo.title}
                         className="w-full rounded-xl shadow-lg aspect-square object-cover"
                       />
-                      <div className="absolute top-2 right-2 bg-black/60 text-white px-2 py-1 rounded-md text-xs sm:text-sm">
+                      <div className="absolute top-2 right-2 bg-black/60 text-white px-2 py-1 rounded-md text-sm">
                         {formatDuration(videoInfo.duration)}
                       </div>
                       <div className="absolute bottom-2 left-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-md text-xs font-semibold flex items-center gap-1">
@@ -660,38 +532,38 @@ export default function InstagramDownloader() {
                     </div>
                   </div>
                   <div className="md:col-span-2">
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
                       {videoInfo.title}
                     </h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
-                      <div className="flex items-center gap-1 sm:gap-2 text-gray-300">
-                        <User className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm truncate">@{videoInfo.uploader_id || videoInfo.uploader}</span>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <User className="h-4 w-4" />
+                        <span className="text-sm truncate">@{videoInfo.uploader_id || videoInfo.uploader}</span>
                       </div>
-                      <div className="flex items-center gap-1 sm:gap-2 text-gray-300">
-                        <Eye className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm">{formatViewCount(videoInfo.view_count)} views</span>
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <Eye className="h-4 w-4" />
+                        <span className="text-sm">{formatViewCount(videoInfo.view_count)} views</span>
                       </div>
-                      <div className="flex items-center gap-1 sm:gap-2 text-gray-300 col-span-2 sm:col-span-1">
-                        <Heart className="h-3 w-3 sm:h-4 sm:w-4 text-red-400 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm">{formatLikeCount(videoInfo.like_count)} likes</span>
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <Heart className="h-4 w-4 text-red-400" />
+                        <span className="text-sm">{formatLikeCount(videoInfo.like_count)} likes</span>
                       </div>
-                      <div className="flex items-center gap-1 sm:gap-2 text-gray-300">
-                        <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm">{formatLikeCount(videoInfo.comment_count)} comments</span>
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <MessageCircle className="h-4 w-4" />
+                        <span className="text-sm">{formatLikeCount(videoInfo.comment_count)} comments</span>
                       </div>
-                      <div className="flex items-center gap-1 sm:gap-2 text-gray-300">
-                        <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm">{formatDuration(videoInfo.duration)}</span>
+                      <div className="flex items-center gap-2 text-gray-300">
+                        <Clock className="h-4 w-4" />
+                        <span className="text-sm">{formatDuration(videoInfo.duration)}</span>
                       </div>
-                      <div className="flex items-center gap-1 sm:gap-2 text-emerald-300 col-span-2 sm:col-span-1">
-                        <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                        <span className="text-xs sm:text-sm font-semibold">Ready to download</span>
+                      <div className="flex items-center gap-2 text-emerald-300">
+                        <CheckCircle className="h-4 w-4" />
+                        <span className="text-sm font-semibold">Ready to download</span>
                       </div>
                     </div>
                     {videoInfo.description && (
-                      <div className="bg-slate-700/30 rounded-lg p-2 sm:p-3">
-                        <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                      <div className="bg-slate-700/30 rounded-lg p-3">
+                        <p className="text-gray-300 text-sm leading-relaxed">
                           {videoInfo.description}
                         </p>
                       </div>
@@ -699,20 +571,19 @@ export default function InstagramDownloader() {
                   </div>
                 </div>
 
-                {/* Download Options - Mobile Responsive */}
-                <div className="space-y-4 sm:space-y-6">
+                <div className="space-y-6">
                   {downloadMode === 'video' ? (
                     <div>
-                      <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                        <FileVideo className="h-4 w-4 sm:h-5 sm:w-5 text-purple-400" />
-                        <h3 className="text-lg sm:text-xl font-semibold text-white">Video Downloads</h3>
+                      <div className="flex items-center gap-2 mb-4">
+                        <FileVideo className="h-5 w-5 text-purple-400" />
+                        <h3 className="text-xl font-semibold text-white">Video Downloads</h3>
                         <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                           {getContentTypeIcon(videoInfo.content_type)}
                           {getContentTypeLabel(videoInfo.content_type)}
                         </span>
                       </div>
                       {videoInfo.formats?.video_formats && videoInfo.formats.video_formats.length > 0 ? (
-                        <div className="grid gap-3 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                           {videoInfo.formats.video_formats.map((format, index) => {
                             const downloadKey = Object.keys(downloadProgress).find(key => 
                               key.startsWith(format.format_id)
@@ -720,26 +591,16 @@ export default function InstagramDownloader() {
                             const progress = downloadKey ? downloadProgress[downloadKey] : null;
 
                             return (
-                              <div key={index} className="bg-slate-700/50 rounded-xl p-3 sm:p-4 border border-purple-500/20">
+                              <div key={index} className="bg-slate-700/50 rounded-xl p-4 border border-purple-500/20">
                                 <div className="flex justify-between items-start mb-2">
-                                  <div className="flex-1">
-                                    <span className="text-white font-medium text-sm sm:text-base">
+                                  <div>
+                                    <span className="text-white font-medium">
                                       {format.quality} ({format.ext.toUpperCase()})
                                     </span>
-                                    <div className="text-xs text-purple-400 mt-1 flex items-center gap-1 sm:gap-2 flex-wrap">
-                                      {format.has_audio ? (
-                                        <span className="flex items-center gap-1 bg-emerald-500/20 text-emerald-300 px-1 sm:px-2 py-0.5 rounded-full text-xs">
-                                          <Volume2 className="h-2 w-2 sm:h-3 sm:w-3" />
-                                          With Audio
-                                        </span>
-                                      ) : (
-                                        <span className="flex items-center gap-1 bg-orange-500/20 text-orange-300 px-1 sm:px-2 py-0.5 rounded-full text-xs">
-                                          <VolumeX className="h-2 w-2 sm:h-3 sm:w-3" />
-                                          Video Only
-                                        </span>
-                                      )}
+                                    <div className="text-xs text-purple-400 mt-1 flex items-center gap-1">
+                                      {format.has_audio ? '🎵 Video + Audio' : '📹 Video Only'}
                                       {format.high_quality && (
-                                        <span className="bg-blue-500/20 text-blue-300 px-1 sm:px-2 py-0.5 rounded-full text-xs">
+                                        <span className="bg-emerald-500/20 text-emerald-300 px-1 py-0.5 rounded text-xs">
                                           HD
                                         </span>
                                       )}
@@ -750,7 +611,7 @@ export default function InstagramDownloader() {
                                       </div>
                                     )}
                                   </div>
-                                  <span className="text-xs text-gray-400 ml-2 flex-shrink-0">
+                                  <span className="text-xs text-gray-400">
                                     {formatFileSize(format.filesize)}
                                   </span>
                                 </div>
@@ -773,9 +634,9 @@ export default function InstagramDownloader() {
                                 <button
                                   onClick={() => handleDownload(format)}
                                   disabled={!!progress && !['error', 'downloaded'].includes(progress.status)}
-                                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium py-2 sm:py-2 px-3 sm:px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base"
+                                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
-                                  <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                                  <Download className="h-4 w-4" />
                                   {getButtonText(progress)}
                                 </button>
                               </div>
@@ -783,22 +644,22 @@ export default function InstagramDownloader() {
                           })}
                         </div>
                       ) : (
-                        <div className="text-center py-6 sm:py-8">
-                          <p className="text-gray-400 text-base sm:text-lg">No video formats available for this Instagram content.</p>
+                        <div className="text-center py-8">
+                          <p className="text-gray-400 text-lg">No video formats available for this Instagram content.</p>
                         </div>
                       )}
                     </div>
                   ) : (
                     <div>
-                      <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                        <Music className="h-4 w-4 sm:h-5 sm:w-5 text-pink-400" />
-                        <h3 className="text-lg sm:text-xl font-semibold text-white">Audio Downloads (MP3)</h3>
+                      <div className="flex items-center gap-2 mb-4">
+                        <Music className="h-5 w-5 text-pink-400" />
+                        <h3 className="text-xl font-semibold text-white">Audio Downloads (MP3)</h3>
                         <span className="bg-pink-500/20 text-pink-300 px-2 py-1 rounded-full text-xs">
                           Audio Only
                         </span>
                       </div>
                       {videoInfo.formats?.audio_formats && videoInfo.formats.audio_formats.length > 0 ? (
-                        <div className="grid gap-3 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                           {videoInfo.formats.audio_formats.map((format, index) => {
                             const downloadKey = Object.keys(downloadProgress).find(key => 
                               key.startsWith(format.format_id)
@@ -806,20 +667,14 @@ export default function InstagramDownloader() {
                             const progress = downloadKey ? downloadProgress[downloadKey] : null;
 
                             return (
-                              <div key={index} className="bg-slate-700/50 rounded-xl p-3 sm:p-4 border border-pink-500/20">
+                              <div key={index} className="bg-slate-700/50 rounded-xl p-4 border border-pink-500/20">
                                 <div className="flex justify-between items-start mb-2">
-                                  <div className="flex-1">
-                                    <span className="text-white font-medium text-sm sm:text-base">
+                                  <div>
+                                    <span className="text-white font-medium">
                                       {format.quality} (MP3)
                                     </span>
-                                    <div className="text-xs text-pink-400 mt-1 flex items-center gap-1">
-                                      <Volume2 className="h-2 w-2 sm:h-3 sm:w-3" />
-                                      {format.description || 'Audio Track'}
-                                      {format.source && (
-                                        <span className="ml-1 text-gray-500 bg-slate-600/50 px-1 rounded text-xs">
-                                          {format.source === 'video' ? 'extracted' : format.source}
-                                        </span>
-                                      )}
+                                    <div className="text-xs text-pink-400 mt-1">
+                                      🎵 {format.description || 'Audio Track'}
                                     </div>
                                     {format.abr && (
                                       <div className="text-xs text-gray-500 mt-1">
@@ -827,7 +682,7 @@ export default function InstagramDownloader() {
                                       </div>
                                     )}
                                   </div>
-                                  <span className="text-xs text-gray-400 ml-2 flex-shrink-0">
+                                  <span className="text-xs text-gray-400">
                                     {formatFileSize(format.filesize)}
                                   </span>
                                 </div>
@@ -850,9 +705,9 @@ export default function InstagramDownloader() {
                                 <button
                                   onClick={() => handleDownload(format)}
                                   disabled={!!progress && !['error', 'downloaded'].includes(progress.status)}
-                                  className="w-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium py-2 sm:py-2 px-3 sm:px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base"
+                                  className="w-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
-                                  <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                                  <Download className="h-4 w-4" />
                                   {getButtonText(progress)}
                                 </button>
                               </div>
@@ -860,9 +715,8 @@ export default function InstagramDownloader() {
                           })}
                         </div>
                       ) : (
-                        <div className="text-center py-6 sm:py-8">
-                          <p className="text-gray-400 text-base sm:text-lg">No audio formats available for this Instagram content.</p>
-                          <p className="text-gray-500 text-sm mt-2">Try video downloads - audio can be extracted from video files.</p>
+                        <div className="text-center py-8">
+                          <p className="text-gray-400 text-lg">No audio formats available for this Instagram content.</p>
                         </div>
                       )}
                     </div>
@@ -872,18 +726,14 @@ export default function InstagramDownloader() {
             </div>
           </div>
         )}
-         
-        {/* Mobile Responsive Footer */}
-        <div className="text-center mt-8 sm:mt-12 text-gray-400 px-4 sm:px-0">
-          <p className="text-sm sm:text-base">© 2025 Instagram Downloader. Download posts, reels, stories & IGTV in high quality.</p>
-          <p className="text-xs sm:text-sm mt-2">Supports all Instagram content types • Fast downloads • Enhanced audio support • No registration required</p>
+
+        <div className="text-center mt-12 text-gray-400">
+          <p>© 2025 Instagram Downloader. Download posts, reels, stories & IGTV in high quality.</p>
+          <p className="text-sm mt-2">Supports all Instagram content types • Fast downloads • No registration required</p>
         </div>
-        
-        {/* Instagram Download Guide */}
-        <div className="mt-8 sm:mt-12">
-          <InstagramDownloadGuide/>
-        </div>
+
       </div>
+      <div>InstagramDownloadGuide</div>
     </div>
   );
 }

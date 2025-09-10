@@ -24,7 +24,7 @@ from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-PORT = int(os.getenv('PORT', 5000))
+PORT = int(os.getenv('PORT', 5001))
 HOST = os.getenv('HOST', '127.0.0.1')
 MAX_CONTENT_LENGTH = int(os.getenv('MAX_CONTENT_LENGTH', 104857600))  # 100MB
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key-change-this')
