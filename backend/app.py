@@ -378,4 +378,4 @@ if __name__ == '__main__':
     else:
         logger.info("Running in production mode")
         # For production, this should be handled by Gunicorn
-        app.run(debug=False, host=HOST, port=PORT, threaded=True)
+        app.run(debug=False, host=HOST, port=5001, threaded=True)

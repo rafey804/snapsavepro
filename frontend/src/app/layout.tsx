@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
-import Footer from './../components/layout/Footer';
+import Footer from '../components/layout/Footer';
 import Script from 'next/script';
 
 const geistSans = Geist({
@@ -449,19 +449,19 @@ export default function RootLayout({
                   "@type": "ListItem",
                   "position": 2,
                   "name": "TikTok Downloader",
-                  "item": "https://snapsavepro.com/tiktok"
+                  "item": "https://snapsavepro.com/tiktok-video-download-without-watermark"
                 },
                 {
                   "@type": "ListItem",
                   "position": 3,
                   "name": "Instagram Downloader",
-                  "item": "https://snapsavepro.com/instagram"
+                  "item": "https://snapsavepro.com/instagram-video-download"
                 },
                 {
                   "@type": "ListItem",
                   "position": 4,
                   "name": "Facebook Downloader",
-                  "item": "https://snapsavepro.com/facebook"
+                  "item": "https://snapsavepro.com/facebook-video-download"
                 }
               ]
             })

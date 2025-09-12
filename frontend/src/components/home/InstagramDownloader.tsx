@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Search, Download, Play, Clock, Eye, User, FileVideo, Music, Loader, CheckCircle, AlertTriangle, Heart, MessageCircle, Share2, Camera, Film, PlayCircle } from 'lucide-react';
-import InstagramDownloadGuide from './../details/InstagramDownloadGuide';
+import InstagramDownloadGuide from '../details/InstagramDownloadGuide';
 
 interface VideoFormat {
   quality: string;
