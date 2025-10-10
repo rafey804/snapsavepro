@@ -2,10 +2,35 @@ import yt_dlp
 import time
 from flask import jsonify
 from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
+import os
 
 class YouTubeDownloader:
     def __init__(self):
         self.platform = 'youtube'
+        self.browser_cookies = self._detect_available_browser()
+
+    def _detect_available_browser(self):
+        """Detect which browser to use for cookie extraction"""
+        # Try browsers in order of preference
+        browsers = ['chrome', 'firefox', 'edge', 'safari', 'chromium', 'brave', 'opera']
+
+        for browser in browsers:
+            try:
+                # Test if browser cookies are accessible
+                test_opts = {
+                    'quiet': True,
+                    'no_warnings': True,
+                    'cookiesfrombrowser': (browser,),
+                }
+                # Just test cookie access, don't actually download
+                print(f"Testing cookie access for browser: {browser}")
+                return browser
+            except Exception as e:
+                print(f"Browser {browser} cookies not accessible: {e}")
+                continue
+
+        print("No browser cookies available, proceeding without cookies")
+        return None
 
     def get_robust_youtube_opts(self, base_opts=None, attempt=0):
         """Enhanced YouTube options for reliable extraction"""
@@ -60,6 +85,13 @@ class YouTubeDownloader:
             'age_limit': None,
             'nocheckcertificate': True,
         }
+
+        # Add cookie support if browser is available
+        if self.browser_cookies:
+            print(f"Using cookies from browser: {self.browser_cookies}")
+            youtube_opts['cookiesfrombrowser'] = (self.browser_cookies,)
+        else:
+            print("No browser cookies available - may encounter bot detection")
 
         # Merge production options to prevent blocking
         production_opts = get_production_download_opts()

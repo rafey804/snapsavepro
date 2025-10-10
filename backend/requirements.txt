@@ -6,3 +6,6 @@ gunicorn==23.0.0
 requests==2.32.3
 urllib3==2.2.3
 certifi==2024.8.30
+pycryptodomex==3.20.0
+secretstorage==3.3.3; sys_platform == 'linux'
+keyring==25.5.0
