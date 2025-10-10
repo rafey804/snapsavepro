@@ -387,7 +387,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Enhanced SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -532,6 +532,7 @@ export default function RootLayout({
       
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         {/* Google Analytics - GA4 */}
         <Script

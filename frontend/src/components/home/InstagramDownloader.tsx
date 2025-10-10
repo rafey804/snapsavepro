@@ -90,6 +90,7 @@ export default function InstagramDownloader() {
   };
 
   const formatViewCount = (count: number): string => {
+    if (!count && count !== 0) return '0';
     if (count >= 1000000) {
       return (count / 1000000).toFixed(1) + 'M';
     } else if (count >= 1000) {
@@ -99,6 +100,7 @@ export default function InstagramDownloader() {
   };
 
   const formatLikeCount = (count: number): string => {
+    if (!count && count !== 0) return '0';
     if (count >= 1000000) {
       return (count / 1000000).toFixed(1) + 'M';
     } else if (count >= 1000) {
@@ -538,23 +540,23 @@ export default function InstagramDownloader() {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                       <div className="flex items-center gap-2 text-gray-300">
                         <User className="h-4 w-4" />
-                        <span className="text-sm truncate">@{videoInfo.uploader_id || videoInfo.uploader}</span>
+                        <span className="text-sm truncate">@{videoInfo.uploader_id || videoInfo.uploader || 'Unknown'}</span>
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <Eye className="h-4 w-4" />
-                        <span className="text-sm">{formatViewCount(videoInfo.view_count)} views</span>
+                        <span className="text-sm">{formatViewCount(videoInfo.view_count || 0)} views</span>
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <Heart className="h-4 w-4 text-red-400" />
-                        <span className="text-sm">{formatLikeCount(videoInfo.like_count)} likes</span>
+                        <span className="text-sm">{formatLikeCount(videoInfo.like_count || 0)} likes</span>
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <MessageCircle className="h-4 w-4" />
-                        <span className="text-sm">{formatLikeCount(videoInfo.comment_count)} comments</span>
+                        <span className="text-sm">{formatLikeCount(videoInfo.comment_count || 0)} comments</span>
                       </div>
                       <div className="flex items-center gap-2 text-gray-300">
                         <Clock className="h-4 w-4" />
-                        <span className="text-sm">{formatDuration(videoInfo.duration)}</span>
+                        <span className="text-sm">{formatDuration(videoInfo.duration || 0)}</span>
                       </div>
                       <div className="flex items-center gap-2 text-emerald-300">
                         <CheckCircle className="h-4 w-4" />
