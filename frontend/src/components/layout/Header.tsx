@@ -60,6 +60,31 @@ export default function ProfessionalHeader() {
       isNew: true
     },
     {
+      id: 'youtube',
+      name: 'YouTube',
+      icon: (
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+      ),
+      available: true,
+      gradient: 'from-red-500 to-red-600',
+      route: '/pages/youtube-downloader',
+      isNew: true
+    },
+    {
+      id: 'blog',
+      name: 'Blog',
+      icon: (
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+        </svg>
+      ),
+      available: true,
+      gradient: 'from-cyan-500 to-blue-500',
+      route: '/blog'
+    },
+    {
       id: 'audio',
       name: 'Audio',
       icon: (
@@ -172,7 +197,7 @@ export default function ProfessionalHeader() {
                   <h1 className="text-xl lg:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400">
                     Snap Save Pro
                   </h1>
-                  <p className="text-xs lg:text-sm text-gray-300">TikTok, Instagram, Facebook & Audio Downloader</p>
+                  <p className="text-xs lg:text-sm text-gray-300">TikTok, Instagram, Facebook, YouTube & Audio Downloader</p>
                 </div>
                 <div className="sm:hidden">
                   <h1 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400">

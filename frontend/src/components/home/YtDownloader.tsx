@@ -54,7 +54,7 @@ interface ProcessingStatus {
   percent: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
 
 export default function YouTubeDownloader() {
   const [url, setUrl] = useState('');
@@ -630,7 +630,7 @@ export default function YouTubeDownloader() {
                             </div>
                             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                               {videoInfo.formats.video_with_audio.map((format, index) => {
-                                const downloadKey = Object.keys(downloadProgress).find(key => 
+                                const downloadKey = Object.keys(downloadProgress).find(key =>
                                   key.startsWith(format.format_id)
                                 );
                                 const progress = downloadKey ? downloadProgress[downloadKey] : null;
@@ -665,7 +665,7 @@ export default function YouTubeDownloader() {
                                         {formatFileSize(format.filesize)}
                                       </span>
                                     </div>
-                                    
+
                                     {progress && (
                                       <div className="mb-3">
                                         <ProgressBar progress={progress} />
@@ -683,11 +683,84 @@ export default function YouTubeDownloader() {
                                         )}
                                       </div>
                                     )}
-                                    
+
                                     <button
                                       onClick={() => handleDownload(format)}
                                       disabled={!!progress && !['error', 'downloaded'].includes(progress.status)}
                                       className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base"
+                                    >
+                                      <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                                      <span className="truncate">{getButtonText(progress)}</span>
+                                    </button>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
+
+                        {videoInfo.formats?.video_only && videoInfo.formats.video_only.length > 0 && (
+                          <div>
+                            <div className="flex items-center gap-2 mb-4">
+                              <FileVideo className="h-4 w-4 sm:h-5 sm:w-5 text-cyan-400" />
+                              <h3 className="text-lg sm:text-xl font-semibold text-white">High Quality Video (Audio Combined)</h3>
+                              <span className="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs">
+                                HD & 4K Quality
+                              </span>
+                            </div>
+                            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                              {videoInfo.formats.video_only.map((format, index) => {
+                                const downloadKey = Object.keys(downloadProgress).find(key =>
+                                  key.startsWith(format.format_id)
+                                );
+                                const progress = downloadKey ? downloadProgress[downloadKey] : null;
+
+                                return (
+                                  <div key={index} className="bg-slate-700/50 rounded-xl p-3 sm:p-4 border border-cyan-500/20">
+                                    <div className="flex justify-between items-start mb-2">
+                                      <div className="flex-1 min-w-0">
+                                        <span className="text-white font-medium text-sm sm:text-base">
+                                          {format.quality} ({format.ext.toUpperCase()})
+                                        </span>
+                                        <div className="text-xs text-cyan-400 mt-1 flex flex-wrap items-center gap-1">
+                                          <span>✓ Premium Quality</span>
+                                          <span className="bg-cyan-500/20 text-cyan-300 px-1 py-0.5 rounded text-xs">
+                                            Auto-Combined with Audio
+                                          </span>
+                                          {isLongVideo(videoInfo.duration) && (
+                                            <span className="bg-amber-500/20 text-amber-300 px-1 py-0.5 rounded text-xs">
+                                              Enhanced
+                                            </span>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <span className="text-xs text-gray-400 ml-2 flex-shrink-0">
+                                        {formatFileSize(format.filesize)}
+                                      </span>
+                                    </div>
+
+                                    {progress && (
+                                      <div className="mb-3">
+                                        <ProgressBar progress={progress} />
+                                        <div className="flex justify-between text-xs text-gray-400">
+                                          <span className="truncate">
+                                            {progress.status.includes('retrying') ? 'Retrying...' : progress.status}
+                                          </span>
+                                          <div className="flex gap-2 flex-shrink-0">
+                                            {progress.speed && <span>{progress.speed}</span>}
+                                            {progress.eta && progress.eta !== 'N/A' && <span>ETA: {progress.eta}</span>}
+                                          </div>
+                                        </div>
+                                        {progress.error && (
+                                          <p className="text-red-400 text-xs mt-1 line-clamp-2">{progress.error}</p>
+                                        )}
+                                      </div>
+                                    )}
+
+                                    <button
+                                      onClick={() => handleDownload(format)}
+                                      disabled={!!progress && !['error', 'downloaded'].includes(progress.status)}
+                                      className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm sm:text-base"
                                     >
                                       <Download className="h-3 w-3 sm:h-4 sm:w-4" />
                                       <span className="truncate">{getButtonText(progress)}</span>

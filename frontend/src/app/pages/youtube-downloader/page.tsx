@@ -1,28 +1,28 @@
-import TikTokDownloader from '@/components/home/TikTokDownloader'
+import YtDownloader from "@/components/home/YtDownloader";
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
-import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
-import { homePageSEO } from "@/data/comprehensiveSEOData";
+import { youtubeFAQs, youtubeReviews } from "@/data/pageSEOData";
+import { youtubePageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
 
-// SEO Metadata for Home Page
+// SEO Metadata for YouTube Downloader Page
 export const metadata: Metadata = {
-  title: homePageSEO.title,
-  description: homePageSEO.description,
-  keywords: homePageSEO.keywords,
+  title: youtubePageSEO.title,
+  description: youtubePageSEO.description,
+  keywords: youtubePageSEO.keywords,
   openGraph: {
-    title: homePageSEO.title,
-    description: homePageSEO.description,
-    url: homePageSEO.canonicalUrl,
+    title: youtubePageSEO.title,
+    description: youtubePageSEO.description,
+    url: youtubePageSEO.canonicalUrl,
     siteName: 'Snap Save Pro',
     images: [
       {
-        url: homePageSEO.ogImage,
+        url: youtubePageSEO.ogImage,
         width: 1200,
         height: 630,
-        alt: 'TikTok Video Downloader Without Watermark',
+        alt: 'YouTube Video Downloader - Download HD Videos & MP3',
       }
     ],
     locale: 'en_US',
@@ -30,12 +30,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: homePageSEO.title,
-    description: homePageSEO.description,
-    images: [homePageSEO.ogImage],
+    title: youtubePageSEO.title,
+    description: youtubePageSEO.description,
+    images: [youtubePageSEO.ogImage],
   },
   alternates: {
-    canonical: homePageSEO.canonicalUrl,
+    canonical: youtubePageSEO.canonicalUrl,
   },
   robots: {
     index: true,
@@ -50,22 +50,22 @@ export const metadata: Metadata = {
   },
 };
 
-const HomePage = () => {
+export default function YouTubeDownloaderPage() {
   return (
     <>
-      {/* Schema.org structured data for TikTok Downloader */}
+      {/* Schema.org structured data for YouTube Downloader */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": homePageSEO.h1,
-            "description": homePageSEO.description,
-            "url": homePageSEO.canonicalUrl,
+            "name": youtubePageSEO.h1,
+            "description": youtubePageSEO.description,
+            "url": youtubePageSEO.canonicalUrl,
             "mainEntity": {
               "@type": "SoftwareApplication",
-              "name": "TikTok Video Downloader Without Watermark",
+              "name": "YouTube Video Downloader HD",
               "applicationCategory": "MultimediaApplication",
               "offers": {
                 "@type": "Offer",
@@ -74,8 +74,8 @@ const HomePage = () => {
               },
               "aggregateRating": {
                 "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "reviewCount": "8547"
+                "ratingValue": "4.8",
+                "reviewCount": "6234"
               }
             }
           })
@@ -84,16 +84,14 @@ const HomePage = () => {
 
       {/* Main H1 Heading for SEO */}
       <header className="sr-only">
-        <h1>{homePageSEO.h1}</h1>
+        <h1>{youtubePageSEO.h1}</h1>
       </header>
 
-      <TikTokDownloader/>
-      <HowToDownload platform="TikTok" platformColor="pink" />
-      <InfoSection platform="TikTok" platformColor="pink" />
-      <FAQSection faqs={tiktokFAQs} platform="TikTok" />
-      <ReviewsSection reviews={tiktokReviews} />
+      <YtDownloader />
+      <HowToDownload platform="YouTube" platformColor="red" />
+      <InfoSection platform="YouTube" platformColor="red" />
+      <FAQSection faqs={youtubeFAQs} platform="YouTube" />
+      <ReviewsSection reviews={youtubeReviews} />
     </>
   );
 }
-
-export default HomePage

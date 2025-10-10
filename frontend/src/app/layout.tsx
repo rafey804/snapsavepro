@@ -532,8 +532,6 @@ export default function RootLayout({
       
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        itemScope
-        itemType="https://schema.org/WebPage"
       >
         {/* Google Analytics - GA4 */}
         <Script
@@ -579,7 +577,7 @@ export default function RootLayout({
         
         <Header/>
         
-        <main id="main-content" itemProp="mainContentOfPage">
+        <main id="main-content">
           {children}
         </main>
         
