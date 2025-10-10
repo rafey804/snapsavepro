@@ -15,12 +15,25 @@ class InstagramDownloader:
 
         for browser in browsers:
             try:
-                print(f"Testing cookie access for browser: {browser}")
-                return browser
+                # Create a temporary YoutubeDL instance to test cookie access
+                test_opts = {
+                    'quiet': True,
+                    'no_warnings': True,
+                    'cookiesfrombrowser': (browser,),
+                    'extract_flat': True,
+                    'skip_download': True,
+                }
+
+                # Try to initialize with cookies
+                with yt_dlp.YoutubeDL(test_opts) as ydl:
+                    # If we get here, cookies are accessible
+                    print(f"Successfully detected browser cookies for Instagram: {browser}")
+                    return browser
             except Exception as e:
+                print(f"Browser {browser} cookies not accessible for Instagram: {str(e)}")
                 continue
 
-        print("No browser cookies available for Instagram")
+        print("No browser cookies available for Instagram, proceeding without cookies")
         return None
     
     def get_robust_instagram_opts(self, base_opts=None, attempt=0):

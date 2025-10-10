@@ -16,17 +16,23 @@ class YouTubeDownloader:
 
         for browser in browsers:
             try:
-                # Test if browser cookies are accessible
+                # Create a temporary YoutubeDL instance to test cookie access
+                import tempfile
                 test_opts = {
                     'quiet': True,
                     'no_warnings': True,
                     'cookiesfrombrowser': (browser,),
+                    'extract_flat': True,
+                    'skip_download': True,
                 }
-                # Just test cookie access, don't actually download
-                print(f"Testing cookie access for browser: {browser}")
-                return browser
+
+                # Try to initialize with cookies
+                with yt_dlp.YoutubeDL(test_opts) as ydl:
+                    # If we get here, cookies are accessible
+                    print(f"Successfully detected browser cookies: {browser}")
+                    return browser
             except Exception as e:
-                print(f"Browser {browser} cookies not accessible: {e}")
+                print(f"Browser {browser} cookies not accessible: {str(e)}")
                 continue
 
         print("No browser cookies available, proceeding without cookies")
