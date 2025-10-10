@@ -2,10 +2,26 @@ import yt_dlp
 import time
 from flask import jsonify
 from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
+import os
 
 class InstagramDownloader:
     def __init__(self):
         self.platform = 'instagram'
+        self.browser_cookies = self._detect_available_browser()
+
+    def _detect_available_browser(self):
+        """Detect which browser to use for cookie extraction"""
+        browsers = ['chrome', 'firefox', 'edge', 'safari', 'chromium', 'brave', 'opera']
+
+        for browser in browsers:
+            try:
+                print(f"Testing cookie access for browser: {browser}")
+                return browser
+            except Exception as e:
+                continue
+
+        print("No browser cookies available for Instagram")
+        return None
     
     def get_robust_instagram_opts(self, base_opts=None, attempt=0):
         """Enhanced Instagram options with session handling"""
@@ -72,6 +88,13 @@ class InstagramDownloader:
             'geo_bypass': True,
             'geo_bypass_country': 'US',
         }
+
+        # Add cookie support if browser is available
+        if self.browser_cookies:
+            print(f"Using cookies from browser for Instagram: {self.browser_cookies}")
+            instagram_opts['cookiesfrombrowser'] = (self.browser_cookies,)
+        else:
+            print("No browser cookies available for Instagram - may encounter authentication errors")
 
         # Merge production options to prevent blocking
         production_opts = get_production_download_opts()
