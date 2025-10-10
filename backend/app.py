@@ -19,19 +19,20 @@ load_dotenv()
 from tiktok import TiktokDownloader
 from instagram import InstagramDownloader
 from facebook import FacebookDownloader
+from youtube import YouTubeDownloader
 from audio_downloader import AudioDownloader
 from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-PORT = int(os.getenv('PORT', 5001))
+PORT = int(os.getenv('PORT', 5002))
 HOST = os.getenv('HOST', '127.0.0.1')
 MAX_CONTENT_LENGTH = int(os.getenv('MAX_CONTENT_LENGTH', 104857600))  # 100MB
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key-change-this')
 
 # CORS Configuration
-ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS', 
-    'http://localhost:3000,http://localhost:3001'
+ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS',
+    'http://localhost:3000,http://localhost:3001,http://localhost:3003'
 ).split(',')
 
 # Strip whitespace from origins
@@ -62,6 +63,7 @@ try:
     tiktok_downloader = TiktokDownloader()
     instagram_downloader = InstagramDownloader()
     facebook_downloader = FacebookDownloader()
+    youtube_downloader = YouTubeDownloader()
     audio_downloader = AudioDownloader()
     logger.info("All platform downloaders initialized successfully")
 except Exception as e:
@@ -117,7 +119,7 @@ def get_video_info():
         platform = detect_platform(url)
         
         if platform == 'unknown':
-            return jsonify({'error': 'Please provide a valid TikTok, Instagram, or Facebook URL'}), 400
+            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Facebook, or YouTube URL'}), 400
 
         logger.info(f"Processing {platform.upper()} URL: {url}")
 
@@ -128,6 +130,8 @@ def get_video_info():
             return instagram_downloader.get_video_info(url)
         elif platform == 'facebook':
             return facebook_downloader.get_video_info(url)
+        elif platform == 'youtube':
+            return youtube_downloader.get_video_info(url)
             
     except Exception as e:
         logger.error(f"Unexpected error in get_video_info: {str(e)}")
@@ -378,4 +382,4 @@ if __name__ == '__main__':
     else:
         logger.info("Running in production mode")
         # For production, this should be handled by Gunicorn
-        app.run(debug=False, host=HOST, port=5001, threaded=True)
+        app.run(debug=False, host=HOST, port=5002, threaded=True)

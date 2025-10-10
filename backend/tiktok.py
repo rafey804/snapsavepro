@@ -1,7 +1,7 @@
 import yt_dlp
 import time
 from flask import jsonify
-from utils import get_best_thumbnail, detect_audio_in_format
+from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
 
 class TiktokDownloader:
     def __init__(self):
@@ -11,15 +11,16 @@ class TiktokDownloader:
         """Ultra-robust TikTok options that handle all known issues"""
         if base_opts is None:
             base_opts = {}
-        
+
         # Different configurations for different attempts
         user_agents = [
-            'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1',
-            'Mozilla/5.0 (Linux; Android 11; SM-A515F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-            'TikTok 26.2.0 rv:262018 (iPhone; iOS 14.4.2; en_US) Cronet',
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+            'Mozilla/5.0 (Linux; Android 13; SM-S908B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.179 Mobile Safari/537.36',
+            'com.zhiliaoapp.musically/2023405020 (Linux; U; Android 13; en_US; Pixel 6; Build/TP1A.220624.021; Cronet/124.0.6367.179)',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
         ]
-        
+
         current_ua = user_agents[attempt % len(user_agents)]
         
         tiktok_opts = {
@@ -54,16 +55,33 @@ class TiktokDownloader:
                 'Pragma': 'no-cache',
             },
             
-            # TikTok extractor args with fallbacks
+            # TikTok extractor args with multiple fallback strategies
             'extractor_args': {
                 'tiktok': {
-                    'api_hostname': 'api16-normal-c-useast1a.tiktokv.com' if attempt < 2 else 'api.tiktokv.com',
-                    'webpage_api': True,
-                    'mobile_api': attempt > 0
+                    'api_hostname': [
+                        'api16-normal-c-useast1a.tiktokv.com',
+                        'api19-normal-c-useast1a.tiktokv.com',
+                        'api22-normal-c-useast1a.tiktokv.com',
+                        'api16-core-c-useast1a.tiktokv.com',
+                        'api16-normal-c-useast2a.tiktokv.com'
+                    ][attempt % 5],
+                    'webpage_api': attempt < 3,  # Try webpage API first
+                    'mobile_api': attempt >= 1,   # Then mobile API
+                    'app_version': '34.1.2',
+                    'manifest_app_version': '2023405020',
+                    'aid': '1988',
+                    'app_name': 'musical_ly'
                 }
             },
+
+            # Additional options for better compatibility
+            'geo_bypass': True,
+            'geo_bypass_country': 'US',
         }
-        
+
+        # Merge production options to prevent blocking
+        production_opts = get_production_download_opts()
+        tiktok_opts.update(production_opts)
         tiktok_opts.update(base_opts)
         return tiktok_opts
     

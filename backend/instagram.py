@@ -1,7 +1,7 @@
 import yt_dlp
 import time
 from flask import jsonify
-from utils import get_best_thumbnail, detect_audio_in_format
+from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
 
 class InstagramDownloader:
     def __init__(self):
@@ -13,9 +13,10 @@ class InstagramDownloader:
             base_opts = {}
         
         user_agents = [
-            'Mozilla/5.0 (iPhone; CPU iPhone OS 15_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6 Mobile/15E148 Safari/604.1',
-            'Mozilla/5.0 (Linux; Android 11; SM-A515F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
-            'Instagram 200.0.0.28.127 Android (28/9; 320dpi; 720x1448; samsung; SM-A515F; a51; exynos9611; en_US; 312662218)',
+            'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+            'Instagram 312.0.0.37.109 Android (30/11; 420dpi; 1080x2340; OnePlus; GM1903; guacamoleb; qcom; en_US; 537449206)',
+            'Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36',
         ]
         
         current_ua = user_agents[attempt % len(user_agents)]
@@ -57,16 +58,24 @@ class InstagramDownloader:
                 'Sec-Fetch-Site': 'same-origin',
             },
             
-            # Instagram extractor args
+            # Instagram extractor args with enhanced options
             'extractor_args': {
                 'instagram': {
                     'api_hostname': 'i.instagram.com',
-                    'webpage_api': True,
-                    'mobile_api': True
+                    'webpage_api': attempt < 2,  # Try webpage first
+                    'mobile_api': True,
+                    'prefer_graphql': attempt >= 1,  # Use GraphQL as fallback
                 }
             },
+
+            # Additional bypass options
+            'geo_bypass': True,
+            'geo_bypass_country': 'US',
         }
-        
+
+        # Merge production options to prevent blocking
+        production_opts = get_production_download_opts()
+        instagram_opts.update(production_opts)
         instagram_opts.update(base_opts)
         return instagram_opts
     

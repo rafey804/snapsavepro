@@ -1,7 +1,7 @@
 import yt_dlp
 import time
 from flask import jsonify
-from utils import get_best_thumbnail, detect_audio_in_format
+from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
 
 class FacebookDownloader:
     def __init__(self):
@@ -68,7 +68,10 @@ class FacebookDownloader:
                 }
             },
         }
-        
+
+        # Merge production options to prevent blocking
+        production_opts = get_production_download_opts()
+        facebook_opts.update(production_opts)
         facebook_opts.update(base_opts)
         return facebook_opts
     
