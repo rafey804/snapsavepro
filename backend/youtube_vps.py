@@ -2,19 +2,12 @@ import yt_dlp
 import time
 from flask import jsonify
 from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
-import os
 
 class YouTubeDownloader:
     def __init__(self):
         self.platform = 'youtube'
-        self.browser_cookies = self._detect_available_browser()
-
-    def _detect_available_browser(self):
-        """Detect which browser to use for cookie extraction - disabled for production"""
-        # Disable browser cookie detection to avoid errors in production environment
-        # Browser cookies are not available in server/VPS environments
-        print("Browser cookie detection disabled for production environment")
-        return None
+        # DISABLED for VPS - no browser cookies needed
+        self.browser_cookies = None
 
     def get_robust_youtube_opts(self, base_opts=None, attempt=0):
         """Enhanced YouTube options for reliable extraction"""
@@ -70,9 +63,8 @@ class YouTubeDownloader:
             'nocheckcertificate': True,
         }
 
-        # Browser cookies disabled for production - not needed for public YouTube videos
-        # Most public YouTube videos work without authentication
-        print("Running without browser cookies (production mode)")
+        # NO COOKIES ON VPS
+        print("YouTube: Running without browser cookies (VPS mode)")
 
         # Merge production options to prevent blocking
         production_opts = get_production_download_opts()
@@ -138,20 +130,6 @@ class YouTubeDownloader:
                     video_only = []
                     audio_only = []
 
-                    print(f"\n{'='*60}")
-                    print(f"Total formats available: {len(formats)}")
-                    print(f"{'='*60}\n")
-
-                    # First pass - show ALL formats
-                    print("ALL FORMATS (first 20):")
-                    for i, fmt in enumerate(formats[:20]):
-                        print(f"{i+1}. ID: {fmt.get('format_id', 'N/A')}, "
-                              f"Ext: {fmt.get('ext', 'N/A')}, "
-                              f"Height: {fmt.get('height', 'N/A')}p, "
-                              f"VCodec: {fmt.get('vcodec', 'N/A')[:15]}, "
-                              f"ACodec: {fmt.get('acodec', 'N/A')[:15]}")
-                    print(f"{'='*60}\n")
-
                     for fmt in formats:
                         if not fmt.get('format_id'):
                             continue
@@ -168,22 +146,13 @@ class YouTubeDownloader:
 
                         # Video with audio (built-in audio)
                         if vcodec != 'none' and acodec != 'none' and height > 0:
-                            print(f"  [+] Added to Video+Audio: {format_id} - {height}p")
                             video_with_audio.append(fmt)
                         # Video only (separate stream)
                         elif vcodec != 'none' and height > 0:
-                            print(f"  [+] Added to Video Only: {format_id} - {height}p")
                             video_only.append(fmt)
                         # Audio only
                         elif acodec != 'none' and vcodec == 'none':
-                            print(f"  [+] Added to Audio: {format_id} - {fmt.get('abr', 'unknown')}kbps")
                             audio_only.append(fmt)
-
-                    print(f"\n{'='*60}")
-                    print(f"Video+Audio count: {len(video_with_audio)}")
-                    print(f"Video Only count: {len(video_only)}")
-                    print(f"Audio Only count: {len(audio_only)}")
-                    print(f"{'='*60}\n")
 
                     # Process video formats with audio
                     processed_video_with_audio = []
@@ -191,11 +160,9 @@ class YouTubeDownloader:
 
                     for fmt in sorted(video_with_audio, key=lambda x: x.get('height') or 0, reverse=True):
                         height = fmt.get('height') or 0
-                        # Accept all qualities from 144p up to 4K (2160p)
                         if height < 144:
                             continue
 
-                        # Skip duplicate qualities, keep only the first (highest quality) of each resolution
                         if height in seen_qualities:
                             continue
                         seen_qualities.add(height)
@@ -221,19 +188,16 @@ class YouTubeDownloader:
                             'protocol': fmt.get('protocol', 'https'),
                         }
                         processed_video_with_audio.append(format_data)
-                        print(f"Added video+audio format: {quality}")
 
-                    # Process video-only formats (will be combined with audio)
+                    # Process video-only formats
                     processed_video_only = []
                     seen_video_only = set()
 
                     for fmt in sorted(video_only, key=lambda x: x.get('height') or 0, reverse=True):
                         height = fmt.get('height') or 0
-                        # Accept all qualities from 144p up to 4K (2160p) and beyond
                         if height < 144:
                             continue
 
-                        # Skip duplicate qualities
                         if height in seen_video_only:
                             continue
                         seen_video_only.add(height)
@@ -258,7 +222,6 @@ class YouTubeDownloader:
                             'protocol': fmt.get('protocol', 'https'),
                         }
                         processed_video_only.append(format_data)
-                        print(f"Added video-only format: {quality}")
 
                     # Process audio formats
                     processed_audio = []
@@ -280,30 +243,11 @@ class YouTubeDownloader:
                         }
                         processed_audio.append(format_data)
 
-                    # Combine video formats (prioritize video with audio, then video only)
-                    combined_video = processed_video_with_audio + processed_video_only
-
                     video_info['formats'] = {
-                        'video_with_audio': processed_video_with_audio[:10],  # Increased to show more qualities
-                        'video_only': processed_video_only[:10],  # Increased to show more qualities including 1080p, 1440p, 4K
+                        'video_with_audio': processed_video_with_audio[:10],
+                        'video_only': processed_video_only[:10],
                         'audio_only': processed_audio[:8]
                     }
-
-                    print(f"\n{'='*60}")
-                    print(f"FINAL RESPONSE:")
-                    print(f"Video w/ Audio: {len(processed_video_with_audio)}")
-                    if processed_video_with_audio:
-                        for v in processed_video_with_audio[:8]:
-                            print(f"  - {v['quality']} ({v['ext']})")
-                    print(f"Video Only: {len(processed_video_only)}")
-                    if processed_video_only:
-                        for v in processed_video_only[:6]:
-                            print(f"  - {v['quality']} ({v['ext']})")
-                    print(f"Audio: {len(processed_audio)}")
-                    if processed_audio:
-                        for a in processed_audio[:8]:
-                            print(f"  - {a['quality']} ({a['ext']})")
-                    print(f"{'='*60}\n")
 
                     return jsonify(video_info)
 

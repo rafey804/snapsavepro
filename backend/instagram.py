@@ -10,30 +10,10 @@ class InstagramDownloader:
         self.browser_cookies = self._detect_available_browser()
 
     def _detect_available_browser(self):
-        """Detect which browser to use for cookie extraction"""
-        browsers = ['chrome', 'firefox', 'edge', 'safari', 'chromium', 'brave', 'opera']
-
-        for browser in browsers:
-            try:
-                # Create a temporary YoutubeDL instance to test cookie access
-                test_opts = {
-                    'quiet': True,
-                    'no_warnings': True,
-                    'cookiesfrombrowser': (browser,),
-                    'extract_flat': True,
-                    'skip_download': True,
-                }
-
-                # Try to initialize with cookies
-                with yt_dlp.YoutubeDL(test_opts) as ydl:
-                    # If we get here, cookies are accessible
-                    print(f"Successfully detected browser cookies for Instagram: {browser}")
-                    return browser
-            except Exception as e:
-                print(f"Browser {browser} cookies not accessible for Instagram: {str(e)}")
-                continue
-
-        print("No browser cookies available for Instagram, proceeding without cookies")
+        """Detect which browser to use for cookie extraction - disabled for production"""
+        # Disable browser cookie detection to avoid errors in production environment
+        # Browser cookies are not available in server/VPS environments
+        print("Browser cookie detection disabled for production environment")
         return None
     
     def get_robust_instagram_opts(self, base_opts=None, attempt=0):
@@ -91,9 +71,9 @@ class InstagramDownloader:
             'extractor_args': {
                 'instagram': {
                     'api_hostname': 'i.instagram.com',
-                    'webpage_api': attempt < 2,  # Try webpage first
+                    'webpage_api': True,  # Always try webpage API
                     'mobile_api': True,
-                    'prefer_graphql': attempt >= 1,  # Use GraphQL as fallback
+                    'prefer_graphql': False,  # Disable GraphQL as it requires auth
                 }
             },
 
@@ -102,12 +82,9 @@ class InstagramDownloader:
             'geo_bypass_country': 'US',
         }
 
-        # Add cookie support if browser is available
-        if self.browser_cookies:
-            print(f"Using cookies from browser for Instagram: {self.browser_cookies}")
-            instagram_opts['cookiesfrombrowser'] = (self.browser_cookies,)
-        else:
-            print("No browser cookies available for Instagram - may encounter authentication errors")
+        # Browser cookies disabled for production
+        # Instagram public posts should work without authentication
+        print("Running without browser cookies (production mode)")
 
         # Merge production options to prevent blocking
         production_opts = get_production_download_opts()
@@ -318,22 +295,29 @@ class InstagramDownloader:
                 last_error = e
                 error_msg = str(e).lower()
                 print(f"Instagram attempt {attempt + 1} failed: {error_msg}")
-                
-                if 'login' in error_msg or 'cookie' in error_msg:
+
+                # Check if it's an authentication/login issue
+                if 'login' in error_msg or 'cookie' in error_msg or 'authentication' in error_msg or 'not authenticated' in error_msg:
+                    # Try all attempts before giving up
                     if attempt < max_attempts - 1:
-                        time.sleep(3 + attempt)
+                        print(f"Retrying without authentication requirement (attempt {attempt + 2}/{max_attempts})")
+                        time.sleep(2 + attempt)
                         continue
                     else:
+                        # Final attempt failed - provide helpful error message
                         return jsonify({
                             'error': 'Instagram requires authentication for this content.',
-                            'suggestion': 'Try with a public Instagram post or reel that doesn\'t require login.'
+                            'details': 'This post may be private or require login. Please try with a different public post or reel.',
+                            'suggestion': 'Only public Instagram posts and reels can be downloaded without authentication.'
                         }), 400
-                
-                if 'private' in error_msg or 'unavailable' in error_msg:
+
+                # Check for other fatal errors
+                if 'private' in error_msg or 'unavailable' in error_msg or 'not found' in error_msg:
                     break
-                
+
+                # Retry for other errors
                 if attempt < max_attempts - 1:
-                    time.sleep(3 + attempt)
+                    time.sleep(2 + attempt)
                     continue
                 else:
                     raise e
