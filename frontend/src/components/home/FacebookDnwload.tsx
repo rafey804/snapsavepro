@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Search, Download, Clock, Eye, User, FileVideo, Music, Loader, CheckCircle, AlertTriangle, Heart, MessageCircle, Video, Share2, Volume2, VolumeX, PlayCircle, ImageIcon } from 'lucide-react';
+import NativeBanner from '../ads/NativeBanner';
 
 interface VideoFormat {
   quality: string;
@@ -630,7 +631,8 @@ export default function FacebookDownloader() {
             </div>
           </div>
         )}
-
+          {/* ✅ Native Banner Ad - After tool, before instructions */}
+      <NativeBanner />
         {/* Video Info and Download Section - Mobile Responsive */}
         {videoInfo && (
           <div className="max-w-6xl mx-auto px-4 sm:px-0">

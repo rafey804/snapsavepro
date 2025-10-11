@@ -6,6 +6,8 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
 import { homePageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
+import NativeBanner from '@/components/ads/NativeBanner';
+import SmallBanner from '@/components/ads/SmallBanner';
 
 // SEO Metadata for Home Page
 export const metadata: Metadata = {
@@ -88,7 +90,11 @@ const HomePage = () => {
       </header>
 
       <TikTokDownloader/>
+       {/* ✅ Native Banner Ad #1 */}
+      <NativeBanner />
       <HowToDownload platform="TikTok" platformColor="pink" />
+       {/* ✅ Small Banner Ad */}
+      <SmallBanner />
       <InfoSection platform="TikTok" platformColor="pink" />
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />
       <ReviewsSection reviews={tiktokReviews} />
