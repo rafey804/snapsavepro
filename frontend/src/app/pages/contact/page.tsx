@@ -111,12 +111,12 @@ export default function ContactPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ContactPage",
-            "name": "Contact Us - YouTube Downloader Support",
-            "description": "Get help with YouTube video downloads, report issues, or contact our support team",
-            "url": "https://downloaderpr.com/contact",
+            "name": "Contact Us - Snap Save Pro Support",
+            "description": "Get help with video downloads, report issues, or contact our support team",
+            "url": "https://snapsavepro.com/pages/contact",
             "mainEntity": {
               "@type": "Organization",
-              "name": "Downloader Pro",
+              "name": "Snap Save Pro",
               "email": "solutions@nafeytech.com",
               "contactPoint": {
                 "@type": "ContactPoint",

@@ -22,8 +22,45 @@ export default function BlogDetailPage() {
     );
   }
 
+  // Generate BlogPosting Schema
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": blog.title,
+    "description": blog.description,
+    "image": `https://snapsavepro.com${blog.image || '/og-multi-platform-downloader.png'}`,
+    "datePublished": blog.date,
+    "dateModified": blog.date,
+    "author": {
+      "@type": "Person",
+      "name": "Snap Save Pro Team"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Snap Save Pro",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://snapsavepro.com/icon.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://snapsavepro.com/blog/${blog.slug}`
+    },
+    "keywords": blog.tags.join(', '),
+    "articleSection": blog.category,
+    "wordCount": blog.content.introduction.split(' ').length +
+                 blog.content.sections.reduce((acc: number, section: any) => acc + section.content.split(' ').length, 0)
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 pt-20">
+      {/* BlogPosting Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
+
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/10 via-purple-600/5 to-pink-600/10" />
 
       <div className="relative z-10 container mx-auto px-4 py-12 max-w-4xl">

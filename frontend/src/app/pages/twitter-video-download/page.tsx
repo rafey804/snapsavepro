@@ -12,7 +12,23 @@ import DetailedInstructionsSection from './../../../components/details/DetailedI
 export const metadata: Metadata = {
   title: "Twitter Video Downloader - Download X Videos Without Watermark | Snap Save Pro",
   description: "Download Twitter and X videos in HD quality without watermark. Fast, free, and easy Twitter video downloader. Supports all video formats from Twitter/X posts.",
-  keywords: "twitter video downloader, x video downloader, download twitter videos, x video download, twitter video download without watermark, twitter downloader, x downloader, save twitter videos",
+  keywords: [
+    'twitter video downloader',
+    'x video downloader',
+    'download twitter videos',
+    'x video download',
+    'twitter video download without watermark',
+    'twitter downloader',
+    'x downloader',
+    'save twitter videos',
+    'twitter video saver',
+    'x video saver',
+    'download x videos',
+    'twitter video download hd',
+    'x video download hd',
+    'twitter video downloader online',
+    'free twitter downloader'
+  ],
   openGraph: {
     title: "Twitter/X Video Downloader - Download Videos Without Watermark",
     description: "Download Twitter and X videos in HD quality without watermark. Fast, free, and easy video downloader.",

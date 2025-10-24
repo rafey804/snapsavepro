@@ -53,6 +53,7 @@ export const metadata: Metadata = {
     title: "YouTube Video Downloader - Download HD Videos Free",
     description: "Download YouTube videos in HD, MP4, MP3. Free YouTube downloader with 4K support.",
     images: ['/og-youtube-downloader.png'],
+    creator: '@snapsavepro',
   },
   alternates: {
     canonical: "https://snapsavepro.com/pages/youtube-downloader",
@@ -166,6 +167,32 @@ const YouTubePage = () => {
                 "text": faq.answer
               }
             })) || []
+          })
+        }}
+      />
+
+      {/* VideoObject Schema Example */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "How to Download YouTube Videos Tutorial",
+            "description": "Learn how to download YouTube videos in HD quality using Snap Save Pro. Simple, fast, and free video downloader.",
+            "thumbnailUrl": "https://snapsavepro.com/og-youtube-downloader.png",
+            "uploadDate": "2024-01-01",
+            "duration": "PT2M",
+            "contentUrl": "https://snapsavepro.com/pages/youtube-downloader",
+            "embedUrl": "https://snapsavepro.com/pages/youtube-downloader",
+            "publisher": {
+              "@type": "Organization",
+              "name": "Snap Save Pro",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://snapsavepro.com/icon.png"
+              }
+            }
           })
         }}
       />

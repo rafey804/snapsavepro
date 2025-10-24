@@ -113,6 +113,7 @@ export const metadata: Metadata = {
     title: "Snapchat Video Downloader - Free HD Download",
     description: "Download Snapchat videos, Spotlight, and stories in HD quality without watermark.",
     images: ["/snapchat-downloader-twitter.png"],
+    creator: '@snapsavepro',
   },
   alternates: {
     canonical: "https://snapsavepro.com/pages/snapchat-video-download",

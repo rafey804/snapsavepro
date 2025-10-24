@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     title: audioPageSEO.title,
     description: audioPageSEO.description,
     images: [audioPageSEO.ogImage],
+    creator: '@snapsavepro',
   },
   alternates: { canonical: audioPageSEO.canonicalUrl },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 }},

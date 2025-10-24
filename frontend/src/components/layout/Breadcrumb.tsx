@@ -24,12 +24,14 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         "name": "Home",
         "item": "https://snapsavepro.com"
       },
-      ...items.map((item, index) => ({
-        "@type": "ListItem",
-        "position": index + 2,
-        "name": item.label,
-        "item": item.href ? `https://snapsavepro.com${item.href}` : undefined
-      }))
+      ...items
+        .filter(item => item.href) // Only include items with href
+        .map((item, index) => ({
+          "@type": "ListItem",
+          "position": index + 2,
+          "name": item.label,
+          "item": `https://snapsavepro.com${item.href}`
+        }))
     ]
   };
 

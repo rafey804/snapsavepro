@@ -10,7 +10,23 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Reddit Video & Image Downloader - Download Reddit Posts | Snap Save Pro",
   description: "Download Reddit videos and images in HD quality. Fast, free Reddit downloader. Supports v.redd.it, i.redd.it and all Reddit post formats.",
-  keywords: "reddit video downloader, reddit image downloader, download reddit videos, v.redd.it downloader, reddit downloader, save reddit videos, reddit post downloader",
+  keywords: [
+    'reddit video downloader',
+    'reddit image downloader',
+    'download reddit videos',
+    'v.redd.it downloader',
+    'reddit downloader',
+    'save reddit videos',
+    'reddit post downloader',
+    'reddit video saver',
+    'i.redd.it downloader',
+    'download reddit posts',
+    'reddit video download hd',
+    'reddit gif downloader',
+    'reddit media downloader',
+    'free reddit downloader',
+    'reddit content downloader'
+  ],
   openGraph: {
     title: "Reddit Video & Image Downloader - Download Reddit Posts",
     description: "Download Reddit videos and images in HD quality. Fast, free and easy Reddit downloader.",
@@ -30,6 +46,7 @@ export const metadata: Metadata = {
     title: "Reddit Video & Image Downloader",
     description: "Download Reddit videos and images in HD quality.",
     images: ['https://snapsavepro.com/og-reddit.png'],
+    creator: '@snapsavepro',
   },
   alternates: {
     canonical: "https://snapsavepro.com/pages/reddit-video-download",

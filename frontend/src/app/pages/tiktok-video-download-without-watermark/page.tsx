@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     title: homePageSEO.title,
     description: homePageSEO.description,
     images: [homePageSEO.ogImage],
+    creator: '@snapsavepro',
   },
   alternates: {
     canonical: "https://snapsavepro.com/pages/tiktok-video-download-without-watermark",

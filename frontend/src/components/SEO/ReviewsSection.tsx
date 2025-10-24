@@ -15,8 +15,44 @@ interface ReviewsSectionProps {
 }
 
 export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
+  // Generate Schema.org Review structured data
+  const reviewSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Snap Save Pro",
+    "description": "Multi-platform video downloader",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": reviews.length.toString(),
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": reviews.map((review) => ({
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": review.name
+      },
+      "datePublished": review.date,
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": review.rating.toString(),
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "reviewBody": review.comment
+    }))
+  };
+
   return (
     <div className="bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 py-12">
+      {/* Schema.org Review Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+      />
+
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
