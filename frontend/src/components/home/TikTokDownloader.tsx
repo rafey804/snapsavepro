@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Search, Download, Play, Clock, Eye, User, FileVideo, Music, Loader, CheckCircle, AlertTriangle, Heart, MessageCircle, Share2, Star } from 'lucide-react';
 
+
 interface VideoFormat {
   quality: string;
   type: 'video' | 'audio';
@@ -517,7 +518,7 @@ export default function TikTokDownloader() {
             </div>
           </div>
         )}
-
+   
         {/* Video Info and Download Section - Mobile Responsive */}
         {videoInfo && (
           <div className="max-w-6xl mx-auto px-4 sm:px-0">

@@ -1,19 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Mail, 
-  MessageSquare, 
-  Clock, 
-  Shield, 
-  CheckCircle, 
-  AlertCircle,
+import {
+  Mail,
+  MessageSquare,
+  Clock,
+  CheckCircle,
   Send,
   User,
-  Phone,
-  MapPin,
-  Globe,
-  Zap,
   Users,
   Star,
   HelpCircle,
@@ -30,8 +24,6 @@ export default function ContactPage() {
     category: 'general',
     message: ''
   });
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [formMessage, setFormMessage] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -40,10 +32,6 @@ export default function ContactPage() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent | React.MouseEvent) => {
-    // This function is no longer needed since we're using HTML form submission
-    // The form will automatically submit to FormSubmit
-  };
 
   const contactOptions = [
     {
@@ -375,8 +363,8 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-white">We Value Your Feedback</h2>
             </div>
             <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Your suggestions help us improve our YouTube downloader service. 
-              Whether it's a feature request, bug report, or general feedback, we read every message and use it to enhance your experience.
+              Your suggestions help us improve our YouTube downloader service.
+              Whether it&apos;s a feature request, bug report, or general feedback, we read every message and use it to enhance your experience.
             </p>
           </div>
         </div>

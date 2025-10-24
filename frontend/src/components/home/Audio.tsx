@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import { Search, Download, Clock, Eye, User, Music, Loader, CheckCircle, AlertTriangle, Heart, Volume2, Play, Headphones, Radio, Link, Globe, ExternalLink } from 'lucide-react';
-import NativeBanner from '../ads/NativeBanner';
 
 // Interface definitions
 interface AudioFormat {
@@ -540,9 +539,7 @@ export default function AudioDownloader() {
             </div>
           </div>
         )}
-        {/* ✅ Native Banner Ad - After tool, before instructions */}
-      <NativeBanner />
-        {/* Audio Info and Download Section */}
+     
         {audioInfo && (
           <div className="max-w-6xl mx-auto px-4 sm:px-0">
             <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
@@ -626,7 +623,7 @@ export default function AudioDownloader() {
                     </div>
                   </div>
                 </div>
-
+                  
                 {/* Download Options */}
                 <div className="space-y-4 sm:space-y-6">
                   <div>

@@ -5,54 +5,9 @@ import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
 import { homePageSEO } from "@/data/comprehensiveSEOData";
-import type { Metadata } from "next";
-import NativeBanner from '@/components/ads/NativeBanner';
-import SmallBanner from '@/components/ads/SmallBanner';
+import TikTokContentSection from '@/components/SEO/TikTokContentSection';
 
-// SEO Metadata for Home Page
-export const metadata: Metadata = {
-  title: homePageSEO.title,
-  description: homePageSEO.description,
-  keywords: homePageSEO.keywords,
-  openGraph: {
-    title: homePageSEO.title,
-    description: homePageSEO.description,
-    url: homePageSEO.canonicalUrl,
-    siteName: 'Snap Save Pro',
-    images: [
-      {
-        url: homePageSEO.ogImage,
-        width: 1200,
-        height: 630,
-        alt: 'TikTok Video Downloader Without Watermark',
-      }
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: homePageSEO.title,
-    description: homePageSEO.description,
-    images: [homePageSEO.ogImage],
-  },
-  alternates: {
-    canonical: homePageSEO.canonicalUrl,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-};
-
-const HomePage = () => {
+export default function HomePage() {
   return (
     <>
       {/* Schema.org structured data for TikTok Downloader */}
@@ -90,16 +45,12 @@ const HomePage = () => {
       </header>
 
       <TikTokDownloader/>
-       {/* ✅ Native Banner Ad #1 */}
-      <NativeBanner />
+
       <HowToDownload platform="TikTok" platformColor="pink" />
-       {/* ✅ Small Banner Ad */}
-      <SmallBanner />
       <InfoSection platform="TikTok" platformColor="pink" />
+      <TikTokContentSection/>
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />
       <ReviewsSection reviews={tiktokReviews} />
     </>
   );
 }
-
-export default HomePage

@@ -3,6 +3,8 @@ import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
+import FacebookContentSection from "@/components/SEO/FacebookContentSection";
+import Breadcrumb from "@/components/layout/Breadcrumb";
 import { facebookFAQs, facebookReviews } from "@/data/pageSEOData";
 import { facebookPageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
@@ -36,9 +38,11 @@ const FacebookPage = () => {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@type": "WebPage", "name": facebookPageSEO.h1, "description": facebookPageSEO.description, "url": facebookPageSEO.canonicalUrl, "mainEntity": { "@type": "SoftwareApplication", "name": "Facebook Video Downloader", "applicationCategory": "MultimediaApplication", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "5432" }}})}} />
       <header className="sr-only"><h1>{facebookPageSEO.h1}</h1></header>
+      <Breadcrumb items={[{ label: "Facebook Video Downloader" }]} />
       <FacebookDownloader/>
       <HowToDownload platform="Facebook" platformColor="blue" />
       <InfoSection platform="Facebook" platformColor="blue" />
+      <FacebookContentSection />
       <FAQSection faqs={facebookFAQs} platform="Facebook" />
       <ReviewsSection reviews={facebookReviews} />
     </>

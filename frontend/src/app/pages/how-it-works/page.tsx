@@ -2,20 +2,17 @@
 
 import React, { useState } from 'react';
 import Head from 'next/head';
-import { 
-  Search, 
-  Download, 
-  Play, 
-  Clock, 
-  Shield, 
-  Zap, 
-  Globe, 
-  CheckCircle, 
+import Link from 'next/link';
+import {
+  Search,
+  Download,
+  Shield,
+  Zap,
+  Globe,
+  CheckCircle,
   ArrowRight,
   Copy,
   Settings,
-  FileVideo,
-  Music,
   Smartphone,
   Monitor,
   Tablet,
@@ -378,13 +375,13 @@ export default function HowItWorksPage() {
                 Try our free YouTube video downloader now. No registration required, 
                 completely secure, and works with all video qualities.
               </p>
-              <a 
+              <Link
                 href="/"
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-600 hover:to-emerald-600 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
               >
                 <Download className="h-5 w-5" />
                 Start Downloading Now
-              </a>
+              </Link>
             </div>
           </section>
         </div>

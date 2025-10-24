@@ -17,10 +17,10 @@ load_dotenv()
 
 # Import platform-specific modules
 from tiktok import TiktokDownloader
-from instagram import InstagramDownloader
+from snapchat import SnapchatDownloader
 from facebook import FacebookDownloader
-from youtube import YouTubeDownloader
 from audio_downloader import AudioDownloader
+from pinterest import PinterestDownloader
 from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
@@ -61,9 +61,13 @@ executor = ThreadPoolExecutor(max_workers=4)
 # Initialize platform downloaders
 try:
     tiktok_downloader = TiktokDownloader()
-    instagram_downloader = InstagramDownloader()
+    snapchat_downloader = SnapchatDownloader()
     facebook_downloader = FacebookDownloader()
-    youtube_downloader = YouTubeDownloader()
+    from twitter import TwitterDownloader
+    twitter_downloader = TwitterDownloader()
+    from reddit import RedditDownloader
+    reddit_downloader = RedditDownloader()
+    pinterest_downloader = PinterestDownloader()
     audio_downloader = AudioDownloader()
     logger.info("All platform downloaders initialized successfully")
 except Exception as e:
@@ -117,22 +121,26 @@ def get_video_info():
             return jsonify({'error': 'URL is required'}), 400
         
         platform = detect_platform(url)
-        
+
         if platform == 'unknown':
-            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Facebook, or YouTube URL'}), 400
+            return jsonify({'error': 'Please provide a valid TikTok, Snapchat or Facebook URL'}), 400
 
         logger.info(f"Processing {platform.upper()} URL: {url}")
 
         # Route to appropriate platform handler
         if platform == 'tiktok':
             return tiktok_downloader.get_video_info(url)
-        elif platform == 'instagram':
-            return instagram_downloader.get_video_info(url)
+        elif platform == 'snapchat':
+            return snapchat_downloader.get_video_info(url)
+        elif platform == 'twitter':
+            return twitter_downloader.get_video_info(url)
+        elif platform == 'reddit':
+            return reddit_downloader.get_video_info(url)
+        elif platform == 'pinterest':
+            return pinterest_downloader.get_video_info(url)
         elif platform == 'facebook':
             return facebook_downloader.get_video_info(url)
-        elif platform == 'youtube':
-            return youtube_downloader.get_video_info(url)
-            
+
     except Exception as e:
         logger.error(f"Unexpected error in get_video_info: {str(e)}")
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
@@ -175,7 +183,8 @@ def download_video():
         platform = data.get('platform', detect_platform(url))
         is_conversion = data.get('is_conversion', False)
         direct_url = data.get('direct_url')  # For direct audio downloads
-        
+        image_url = data.get('image_url')  # For direct image downloads
+
         if not url or not format_id:
             return jsonify({'error': 'URL and format_id are required'}), 400
         
@@ -214,9 +223,9 @@ def download_video():
                 )
         else:
             future = executor.submit(
-                download_worker, download_id, url, format_id, download_type, 
+                download_worker, download_id, url, format_id, download_type,
                 original_ext, target_bitrate, duration, platform, is_conversion,
-                download_progress, download_files
+                download_progress, download_files, image_url
             )
         
         return jsonify({'download_id': download_id})
@@ -311,10 +320,10 @@ def health_check():
         import yt_dlp
         return jsonify({
             'status': 'healthy',
-            'service': 'TikTok, Instagram & Facebook Video Downloader',
+            'service': 'TikTok, Snapchat & Facebook Video Downloader',
             'active_downloads': len(download_progress),
             'cached_files': len(download_files),
-            'supported_platforms': ['tiktok', 'instagram', 'facebook'],
+            'supported_platforms': ['tiktok', 'snapchat', 'facebook'],
             'yt_dlp_version': yt_dlp.version.__version__,
             'debug_mode': DEBUG,
             'allowed_origins': ALLOWED_ORIGINS

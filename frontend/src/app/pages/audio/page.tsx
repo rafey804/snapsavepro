@@ -3,6 +3,7 @@ import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
+import AudioContentSection from "@/components/SEO/AudioContentSection";
 import { audioFAQs, audioReviews } from "@/data/pageSEOData";
 import { audioPageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
@@ -39,6 +40,7 @@ const AudioPage = () => {
       <AudioDownloader/>
       <HowToDownload platform="Audio" platformColor="emerald" />
       <InfoSection platform="Audio" platformColor="emerald" />
+      <AudioContentSection />
       <FAQSection faqs={audioFAQs} platform="Audio" />
       <ReviewsSection reviews={audioReviews} />
     </>

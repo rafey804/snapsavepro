@@ -58,7 +58,7 @@ class ProgressHook:
             }
 
 def detect_platform(url):
-    """Detect if URL is TikTok, Instagram, Facebook, or YouTube"""
+    """Detect if URL is TikTok, Facebook, Snapchat, or YouTube"""
     url = url.strip().lower()
 
     # YouTube patterns
@@ -86,17 +86,23 @@ def detect_platform(url):
         if re.match(pattern, url):
             return 'tiktok'
 
-    # Instagram patterns
-    instagram_patterns = [
-        r'(?:https?://)?(?:www\.)?instagram\.com/p/[\w-]+/?',
-        r'(?:https?://)?(?:www\.)?instagram\.com/reel/[\w-]+/?',
-        r'(?:https?://)?(?:www\.)?instagram\.com/reels/[\w-]+/?',
-        r'(?:https?://)?(?:www\.)?instagram\.com/tv/[\w-]+/?',
+    
+    # Snapchat patterns - More comprehensive
+    snapchat_patterns = [
+        r'(?:https?://)?(?:www\.)?snapchat\.com/add/[\w.-]+/?',
+        r'(?:https?://)?(?:www\.)?snapchat\.com/@[\w.-]+/spotlight/[\w_-]+/?',  # User spotlight
+        r'(?:https?://)?(?:www\.)?snapchat\.com/spotlight/[\w_-]+/?',  # Direct spotlight
+        r'(?:https?://)?(?:www\.)?snapchat\.com/t/[\w_-]+/?',
+        r'(?:https?://)?(?:www\.)?snapchat\.com/p/[\w_-]+/?',
+        r'(?:https?://)?t\.snapchat\.com/[\w_-]+/?',
+        r'(?:https?://)?(?:www\.)?snapchat\.com/@[\w.-]+/?',  # User profile
+        r'(?:https?://)?(?:story|www)\.snapchat\.com/(?:s|p)/[\w_-]+/?',
+        r'(?:https?://)?(?:www\.)?snapchat\.com/discover/[\w_-]+/[\w_-]+/?',  # Discover stories
     ]
 
-    for pattern in instagram_patterns:
+    for pattern in snapchat_patterns:
         if re.match(pattern, url):
-            return 'instagram'
+            return 'snapchat'
 
     # Facebook patterns
     facebook_patterns = [
@@ -111,7 +117,45 @@ def detect_platform(url):
     for pattern in facebook_patterns:
         if re.match(pattern, url):
             return 'facebook'
-    
+
+    # Twitter/X patterns
+    # Reddit patterns
+    reddit_patterns = [
+        r'(?:https?://)?(?:www\.|old\.|new\.)?reddit\.com/r/[\w]+/comments/[\w]+',
+        r'(?:https?://)?(?:www\.|old\.|new\.)?reddit\.com/r/[\w]+/s/[\w]+',
+        r'(?:https?://)?(?:www\.)?redd\.it/[\w]+',
+        r'(?:https?://)?v\.redd\.it/[\w]+',
+        r'(?:https?://)?i\.redd\.it/[\w]+',
+    ]
+
+    for pattern in reddit_patterns:
+        if re.match(pattern, url):
+            return 'reddit'
+
+    twitter_patterns = [
+        r'(?:https?://)?(?:www\.|mobile\.)?twitter\.com/[\w]+/status/\d+',
+        r'(?:https?://)?(?:www\.|mobile\.)?x\.com/[\w]+/status/\d+',
+        r'(?:https?://)?(?:www\.)?twitter\.com/i/status/\d+',
+        r'(?:https?://)?(?:www\.)?x\.com/i/status/\d+',
+        r'(?:https?://)?t\.co/[\w]+',  # Twitter short URLs
+    ]
+
+    for pattern in twitter_patterns:
+        if re.match(pattern, url):
+            return 'twitter'
+
+    # Pinterest patterns
+    pinterest_patterns = [
+        r'(?:https?://)?(?:www\.)?pinterest\.com/pin/\d+/?',
+        r'(?:https?://)?(?:www\.)?pinterest\.com/pin/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?pinterest\.[a-z.]+/pin/\d+/?',
+        r'(?:https?://)?(?:www\.)?pin\.it/[\w-]+/?',
+    ]
+
+    for pattern in pinterest_patterns:
+        if re.match(pattern, url):
+            return 'pinterest'
+
     return 'unknown'
 
 def get_best_thumbnail(info):
@@ -179,10 +223,10 @@ def detect_audio_in_format(fmt):
     
     return False
 
-def download_worker(download_id, url, format_id, download_type, original_ext='mp4', 
+def download_worker(download_id, url, format_id, download_type, original_ext='mp4',
                    target_bitrate=192, duration=0, platform='tiktok', is_conversion=False,
-                   download_progress=None, download_files=None):
-    """Enhanced download worker with better audio handling"""
+                   download_progress=None, download_files=None, image_url=None):
+    """Enhanced download worker with better audio handling and image support"""
     temp_dir = None
     try:
         download_progress[download_id] = {
@@ -190,9 +234,49 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             'percent': 5,
             'platform': platform
         }
-        
+
         temp_dir = tempfile.mkdtemp()
-        
+
+        # Handle direct image downloads
+        if download_type == 'image' and image_url:
+            download_progress[download_id] = {
+                'status': 'downloading',
+                'percent': 30,
+                'platform': platform
+            }
+
+            # Download image directly
+            import requests
+            response = requests.get(image_url, timeout=60)
+            response.raise_for_status()
+
+            # Determine file extension from URL or content-type
+            ext = original_ext if original_ext != 'mp4' else 'jpg'
+            if 'png' in image_url.lower():
+                ext = 'png'
+            elif 'webp' in image_url.lower():
+                ext = 'webp'
+
+            output_file = os.path.join(temp_dir, f'{platform}_image.{ext}')
+            with open(output_file, 'wb') as f:
+                f.write(response.content)
+
+            download_progress[download_id] = {
+                'status': 'completed',
+                'percent': 100,
+                'platform': platform
+            }
+
+            # Store file info in proper format
+            download_files[download_id] = {
+                'filepath': output_file,
+                'filename': os.path.basename(output_file),
+                'platform': platform,
+                'temp_dir': temp_dir
+            }
+            print(f"Image download completed: {output_file}")
+            return
+
         download_progress[download_id] = {
             'status': 'downloading',
             'percent': 10,
@@ -207,23 +291,35 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 'progress_hooks': [ProgressHook(download_id, download_progress)],
                 'keepvideo': False,
             })
-        elif platform == 'instagram':
-            from instagram import InstagramDownloader
-            downloader = InstagramDownloader()
-            base_opts = downloader.get_robust_instagram_opts({
+        elif platform == 'snapchat':
+            from snapchat import SnapchatDownloader
+            downloader = SnapchatDownloader()
+            base_opts = downloader.get_robust_snapchat_opts({
                 'progress_hooks': [ProgressHook(download_id, download_progress)],
                 'keepvideo': False,
             })
-        elif platform == 'youtube':
-            from youtube import YouTubeDownloader
-            downloader = YouTubeDownloader()
-            base_opts = downloader.get_robust_youtube_opts({
+        elif platform == 'twitter':
+            from twitter import TwitterDownloader
+            downloader = TwitterDownloader()
+            base_opts = downloader.get_robust_twitter_opts({
                 'progress_hooks': [ProgressHook(download_id, download_progress)],
-                'keepvideo': True,  # Keep video to avoid re-encoding
-                'postprocessors': [],  # Disable all post-processing
-                'noprogress': False,
-                'no_post_overwrites': True,  # Don't overwrite after post-processing
+                'keepvideo': False,
             })
+        elif platform == 'reddit':
+            from reddit import RedditDownloader
+            downloader = RedditDownloader()
+            base_opts = downloader.get_robust_reddit_opts({
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'keepvideo': False,
+            })
+        elif platform == 'pinterest':
+            from pinterest import PinterestDownloader
+            downloader = PinterestDownloader()
+            base_opts = {
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'quiet': True,
+                'no_warnings': True,
+            }
         else:  # facebook
             from facebook import FacebookDownloader
             downloader = FacebookDownloader()
@@ -235,10 +331,17 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
         # Enhanced format selection and audio handling
         if download_type == 'audio':
             # For audio downloads, use the best format and extract audio
+            # Handle unique format_id (e.g., "0_audio_192kbps" -> extract "0")
+            actual_format_id = format_id
+            if '_audio_' in format_id:
+                # Extract original format_id before the suffix
+                actual_format_id = format_id.split('_audio_')[0]
+                print(f"Audio download: Using original format_id '{actual_format_id}' from '{format_id}'")
+
             ydl_opts = {
                 **base_opts,
-                'format': f'{format_id}/best[height<=1080]+bestaudio/best',
-                'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
+                'format': f'{actual_format_id}/best[height<=1080]+bestaudio/best',
+                'outtmpl': os.path.join(temp_dir, f'{platform}_audio.%(ext)s'),  # Use simple filename to avoid Unicode issues
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
@@ -246,11 +349,25 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 }],
                 'prefer_ffmpeg': True,
                 'merge_output_format': 'mp3',
+                'restrictfilenames': False,  # Allow unicode in filenames
+                'windowsfilenames': True,  # Make filenames Windows-compatible
             }
         else:
             # For video downloads, ensure we get the format with audio
             if platform == 'instagram':
                 # For Instagram, try to get video+audio merged
+                video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
+            elif platform == 'snapchat':
+                # For Snapchat, try to get video+audio merged
+                video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
+            elif platform == 'twitter':
+                # For Twitter, try to get video+audio merged
+                video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
+            elif platform == 'reddit':
+                # For Reddit, try to get video+audio merged
+                video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
+            elif platform == 'pinterest':
+                # For Pinterest, try to get video+audio merged
                 video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
             elif platform == 'facebook':
                 # For Facebook, try to get video+audio merged
@@ -265,7 +382,9 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             ydl_opts = {
                 **base_opts,
                 'format': video_format,
-                'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
+                'outtmpl': os.path.join(temp_dir, f'{platform}_video.%(ext)s'),  # Use simple filename to avoid Unicode issues
+                'restrictfilenames': False,  # Allow unicode in filenames
+                'windowsfilenames': True,  # Make filenames Windows-compatible
             }
 
             # For YouTube, add extra options to prevent re-processing
@@ -415,6 +534,36 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 error_msg = "TikTok video unavailable. It may have been deleted."
             elif '403' in error_msg or 'forbidden' in error_msg.lower():
                 error_msg = "Access denied. Video may be geo-restricted."
+        elif platform == 'snapchat':
+            if 'login' in error_msg.lower() or 'private' in error_msg.lower():
+                error_msg = "This Snapchat content is private or requires login."
+            elif 'unavailable' in error_msg.lower() or 'not found' in error_msg.lower():
+                error_msg = "Snapchat content unavailable or deleted."
+            elif '403' in error_msg or 'forbidden' in error_msg.lower():
+                error_msg = "Access denied. Content may be restricted."
+            elif 'geo' in error_msg.lower() or 'region' in error_msg.lower():
+                error_msg = "This Snapchat content is not available in your region."
+        elif platform == 'twitter':
+            if 'login' in error_msg.lower() or 'private' in error_msg.lower() or 'protected' in error_msg.lower():
+                error_msg = "This Twitter post is private or protected."
+            elif 'unavailable' in error_msg.lower() or 'not found' in error_msg.lower():
+                error_msg = "Twitter video unavailable or deleted."
+            elif '403' in error_msg or 'forbidden' in error_msg.lower():
+                error_msg = "Access denied. Tweet may be restricted."
+        elif platform == 'reddit':
+            if 'removed' in error_msg.lower() or 'deleted' in error_msg.lower():
+                error_msg = "This Reddit post has been removed or deleted."
+            elif 'private' in error_msg.lower() or 'nsfw' in error_msg.lower():
+                error_msg = "This Reddit post is private or requires login."
+            elif '403' in error_msg or 'forbidden' in error_msg.lower():
+                error_msg = "Access denied. Reddit post may be restricted."
+        elif platform == 'pinterest':
+            if 'login' in error_msg.lower() or 'private' in error_msg.lower():
+                error_msg = "This Pinterest pin is private or requires login."
+            elif 'removed' in error_msg.lower() or 'deleted' in error_msg.lower():
+                error_msg = "This Pinterest pin has been removed or deleted."
+            elif '403' in error_msg or 'forbidden' in error_msg.lower():
+                error_msg = "Access denied. Pinterest pin may be restricted."
         elif platform == 'instagram':
             if 'login' in error_msg.lower() or 'cookie' in error_msg.lower():
                 error_msg = "Instagram requires login for this content. Try a public post."
