@@ -1,4 +1,4 @@
-import TikTokDownloader from '@/components/home/TikTokDownloader'
+import TikTokDownloader from '@/components/home/TiktokDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
