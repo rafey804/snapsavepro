@@ -1,0 +1,157 @@
+================================================================================
+    INSTAGRAM REELS DOWNLOADER - VPS DEPLOYMENT GUIDE
+================================================================================
+
+OVERVIEW:
+Instagram downloader is now working with instagrapi library using your
+flip.filex account. Session is saved so no verification needed after first login.
+
+================================================================================
+STEP 1: UPLOAD FILES TO VPS
+================================================================================
+
+Upload these files to your Hostinger VPS:
+
+1. Backend File:
+   Local:  C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram.py
+   VPS:    /home/u996379/domains/snapsavepro.com/backend/instagram.py
+
+2. Session File:
+   Local:  C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_session.json
+   VPS:    /home/u996379/domains/snapsavepro.com/backend/instagram_session.json
+
+3. Frontend Component (if needed):
+   Local:  C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\src\components\home\InstagramDownloader.tsx
+   VPS:    /home/u996379/domains/snapsavepro.com/frontend/src/components/home/InstagramDownloader.tsx
+
+4. Frontend Page (if needed):
+   Local:  C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\src\app\pages\instagram-reels-downloader\page.tsx
+   VPS:    /home/u996379/domains/snapsavepro.com/frontend/src/app/pages/instagram-reels-downloader/page.tsx
+
+================================================================================
+STEP 2: INSTALL INSTAGRAPI ON VPS
+================================================================================
+
+SSH into your VPS and run:
+
+cd /home/u996379/domains/snapsavepro.com/backend
+source venv/bin/activate
+pip install instagrapi
+
+This will install:
+- instagrapi
+- pydantic
+- moviepy
+- and all dependencies
+
+================================================================================
+STEP 3: RESTART BACKEND ON VPS
+================================================================================
+
+Stop the backend:
+pm2 stop backend
+
+Start the backend:
+pm2 start backend
+pm2 save
+
+Or restart:
+pm2 restart backend
+
+Check logs:
+pm2 logs backend
+
+================================================================================
+STEP 4: REBUILD FRONTEND ON VPS (if frontend changed)
+================================================================================
+
+cd /home/u996379/domains/snapsavepro.com/frontend
+npm run build
+pm2 restart frontend
+pm2 save
+
+================================================================================
+STEP 5: TEST ON LIVE WEBSITE
+================================================================================
+
+Visit: https://snapsavepro.com/pages/instagram-reels-downloader
+
+Test with this URL: https://www.instagram.com/reel/DLe1o79Mk67/
+
+Expected Results:
+✅ Title: "Fr💔#fypシ #instadaily #viral..."
+✅ Uploader: baaz.ao.umer
+✅ Views: 1,974,478
+✅ Likes: 184,960
+✅ Video download URL working
+✅ Thumbnail showing
+
+================================================================================
+IMPORTANT NOTES:
+================================================================================
+
+1. CREDENTIALS:
+   Username: flip.filex
+   Password: Malik30277$$$
+   (Already hardcoded in instagram.py)
+
+2. SESSION FILE:
+   - instagram_session.json contains your logged-in session
+   - Must be uploaded to VPS backend directory
+   - Session expires after ~1 hour of inactivity, then auto-relogin
+   - If verification code needed again, check your email
+
+3. FILE PERMISSIONS:
+   Make sure instagram_session.json is readable:
+   chmod 644 /home/u996379/domains/snapsavepro.com/backend/instagram_session.json
+
+4. TROUBLESHOOTING:
+   If Instagram asks for verification code again:
+   - Check VPS logs: pm2 logs backend
+   - Session file might be corrupted
+   - Delete instagram_session.json and it will re-login automatically
+
+================================================================================
+TESTING COMMANDS FOR VPS:
+================================================================================
+
+# Test Instagram extraction on VPS:
+cd /home/u996379/domains/snapsavepro.com/backend
+source venv/bin/activate
+python3 << 'EOF'
+from instagram import InstagramDownloader
+url = "https://www.instagram.com/reel/DLe1o79Mk67/"
+try:
+    info = InstagramDownloader.get_video_info(url)
+    print(f"SUCCESS! Title: {info['title'][:50]}")
+    print(f"Views: {info['view_count']}")
+    print(f"Video URL: {info['formats']['video_formats'][0]['direct_url'][:80]}")
+except Exception as e:
+    print(f"ERROR: {str(e)}")
+EOF
+
+================================================================================
+WHAT WAS CHANGED:
+================================================================================
+
+1. Replaced yt-dlp with instagrapi library
+2. Added Instagram login authentication (flip.filex account)
+3. Session management to avoid repeated logins
+4. Direct API access to bypass Instagram restrictions
+5. Raw JSON parsing instead of pydantic models (to avoid validation errors)
+
+================================================================================
+WHY IT WORKS NOW:
+================================================================================
+
+Previous method (yt-dlp): ❌ Blocked by Instagram
+- Instagram requires authentication
+- Server IPs are blocked
+
+New method (instagrapi): ✅ Working
+- Uses your Instagram account
+- Authenticated API access
+- Session persistence
+- Direct video URL extraction
+
+================================================================================
