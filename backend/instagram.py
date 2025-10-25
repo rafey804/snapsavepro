@@ -3,10 +3,88 @@ import time
 import random
 import logging
 import os
+import requests
+import json
+import re
 
 logger = logging.getLogger(__name__)
 
 class InstagramDownloader:
+    @staticmethod
+    def extract_shortcode(url):
+        """Extract shortcode from Instagram URL"""
+        patterns = [
+            r'instagram\.com/(?:p|reel|reels|tv)/([A-Za-z0-9_-]+)',
+            r'instagr\.am/(?:p|reel)/([A-Za-z0-9_-]+)',
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, url)
+            if match:
+                return match.group(1)
+        return None
+
+    @staticmethod
+    def try_alternative_extraction(url):
+        """
+        Alternative Instagram extraction using direct API/embed methods
+        This is used as fallback when yt-dlp fails
+        """
+        try:
+            shortcode = InstagramDownloader.extract_shortcode(url)
+            if not shortcode:
+                raise Exception("Could not extract Instagram shortcode from URL")
+
+            logger.info(f"Trying alternative extraction for shortcode: {shortcode}")
+
+            # Method 1: Try Instagram embed endpoint
+            embed_url = f"https://www.instagram.com/p/{shortcode}/embed/"
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Referer': 'https://www.instagram.com/',
+            }
+
+            response = requests.get(embed_url, headers=headers, timeout=15)
+            if response.status_code == 200:
+                # Try to extract video URL from embed page
+                video_match = re.search(r'"video_url":"([^"]+)"', response.text)
+                if video_match:
+                    video_url = video_match.group(1).replace('\\u0026', '&')
+                    logger.info(f"Found video URL via embed: {video_url[:100]}...")
+
+                    # Extract basic info from embed page
+                    title_match = re.search(r'<title>([^<]+)</title>', response.text)
+                    title = title_match.group(1) if title_match else "Instagram Video"
+
+                    return {
+                        'method': 'embed',
+                        'video_url': video_url,
+                        'title': title,
+                        'shortcode': shortcode
+                    }
+
+            # Method 2: Try different embed format
+            embed_url2 = f"https://www.instagram.com/reel/{shortcode}/embed/"
+            response2 = requests.get(embed_url2, headers=headers, timeout=15)
+            if response2.status_code == 200:
+                video_match = re.search(r'"video_url":"([^"]+)"', response2.text)
+                if video_match:
+                    video_url = video_match.group(1).replace('\\u0026', '&')
+                    logger.info(f"Found video URL via reel embed: {video_url[:100]}...")
+                    return {
+                        'method': 'embed',
+                        'video_url': video_url,
+                        'title': "Instagram Reel",
+                        'shortcode': shortcode
+                    }
+
+            return None
+
+        except Exception as e:
+            logger.error(f"Alternative extraction failed: {str(e)}")
+            return None
+
     @staticmethod
     def get_robust_instagram_opts(base_opts, attempt=0):
         """
@@ -371,5 +449,41 @@ class InstagramDownloader:
                 # Continue to next attempt
                 continue
 
-        # If we get here, all attempts failed
+        # If we get here, all yt-dlp attempts failed - try alternative extraction
+        logger.warning(f"All yt-dlp attempts failed, trying alternative extraction...")
+        alt_result = InstagramDownloader.try_alternative_extraction(url)
+
+        if alt_result and alt_result.get('video_url'):
+            logger.info("Alternative extraction succeeded!")
+            # Convert alternative result to standard format
+            return {
+                'title': alt_result.get('title', 'Instagram Video'),
+                'duration': 0,  # Duration not available from embed
+                'view_count': 0,
+                'like_count': 0,
+                'comment_count': 0,
+                'uploader': 'Instagram User',
+                'thumbnail': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ3JhZCIgY3g9IjMwJSIgY3k9IjMwJSIgcj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM1MTUyRkY7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdHlsZT0ic3RvcC1jb2xvcjojRDYyOTc2O3N0b3Atb3BhY2l0eToxIiAvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiNGNTdENkU7c3RvcC1vcGFjaXR5OjEiIC8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0idXJsKCNncmFkKSIvPgogIDx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjYwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iYm9sZCI+8J+TtjwvdGV4dD4KPC9zdmc+',
+                'description': '',
+                'upload_date': '',
+                'formats': {
+                    'video_formats': [{
+                        'quality': 'Best',
+                        'type': 'video',
+                        'format_id': 'direct',
+                        'ext': 'mp4',
+                        'filesize': 0,
+                        'width': 0,
+                        'height': 0,
+                        'fps': 30,
+                        'has_audio': True,
+                        'watermark_free': True,
+                        'duration': 0,
+                        'direct_url': alt_result['video_url']  # Direct download URL
+                    }],
+                    'audio_formats': []
+                }
+            }
+
+        # All methods failed
         raise Exception(f"Failed to fetch Instagram video information: {last_error}")
