@@ -62,18 +62,9 @@ class InstagramDownloader:
         # Format selection for Instagram
         opts['format'] = 'best[ext=mp4]/best'
 
-        # Add cookies support - try to use browser cookies for better access
-        # This helps access content that might require login
-        try:
-            # Try common browsers in order
-            for browser in ['chrome', 'firefox', 'edge', 'safari']:
-                try:
-                    opts['cookiesfrombrowser'] = (browser,)
-                    break
-                except:
-                    continue
-        except:
-            opts['cookiesfrombrowser'] = None
+        # Disable cookies - causes issues on some systems
+        # Using guest mode instead for better compatibility
+        opts['cookiesfrombrowser'] = None
 
         # Additional retry strategy based on attempt
         if attempt > 0:
