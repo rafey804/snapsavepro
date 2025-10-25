@@ -48,6 +48,7 @@ class InstagramDownloader:
         opts['extractor_args'] = {
             'instagram': {
                 'api_hostname': 'i.instagram.com',
+                'guest': True,  # Try as guest first
             }
         }
 
@@ -61,8 +62,18 @@ class InstagramDownloader:
         # Format selection for Instagram
         opts['format'] = 'best[ext=mp4]/best'
 
-        # Add cookies support if available
-        opts['cookiesfrombrowser'] = None
+        # Add cookies support - try to use browser cookies for better access
+        # This helps access content that might require login
+        try:
+            # Try common browsers in order
+            for browser in ['chrome', 'firefox', 'edge', 'safari']:
+                try:
+                    opts['cookiesfrombrowser'] = (browser,)
+                    break
+                except:
+                    continue
+        except:
+            opts['cookiesfrombrowser'] = None
 
         # Additional retry strategy based on attempt
         if attempt > 0:
@@ -336,10 +347,14 @@ class InstagramDownloader:
 
                 # Check for specific error types
                 if 'private' in error_msg or 'unavailable' in error_msg:
-                    raise Exception("This Instagram video is private or unavailable")
+                    raise Exception("This Instagram content is private or unavailable. Please try a public post.")
 
-                if 'login' in error_msg or 'age' in error_msg:
-                    raise Exception("This Instagram video requires login or age verification")
+                if 'login' in error_msg or 'age' in error_msg or 'requires authentication' in error_msg or 'not found' in error_msg:
+                    raise Exception("Instagram download failed: This content requires login or the post may be deleted/restricted. Please try a different public Instagram Reel or Post.")
+
+                # Check for rate limiting
+                if 'rate limit' in error_msg or 'too many requests' in error_msg or '429' in error_msg:
+                    raise Exception("Instagram has temporarily rate-limited our requests. Please wait a few minutes and try again.")
 
                 if attempt == max_attempts - 1:
                     # Last attempt failed
