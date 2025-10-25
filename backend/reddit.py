@@ -58,6 +58,7 @@ class RedditDownloader:
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
             'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
         ]
 
         current_ua = user_agents[attempt % len(user_agents)]
@@ -67,10 +68,10 @@ class RedditDownloader:
             'no_warnings': True,
             'extract_flat': False,
             'socket_timeout': 60,
-            'retries': 5,
-            'fragment_retries': 5,
-            'file_access_retries': 3,
-            'extractor_retries': 5,
+            'retries': 3,
+            'fragment_retries': 3,
+            'file_access_retries': 2,
+            'extractor_retries': 3,
             'skip_unavailable_fragments': True,
             'ignoreerrors': False,
             'no_color': True,
@@ -78,9 +79,12 @@ class RedditDownloader:
             'format_sort': ['res', 'ext:mp4:m4a', 'vcodec:h264'],
             'format_sort_force': True,
             'http_chunk_size': 10485760,  # 10MB chunks
-            'concurrent_fragment_downloads': 2,
+            'concurrent_fragment_downloads': 1,
+            'sleep_interval': 2,
+            'max_sleep_interval': 5,
+            'sleep_interval_requests': 1,
 
-            # Enhanced headers for Reddit
+            # Enhanced headers for Reddit with rate limit bypass
             'http_headers': {
                 'User-Agent': current_ua,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
@@ -89,6 +93,10 @@ class RedditDownloader:
                 'Referer': 'https://www.reddit.com/',
                 'Origin': 'https://www.reddit.com',
                 'DNT': '1',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
+                'Cache-Control': 'max-age=0',
             },
 
             # Geo bypass
@@ -104,12 +112,60 @@ class RedditDownloader:
 
     def get_video_info(self, url):
         """Extract Reddit video/image information with robust error handling"""
-        max_attempts = 4
+        max_attempts = 2  # Reduced attempts to speed up fallback
         last_error = None
 
+        # First, try direct image scraping (faster and avoids rate limits)
+        print(f"[Reddit] Starting extraction for: {url}")
+        print("[Reddit] Attempting direct image extraction...")
+
+        try:
+            image_urls = self.extract_images_from_url(url)
+            print(f"[Reddit] Scraping found {len(image_urls)} images")
+
+            if image_urls:
+                print(f"[Reddit] Success! Building response with {len(image_urls)} images")
+                image_formats = []
+                for idx, img_url in enumerate(image_urls[:10]):
+                    image_format = {
+                        'quality': 'Original',
+                        'type': 'image',
+                        'format_id': f"image_{idx}",
+                        'ext': 'jpg',
+                        'filesize': 0,
+                        'url': img_url,
+                        'platform': 'reddit',
+                        'description': f"Image {idx + 1}"
+                    }
+                    image_formats.append(image_format)
+
+                image_info = {
+                    'title': 'Reddit Post',
+                    'duration': 0,
+                    'view_count': 0,
+                    'uploader': 'Reddit User',
+                    'thumbnail': image_urls[0] if image_urls else '',
+                    'description': 'Reddit post content',
+                    'upload_date': '',
+                    'like_count': 0,
+                    'comment_count': 0,
+                    'platform': 'reddit',
+                    'content_type': 'image',
+                    'formats': {
+                        'video_formats': [],
+                        'audio_formats': [],
+                        'image_formats': image_formats
+                    }
+                }
+                print(f"[Reddit] Returning image response with {len(image_formats)} formats")
+                return jsonify(image_info)
+        except Exception as scraping_error:
+            print(f"[Reddit] Image scraping failed: {str(scraping_error)}")
+
+        # If no images found via scraping, try yt-dlp for videos
         for attempt in range(max_attempts):
             try:
-                print(f"Reddit extraction attempt {attempt + 1}/{max_attempts}")
+                print(f"Reddit yt-dlp attempt {attempt + 1}/{max_attempts}")
 
                 ydl_opts = self.get_robust_reddit_opts({
                     'noplaylist': True,
@@ -300,6 +356,47 @@ class RedditDownloader:
                 last_error = e
                 error_msg = str(e).lower()
                 print(f"Reddit attempt {attempt + 1} failed: {error_msg}")
+
+                # Handle 429 rate limit - immediately fall back to scraping
+                if '429' in error_msg or 'too many requests' in error_msg or 'rate limit' in error_msg:
+                    print("Reddit rate limit detected (429) - falling back to image scraping...")
+                    image_urls = self.extract_images_from_url(url)
+
+                    if image_urls:
+                        image_formats = []
+                        for idx, img_url in enumerate(image_urls[:10]):
+                            image_format = {
+                                'quality': 'Original',
+                                'type': 'image',
+                                'format_id': f"image_{idx}",
+                                'ext': 'jpg',
+                                'filesize': 0,
+                                'url': img_url,
+                                'platform': 'reddit',
+                                'description': f"Image {idx + 1}"
+                            }
+                            image_formats.append(image_format)
+
+                        image_info = {
+                            'title': 'Reddit Post',
+                            'duration': 0,
+                            'view_count': 0,
+                            'uploader': 'Reddit User',
+                            'thumbnail': image_urls[0] if image_urls else '',
+                            'description': 'Reddit content',
+                            'upload_date': '',
+                            'like_count': 0,
+                            'comment_count': 0,
+                            'platform': 'reddit',
+                            'content_type': 'image',
+                            'formats': {
+                                'video_formats': [],
+                                'audio_formats': [],
+                                'image_formats': image_formats
+                            }
+                        }
+                        print(f"Reddit fallback success - {len(image_formats)} images extracted")
+                        return jsonify(image_info)
 
                 # Try to extract images if video fails
                 if 'no video' in error_msg or 'no formats' in error_msg:

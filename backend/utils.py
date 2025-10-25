@@ -156,6 +156,20 @@ def detect_platform(url):
         if re.match(pattern, url):
             return 'pinterest'
 
+    # Instagram patterns
+    instagram_patterns = [
+        r'(?:https?://)?(?:www\.)?instagram\.com/p/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?instagram\.com/reel/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?instagram\.com/reels/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?instagram\.com/tv/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?instagr\.am/p/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?instagr\.am/reel/[\w-]+/?',
+    ]
+
+    for pattern in instagram_patterns:
+        if re.match(pattern, url):
+            return 'instagram'
+
     return 'unknown'
 
 def get_best_thumbnail(info):
@@ -320,6 +334,13 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 'quiet': True,
                 'no_warnings': True,
             }
+        elif platform == 'instagram':
+            from instagram import InstagramDownloader
+            downloader = InstagramDownloader()
+            base_opts = downloader.get_robust_instagram_opts({
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'keepvideo': False,
+            })
         else:  # facebook
             from facebook import FacebookDownloader
             downloader = FacebookDownloader()

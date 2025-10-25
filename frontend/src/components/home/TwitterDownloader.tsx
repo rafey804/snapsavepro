@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, Download, Play, Clock, Eye, User, FileVideo, Music, Loader, CheckCircle, AlertTriangle, Heart, MessageCircle, Share2, Star } from 'lucide-react';
 
 
@@ -65,6 +65,21 @@ export default function TwitterDownloader() {
   const [downloadProgress, setDownloadProgress] = useState<{[key: string]: DownloadProgress}>({});
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null);
   const [downloadMode, setDownloadMode] = useState<'video' | 'audio'>('video');
+
+  const videoInfoRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to video info section when video info is loaded
+  useEffect(() => {
+    if (videoInfo && !loading && videoInfoRef.current) {
+      setTimeout(() => {
+        videoInfoRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }, 300);
+    }
+  }, [videoInfo, loading]);
 
   const formatDuration = (seconds: number): string => {
     if (seconds < 60) {
@@ -523,7 +538,7 @@ export default function TwitterDownloader() {
  
         {/* Video Info and Download Section - Mobile Responsive */}
         {videoInfo && (
-          <div className="max-w-6xl mx-auto px-4 sm:px-0">
+          <div ref={videoInfoRef} className="max-w-6xl mx-auto px-4 sm:px-0">
             <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
               <div className="p-4 sm:p-6 md:p-8">
 

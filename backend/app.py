@@ -21,6 +21,7 @@ from snapchat import SnapchatDownloader
 from facebook import FacebookDownloader
 from audio_downloader import AudioDownloader
 from pinterest import PinterestDownloader
+from instagram import InstagramDownloader
 from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
@@ -68,6 +69,7 @@ try:
     from reddit import RedditDownloader
     reddit_downloader = RedditDownloader()
     pinterest_downloader = PinterestDownloader()
+    instagram_downloader = InstagramDownloader()
     audio_downloader = AudioDownloader()
     logger.info("All platform downloaders initialized successfully")
 except Exception as e:
@@ -123,7 +125,7 @@ def get_video_info():
         platform = detect_platform(url)
 
         if platform == 'unknown':
-            return jsonify({'error': 'Please provide a valid TikTok, Snapchat or Facebook URL'}), 400
+            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Snapchat, Facebook, Twitter, Reddit, or Pinterest URL'}), 400
 
         logger.info(f"Processing {platform.upper()} URL: {url}")
 
@@ -138,6 +140,8 @@ def get_video_info():
             return reddit_downloader.get_video_info(url)
         elif platform == 'pinterest':
             return pinterest_downloader.get_video_info(url)
+        elif platform == 'instagram':
+            return instagram_downloader.get_video_info(url)
         elif platform == 'facebook':
             return facebook_downloader.get_video_info(url)
 

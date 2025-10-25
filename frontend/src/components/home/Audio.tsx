@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, Download, Clock, Eye, User, Music, Loader, CheckCircle, AlertTriangle, Heart, Volume2, Play, Headphones, Radio, Link, Globe, ExternalLink } from 'lucide-react';
 
 // Interface definitions
@@ -59,6 +59,21 @@ export default function AudioDownloader() {
   const [error, setError] = useState('');
   const [downloadProgress, setDownloadProgress] = useState<{[key: string]: DownloadProgress}>({});
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null);
+
+  const audioInfoRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to audio info section when audio info is loaded
+  useEffect(() => {
+    if (audioInfo && !loading && audioInfoRef.current) {
+      setTimeout(() => {
+        audioInfoRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+      }, 300);
+    }
+  }, [audioInfo, loading]);
 
   // Utility functions
   const formatDuration = (seconds: number): string => {
@@ -541,7 +556,7 @@ export default function AudioDownloader() {
         )}
      
         {audioInfo && (
-          <div className="max-w-6xl mx-auto px-4 sm:px-0">
+          <div ref={audioInfoRef} className="max-w-6xl mx-auto px-4 sm:px-0">
             <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
               <div className="p-4 sm:p-6 md:p-8">
                 

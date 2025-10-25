@@ -13,6 +13,18 @@ class PinterestDownloader:
             'no_warnings': True,
             'extract_flat': False,
             'socket_timeout': 30,
+            'http_headers': {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Referer': 'https://www.pinterest.com/',
+                'Origin': 'https://www.pinterest.com',
+            },
+            'extractor_args': {
+                'pinterest': {
+                    'api_key': None,
+                }
+            }
         }
 
     def extract_pinterest_id(self, url: str) -> str:
@@ -36,22 +48,55 @@ class PinterestDownloader:
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                 'Accept-Language': 'en-US,en;q=0.5',
                 'Referer': 'https://www.pinterest.com/',
+                'Cookie': '_pinterest_sess=TWc9PSZHamJOeGJUcVQ4eFhvQ3ZJY3NmZ0lCOUh5',
             }
 
-            response = requests.get(url, headers=headers, timeout=15)
+            response = requests.get(url, headers=headers, timeout=15, allow_redirects=True)
             response.raise_for_status()
 
             soup = BeautifulSoup(response.content, 'html.parser')
 
-            # Try to find video
-            video_tags = soup.find_all('video')
+            # Try to find video URL from script tags (Pinterest stores video URLs in JSON)
             video_url = None
-            if video_tags:
-                for video in video_tags:
-                    source = video.find('source')
-                    if source and source.get('src'):
-                        video_url = source.get('src')
-                        break
+            import json
+
+            # Method 1: Look for video URLs in script tags
+            scripts = soup.find_all('script', type='application/ld+json')
+            for script in scripts:
+                try:
+                    data = json.loads(script.string)
+                    if isinstance(data, dict) and 'video' in data:
+                        video_url = data['video'].get('contentUrl') or data['video'].get('url')
+                        if video_url:
+                            break
+                except:
+                    pass
+
+            # Method 2: Look for video tags
+            if not video_url:
+                video_tags = soup.find_all('video')
+                if video_tags:
+                    for video in video_tags:
+                        source = video.find('source')
+                        if source and source.get('src'):
+                            video_url = source.get('src')
+                            break
+                        # Check video tag src directly
+                        if video.get('src'):
+                            video_url = video.get('src')
+                            break
+
+            # Method 3: Look for og:video meta tag
+            if not video_url:
+                og_video = soup.find('meta', property='og:video')
+                if og_video:
+                    video_url = og_video.get('content')
+
+                # Also check og:video:secure_url
+                if not video_url:
+                    og_video_secure = soup.find('meta', property='og:video:secure_url')
+                    if og_video_secure:
+                        video_url = og_video_secure.get('content')
 
             # Try to find image
             image_url = None
