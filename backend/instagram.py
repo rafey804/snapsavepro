@@ -2,6 +2,7 @@ import yt_dlp
 import time
 import random
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -44,13 +45,21 @@ class InstagramDownloader:
         opts['ignoreerrors'] = False
         opts['no_warnings'] = False
 
-        # Instagram extraction options
+        # Instagram extraction options with multiple fallbacks
         opts['extractor_args'] = {
             'instagram': {
-                'api_hostname': 'i.instagram.com',
+                'api_hostname': 'i.instagram.com' if attempt == 0 else 'www.instagram.com',
                 'guest': True,  # Try as guest first
             }
         }
+
+        # On retry attempts, try different extraction strategies
+        if attempt > 0:
+            opts['extractor_args']['instagram']['rhx_gis'] = None
+
+        if attempt > 1:
+            # Try without API hostname restriction
+            opts['extractor_args']['instagram'].pop('api_hostname', None)
 
         # Geo-bypass and network options
         opts['geo_bypass'] = True
@@ -59,12 +68,20 @@ class InstagramDownloader:
         # Socket timeout
         opts['socket_timeout'] = 30
 
+        # Source address - rotate on retries to avoid IP blocks
+        if attempt > 2:
+            opts['source_address'] = '0.0.0.0'  # Let system choose best interface
+
         # Format selection for Instagram
         opts['format'] = 'best[ext=mp4]/best'
 
-        # Disable cookies - causes issues on some systems
-        # Using guest mode instead for better compatibility
-        opts['cookiesfrombrowser'] = None
+        # Try to use cookies from file if available (for better access to Instagram)
+        cookies_file = os.path.join(os.path.dirname(__file__), 'cookies.txt')
+        if os.path.exists(cookies_file):
+            opts['cookiefile'] = cookies_file
+            logger.info(f"Using cookies file: {cookies_file}")
+        else:
+            opts['cookiesfrombrowser'] = None
 
         # Additional retry strategy based on attempt
         if attempt > 0:
@@ -101,7 +118,7 @@ class InstagramDownloader:
         """
         Get Instagram Reels/Video information with robust retry mechanism
         """
-        max_attempts = 4
+        max_attempts = 6  # Increased attempts for better success rate
         last_error = None
 
         for attempt in range(max_attempts):
