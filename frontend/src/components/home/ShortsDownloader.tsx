@@ -152,7 +152,7 @@ const ShortsDownloader: React.FC = () => {
       let formatId = format.format_id;
       let downloadType = format.type;
 
-      if (format.type === 'audio' && videoInfo?.formats?.video_formats?.length > 0) {
+      if (format.type === 'audio' && videoInfo?.formats?.video_formats && videoInfo.formats.video_formats.length > 0) {
         formatId = videoInfo.formats.video_formats[0].format_id;
         downloadType = 'audio';
       }
@@ -614,7 +614,7 @@ const ShortsDownloader: React.FC = () => {
                             <div className="flex flex-col items-end gap-2">
                               <button
                                 onClick={() => handleDownload(format)}
-                                disabled={progress && (progress.status === 'downloading' || progress.status === 'processing')}
+                                disabled={!!(progress && (progress.status === 'downloading' || progress.status === 'processing'))}
                                 className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 <FiDownload />
@@ -702,7 +702,7 @@ const ShortsDownloader: React.FC = () => {
                             <div className="flex flex-col items-end gap-2">
                               <button
                                 onClick={() => handleDownload(format)}
-                                disabled={progress && (progress.status === 'downloading' || progress.status === 'processing')}
+                                disabled={!!(progress && (progress.status === 'downloading' || progress.status === 'processing'))}
                                 className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                               >
                                 <FiDownload />
