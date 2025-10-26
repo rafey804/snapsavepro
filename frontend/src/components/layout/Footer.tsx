@@ -56,6 +56,12 @@ export default function ProfessionalFooter() {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-white">Downloaders</h4>
             <ul className="space-y-3">
+              <li><Link href='/pages/instagram-reels-downloader' className="text-gray-300 hover:text-teal-400 transition-colors duration-200 text-sm flex items-center gap-2">
+                <span className="text-teal-400">•</span> Instagram Reels Download
+              </Link></li>
+              <li><Link href='/pages/youtube-shorts-downloader' className="text-gray-300 hover:text-purple-400 transition-colors duration-200 text-sm flex items-center gap-2">
+                <span className="text-purple-400">•</span> YouTube Shorts Download
+              </Link></li>
               <li><Link href='/pages/pinterest-video-download' className="text-gray-300 hover:text-red-400 transition-colors duration-200 text-sm flex items-center gap-2">
                 <span className="text-red-400">•</span> Pinterest Video Download
               </Link></li>

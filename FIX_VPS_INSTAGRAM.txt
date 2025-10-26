@@ -1,0 +1,163 @@
+================================================================================
+    FIX INSTAGRAM ON VPS - COMPLETE GUIDE
+================================================================================
+
+ERROR: 'InstagramDownloader' object has no attribute 'get_robust_instagram_opts'
+
+REASON: VPS has OLD instagram.py file. Need to upload NEW file with instagrapi.
+
+================================================================================
+STEP 1: SSH INTO VPS
+================================================================================
+
+ssh root@srv996379.hostinger.com
+
+
+================================================================================
+STEP 2: BACKUP OLD FILE
+================================================================================
+
+cd /var/www/snapsavepro/backend
+cp instagram.py instagram.py.old_backup
+ls -lah instagram*
+
+
+================================================================================
+STEP 3: DELETE OLD instagram.py
+================================================================================
+
+rm instagram.py
+
+
+================================================================================
+STEP 4: CREATE NEW instagram.py FILE
+================================================================================
+
+nano instagram.py
+
+# Now copy ENTIRE content from this file and paste:
+# C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_vps_ready.py
+
+# After pasting, press:
+# Ctrl + X (to exit)
+# Y (to confirm save)
+# Enter (to confirm filename)
+
+
+================================================================================
+STEP 5: UPLOAD SESSION FILE
+================================================================================
+
+Option A: Create session file manually on VPS
+----------------------------------------------
+nano instagram_session.json
+
+# Copy content from:
+# C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_session.json
+
+# Paste it, then:
+# Ctrl + X, Y, Enter
+
+
+Option B: Upload via SCP from Windows
+--------------------------------------
+# Open NEW PowerShell window on Windows:
+scp "C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_session.json" root@srv996379.hostinger.com:/var/www/snapsavepro/backend/
+
+
+================================================================================
+STEP 6: SET FILE PERMISSIONS
+================================================================================
+
+cd /var/www/snapsavepro/backend
+chmod 644 instagram.py
+chmod 644 instagram_session.json
+ls -lah instagram*
+
+
+================================================================================
+STEP 7: INSTALL INSTAGRAPI
+================================================================================
+
+cd /var/www/snapsavepro/backend
+source venv/bin/activate
+pip install instagrapi
+
+# Verify:
+pip list | grep instagrapi
+
+
+================================================================================
+STEP 8: TEST LOCALLY ON VPS
+================================================================================
+
+cd /var/www/snapsavepro/backend
+source venv/bin/activate
+
+python3 << 'EOF'
+from instagram import InstagramDownloader
+url = "https://www.instagram.com/reel/DLe1o79Mk67/"
+try:
+    info = InstagramDownloader.get_video_info(url)
+    print(f"✓ SUCCESS! Title: {info['title'][:50]}")
+    print(f"Video URL: {info['formats']['video_formats'][0]['direct_url'][:80]}")
+except Exception as e:
+    print(f"✗ ERROR: {str(e)}")
+EOF
+
+
+================================================================================
+STEP 9: RESTART BACKEND
+================================================================================
+
+pm2 restart backend
+pm2 logs backend --lines 50
+
+
+================================================================================
+STEP 10: TEST ON LIVE WEBSITE
+================================================================================
+
+Visit: https://snapsavepro.com/pages/instagram-reels-downloader
+Test URL: https://www.instagram.com/reel/DLe1o79Mk67/
+
+Should work perfectly now!
+
+
+================================================================================
+QUICK COMMANDS (COPY-PASTE ALL AT ONCE)
+================================================================================
+
+cd /var/www/snapsavepro/backend && \
+cp instagram.py instagram.py.old_backup && \
+rm instagram.py && \
+echo "Old file deleted. Now create new file with: nano instagram.py"
+
+
+================================================================================
+IF YOU PREFER EASIER METHOD - USE THIS:
+================================================================================
+
+# Connect via FileZilla or WinSCP:
+Host: srv996379.hostinger.com
+Username: root
+Port: 22
+
+# Delete old file:
+/var/www/snapsavepro/backend/instagram.py
+
+# Upload new files:
+Local: C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_vps_ready.py
+Remote: /var/www/snapsavepro/backend/instagram.py
+
+Local: C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_session.json
+Remote: /var/www/snapsavepro/backend/instagram_session.json
+
+# Then SSH and run:
+cd /var/www/snapsavepro/backend
+source venv/bin/activate
+pip install instagrapi
+pm2 restart backend
+
+
+================================================================================

@@ -1,0 +1,275 @@
+================================================================================
+    VPS HOSTINGER - INSTAGRAM DEPLOYMENT COMMANDS
+================================================================================
+
+STEP 1: CHECK CURRENT FILES ON VPS
+================================================================================
+
+# SSH into your VPS first:
+ssh root@srv996379.hostinger.com
+
+# Go to backend directory:
+cd /var/www/snapsavepro/backend
+
+# List all files:
+ls -lah
+
+# Check if instagram.py exists:
+cat instagram.py | head -20
+
+# Check if instagrapi is installed:
+source venv/bin/activate
+pip list | grep instagrapi
+
+# Check current backend status:
+pm2 status
+pm2 logs backend --lines 50
+
+
+================================================================================
+STEP 2: BACKUP CURRENT instagram.py
+================================================================================
+
+cd /var/www/snapsavepro/backend
+cp instagram.py instagram.py.backup.$(date +%Y%m%d_%H%M%S)
+
+# Verify backup:
+ls -lah instagram.py*
+
+
+================================================================================
+STEP 3: UPLOAD NEW FILES
+================================================================================
+
+Option A: Using nano editor (recommended for quick edit)
+---------------------------------------------------------
+cd /var/www/snapsavepro/backend
+nano instagram.py
+
+# Then copy-paste the content from your local instagram.py
+# Press Ctrl+X, then Y, then Enter to save
+
+
+Option B: Using SCP from Windows
+---------------------------------
+# Open PowerShell on Windows and run:
+scp "C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram.py" root@srv996379.hostinger.com:/var/www/snapsavepro/backend/
+
+scp "C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_session.json" root@srv996379.hostinger.com:/var/www/snapsavepro/backend/
+
+
+Option C: Using WinSCP or FileZilla
+------------------------------------
+Host: srv996379.hostinger.com
+Username: root
+Port: 22
+
+Upload these files:
+- Local: C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram.py
+  Remote: /var/www/snapsavepro/backend/instagram.py
+
+- Local: C:\Users\rafey1\Desktop\youtude video final\snapsavepro\backend\instagram_session.json
+  Remote: /var/www/snapsavepro/backend/instagram_session.json
+
+
+================================================================================
+STEP 4: INSTALL INSTAGRAPI ON VPS
+================================================================================
+
+cd /var/www/snapsavepro/backend
+source venv/bin/activate
+
+# Install instagrapi:
+pip install instagrapi
+
+# Verify installation:
+pip list | grep instagrapi
+pip list | grep pydantic
+
+# Expected output:
+# instagrapi         2.2.1
+# pydantic           2.11.7
+
+
+================================================================================
+STEP 5: CHECK FILE PERMISSIONS
+================================================================================
+
+cd /var/www/snapsavepro/backend
+
+# Set proper permissions:
+chmod 644 instagram.py
+chmod 644 instagram_session.json
+
+# Check permissions:
+ls -lah instagram*
+
+
+================================================================================
+STEP 6: TEST INSTAGRAM LOCALLY ON VPS
+================================================================================
+
+cd /var/www/snapsavepro/backend
+source venv/bin/activate
+
+# Quick test:
+python3 << 'EOF'
+from instagram import InstagramDownloader
+url = "https://www.instagram.com/reel/DLe1o79Mk67/"
+try:
+    print("Testing Instagram downloader...")
+    info = InstagramDownloader.get_video_info(url)
+    print(f"✓ SUCCESS!")
+    print(f"Title: {info['title'][:80]}")
+    print(f"Uploader: {info['uploader']}")
+    print(f"Views: {info['view_count']:,}")
+    print(f"Likes: {info['like_count']:,}")
+    print(f"Video URL: {info['formats']['video_formats'][0]['direct_url'][:100]}...")
+except Exception as e:
+    print(f"✗ ERROR: {str(e)}")
+EOF
+
+
+================================================================================
+STEP 7: RESTART BACKEND SERVICE
+================================================================================
+
+# Stop backend:
+pm2 stop backend
+
+# Start backend:
+pm2 start backend
+
+# Or restart:
+pm2 restart backend
+
+# Save PM2 config:
+pm2 save
+
+# Check status:
+pm2 status
+
+# Watch logs in real-time:
+pm2 logs backend
+
+
+================================================================================
+STEP 8: TEST ON LIVE WEBSITE
+================================================================================
+
+Visit: https://snapsavepro.com/pages/instagram-reels-downloader
+
+Test URL: https://www.instagram.com/reel/DLe1o79Mk67/
+
+Expected results:
+✓ Title: Fr💔#fypシ #instadaily #viral...
+✓ Uploader: baaz.ao.umer
+✓ Views: 1,974,478
+✓ Likes: 184,960
+✓ Video downloads successfully
+
+
+================================================================================
+TROUBLESHOOTING COMMANDS
+================================================================================
+
+# Check backend logs:
+pm2 logs backend --lines 100
+
+# Check if port 5002 is listening:
+netstat -tulpn | grep 5002
+
+# Test backend API directly:
+curl http://localhost:5002/api/video-info -X POST -H "Content-Type: application/json" -d '{"url":"https://www.instagram.com/reel/DLe1o79Mk67/","platform":"instagram"}'
+
+# Check Python process:
+ps aux | grep python
+
+# Check if venv is activated:
+which python
+pip --version
+
+# Reinstall instagrapi if needed:
+pip uninstall instagrapi -y
+pip install instagrapi
+
+
+================================================================================
+CHECK INSTAGRAM SESSION
+================================================================================
+
+cd /var/www/snapsavepro/backend
+
+# Check if session file exists:
+ls -lah instagram_session.json
+
+# View session file (first 50 lines):
+cat instagram_session.json | head -50
+
+# Check session file size:
+du -h instagram_session.json
+
+
+================================================================================
+VERIFY CREDENTIALS IN CODE
+================================================================================
+
+cd /var/www/snapsavepro/backend
+
+# Check if credentials are set:
+grep -n "INSTAGRAM_USERNAME" instagram.py
+grep -n "flip.filex" instagram.py
+
+# Should show:
+# Line 12: INSTAGRAM_USERNAME = os.getenv('INSTAGRAM_USERNAME', 'flip.filex')
+# Line 13: INSTAGRAM_PASSWORD = os.getenv('INSTAGRAM_PASSWORD', 'Malik30277$$$')
+
+
+================================================================================
+COMMON ISSUES & SOLUTIONS
+================================================================================
+
+Issue 1: "ModuleNotFoundError: No module named 'instagrapi'"
+Solution:
+cd /var/www/snapsavepro/backend
+source venv/bin/activate
+pip install instagrapi
+
+Issue 2: "LoginRequired" or "challenge_required"
+Solution:
+- Session expired, delete instagram_session.json
+- It will auto-login again with your credentials
+rm instagram_session.json
+pm2 restart backend
+
+Issue 3: Backend not responding
+Solution:
+pm2 restart backend
+pm2 logs backend
+
+Issue 4: "Permission denied" on session file
+Solution:
+chmod 644 instagram_session.json
+chown www-data:www-data instagram_session.json
+
+Issue 5: Frontend not showing new data
+Solution:
+cd /var/www/snapsavepro/frontend
+npm run build
+pm2 restart frontend
+
+
+================================================================================
+QUICK CHECK ALL SERVICES
+================================================================================
+
+# One command to check everything:
+pm2 status && \
+netstat -tulpn | grep -E '5002|3003' && \
+cd /var/www/snapsavepro/backend && \
+ls -lah instagram* && \
+source venv/bin/activate && \
+pip list | grep -E 'instagrapi|pydantic'
+
+
+================================================================================

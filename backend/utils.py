@@ -58,8 +58,17 @@ class ProgressHook:
             }
 
 def detect_platform(url):
-    """Detect if URL is TikTok, Facebook, Snapchat, or YouTube"""
+    """Detect if URL is TikTok, Facebook, Snapchat, YouTube, or YouTube Shorts"""
     url = url.strip().lower()
+
+    # YouTube Shorts patterns (check before regular YouTube)
+    shorts_patterns = [
+        r'(?:https?://)?(?:www\.)?youtube\.com/shorts/[\w-]+',
+    ]
+
+    for pattern in shorts_patterns:
+        if re.match(pattern, url):
+            return 'shorts'
 
     # YouTube patterns
     youtube_patterns = [
@@ -67,7 +76,6 @@ def detect_platform(url):
         r'(?:https?://)?(?:www\.)?youtu\.be/[\w-]+',
         r'(?:https?://)?(?:www\.)?youtube\.com/embed/[\w-]+',
         r'(?:https?://)?(?:m\.)?youtube\.com/watch\?v=[\w-]+',
-        r'(?:https?://)?(?:www\.)?youtube\.com/shorts/[\w-]+',
     ]
 
     for pattern in youtube_patterns:
@@ -335,9 +343,13 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 'no_warnings': True,
             }
         elif platform == 'instagram':
-            from instagram import InstagramDownloader
-            downloader = InstagramDownloader()
-            base_opts = downloader.get_robust_instagram_opts({
+            # Instagram uses instagrapi (not yt-dlp), so we handle it separately
+            # Set dummy base_opts to avoid variable errors (not used for Instagram)
+            base_opts = {}
+        elif platform == 'shorts':
+            from shorts import ShortsDownloader
+            downloader = ShortsDownloader()
+            base_opts = downloader.get_robust_shorts_opts({
                 'progress_hooks': [ProgressHook(download_id, download_progress)],
                 'keepvideo': False,
             })
@@ -422,49 +434,100 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
         # Download with retries
         max_attempts = 3
         last_error = None
-        
-        for attempt in range(max_attempts):
+
+        # Special handling for Instagram (uses direct URL from instagrapi, not yt-dlp)
+        if platform == 'instagram':
             try:
-                if attempt > 0:
-                    print(f"{platform} download retry {attempt + 1}")
-                    download_progress[download_id] = {
-                        'status': f'retrying (attempt {attempt + 1})',
-                        'percent': 15 + (attempt * 5),
-                        'platform': platform
-                    }
-                    time.sleep(3 + attempt)
-                
-                print(f"[DEBUG] Starting yt-dlp download for {download_id} (platform: {platform})")
-                print(f"[DEBUG] Download options: format={ydl_opts.get('format', 'N/A')}")
+                from instagram import InstagramDownloader
+                print(f"[DEBUG] Starting Instagram direct download for {download_id}")
 
-                # Direct download without context manager or __exit__ (prevents hanging on Windows)
-                ydl = yt_dlp.YoutubeDL(ydl_opts)
-                try:
-                    print(f"[DEBUG] Calling ydl.download() for {download_id}...")
-                    ydl.download([url])
-                    print(f"[DEBUG] yt-dlp download() call completed for {download_id}")
-                finally:
-                    # Force cleanup without hanging
-                    try:
-                        if hasattr(ydl, '_opener'):
-                            ydl._opener = None
-                    except:
-                        pass
+                # Get video info to extract direct URL
+                downloader = InstagramDownloader()
+                video_info = downloader.get_video_info(url)
 
-                print(f"[DEBUG] Download attempt {attempt + 1} SUCCESS for {download_id}")
-                break  # Success
+                # Get direct URL from formats
+                video_formats = video_info.get('formats', {}).get('video_formats', [])
+                if not video_formats:
+                    raise Exception("No video formats available for Instagram download")
+
+                direct_url = video_formats[0].get('direct_url')
+                if not direct_url:
+                    raise Exception("Could not get direct download URL from Instagram")
+
+                print(f"[DEBUG] Got Instagram direct URL, downloading...")
+
+                # Download using requests
+                import requests
+                response = requests.get(direct_url, stream=True, timeout=60)
+                response.raise_for_status()
+
+                # Save to temp file
+                output_file = os.path.join(temp_dir, f'{platform}_video.mp4')
+                total_size = int(response.headers.get('content-length', 0))
+                downloaded = 0
+
+                with open(output_file, 'wb') as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                            downloaded += len(chunk)
+                            if total_size > 0:
+                                percent = int((downloaded / total_size) * 100)
+                                download_progress[download_id] = {
+                                    'status': 'downloading',
+                                    'percent': min(percent, 99),
+                                    'platform': platform
+                                }
+
+                print(f"[DEBUG] Instagram download SUCCESS for {download_id}")
 
             except Exception as e:
-                last_error = e
-                error_msg = str(e).lower()
-                
-                if 'private' in error_msg or 'login' in error_msg:
-                    raise e  # Don't retry authentication errors
-                
-                if attempt < max_attempts - 1:
-                    continue
-                else:
-                    raise e
+                print(f"[ERROR] Instagram download failed: {str(e)}")
+                raise e
+        else:
+            # Use yt-dlp for other platforms
+            for attempt in range(max_attempts):
+                try:
+                    if attempt > 0:
+                        print(f"{platform} download retry {attempt + 1}")
+                        download_progress[download_id] = {
+                            'status': f'retrying (attempt {attempt + 1})',
+                            'percent': 15 + (attempt * 5),
+                            'platform': platform
+                        }
+                        time.sleep(3 + attempt)
+
+                    print(f"[DEBUG] Starting yt-dlp download for {download_id} (platform: {platform})")
+                    print(f"[DEBUG] Download options: format={ydl_opts.get('format', 'N/A')}")
+
+                    # Direct download without context manager or __exit__ (prevents hanging on Windows)
+                    ydl = yt_dlp.YoutubeDL(ydl_opts)
+                    try:
+                        print(f"[DEBUG] Calling ydl.download() for {download_id}...")
+                        ydl.download([url])
+                        print(f"[DEBUG] yt-dlp download() call completed for {download_id}")
+                    finally:
+                        # Force cleanup without hanging
+                        try:
+                            if hasattr(ydl, '_opener'):
+                                ydl._opener = None
+                        except:
+                            pass
+
+                    print(f"[DEBUG] Download attempt {attempt + 1} SUCCESS for {download_id}")
+                    break  # Success
+
+                except Exception as e:
+                    last_error = e
+                    error_msg = str(e).lower()
+
+                    if 'private' in error_msg or 'login' in error_msg:
+                        raise e  # Don't retry authentication errors
+
+                    if attempt < max_attempts - 1:
+                        continue
+                    else:
+                        raise e
         
         print(f"[DEBUG] Reached finalization section for {download_id}")
         download_progress[download_id] = {

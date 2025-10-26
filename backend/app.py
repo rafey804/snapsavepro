@@ -8,7 +8,7 @@ import shutil
 from concurrent.futures import ThreadPoolExecutor
 from dotenv import load_dotenv
 
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, Response
 from flask_cors import CORS
 from werkzeug.exceptions import RequestEntityTooLarge
 
@@ -22,6 +22,7 @@ from facebook import FacebookDownloader
 from audio_downloader import AudioDownloader
 from pinterest import PinterestDownloader
 from instagram import InstagramDownloader
+from shorts import ShortsDownloader
 from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
@@ -70,6 +71,7 @@ try:
     reddit_downloader = RedditDownloader()
     pinterest_downloader = PinterestDownloader()
     instagram_downloader = InstagramDownloader()
+    shorts_downloader = ShortsDownloader()
     audio_downloader = AudioDownloader()
     logger.info("All platform downloaders initialized successfully")
 except Exception as e:
@@ -125,7 +127,7 @@ def get_video_info():
         platform = detect_platform(url)
 
         if platform == 'unknown':
-            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Snapchat, Facebook, Twitter, Reddit, or Pinterest URL'}), 400
+            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Snapchat, Facebook, Twitter, Reddit, Pinterest, or YouTube Shorts URL'}), 400
 
         logger.info(f"Processing {platform.upper()} URL: {url}")
 
@@ -144,6 +146,8 @@ def get_video_info():
             return instagram_downloader.get_video_info(url)
         elif platform == 'facebook':
             return facebook_downloader.get_video_info(url)
+        elif platform == 'shorts':
+            return shorts_downloader.get_video_info(url)
 
     except Exception as e:
         logger.error(f"Unexpected error in get_video_info: {str(e)}")
@@ -316,6 +320,91 @@ def download_direct(download_id):
         
     except Exception as e:
         logger.error(f"Direct download error for {download_id}: {str(e)}")
+        return jsonify({'error': f'Download error: {str(e)}'}), 500
+
+@app.route('/api/download-stream', methods=['GET'])
+def download_stream():
+    """Stream download directly to browser - browser handles progress"""
+    try:
+        # Get parameters from query string
+        url = request.args.get('url')
+        format_id = request.args.get('format_id')
+        download_type = request.args.get('download_type', 'video')
+        ext = request.args.get('ext', 'mp4')
+        duration = int(request.args.get('duration', 0))
+        platform = request.args.get('platform', 'shorts')
+        filename = request.args.get('filename', f'{platform}_video.{ext}')
+
+        if not url or not format_id:
+            return jsonify({'error': 'Missing required parameters'}), 400
+
+        logger.info(f"Starting stream download - Platform: {platform}, Format: {format_id}")
+
+        # Use utils.py download_worker to get the file
+        from utils import download_worker
+        import uuid
+
+        download_id = str(uuid.uuid4())
+
+        # Start download in background and wait for completion
+        future = executor.submit(
+            download_worker,
+            download_id, url, format_id, download_type, ext, 192, duration, platform, False, download_progress, download_files
+        )
+
+        # Wait for download to complete (with timeout)
+        future.result(timeout=120)  # 2 minute timeout
+
+        # Check if download completed
+        if download_id not in download_files:
+            return jsonify({'error': 'Download failed'}), 500
+
+        file_info = download_files[download_id]
+        filepath = file_info['filepath']
+
+        if not os.path.exists(filepath):
+            return jsonify({'error': 'File not found'}), 404
+
+        file_size = os.path.getsize(filepath)
+        mime_types = {
+            'mp4': 'video/mp4',
+            'webm': 'video/webm',
+            'mp3': 'audio/mpeg',
+            'm4a': 'audio/mp4',
+        }
+        mime_type = mime_types.get(ext, 'application/octet-stream')
+
+        # Stream file to browser with proper headers for download
+        def generate():
+            with open(filepath, 'rb') as f:
+                while True:
+                    chunk = f.read(8192)  # 8KB chunks
+                    if not chunk:
+                        break
+                    yield chunk
+
+            # Cleanup after streaming
+            try:
+                if os.path.exists(file_info['temp_dir']):
+                    shutil.rmtree(file_info['temp_dir'], ignore_errors=True)
+                download_progress.pop(download_id, None)
+                download_files.pop(download_id, None)
+            except Exception as e:
+                logger.error(f"Cleanup error: {e}")
+
+        response = Response(generate(), mimetype=mime_type)
+        response.headers['Content-Disposition'] = f'attachment; filename="{filename}"'
+        response.headers['Content-Length'] = str(file_size)
+        response.headers['Cache-Control'] = 'no-cache'
+
+        logger.info(f"Streaming file: {filename} ({file_size} bytes)")
+        return response
+
+    except TimeoutError:
+        logger.error("Download timeout exceeded")
+        return jsonify({'error': 'Download timeout - video may be too large'}), 504
+    except Exception as e:
+        logger.error(f"Stream download error: {str(e)}")
         return jsonify({'error': f'Download error: {str(e)}'}), 500
 
 @app.route('/api/health', methods=['GET'])
