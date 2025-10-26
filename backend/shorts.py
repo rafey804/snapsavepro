@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class ShortsDownloader:
     def get_robust_shorts_opts(self, base_opts=None, attempt=0):
-        """Robust YouTube Shorts download options"""
+        """Robust YouTube Shorts download options with cookie authentication"""
         if base_opts is None:
             base_opts = {}
 
@@ -40,6 +40,26 @@ class ShortsDownloader:
             'geo_bypass': True,
             'nocheckcertificate': True,
         }
+
+        # Add cookie authentication to bypass YouTube bot protection
+        # Try to extract cookies from browser (Chrome first, then Firefox)
+        try:
+            # Try Chrome first
+            shorts_opts['cookiesfrombrowser'] = ('chrome',)
+            logger.info("Using Chrome cookies for YouTube authentication")
+        except Exception:
+            try:
+                # Fallback to Firefox
+                shorts_opts['cookiesfrombrowser'] = ('firefox',)
+                logger.info("Using Firefox cookies for YouTube authentication")
+            except Exception:
+                # If no browser cookies available, try manual cookie file
+                cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
+                if os.path.exists(cookie_file):
+                    shorts_opts['cookiefile'] = cookie_file
+                    logger.info(f"Using cookie file: {cookie_file}")
+                else:
+                    logger.warning("No cookies available - YouTube may require authentication")
 
         # Merge with base_opts
         shorts_opts.update(base_opts)
@@ -78,6 +98,25 @@ class ShortsDownloader:
                 'extract_flat': False,
                 'socket_timeout': 30,
             }
+
+            # Add cookie authentication to bypass YouTube bot protection
+            try:
+                # Try Chrome first
+                ydl_opts['cookiesfrombrowser'] = ('chrome',)
+                logger.info("Using Chrome cookies for video info extraction")
+            except Exception:
+                try:
+                    # Fallback to Firefox
+                    ydl_opts['cookiesfrombrowser'] = ('firefox',)
+                    logger.info("Using Firefox cookies for video info extraction")
+                except Exception:
+                    # If no browser cookies available, try manual cookie file
+                    cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
+                    if os.path.exists(cookie_file):
+                        ydl_opts['cookiefile'] = cookie_file
+                        logger.info(f"Using cookie file for video info: {cookie_file}")
+                    else:
+                        logger.warning("No cookies available for video info - YouTube may require authentication")
 
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=False)
@@ -210,6 +249,25 @@ class ShortsDownloader:
                 'quiet': True,
                 'no_warnings': True,
             }
+
+            # Add cookie authentication to bypass YouTube bot protection
+            try:
+                # Try Chrome first
+                ydl_opts['cookiesfrombrowser'] = ('chrome',)
+                logger.info("Using Chrome cookies for download")
+            except Exception:
+                try:
+                    # Fallback to Firefox
+                    ydl_opts['cookiesfrombrowser'] = ('firefox',)
+                    logger.info("Using Firefox cookies for download")
+                except Exception:
+                    # If no browser cookies available, try manual cookie file
+                    cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
+                    if os.path.exists(cookie_file):
+                        ydl_opts['cookiefile'] = cookie_file
+                        logger.info(f"Using cookie file for download: {cookie_file}")
+                    else:
+                        logger.warning("No cookies available for download - YouTube may require authentication")
 
             logger.info(f"Downloading YouTube Short to: {output_file}")
 
