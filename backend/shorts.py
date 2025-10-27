@@ -2,6 +2,8 @@ import yt_dlp
 import re
 import logging
 import os
+import time
+import random
 
 logger = logging.getLogger(__name__)
 
@@ -42,24 +44,15 @@ class ShortsDownloader:
         }
 
         # Add cookie authentication to bypass YouTube bot protection
-        # Try to extract cookies from browser (Chrome first, then Firefox)
-        try:
-            # Try Chrome first
-            shorts_opts['cookiesfrombrowser'] = ('chrome',)
-            logger.info("Using Chrome cookies for YouTube authentication")
-        except Exception:
-            try:
-                # Fallback to Firefox
-                shorts_opts['cookiesfrombrowser'] = ('firefox',)
-                logger.info("Using Firefox cookies for YouTube authentication")
-            except Exception:
-                # If no browser cookies available, try manual cookie file
-                cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
-                if os.path.exists(cookie_file):
-                    shorts_opts['cookiefile'] = cookie_file
-                    logger.info(f"Using cookie file: {cookie_file}")
-                else:
-                    logger.warning("No cookies available - YouTube may require authentication")
+        # Check if manual cookie file exists first (for VPS deployment)
+        cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
+        if os.path.exists(cookie_file):
+            shorts_opts['cookiefile'] = cookie_file
+            logger.info(f"Using cookie file: {cookie_file}")
+        else:
+            # Try to extract cookies from browser (for local development)
+            # Only add if browser is available (won't throw error if missing)
+            logger.info("No cookie file found - attempting without authentication")
 
         # Merge with base_opts
         shorts_opts.update(base_opts)
@@ -86,6 +79,9 @@ class ShortsDownloader:
         Extract YouTube Shorts video information using yt-dlp
         """
         try:
+            # Add small random delay to avoid rate limiting
+            time.sleep(random.uniform(0.5, 1.5))
+
             video_id = ShortsDownloader.extract_video_id(url)
             if not video_id:
                 raise Exception("Invalid YouTube Shorts URL. Please provide a valid YouTube Shorts link.")
@@ -100,23 +96,12 @@ class ShortsDownloader:
             }
 
             # Add cookie authentication to bypass YouTube bot protection
-            try:
-                # Try Chrome first
-                ydl_opts['cookiesfrombrowser'] = ('chrome',)
-                logger.info("Using Chrome cookies for video info extraction")
-            except Exception:
-                try:
-                    # Fallback to Firefox
-                    ydl_opts['cookiesfrombrowser'] = ('firefox',)
-                    logger.info("Using Firefox cookies for video info extraction")
-                except Exception:
-                    # If no browser cookies available, try manual cookie file
-                    cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
-                    if os.path.exists(cookie_file):
-                        ydl_opts['cookiefile'] = cookie_file
-                        logger.info(f"Using cookie file for video info: {cookie_file}")
-                    else:
-                        logger.warning("No cookies available for video info - YouTube may require authentication")
+            cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
+            if os.path.exists(cookie_file):
+                ydl_opts['cookiefile'] = cookie_file
+                logger.info(f"Using cookie file for video info: {cookie_file}")
+            else:
+                logger.info("No cookie file found for video info - attempting without authentication")
 
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(url, download=False)
@@ -251,23 +236,12 @@ class ShortsDownloader:
             }
 
             # Add cookie authentication to bypass YouTube bot protection
-            try:
-                # Try Chrome first
-                ydl_opts['cookiesfrombrowser'] = ('chrome',)
-                logger.info("Using Chrome cookies for download")
-            except Exception:
-                try:
-                    # Fallback to Firefox
-                    ydl_opts['cookiesfrombrowser'] = ('firefox',)
-                    logger.info("Using Firefox cookies for download")
-                except Exception:
-                    # If no browser cookies available, try manual cookie file
-                    cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
-                    if os.path.exists(cookie_file):
-                        ydl_opts['cookiefile'] = cookie_file
-                        logger.info(f"Using cookie file for download: {cookie_file}")
-                    else:
-                        logger.warning("No cookies available for download - YouTube may require authentication")
+            cookie_file = os.path.join(os.path.dirname(__file__), 'youtube_cookies.txt')
+            if os.path.exists(cookie_file):
+                ydl_opts['cookiefile'] = cookie_file
+                logger.info(f"Using cookie file for download: {cookie_file}")
+            else:
+                logger.info("No cookie file found for download - attempting without authentication")
 
             logger.info(f"Downloading YouTube Short to: {output_file}")
 
