@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Logo from '../../../public/Snap save pro.png'
 import Link from 'next/link';
 
@@ -15,7 +15,6 @@ interface Platform {
 
 export default function ProfessionalHeader() {
   const pathname = usePathname();
-  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const platforms: Platform[] = [
@@ -158,15 +157,15 @@ export default function ProfessionalHeader() {
               </div>
             </Link>
             
-            {/* Desktop Navigation - Center */}
-            <nav className="hidden lg:flex items-center gap-2 absolute left-1/2 transform -translate-x-1/2">
+            {/* Desktop Navigation - Right */}
+            <nav className="hidden lg:flex items-center gap-2 ml-auto">
               {platforms.map((platform) => (
-                <Link 
+                <Link
                   key={platform.id}
                   href={platform.route}
                   className={`px-3 py-2 text-xs font-medium rounded-lg flex items-center gap-2 transition-all duration-300 ${
                     activeTab === platform.id
-                      ? `bg-gradient-to-r ${platform.gradient} text-white shadow-md` 
+                      ? `bg-gradient-to-r ${platform.gradient} text-white shadow-md`
                       : 'bg-slate-800/60 text-gray-300 hover:bg-slate-700/60 hover:text-white'
                   }`}
                 >
@@ -176,28 +175,25 @@ export default function ProfessionalHeader() {
               ))}
             </nav>
 
-            {/* Mobile Menu */}
-            <div className="flex items-center gap-3">
-              {/* Mobile Menu Button */}
-              <button 
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-2 bg-slate-800/80 rounded-lg text-gray-300 hover:bg-slate-700/80 hover:text-white transition-all duration-200"
-                aria-label="Toggle menu"
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 bg-slate-800/80 rounded-lg text-gray-300 hover:bg-slate-700/80 hover:text-white transition-all duration-200 ml-auto"
+              aria-label="Toggle menu"
+            >
+              <svg
+                className={`w-5 h-5 transition-transform duration-200 ${mobileMenuOpen ? 'rotate-90' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                <svg 
-                  className={`w-5 h-5 transition-transform duration-200 ${mobileMenuOpen ? 'rotate-90' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  {mobileMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
-            </div>
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
 
           {/* Mobile Navigation */}

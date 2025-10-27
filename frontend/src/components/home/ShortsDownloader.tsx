@@ -190,7 +190,8 @@ const ShortsDownloader: React.FC = () => {
           const progressResponse = await fetch(`${API_BASE_URL}/progress/${downloadId}`);
           const progressData = await progressResponse.json();
 
-          if (progressData.status === 'completed') {
+          // Check if download is ready (100% or completed status)
+          if (progressData.status === 'completed' || progressData.percent >= 100) {
             setDownloadProgress(prev => ({
               ...prev,
               [downloadKey]: {
@@ -204,16 +205,33 @@ const ShortsDownloader: React.FC = () => {
               delete pollingIntervals.current[downloadKey];
             }
 
+            // Immediate download trigger
             const downloadResponse = await fetch(`${API_BASE_URL}/download-direct/${downloadId}`);
+
+            if (!downloadResponse.ok) {
+              throw new Error('Download failed');
+            }
+
             const blob = await downloadResponse.blob();
+
+            // Create download link and trigger immediately
             const downloadUrl = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = downloadUrl;
             a.download = progressData.filename || `shorts_video.${format.ext}`;
+            a.style.display = 'none';
             document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(downloadUrl);
-            document.body.removeChild(a);
+
+            // Trigger download immediately
+            setTimeout(() => {
+              a.click();
+
+              // Cleanup after short delay
+              setTimeout(() => {
+                window.URL.revokeObjectURL(downloadUrl);
+                document.body.removeChild(a);
+              }, 100);
+            }, 0);
 
             setTimeout(() => {
               setDownloadProgress(prev => {
@@ -249,7 +267,8 @@ const ShortsDownloader: React.FC = () => {
         }
       };
 
-      const intervalId = setInterval(pollProgress, 1500);
+      // Poll every 500ms for faster response
+      const intervalId = setInterval(pollProgress, 500);
       pollingIntervals.current[downloadKey] = intervalId;
       pollProgress();
     } catch (err: any) {
@@ -470,7 +489,7 @@ const ShortsDownloader: React.FC = () => {
         <div ref={videoInfoRef} className="space-y-6">
           {/* Video Preview */}
           <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden border border-slate-700/50">
-            <div className="grid md:grid-cols-5 gap-6 p-6">
+            <div className="grid md:grid-cols-5 gap-4 sm:gap-6 p-4 sm:p-6">
               {/* Thumbnail */}
               <div className="md:col-span-2">
                 <div className="relative rounded-xl overflow-hidden group">
@@ -480,57 +499,57 @@ const ShortsDownloader: React.FC = () => {
                     className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-3 right-3 bg-black/80 px-2 py-1 rounded text-xs text-white font-medium">
+                  <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 bg-black/80 px-2 py-1 rounded text-xs text-white font-medium">
                     {formatDuration(videoInfo.duration)}
                   </div>
                 </div>
               </div>
 
               {/* Video Details */}
-              <div className="md:col-span-3 space-y-4">
+              <div className="md:col-span-3 space-y-3 sm:space-y-4">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-2 line-clamp-2">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 line-clamp-2">
                     {videoInfo.title}
                   </h2>
-                  <p className="text-red-400 font-medium">{videoInfo.uploader}</p>
+                  <p className="text-red-400 font-medium text-sm sm:text-base">{videoInfo.uploader}</p>
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/30">
-                    <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
-                      <FiEye className="text-sm" />
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+                  <div className="bg-slate-900/60 rounded-lg p-2 sm:p-3 border border-slate-700/30">
+                    <div className="flex items-center gap-1 sm:gap-2 text-gray-400 text-xs mb-1">
+                      <FiEye className="text-xs sm:text-sm" />
                       <span>Views</span>
                     </div>
-                    <div className="text-white font-bold">{formatCount(videoInfo.view_count)}</div>
+                    <div className="text-white font-bold text-sm sm:text-base">{formatCount(videoInfo.view_count)}</div>
                   </div>
-                  <div className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/30">
-                    <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
-                      <FiHeart className="text-sm" />
+                  <div className="bg-slate-900/60 rounded-lg p-2 sm:p-3 border border-slate-700/30">
+                    <div className="flex items-center gap-1 sm:gap-2 text-gray-400 text-xs mb-1">
+                      <FiHeart className="text-xs sm:text-sm" />
                       <span>Likes</span>
                     </div>
-                    <div className="text-white font-bold">{formatCount(videoInfo.like_count)}</div>
+                    <div className="text-white font-bold text-sm sm:text-base">{formatCount(videoInfo.like_count)}</div>
                   </div>
-                  <div className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/30">
-                    <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
-                      <FiMessageCircle className="text-sm" />
+                  <div className="bg-slate-900/60 rounded-lg p-2 sm:p-3 border border-slate-700/30">
+                    <div className="flex items-center gap-1 sm:gap-2 text-gray-400 text-xs mb-1">
+                      <FiMessageCircle className="text-xs sm:text-sm" />
                       <span>Comments</span>
                     </div>
-                    <div className="text-white font-bold">{formatCount(videoInfo.comment_count)}</div>
+                    <div className="text-white font-bold text-sm sm:text-base">{formatCount(videoInfo.comment_count)}</div>
                   </div>
-                  <div className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/30">
-                    <div className="flex items-center gap-2 text-gray-400 text-xs mb-1">
-                      <FiClock className="text-sm" />
+                  <div className="bg-slate-900/60 rounded-lg p-2 sm:p-3 border border-slate-700/30">
+                    <div className="flex items-center gap-1 sm:gap-2 text-gray-400 text-xs mb-1">
+                      <FiClock className="text-xs sm:text-sm" />
                       <span>Duration</span>
                     </div>
-                    <div className="text-white font-bold">{formatDuration(videoInfo.duration)}</div>
+                    <div className="text-white font-bold text-sm sm:text-base">{formatDuration(videoInfo.duration)}</div>
                   </div>
                 </div>
 
                 {/* Description Preview */}
                 {videoInfo.description && (
                   <div className="bg-slate-900/40 rounded-lg p-3 border border-slate-700/20">
-                    <p className="text-gray-300 text-sm line-clamp-3">{videoInfo.description}</p>
+                    <p className="text-gray-300 text-xs sm:text-sm line-clamp-3">{videoInfo.description}</p>
                   </div>
                 )}
               </div>
@@ -538,28 +557,28 @@ const ShortsDownloader: React.FC = () => {
           </div>
 
           {/* Download Mode Toggle */}
-          <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-2xl p-6 border border-slate-700/50">
-            <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl shadow-2xl p-4 sm:p-6 border border-slate-700/50">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
               <button
                 onClick={() => setDownloadMode('video')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${
                   downloadMode === 'video'
                     ? 'bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg'
                     : 'bg-slate-700/50 text-gray-300 hover:bg-slate-700'
                 }`}
               >
-                <FiVideo />
+                <FiVideo className="text-sm sm:text-base" />
                 Video
               </button>
               <button
                 onClick={() => setDownloadMode('audio')}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${
                   downloadMode === 'audio'
                     ? 'bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg'
                     : 'bg-slate-700/50 text-gray-300 hover:bg-slate-700'
                 }`}
               >
-                <FiMusic />
+                <FiMusic className="text-sm sm:text-base" />
                 Audio
               </button>
             </div>
@@ -588,10 +607,10 @@ const ShortsDownloader: React.FC = () => {
                           key={index}
                           className="bg-slate-900/60 rounded-xl p-4 border border-slate-700/30 hover:border-red-500/30 transition-all"
                         >
-                          <div className="flex items-center justify-between gap-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <span className="text-white font-semibold">{format.quality}</span>
+                              <div className="flex items-center flex-wrap gap-2 sm:gap-3 mb-2">
+                                <span className="text-white font-semibold text-sm sm:text-base">{format.quality}</span>
                                 <span className="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full font-medium">
                                   {format.ext.toUpperCase()}
                                 </span>
@@ -602,7 +621,7 @@ const ShortsDownloader: React.FC = () => {
                                   </span>
                                 )}
                               </div>
-                              <div className="flex items-center gap-4 text-sm text-gray-400">
+                              <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400">
                                 {format.width && format.height && (
                                   <span>{format.width}x{format.height}</span>
                                 )}
@@ -611,18 +630,18 @@ const ShortsDownloader: React.FC = () => {
                               </div>
                             </div>
 
-                            <div className="flex flex-col items-end gap-2">
+                            <div className="flex flex-col w-full sm:w-auto sm:items-end gap-2">
                               <button
                                 onClick={() => handleDownload(format)}
                                 disabled={!!(progress && (progress.status === 'downloading' || progress.status === 'processing'))}
-                                className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                               >
                                 <FiDownload />
                                 Download
                               </button>
 
                               {progress && progress.status === 'downloading' && (
-                                <div className="w-full min-w-[200px]">
+                                <div className="w-full sm:min-w-[200px]">
                                   <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
                                     <span>Downloading</span>
                                     <span>{progress.percent}%</span>
@@ -637,26 +656,26 @@ const ShortsDownloader: React.FC = () => {
                               )}
 
                               {progress && progress.status === 'processing' && (
-                                <div className="flex items-center gap-2 text-red-400 text-sm">
+                                <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
                                   <FiRefreshCw className="animate-spin" />
                                   <span>Processing...</span>
                                 </div>
                               )}
 
                               {progress && progress.status === 'completed' && (
-                                <div className="flex items-center gap-2 text-green-400 text-sm">
+                                <div className="flex items-center justify-center sm:justify-end gap-2 text-green-400 text-sm">
                                   <FiCheck />
                                   <span className="font-medium">Downloaded!</span>
                                 </div>
                               )}
-                            </div>
 
-                            {progress && progress.status === 'error' && (
-                              <div className="flex items-center gap-2 text-red-400">
-                                <FiAlertCircle />
-                                <span className="text-sm">Failed</span>
-                              </div>
-                            )}
+                              {progress && progress.status === 'error' && (
+                                <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
+                                  <FiAlertCircle />
+                                  <span>Failed</span>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       );
@@ -681,10 +700,10 @@ const ShortsDownloader: React.FC = () => {
                           key={index}
                           className="bg-slate-900/60 rounded-xl p-4 border border-slate-700/30 hover:border-red-500/30 transition-all"
                         >
-                          <div className="flex items-center justify-between gap-4">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <span className="text-white font-semibold">{format.quality}</span>
+                              <div className="flex items-center flex-wrap gap-2 sm:gap-3 mb-2">
+                                <span className="text-white font-semibold text-sm sm:text-base">{format.quality}</span>
                                 <span className="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full font-medium">
                                   {format.ext.toUpperCase()}
                                 </span>
@@ -694,23 +713,23 @@ const ShortsDownloader: React.FC = () => {
                                   </span>
                                 )}
                               </div>
-                              <div className="flex items-center gap-4 text-sm text-gray-400">
+                              <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400">
                                 <span>{formatFileSize(format.filesize)}</span>
                               </div>
                             </div>
 
-                            <div className="flex flex-col items-end gap-2">
+                            <div className="flex flex-col w-full sm:w-auto sm:items-end gap-2">
                               <button
                                 onClick={() => handleDownload(format)}
                                 disabled={!!(progress && (progress.status === 'downloading' || progress.status === 'processing'))}
-                                className="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                               >
                                 <FiDownload />
                                 Download
                               </button>
 
                               {progress && progress.status === 'downloading' && (
-                                <div className="w-full min-w-[200px]">
+                                <div className="w-full sm:min-w-[200px]">
                                   <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
                                     <span>Downloading</span>
                                     <span>{progress.percent}%</span>
@@ -725,26 +744,26 @@ const ShortsDownloader: React.FC = () => {
                               )}
 
                               {progress && progress.status === 'processing' && (
-                                <div className="flex items-center gap-2 text-red-400 text-sm">
+                                <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
                                   <FiRefreshCw className="animate-spin" />
                                   <span>Processing...</span>
                                 </div>
                               )}
 
                               {progress && progress.status === 'completed' && (
-                                <div className="flex items-center gap-2 text-green-400 text-sm">
+                                <div className="flex items-center justify-center sm:justify-end gap-2 text-green-400 text-sm">
                                   <FiCheck />
                                   <span className="font-medium">Downloaded!</span>
                                 </div>
                               )}
-                            </div>
 
-                            {progress && progress.status === 'error' && (
-                              <div className="flex items-center gap-2 text-red-400">
-                                <FiAlertCircle />
-                                <span className="text-sm">Failed</span>
-                              </div>
-                            )}
+                              {progress && progress.status === 'error' && (
+                                <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
+                                  <FiAlertCircle />
+                                  <span>Failed</span>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       );
