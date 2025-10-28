@@ -3,28 +3,43 @@ import type { Metadata } from 'next';
 import ShortsDownloader from '@/components/home/ShortsDownloader';
 
 export const metadata: Metadata = {
-  title: 'YouTube Shorts Downloader - Download YouTube Shorts Videos in HD Quality',
-  description: 'Download YouTube Shorts videos in high quality for free. Fast, easy-to-use YouTube Shorts downloader. Save YouTube Shorts to your device instantly without watermark.',
-  keywords: 'youtube shorts downloader, download youtube shorts, youtube shorts download, save youtube shorts, youtube shorts video downloader, youtube shorts saver, download shorts, youtube shorts HD download, youtube shorts no watermark',
+  title: 'YouTube Shorts Downloader - Download Shorts in HD 1080p, 4K Quality | No Watermark',
+  description: 'Best free YouTube Shorts downloader online. Download YouTube Shorts videos in HD 1080p, 4K, 720p without watermark. Fast, secure, and no registration required. Save Shorts to MP4, MP3 instantly.',
+  keywords: 'youtube shorts downloader, download youtube shorts, youtube shorts download, save youtube shorts, youtube shorts video downloader, youtube shorts saver, download shorts, youtube shorts HD download, youtube shorts no watermark, youtube shorts to mp4, youtube shorts to mp3, download youtube shorts 4k, youtube shorts downloader online, youtube shorts converter, best youtube shorts downloader, free youtube shorts download, youtube shorts extractor, save youtube shorts without watermark, youtube shorts download app, youtube shorts mp4 download',
   authors: [{ name: 'SnapSavePro' }],
   openGraph: {
-    title: 'YouTube Shorts Downloader - Download YouTube Shorts Videos Free',
-    description: 'Download YouTube Shorts videos in high quality. Fast, free, and easy. The best YouTube Shorts video downloader online.',
+    title: 'YouTube Shorts Downloader - Download Shorts in HD 1080p, 4K | No Watermark',
+    description: 'Best free YouTube Shorts downloader. Download Shorts videos in HD 1080p, 4K, 720p without watermark. Fast, secure, no registration required.',
     type: 'website',
     url: 'https://snapsavepro.com/pages/youtube-shorts-downloader',
+    siteName: 'SnapSavePro',
+    locale: 'en_US',
     images: [
       {
         url: '/youtube-shorts-downloader-og.jpg',
         width: 1200,
         height: 630,
-        alt: 'YouTube Shorts Downloader',
+        alt: 'YouTube Shorts Downloader - Download HD Videos Without Watermark',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'YouTube Shorts Downloader - Save YouTube Shorts in HD',
-    description: 'Download YouTube Shorts videos without watermark. Fast, free, and high quality downloads.',
+    title: 'YouTube Shorts Downloader - Save Shorts in HD 1080p, 4K',
+    description: 'Download YouTube Shorts videos in HD quality without watermark. Free, fast, and secure.',
+    site: '@SnapSavePro',
+    creator: '@SnapSavePro',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   alternates: {
     canonical: 'https://snapsavepro.com/pages/youtube-shorts-downloader',
@@ -34,8 +49,9 @@ export const metadata: Metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'YouTube Shorts Downloader',
+  name: 'YouTube Shorts Downloader - SnapSavePro',
   applicationCategory: 'MultimediaApplication',
+  url: 'https://snapsavepro.com/pages/youtube-shorts-downloader',
   offers: {
     '@type': 'Offer',
     price: '0',
@@ -48,16 +64,32 @@ const jsonLd = {
     bestRating: '5',
     worstRating: '1',
   },
-  operatingSystem: 'Any',
-  description: 'Free online YouTube Shorts video downloader. Download YouTube Shorts in high quality without watermark.',
+  operatingSystem: 'Windows, MacOS, Linux, Android, iOS',
+  browserRequirements: 'Requires JavaScript. Works on all modern browsers.',
+  softwareVersion: '2.0',
+  datePublished: '2023-11-15',
+  dateModified: '2025-10-28',
+  author: {
+    '@type': 'Organization',
+    name: 'SnapSavePro',
+    url: 'https://snapsavepro.com',
+  },
+  description: 'Best free YouTube Shorts downloader online. Download YouTube Shorts videos in HD 1080p, 4K, 720p quality without watermark. Fast, secure, and no registration required. Save Shorts to MP4, MP3 format instantly.',
   featureList: [
-    'High quality video downloads',
-    'No watermark',
-    'Multiple format options',
-    'Fast download speed',
-    'Free to use',
-    'No registration required',
+    'Download YouTube Shorts in HD 1080p, 4K, 720p quality',
+    'No watermark on downloaded videos',
+    'Multiple video and audio format options (MP4, WebM, MP3, M4A)',
+    'Lightning-fast download speed',
+    'Completely free to use with no hidden charges',
+    'No registration or login required',
+    'Works on all devices - desktop, mobile, tablet',
+    'Extract audio from YouTube Shorts',
+    'Unlimited downloads',
+    'Safe and secure downloads',
   ],
+  screenshot: 'https://snapsavepro.com/youtube-shorts-downloader-screenshot.jpg',
+  applicationSubCategory: 'Video Downloader',
+  keywords: 'youtube shorts downloader, download youtube shorts, youtube shorts download, youtube shorts no watermark, youtube shorts to mp4, youtube shorts converter',
 };
 
 export default function ShortsDownloaderPage() {

@@ -74,6 +74,9 @@ export default function ProfessionalFooter() {
               <li><Link href='/pages/twitter-video-download' className="text-gray-300 hover:text-gray-300 transition-colors duration-200 text-sm flex items-center gap-2">
                 <span className="text-gray-400">•</span> Twitter/X Video Download
               </Link></li>
+              <li><Link href='/pages/linkedin-video-downloader' className="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm flex items-center gap-2">
+                <span className="text-blue-400">•</span> LinkedIn Video Download
+              </Link></li>
             </ul>
           </div>
 

@@ -58,7 +58,7 @@ class ProgressHook:
             }
 
 def detect_platform(url):
-    """Detect if URL is TikTok, Facebook, Snapchat, YouTube, or YouTube Shorts"""
+    """Detect platform from URL"""
     url = url.strip().lower()
 
     # YouTube Shorts patterns (check before regular YouTube)
@@ -177,6 +177,18 @@ def detect_platform(url):
     for pattern in instagram_patterns:
         if re.match(pattern, url):
             return 'instagram'
+
+    # LinkedIn patterns
+    linkedin_patterns = [
+        r'(?:https?://)?(?:www\.)?linkedin\.com/posts/[\w-]+',
+        r'(?:https?://)?(?:www\.)?linkedin\.com/feed/update/urn:li:activity:\d+',
+        r'(?:https?://)?(?:www\.)?linkedin\.com/feed/update/urn:li:ugcPost:\d+',
+        r'(?:https?://)?(?:www\.)?linkedin\.com/video/live/urn:li:ugcPost:\d+',
+    ]
+
+    for pattern in linkedin_patterns:
+        if re.match(pattern, url):
+            return 'linkedin'
 
     return 'unknown'
 
@@ -353,6 +365,13 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 'progress_hooks': [ProgressHook(download_id, download_progress)],
                 'keepvideo': False,
             })
+        elif platform == 'linkedin':
+            from linkedin import LinkedInDownloader
+            downloader = LinkedInDownloader()
+            base_opts = downloader.get_robust_linkedin_opts({
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'keepvideo': False,
+            })
         else:  # facebook
             from facebook import FacebookDownloader
             downloader = FacebookDownloader()
@@ -435,30 +454,38 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
         max_attempts = 3
         last_error = None
 
-        # Special handling for Instagram (uses direct URL from instagrapi, not yt-dlp)
-        if platform == 'instagram':
+        # Special handling for Instagram and LinkedIn scraped videos (use direct URL, not yt-dlp)
+        if platform == 'instagram' or (platform == 'linkedin' and format_id == 'scraped_video'):
             try:
-                from instagram import InstagramDownloader
-                print(f"[DEBUG] Starting Instagram direct download for {download_id}")
+                print(f"[DEBUG] Starting direct download for {platform} - {download_id}")
 
-                # Get video info to extract direct URL
-                downloader = InstagramDownloader()
-                video_info = downloader.get_video_info(url)
+                # Get direct URL based on platform
+                direct_video_url = None
 
-                # Get direct URL from formats
-                video_formats = video_info.get('formats', {}).get('video_formats', [])
-                if not video_formats:
-                    raise Exception("No video formats available for Instagram download")
+                if platform == 'instagram':
+                    from instagram import InstagramDownloader
+                    downloader = InstagramDownloader()
+                    video_info = downloader.get_video_info(url)
+                    video_formats = video_info.get('formats', {}).get('video_formats', [])
+                    if not video_formats:
+                        raise Exception("No video formats available for Instagram download")
+                    direct_video_url = video_formats[0].get('direct_url')
 
-                direct_url = video_formats[0].get('direct_url')
-                if not direct_url:
-                    raise Exception("Could not get direct download URL from Instagram")
+                elif platform == 'linkedin' and format_id == 'scraped_video':
+                    from linkedin import LinkedInDownloader
+                    downloader = LinkedInDownloader()
+                    scraped_data = downloader.extract_from_webpage(url)
+                    if scraped_data:
+                        direct_video_url = scraped_data.get('video_url')
 
-                print(f"[DEBUG] Got Instagram direct URL, downloading...")
+                if not direct_video_url:
+                    raise Exception(f"Could not get direct download URL from {platform}")
+
+                print(f"[DEBUG] Got {platform} direct URL, downloading...")
 
                 # Download using requests
                 import requests
-                response = requests.get(direct_url, stream=True, timeout=60)
+                response = requests.get(direct_video_url, stream=True, timeout=60)
                 response.raise_for_status()
 
                 # Save to temp file
@@ -655,6 +682,13 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 error_msg = "This Instagram content is private."
             elif 'unavailable' in error_msg.lower():
                 error_msg = "Instagram content unavailable or deleted."
+        elif platform == 'linkedin':
+            if 'login' in error_msg.lower() or 'private' in error_msg.lower():
+                error_msg = "This LinkedIn content is private or requires login."
+            elif 'unavailable' in error_msg.lower() or 'not found' in error_msg.lower():
+                error_msg = "LinkedIn video unavailable or deleted."
+            elif '403' in error_msg or 'forbidden' in error_msg.lower():
+                error_msg = "Access denied. Content may be restricted."
         else:  # facebook
             if 'login' in error_msg.lower() or 'cookie' in error_msg.lower():
                 error_msg = "Facebook requires login for this content. Try a public video."
