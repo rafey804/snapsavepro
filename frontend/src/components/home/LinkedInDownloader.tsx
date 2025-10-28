@@ -7,7 +7,7 @@ import { FaLinkedin } from 'react-icons/fa';
 // Types
 interface VideoFormat {
   quality: string;
-  type: 'video' | 'audio';
+  type: 'video' | 'audio' | 'image';
   format_id: string;
   ext: string;
   filesize: number;
