@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FAQ {
@@ -14,6 +15,7 @@ interface FAQSectionProps {
 
 export default function FAQSection({ faqs, platform }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const t = useTranslations('seo.faq');
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -24,10 +26,10 @@ export default function FAQSection({ faqs, platform }: FAQSectionProps) {
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Frequently Asked Questions
+            {t('title')}
           </h2>
           <p className="text-gray-300 text-lg">
-            Everything you need to know about downloading {platform} videos
+            {t('subtitle', { platform })}
           </p>
         </div>
 

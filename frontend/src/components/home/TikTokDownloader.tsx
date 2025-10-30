@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Search, Download, Play, Clock, Eye, User, FileVideo, Music, Loader, CheckCircle, AlertTriangle, Heart, MessageCircle, Share2, Star } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 
 interface VideoFormat {
@@ -57,6 +58,7 @@ interface ProcessingStatus {
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
 
 export default function TikTokDownloader() {
+  const t = useTranslations('home');
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
@@ -388,14 +390,14 @@ export default function TikTokDownloader() {
         {/* Mobile Responsive Header */}
         <div className="text-center mb-6 sm:mb-12">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-            TikTok Downloader
+            {t('title').split(' - ')[0]}
           </h1>
           <p className="text-sm sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-            Download TikTok videos without watermark in HD quality
+            {t('description')}
           </p>
           <div className="flex justify-center items-center gap-1 sm:gap-2 mt-3 sm:mt-4">
             <Star className="h-4 w-4 sm:h-5 sm:w-5 text-pink-400" />
-            <span className="text-pink-300 font-semibold text-sm sm:text-base">Watermark-Free Downloads</span>
+            <span className="text-pink-300 font-semibold text-sm sm:text-base">{t('watermarkFree')}</span>
             <Star className="h-4 w-4 sm:h-5 sm:w-5 text-pink-400" />
           </div>
         </div>
@@ -413,7 +415,7 @@ export default function TikTokDownloader() {
                       type="url"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
-                      placeholder="Paste TikTok URL here..."
+                      placeholder={t('pasteUrl')}
                       className="w-full px-4 py-3 sm:py-4 bg-slate-700/50 text-white placeholder-gray-400 text-sm sm:text-base focus:outline-none rounded-xl border border-slate-600/50 focus:border-pink-500/50 pr-16 sm:pr-20"
                       disabled={loading}
                       onKeyPress={(e) => {
@@ -434,7 +436,7 @@ export default function TikTokDownloader() {
                       className="absolute right-2 top-1/2 transform -translate-y-1/2 px-2 sm:px-3 py-1 sm:py-2 text-pink-400 hover:text-pink-300 transition-colors text-xs sm:text-sm font-medium bg-transparent hover:bg-slate-600/20 rounded-lg border border-pink-500/30 backdrop-blur-sm"
                       disabled={loading}
                     >
-                      Paste
+                      {t('paste')}
                     </button>
                   </div>
                   
@@ -449,7 +451,7 @@ export default function TikTokDownloader() {
                     ) : (
                       <Search className="h-4 w-4 sm:h-5 sm:w-5" />
                     )}
-                    {loading ? 'Processing...' : 'Get Video'}
+                    {loading ? t('processing') : t('getVideo')}
                   </button>
                 </div>
               </div>

@@ -1,0 +1,668 @@
+{
+  "header": {
+    "downloaders": "ڈاؤن لوڈرز",
+    "resources": "وسائل",
+    "howItWorks": "یہ کیسے کام کرتا ہے",
+    "faqs": "عام سوالات",
+    "contact": "رابطہ کریں",
+    "blog": "بلاگ",
+    "privacyPolicy": "رازداری کی پالیسی",
+    "termsOfService": "سروس کی شرائط",
+    "socialMediaDownloaders": "سوشل میڈیا ڈاؤن لوڈرز",
+    "helpAndResources": "مدد اور وسائل",
+    "howToUse": "استعمال کیسے کریں",
+    "faq": "عمومی سوالات",
+    "contactSupport": "رابطہ سپورٹ",
+    "aboutUs": "ہمارے بارے میں",
+    "allPlatformsSupport": "تمام پلیٹ فارمز HD معیار کی ڈاؤن لوڈ کی حمایت کرتے ہیں • تیز اور مفت • رجسٹریشن کی ضرورت نہیں",
+    "needHelp": "مدد چاہیے؟ ہم آپ کے لیے 24/7 موجود ہیں"
+  },
+  "downloaders": {
+    "tiktok": {
+      "name": "TikTok ویڈیو ڈاؤن لوڈر",
+      "description": "واٹر مارک کے بغیر TikTok ویڈیوز ڈاؤن لوڈ کریں"
+    },
+    "instagram": {
+      "name": "Instagram Reels ڈاؤن لوڈر",
+      "description": "HD معیار میں Instagram Reels محفوظ کریں"
+    },
+    "youtube": {
+      "name": "YouTube Shorts ڈاؤن لوڈر",
+      "description": "YouTube Shorts آسانی سے ڈاؤن لوڈ کریں"
+    },
+    "youtubeMP3": {
+      "name": "YouTube سے MP3 کنورٹر",
+      "description": "YouTube ویڈیوز کو MP3 320kbps میں تبدیل کریں"
+    },
+    "facebook": {
+      "name": "Facebook ویڈیو ڈاؤن لوڈر",
+      "description": "Facebook ویڈیوز فوری طور پر محفوظ کریں"
+    },
+    "snapchat": {
+      "name": "Snapchat ویڈیو ڈاؤن لوڈر",
+      "description": "Snapchat ویڈیوز ڈاؤن لوڈ کریں"
+    },
+    "twitter": {
+      "name": "Twitter/X ویڈیو ڈاؤن لوڈر",
+      "description": "X (Twitter) ویڈیوز ڈاؤن لوڈ کریں"
+    },
+    "pinterest": {
+      "name": "Pinterest ویڈیو ڈاؤن لوڈر",
+      "description": "Pinterest ویڈیوز آسانی سے محفوظ کریں"
+    },
+    "reddit": {
+      "name": "Reddit ویڈیو ڈاؤن لوڈر",
+      "description": "Reddit ویڈیوز ڈاؤن لوڈ کریں"
+    },
+    "linkedin": {
+      "name": "LinkedIn ویڈیو ڈاؤن لوڈر",
+      "description": "LinkedIn ویڈیوز محفوظ کریں"
+    },
+    "twitch": {
+      "name": "Twitch کلپ ڈاؤن لوڈر",
+      "description": "Twitch کلپس ڈاؤن لوڈ کریں"
+    },
+    "telegram": {
+      "name": "Telegram ویڈیو ڈاؤن لوڈر",
+      "description": "Telegram ویڈیوز محفوظ کریں"
+    },
+    "audio": {
+      "name": "آڈیو ڈاؤن لوڈر",
+      "description": "ویڈیوز سے آڈیو نکالیں"
+    },
+    "profilePic": {
+      "name": "پروفائل تصویر ڈاؤن لوڈر",
+      "description": "پروفائل تصاویر ڈاؤن لوڈ کریں"
+    },
+    "instagramProfile": {
+      "name": "Instagram پروفائل تصویر",
+      "description": "Instagram پروفائل تصاویر حاصل کریں"
+    },
+    "youtubeThumbnail": {
+      "name": "YouTube تھمب نیل ڈاؤن لوڈر",
+      "description": "YouTube تھمب نیلز ڈاؤن لوڈ کریں"
+    }
+  },
+  "home": {
+    "title": "TikTok ویڈیو ڈاؤن لوڈر واٹر مارک کے بغیر - مفت اور تیز",
+    "description": "HD معیار میں واٹر مارک کے بغیر TikTok ویڈیوز ڈاؤن لوڈ کریں۔ تیز، مفت اور استعمال میں آسان۔",
+    "h1": "مفت TikTok ویڈیو ڈاؤن لوڈر واٹر مارک کے بغیر - HD معیار میں TikTok ویڈیوز ڈاؤن لوڈ کریں",
+    "downloadButton": "ڈاؤن لوڈ کریں",
+    "pasteUrl": "یہاں TikTok URL پیسٹ کریں...",
+    "processing": "پراسیسنگ جاری ہے...",
+    "features": {
+      "noWatermark": "واٹر مارک کے بغیر",
+      "hdQuality": "HD معیار",
+      "fast": "بجلی کی طرح تیز",
+      "free": "100% مفت",
+      "noLimit": "کوئی حد نہیں"
+    },
+    "pasteUrlLong": "یہاں TikTok URL پیسٹ کریں... (مثال کے طور پر, https://www.tiktok.com/@user/video/123)",
+    "getVideo": "ویڈیو حاصل کریں",
+    "paste": "پیسٹ کریں",
+    "watermarkFree": "واٹر مارک کے بغیر ڈاؤن لوڈ",
+    "videoDownloads": "ویڈیو ڈاؤن لوڈز",
+    "audioDownloads": "آڈیو ڈاؤن لوڈز (MP3)",
+    "readyToDownload": "ڈاؤن لوڈ کے لیے تیار",
+    "noVideoFormats": "اس TikTok کے لیے کوئی ویڈیو فارمیٹ دستیاب نہیں۔",
+    "noAudioFormats": "اس TikTok کے لیے کوئی آڈیو فارمیٹ دستیاب نہیں۔",
+    "downloaded": "ڈاؤن لوڈ ہو گیا",
+    "downloading": "ڈاؤن لوڈ ہو رہا ہے...",
+    "startingDownload": "ڈاؤن لوڈ شروع ہو رہا ہے...",
+    "processingVideo": "TikTok ویڈیو پراسیس ہو رہی ہے...",
+    "invalidUrl": "براہ کرم ایک درست TikTok URL فراہم کریں",
+    "copyright": "© 2025 TikTok ڈاؤن لوڈر۔ HD معیار میں واٹر مارک کے بغیر ویڈیوز ڈاؤن لوڈ کریں۔",
+    "supportText": "تمام TikTok ویڈیو فارمیٹس کی حمایت • تیز ڈاؤن لوڈز • رجسٹریشن کی ضرورت نہیں"
+  },
+  "howTo": {
+    "title": "{platform} ویڈیوز کیسے ڈاؤن لوڈ کریں",
+    "step1": {
+      "title": "ویڈیو URL کاپی کریں",
+      "description": "{platform} سے ویڈیو لنک کاپی کریں"
+    },
+    "step2": {
+      "title": "URL پیسٹ کریں",
+      "description": "اوپر ان پٹ باکس میں لنک پیسٹ کریں"
+    },
+    "step3": {
+      "title": "ڈاؤن لوڈ کریں",
+      "description": "ڈاؤن لوڈ پر کلک کریں اور اپنی ویڈیو محفوظ کریں"
+    }
+  },
+  "faq": {
+    "title": "اکثر پوچھے جانے والے سوالات",
+    "question1": "کیا یہ استعمال کرنے کے لیے مفت ہے؟",
+    "answer1": "جی ہاں، ہماری سروس بغیر کسی پوشیدہ چارجز کے مکمل طور پر مفت ہے۔",
+    "question2": "کیا ویڈیوز ڈاؤن لوڈ کرنا قانونی ہے؟",
+    "answer2": "آپ کو صرف ذاتی استعمال کے لیے ویڈیوز ڈاؤن لوڈ کرنا چاہیے اور کاپی رائٹ قوانین کا احترام کرنا چاہیے۔",
+    "question3": "کون سا ویڈیو معیار تعاون یافتہ ہے؟",
+    "answer3": "ہم اصل ویڈیو کی بنیاد پر HD، Full HD اور 4K تک کے معیار کی حمایت کرتے ہیں۔",
+    "question4": "کیا مجھے سافٹ ویئر انسٹال کرنے کی ضرورت ہے؟",
+    "answer4": "کوئی انسٹالیشن کی ضرورت نہیں۔ براہ راست اپنے براؤزر میں استعمال کریں۔",
+    "question5": "میں کتنی ویڈیوز ڈاؤن لوڈ کر سکتا ہوں؟",
+    "answer5": "کوئی حد نہیں ہے۔ جتنی چاہیں ویڈیوز ڈاؤن لوڈ کریں۔"
+  },
+  "contact": {
+    "title": "ہم سے رابطہ کریں",
+    "description": "کسی بھی سوال یا مدد کے لیے ہم سے رابطہ کریں",
+    "name": "نام",
+    "email": "ای میل",
+    "message": "پیغام",
+    "send": "پیغام بھیجیں",
+    "sendingMessage": "بھیجا جا رہا ہے...",
+    "successMessage": "پیغام کامیابی سے بھیجا گیا!",
+    "errorMessage": "پیغام بھیجنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔"
+  },
+  "footer": {
+    "description": "اپنے پسندیدہ سوشل میڈیا پلیٹ فارمز سے ویڈیوز ڈاؤن لوڈ کرنے کے لیے حتمی ٹول۔ تیز، محفوظ اور قابل اعتماد۔",
+    "quickLinks": "فوری لنکس",
+    "legal": "قانونی",
+    "followUs": "ہمیں فالو کریں",
+    "allRightsReserved": "تمام حقوق محفوظ ہیں",
+    "downloaders": "ڈاؤن لوڈرز",
+    "instagramReels": "Instagram Reels ڈاؤن لوڈ",
+    "youtubeShorts": "YouTube Shorts ڈاؤن لوڈ",
+    "pinterestVideo": "Pinterest ویڈیو ڈاؤن لوڈ",
+    "snapchatVideo": "Snapchat ویڈیو ڈاؤن لوڈ",
+    "redditVideo": "Reddit ویڈیو ڈاؤن لوڈ",
+    "twitterVideo": "Twitter/X ویڈیو ڈاؤن لوڈ",
+    "linkedinVideo": "LinkedIn ویڈیو ڈاؤن لوڈ",
+    "home": "ہوم",
+    "howItWorks": "یہ کیسے کام کرتا ہے",
+    "faq": "عمومی سوالات",
+    "contact": "رابطہ کریں",
+    "privacyPolicy": "رازداری کی پالیسی",
+    "termsOfService": "سروس کی شرائط",
+    "support": "سپورٹ",
+    "copyright": "© {year} SnapSavePro۔ تمام حقوق محفوظ ہیں۔",
+    "developedBy": "تیار کردہ",
+    "madeWithLove": "کمیونٹی کے لیے ❤️ کے ساتھ بنایا گیا"
+  },
+  "common": {
+    "loading": "لوڈ ہو رہا ہے...",
+    "error": "خرابی",
+    "success": "کامیابی",
+    "tryAgain": "دوبارہ کوشش کریں",
+    "close": "بند کریں",
+    "back": "واپس",
+    "next": "اگلا",
+    "previous": "پچھلا",
+    "home": "ہوم",
+    "about": "کے بارے میں",
+    "features": "خصوصیات",
+    "pricing": "قیمتوں کا تعین",
+    "download": "ڈاؤن لوڈ کریں",
+    "share": "شیئر کریں",
+    "copy": "کاپی کریں",
+    "copied": "کاپی ہو گیا!",
+    "learnMore": "مزید جانیں"
+  },
+  "seo": {
+    "howToDownload": {
+      "title": "{platform} ویڈیوز کیسے ڈاؤن لوڈ کریں",
+      "subtitle": "بہترین معیار کے ساتھ صرف 4 آسان مراحل میں {platform} ویڈیوز ڈاؤن لوڈ کریں",
+      "step": "مرحلہ",
+      "steps": {
+        "step1": {
+          "title": "{platform} لنک کاپی کریں",
+          "description": "اپنے {platform} ویڈیو کا لنک تلاش کریں اور کاپی کریں جسے آپ ڈاؤن لوڈ کرنا چاہتے ہیں"
+        },
+        "step2": {
+          "title": "لنک پیسٹ کریں",
+          "description": "ہمارے ڈاؤن لوڈر میں {platform} ویڈیو لنک پیسٹ کریں"
+        },
+        "step3": {
+          "title": "معیار منتخب کریں",
+          "description": "اپنا مطلوبہ ویڈیو معیار منتخب کریں ({platform} کے لیے 4K تک)"
+        },
+        "step4": {
+          "title": "ڈاؤن لوڈ مکمل",
+          "description": "آپ کی ویڈیو بغیر واٹر مارک کے ڈاؤن لوڈ کے لیے تیار ہے"
+        }
+      },
+      "whyChoose": "ہمارے {platform} ڈاؤن لوڈر کو کیوں منتخب کریں؟",
+      "features": {
+        "free": {
+          "title": "100% مفت اور لامحدود",
+          "description": "لامحدود {platform} ویڈیوز مکمل طور پر مفت ڈاؤن لوڈ کریں، کوئی پریمیم کی ضرورت نہیں"
+        },
+        "quality": {
+          "title": "اعلیٰ معیار کی ویڈیوز",
+          "description": "4K ریزولوشن تک دستیاب بلند ترین معیار میں ڈاؤن لوڈ کریں"
+        },
+        "noWatermark": {
+          "title": "کوئی واٹر مارک نہیں",
+          "description": "واٹر مارک ہٹائیں اور بغیر کسی برانڈنگ کے صاف {platform} ویڈیوز حاصل کریں"
+        }
+      }
+    },
+    "infoSection": {
+      "title": "{platform} ویڈیوز ڈاؤن لوڈ کریں",
+      "description1": "ہمارا {platform} ڈاؤن لوڈر سب سے قابل اعتماد ٹول دستیاب ہے۔",
+      "description2": "{platform} سے فوری طور پر اعلیٰ معیار کی ڈاؤن لوڈز حاصل کریں۔",
+      "description3": "تمام آلات اور آپریٹنگ سسٹمز کے ساتھ مطابقت پذیر۔",
+      "description4": "ہم آپ کی ڈاؤن لوڈز کے اصل معیار کو محفوظ رکھتے ہیں۔",
+      "description5": "ابھی ڈاؤن لوڈ کرنا شروع کریں اور اپنے مواد سے آف لائن لطف اٹھائیں!",
+      "features": {
+        "quality": {
+          "title": "متعدد معیار کے اختیارات",
+          "description": "اپنی ضروریات کے مطابق مختلف معیار کے اختیارات میں سے منتخب کریں۔"
+        },
+        "speed": {
+          "title": "بجلی کی تیز رفتار ڈاؤن لوڈز",
+          "description": "سیکنڈوں میں {platform} ویڈیوز ڈاؤن لوڈ کریں۔"
+        },
+        "security": {
+          "title": "محفوظ اور مامون",
+          "description": "آپ کا ڈیٹا خفیہ کیا گیا ہے اور ہمارے سرورز پر کبھی محفوظ نہیں کیا جاتا۔"
+        },
+        "noWatermark": {
+          "title": "کوئی واٹر مارک نہیں",
+          "description": "بغیر کسی واٹر مارک کے صاف {platform} ویڈیوز حاصل کریں۔"
+        }
+      }
+    },
+    "faq": {
+      "title": "اکثر پوچھے گئے سوالات",
+      "subtitle": "{platform} ویڈیوز ڈاؤن لوڈ کرنے کے بارے میں آپ کو جاننے کی ضرورت ہر چیز"
+    },
+    "tiktokContent": {
+      "mainTitle": "TikTok ویڈیو ڈاؤن لوڈر بغیر واٹر مارک کے - مفت اور تیز",
+      "introduction": {
+        "para1": "Snap Save Pro میں خوش آمدید، حتمی بغیر واٹر مارک کے TikTok ویڈیو ڈاؤن لوڈر۔ ہمارا طاقتور ٹول آپ کو اعلیٰ معیار میں TikTok ویڈیوز ڈاؤن لوڈ کرنے کی اجازت دیتا ہے۔",
+        "para2": "TikTok دنیا کے سب سے مقبول سوشل میڈیا پلیٹ فارمز میں سے ایک بن گیا ہے۔"
+      },
+      "whyChoose": {
+        "title": "TikTok ڈاؤن لوڈز کے لیے Snap Save Pro کیوں منتخب کریں؟",
+        "noWatermark": {
+          "title": "واٹر مارک کے بغیر ڈاؤن لوڈز",
+          "description": "دوسرے ٹولز کے برعکس، ہم 100% واٹر مارک سے پاک ڈاؤن لوڈز فراہم کرتے ہیں۔"
+        },
+        "hdQuality": {
+          "title": "HD معیار کی ڈاؤن لوڈز",
+          "description": "ہم اصل ویڈیو کوالٹی کو محفوظ رکھتے ہیں۔"
+        },
+        "noRegistration": {
+          "title": "رجسٹریشن کی ضرورت نہیں",
+          "description": "اکاؤنٹ بنائے بغیر فوری طور پر ڈاؤن لوڈ کرنا شروع کریں۔"
+        },
+        "audioSupport": {
+          "title": "آڈیو ڈاؤن لوڈ سپورٹ",
+          "description": "MP3 فارمیٹ میں TikTok ویڈیوز سے آڈیو نکالیں۔"
+        }
+      },
+      "howItWorks": {
+        "title": "بغیر واٹر مارک کے TikTok ویڈیوز کیسے ڈاؤن لوڈ کریں",
+        "description": "Snap Save Pro کے ساتھ TikTok ویڈیوز ڈاؤن لوڈ کرنا ناقابل یقین حد تک آسان ہے۔",
+        "step1": {
+          "title": "TikTok ایپ یا ویب سائٹ کھولیں",
+          "description": "وہ TikTok ویڈیو تلاش کریں جسے آپ ڈاؤن لوڈ کرنا چاہتے ہیں۔"
+        },
+        "step2": {
+          "title": "ویڈیو لنک کاپی کریں",
+          "description": "TikTok ویڈیو پر \"شیئر\" بٹن پر ٹیپ کریں۔"
+        },
+        "step3": {
+          "title": "پیسٹ کریں اور ڈاؤن لوڈ کریں",
+          "description": "کاپی شدہ لنک کو Snap Save Pro کے ان پٹ فیلڈ میں پیسٹ کریں۔"
+        }
+      },
+      "advancedFeatures": {
+        "title": "TikTok ویڈیو ڈاؤن لوڈز کے لیے جدید خصوصیات",
+        "description": "Snap Save Pro صرف ایک اور TikTok ڈاؤن لوڈر نہیں ہے۔",
+        "unlimited": "لامحدود ڈاؤن لوڈز: کوئی روزانہ کی حد نہیں۔",
+        "mobileFriendly": "موبائل فرینڈلی انٹرفیس",
+        "fastProcessing": "بجلی کی تیز رفتار پروسیسنگ",
+        "batchDownload": "بیچ ڈاؤن لوڈ سپورٹ",
+        "formatConversion": "فارمیٹ تبدیلی"
+      },
+      "benefits": {
+        "title": "TikTok ویڈیو ڈاؤن لوڈر استعمال کرنے کے فوائد",
+        "description": "لاکھوں صارفین TikTok ویڈیو ڈاؤن لوڈرز پر بھروسہ کرنے کی بے شمار وجوہات ہیں۔",
+        "contentCreation": "مواد کی تخلیق اور دوبارہ پوسٹنگ",
+        "offlineViewing": "آف لائن دیکھنا",
+        "backup": "بیک اپ اور آرکائیو",
+        "educational": "تعلیمی مقاصد",
+        "marketing": "مارکیٹنگ اور تجزیہ"
+      },
+      "safetyPrivacy": {
+        "title": "کیا Snap Save Pro محفوظ اور قانونی ہے؟",
+        "safety": "حفاظت: بالکل!",
+        "privacy": "رازداری: ہم آپ کی رازداری کا 100% احترام کرتے ہیں۔",
+        "legal": "قانونی دستبرداری"
+      },
+      "proTips": {
+        "title": "TikTok ویڈیو ڈاؤن لوڈز کے لیے پرو ٹپس",
+        "tip1": "صحیح معیار منتخب کریں",
+        "tip2": "ویڈیو کی سمت چیک کریں",
+        "tip3": "رجحان ساز مواد جلد ڈاؤن لوڈ کریں",
+        "tip4": "آڈیو نکالنے کا دانشمندی سے استعمال کریں",
+        "tip5": "اپنی ڈاؤن لوڈز کو منظم کریں"
+      },
+      "closing": {
+        "title": "آج ہی TikTok ویڈیوز ڈاؤن لوڈ کرنا شروع کریں",
+        "para1": "لاکھوں مطمئن صارفین میں شامل ہوں۔",
+        "para2": "چاہے آپ مواد کی لائبریری بنا رہے ہوں۔",
+        "para3": "ڈاؤن لوڈ کے لیے تیار ہیں؟"
+      }
+    },
+    "reviews": {
+      "title": "صارف کے جائزے",
+      "subtitle": "دیکھیں کہ ہمارے صارفین Snap Save Pro کے بارے میں کیا کہتے ہیں",
+      "rating": "{rating}/5 ({count}+ جائزے)",
+      "platformUser": "{platform} صارف"
+    },
+    "instagram": {
+      "mainTitle": "Instagram Reels ڈاؤن لوڈر - آسانی سے ویڈیوز محفوظ کریں",
+      "intro": "بہترین مفت Instagram Reels ڈاؤن لوڈ کرنے کا ٹول۔",
+      "howTo": {
+        "title": "کیسے ڈاؤن لوڈ کریں",
+        "step1": "لنک کاپی کریں",
+        "step2": "URL پیسٹ کریں",
+        "step3": "ویڈیو حاصل کریں",
+        "step4": "معیار منتخب کریں",
+        "step5": "ڈاؤن لوڈ"
+      },
+      "features": {
+        "title": "خصوصیات",
+        "highQuality": "اعلیٰ معیار: HD اور Full HD",
+        "noWatermark": "واٹر مارک کے بغیر",
+        "multipleFormats": "متعدد فارمیٹس",
+        "fastSecure": "تیز اور محفوظ",
+        "free": "مفت",
+        "noRegistration": "رجسٹریشن نہیں",
+        "allDevices": "تمام ڈیوائسز",
+        "audioExtraction": "آڈیو نکالیں"
+      },
+      "whyChoose": {
+        "title": "کیوں منتخب کریں؟",
+        "description": "بہترین معیار، واٹر مارک کے بغیر۔"
+      },
+      "faq": {
+        "title": "سوالات",
+        "q1": {
+          "question": "قانونی؟",
+          "answer": "ذاتی استعمال ٹھیک ہے۔"
+        },
+        "q2": {
+          "question": "نجی ویڈیو؟",
+          "answer": "نہیں۔"
+        },
+        "q3": {
+          "question": "انسٹال؟",
+          "answer": "ضرورت نہیں۔"
+        },
+        "q4": {
+          "question": "معیار؟",
+          "answer": "1080p تک۔"
+        },
+        "q5": {
+          "question": "حد؟",
+          "answer": "کوئی حد نہیں۔"
+        },
+        "q6": {
+          "question": "موبائل؟",
+          "answer": "ہاں۔"
+        }
+      },
+      "proTip": {
+        "title": "ٹپ:",
+        "description": "مکمل URL کاپی کریں۔"
+      }
+    },
+    "youtube": {
+      "mainTitle": "YouTube Shorts ڈاؤن لوڈر",
+      "intro": "بہترین YouTube Shorts ڈاؤن لوڈ ٹول۔",
+      "howTo": {
+        "title": "کیسے ڈاؤن لوڈ کریں",
+        "step1": "لنک کاپی",
+        "step2": "پیسٹ کریں",
+        "step3": "ویڈیو حاصل کریں",
+        "step4": "معیار منتخب",
+        "step5": "ڈاؤن لوڈ"
+      },
+      "features": {
+        "title": "خصوصیات",
+        "highQuality": "4K، 1080p، 720p",
+        "noWatermark": "واٹر مارک نہیں",
+        "multipleFormats": "متعدد فارمیٹس",
+        "fastSecure": "تیز",
+        "free": "مفت",
+        "noRegistration": "رجسٹریشن نہیں",
+        "allDevices": "تمام ڈیوائسز",
+        "audioExtraction": "آڈیو"
+      },
+      "whyChoose": {
+        "title": "کیوں؟",
+        "description": "4K معیار، تیز ترین۔"
+      },
+      "faq": {
+        "title": "سوالات",
+        "q1": {
+          "question": "قانونی؟",
+          "answer": "ہاں۔"
+        },
+        "q2": {
+          "question": "نجی؟",
+          "answer": "نہیں۔"
+        },
+        "q3": {
+          "question": "انسٹال؟",
+          "answer": "نہیں۔"
+        },
+        "q4": {
+          "question": "معیار؟",
+          "answer": "4K تک۔"
+        },
+        "q5": {
+          "question": "حد؟",
+          "answer": "نہیں۔"
+        },
+        "q6": {
+          "question": "موبائل؟",
+          "answer": "ہاں۔"
+        }
+      },
+      "proTip": {
+        "title": "ٹپ:",
+        "description": "مکمل URL کاپی کریں۔"
+      }
+    },
+    "facebook": {
+      "mainTitle": "Facebook ویڈیو ڈاؤن لوڈر",
+      "intro": "Facebook ویڈیوز ڈاؤن لوڈ کریں۔",
+      "howTo": {
+        "title": "کیسے",
+        "step1": "لنک کاپی",
+        "step2": "پیسٹ",
+        "step3": "حاصل کریں",
+        "step4": "منتخب کریں",
+        "step5": "ڈاؤن لوڈ"
+      },
+      "features": {
+        "title": "خصوصیات",
+        "highQuality": "HD",
+        "noWatermark": "واٹر مارک نہیں",
+        "multipleFormats": "MP4",
+        "fastSecure": "تیز",
+        "free": "مفت",
+        "noRegistration": "رجسٹریشن نہیں",
+        "allDevices": "تمام",
+        "audioExtraction": "آڈیو"
+      },
+      "whyChoose": {
+        "title": "کیوں؟",
+        "description": "بہترین معیار۔"
+      },
+      "faq": {
+        "title": "سوالات",
+        "q1": {
+          "question": "قانونی؟",
+          "answer": "ہاں۔"
+        },
+        "q2": {
+          "question": "نجی؟",
+          "answer": "نہیں۔"
+        },
+        "q3": {
+          "question": "انسٹال؟",
+          "answer": "نہیں۔"
+        },
+        "q4": {
+          "question": "معیار؟",
+          "answer": "1080p۔"
+        },
+        "q5": {
+          "question": "حد؟",
+          "answer": "نہیں۔"
+        },
+        "q6": {
+          "question": "موبائل؟",
+          "answer": "ہاں۔"
+        }
+      },
+      "proTip": {
+        "title": "ٹپ:",
+        "description": "مکمل URL۔"
+      }
+    },
+    "twitter": {
+      "mainTitle": "Twitter ویڈیو ڈاؤن لوڈر",
+      "intro": "Twitter ویڈیوز اور GIF ڈاؤن لوڈ کریں۔",
+      "howTo": {
+        "title": "کیسے",
+        "step1": "ٹویٹ کاپی",
+        "step2": "پیسٹ",
+        "step3": "حاصل کریں",
+        "step4": "منتخب",
+        "step5": "ڈاؤن لوڈ"
+      },
+      "features": {
+        "title": "خصوصیات",
+        "highQuality": "1080p",
+        "noWatermark": "واٹر مارک نہیں",
+        "multipleFormats": "MP4، GIF",
+        "fastSecure": "تیز",
+        "free": "مفت",
+        "noRegistration": "رجسٹریشن نہیں",
+        "allDevices": "تمام",
+        "audioExtraction": "MP3"
+      },
+      "whyChoose": {
+        "title": "کیوں؟",
+        "description": "تیز ترین۔"
+      },
+      "faq": {
+        "title": "سوالات",
+        "q1": {
+          "question": "قانونی؟",
+          "answer": "ہاں۔"
+        },
+        "q2": {
+          "question": "نجی؟",
+          "answer": "نہیں۔"
+        },
+        "q3": {
+          "question": "انسٹال؟",
+          "answer": "نہیں۔"
+        },
+        "q4": {
+          "question": "معیار؟",
+          "answer": "1080p۔"
+        },
+        "q5": {
+          "question": "حد؟",
+          "answer": "نہیں۔"
+        },
+        "q6": {
+          "question": "موبائل؟",
+          "answer": "ہاں۔"
+        }
+      },
+      "proTip": {
+        "title": "ٹپ:",
+        "description": "مکمل لنک۔"
+      }
+    }
+  },
+  "pages": {
+    "howItWorks": {
+      "title": "یہ کیسے کام کرتا ہے",
+      "subtitle": "ہماری آسان 4 مرحلہ عمل کے ساتھ کسی بھی YouTube ویڈیو کو HD معیار میں ڈاؤن لوڈ کریں۔ کوئی سافٹ ویئر انسٹالیشن نہیں، کوئی رجسٹریشن کی ضرورت نہیں - مکمل طور پر مفت اور محفوظ۔",
+      "statsTitle": "4 آسان مراحل میں YouTube ویڈیوز ڈاؤن لوڈ کریں",
+      "ctaTitle": "ڈاؤن لوڈ شروع کرنے کے لیے تیار ہیں؟",
+      "ctaSubtitle": "ابھی ہمارا مفت YouTube ویڈیو ڈاؤن لوڈر آزمائیں۔ کوئی رجسٹریشن کی ضرورت نہیں، مکمل طور پر محفوظ، اور تمام ویڈیو معیار کے ساتھ کام کرتا ہے۔",
+      "ctaButton": "ابھی ڈاؤن لوڈ شروع کریں"
+    },
+    "faqs": {
+      "title": "Snap Save Pro FAQ - ویڈیو ڈاؤن لوڈر مدد",
+      "subtitle": "TikTok، YouTube، Facebook، Pinterest، Snapchat، Reddit اور Twitter سے ویڈیوز ڈاؤن لوڈ کرنے کی مکمل گائیڈ۔ HD ویڈیو ڈاؤن لوڈز، MP3 آڈیو نکالنے اور مسائل حل کرنے کے بارے میں جوابات تلاش کریں۔",
+      "searchPlaceholder": "تلاش کریں: TikTok ڈاؤن لوڈ، YouTube MP3، Facebook ویڈیو، واٹر مارک ہٹائیں...",
+      "searchResults": "\"{query}\" کے لیے {count} نتائج ملے",
+      "browseCategories": "FAQ زمرے براؤز کریں",
+      "proTipsTitle": "بہترین ویڈیو ڈاؤن لوڈز کے لیے پرو ٹپس",
+      "proTipsSubtitle": "TikTok، YouTube اور Facebook ویڈیوز کو تیز اور بہتر معیار میں ڈاؤن لوڈ کرنے کے لیے ماہرانہ تجاویز",
+      "popularSearches": "مقبول تلاشیں",
+      "ctaTitle": "ویڈیو ڈاؤن لوڈز کے بارے میں اب بھی سوالات ہیں؟",
+      "ctaSubtitle": "جو آپ تلاش کر رہے ہیں وہ نہیں مل رہا؟ ہمارا FAQ مسلسل TikTok، YouTube، Facebook اور تمام تعاون یافتہ پلیٹ فارمز سے ڈاؤن لوڈ کرنے کے بارے میں نئے سوالات کے ساتھ اپ ڈیٹ ہوتا ہے۔",
+      "ctaButton": "ابھی ویڈیوز ڈاؤن لوڈ کرنا شروع کریں",
+      "blogButton": "ہمارا بلاگ اور گائیڈز پڑھیں",
+      "noResults": "کوئی نتائج نہیں ملے",
+      "noResultsDesc": "مختلف کلیدی الفاظ آزمائیں یا اوپر زمرے براؤز کریں"
+    },
+    "contact": {
+      "title": "ہم سے رابطہ کریں",
+      "subtitle": "ہمارے YouTube ڈاؤن لوڈر کے ساتھ مدد چاہیے؟ سوالات یا رائے ہے؟ ہماری سپورٹ ٹیم کسی بھی مسئلے یا استفسار میں آپ کی مدد کے لیے یہاں ہے۔",
+      "helpTitle": "ہم آپ کی کیسے مدد کر سکتے ہیں؟",
+      "formTitle": "ہمیں پیغام بھیجیں",
+      "nameLabel": "آپ کا نام",
+      "namePlaceholder": "اپنا نام درج کریں",
+      "emailLabel": "ای میل ایڈریس",
+      "emailPlaceholder": "your.email@example.com",
+      "categoryLabel": "زمرہ",
+      "subjectLabel": "موضوع",
+      "subjectPlaceholder": "آپ کے استفسار کی مختصر تفصیل",
+      "messageLabel": "پیغام",
+      "messagePlaceholder": "براہ کرم اپنے سوال یا مسئلے کے بارے میں تفصیلی معلومات فراہم کریں...",
+      "sendButton": "پیغام بھیجیں",
+      "quickFaqTitle": "فوری سپورٹ FAQ",
+      "directEmailTitle": "براہ راست ای میل رابطہ",
+      "directEmailSubtitle": "فوری مدد کے لیے، ہماری سپورٹ ٹیم سے براہ راست رابطہ کریں",
+      "responseTime": "ہم عام طور پر 24 گھنٹوں کے اندر جواب دیتے ہیں",
+      "feedbackTitle": "ہم آپ کی رائے کی قدر کرتے ہیں",
+      "feedbackDesc": "آپ کی تجاویز ہماری YouTube ڈاؤن لوڈر سروس کو بہتر بنانے میں مدد کرتی ہیں۔ چاہے یہ فیچر کی درخواست ہو، بگ رپورٹ ہو، یا عام رائے ہو، ہم ہر پیغام پڑھتے ہیں اور اسے آپ کے تجربے کو بہتر بنانے کے لیے استعمال کرتے ہیں۔"
+    }
+  },
+  "metadata": {
+    "home": {
+      "title": "ٹک ٹاک ویڈیو ڈاؤن لوڈر بغیر واٹرمارک - مفت اور تیز | Snap Save Pro",
+      "description": "ٹک ٹاک ویڈیوز بغیر واٹرمارک HD معیار میں ڈاؤن لوڈ کریں۔ تیز، مفت، اور استعمال میں آسان۔ TikTok، YouTube، Facebook، Instagram اور مزید کے لیے سپورٹ۔",
+      "keywords": "ویڈیو ڈاؤن لوڈر, ٹک ٹاک ڈاؤن لوڈر, یوٹیوب ڈاؤن لوڈر, فیس بک ویڈیو ڈاؤن لوڈ, انسٹاگرام ڈاؤن لوڈر, آن لائن ویڈیو ڈاؤن لوڈ, مفت ویڈیو ڈاؤن لوڈر, بغیر واٹرمارک, ایچ ڈی ویڈیو ڈاؤن لوڈ, ٹک ٹاک ویڈیو ڈاؤن لوڈ, یوٹیوب ویڈیو ڈاؤن لوڈ, انسٹاگرام ویڈیو ڈاؤن لوڈ, فیس بک ڈاؤن لوڈر, ٹویٹر ویڈیو ڈاؤن لوڈ, video downloader, tiktok downloader, youtube downloader, download videos online, free video downloader, no watermark, hd video download",
+      "ogTitle": "ٹک ٹاک ویڈیو ڈاؤن لوڈر بغیر واٹرمارک | Snap Save Pro",
+      "ogDescription": "ٹک ٹاک ویڈیوز بغیر واٹرمارک HD معیار میں ڈاؤن لوڈ کریں۔ تیز، مفت، اور استعمال میں آسان۔",
+      "ogImageAlt": "Snap Save Pro - ملٹی پلیٹ فارم ویڈیو ڈاؤن لوڈر",
+      "twitterTitle": "ٹک ٹاک ویڈیو ڈاؤن لوڈر بغیر واٹرمارک - مفت اور تیز",
+      "twitterDescription": "ٹک ٹاک ویڈیوز بغیر واٹرمارک HD معیار میں ڈاؤن لوڈ کریں۔ تیز، مفت، اور استعمال میں آسان۔"
+    },
+    "facebook": {
+      "title": "فیس بک ویڈیو ڈاؤن لوڈر - HD میں مفت ڈاؤن لوڈ | Snap Save Pro",
+      "description": "فیس بک ویڈیوز مفت میں HD معیار میں ڈاؤن لوڈ کریں۔ فیس بک ویڈیوز، ریلز، اور سٹوریز بغیر واٹرمارک کے محفوظ کریں۔",
+      "keywords": "فیس بک ویڈیو ڈاؤن لوڈر, فیس بک ویڈیو ڈاؤن لوڈ, فیس بک ڈاؤن لوڈر, فیس بک ویڈیو سیو, ایف بی ویڈیو ڈاؤن لوڈر, facebook video downloader, download facebook videos, fb video downloader, save facebook videos"
+    },
+    "twitter": {
+      "title": "ٹویٹر/X ویڈیو ڈاؤن لوڈر - بغیر واٹرمارک ڈاؤن لوڈ | Snap Save Pro",
+      "description": "ٹویٹر اور X ویڈیوز بغیر واٹرمارک HD معیار میں ڈاؤن لوڈ کریں۔ تیز، مفت، اور آسان ٹویٹر ویڈیو ڈاؤن لوڈر۔",
+      "keywords": "ٹویٹر ویڈیو ڈاؤن لوڈر, ایکس ویڈیو ڈاؤن لوڈر, ٹویٹر ویڈیو ڈاؤن لوڈ, ایکس ویڈیو ڈاؤن لوڈ, twitter video downloader, x video downloader, download twitter videos, twitter downloader"
+    },
+    "instagramReels": {
+      "title": "انسٹاگرام ریلز ڈاؤن لوڈر - HD 1080p میں ڈاؤن لوڈ | بغیر واٹرمارک",
+      "description": "بہترین مفت انسٹاگرام ریلز ڈاؤن لوڈر۔ انسٹاگرام ریلز، پوسٹس، IGTV، سٹوریز HD 1080p میں بغیر واٹرمارک ڈاؤن لوڈ کریں۔",
+      "keywords": "انسٹاگرام ریلز ڈاؤن لوڈر, انسٹاگرام ڈاؤن لوڈر, انسٹاگرام ویڈیو ڈاؤن لوڈ, ریلز ڈاؤن لوڈ, instagram reels downloader, download instagram reels, instagram downloader, save instagram reels"
+    },
+    "youtubeShorts": {
+      "title": "یوٹیوب شارٹس ڈاؤن لوڈر - HD 1080p, 4K میں ڈاؤن لوڈ | بغیر واٹرمارک",
+      "description": "بہترین مفت یوٹیوب شارٹس ڈاؤن لوڈر۔ یوٹیوب شارٹس ویڈیوز HD 1080p, 4K میں بغیر واٹرمارک ڈاؤن لوڈ کریں۔",
+      "keywords": "یوٹیوب شارٹس ڈاؤن لوڈر, یوٹیوب شارٹس ڈاؤن لوڈ, شارٹس ڈاؤن لوڈ, یوٹیوب شارٹس ویڈیو ڈاؤن لوڈر, youtube shorts downloader, download youtube shorts, youtube shorts download"
+    }
+  }
+}

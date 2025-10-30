@@ -9,3 +9,5 @@ certifi==2024.8.30
 pycryptodomex==3.20.0
 secretstorage==3.3.3; sys_platform == 'linux'
 keyring==25.5.0
+telethon==1.36.0
+cryptg==0.4.0

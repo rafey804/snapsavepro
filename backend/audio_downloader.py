@@ -495,8 +495,8 @@ class AudioDownloader:
                 import shutil
                 shutil.rmtree(temp_dir, ignore_errors=True)
     
-    def download_platform_audio(self, url, download_id, download_progress, download_files):
-        """Download and extract audio from platform URL"""
+    def download_platform_audio(self, url, download_id, download_progress, download_files, target_bitrate=192):
+        """Download and extract audio from platform URL with specified bitrate"""
         temp_dir = None
         try:
             download_progress[download_id] = {
@@ -504,13 +504,13 @@ class AudioDownloader:
                 'percent': 5,
                 'platform': self._get_platform_name(url)
             }
-            
+
             temp_dir = tempfile.mkdtemp()
-            
+
             ydl_opts = self.get_audio_opts({
                 'progress_hooks': [ProgressHook(download_id)],
                 'outtmpl': os.path.join(temp_dir, '%(title).100s.%(ext)s'),
-            })
+            }, target_bitrate=target_bitrate)
             
             download_progress[download_id] = {
                 'status': 'downloading',

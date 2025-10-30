@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Star, User } from 'lucide-react';
 
 interface Review {
@@ -15,6 +16,7 @@ interface ReviewsSectionProps {
 }
 
 export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
+  const t = useTranslations('seo.reviews');
   // Generate Schema.org Review structured data
   const reviewSchema = {
     "@context": "https://schema.org",
@@ -56,10 +58,10 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            User Reviews
+            {t('title')}
           </h2>
           <p className="text-gray-300 text-lg">
-            See what our users say about Snap Save Pro
+            {t('subtitle')}
           </p>
         <div className="flex items-center justify-center gap-2 mt-4">
           <div className="flex">
@@ -67,7 +69,7 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
               <Star key={star} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
             ))}
           </div>
-          <span className="text-gray-300 text-lg font-semibold">4.8/5 (2,500+ reviews)</span>
+          <span className="text-gray-300 text-lg font-semibold">{t('rating', { rating: '4.8', count: '2,500' })}</span>
         </div>
       </div>
 
@@ -110,7 +112,7 @@ export default function ReviewsSection({ reviews }: ReviewsSectionProps) {
             {/* Platform Badge */}
             {review.platform && (
               <span className="inline-block bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded-full text-xs font-semibold">
-                {review.platform} User
+                {t('platformUser', { platform: review.platform })}
               </span>
             )}
           </div>

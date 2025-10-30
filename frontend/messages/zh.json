@@ -1,0 +1,668 @@
+{
+  "header": {
+    "downloaders": "下载器",
+    "resources": "资源",
+    "howItWorks": "使用方法",
+    "faqs": "常见问题",
+    "contact": "联系我们",
+    "blog": "博客",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "socialMediaDownloaders": "社交媒体下载器",
+    "helpAndResources": "帮助和资源",
+    "howToUse": "使用方法",
+    "faq": "常见问题",
+    "contactSupport": "联系支持",
+    "aboutUs": "关于我们",
+    "allPlatformsSupport": "所有平台支持高清下载 • 快速免费 • 无需注册",
+    "needHelp": "需要帮助吗？我们为您提供24/7全天候服务"
+  },
+  "downloaders": {
+    "tiktok": {
+      "name": "TikTok视频下载器",
+      "description": "无水印下载TikTok视频"
+    },
+    "instagram": {
+      "name": "Instagram短视频下载器",
+      "description": "以高清质量保存Instagram短视频"
+    },
+    "youtube": {
+      "name": "YouTube短视频下载器",
+      "description": "轻松下载YouTube短视频"
+    },
+    "youtubeMP3": {
+      "name": "YouTube转MP3转换器",
+      "description": "将YouTube视频转换为320kbps MP3"
+    },
+    "facebook": {
+      "name": "Facebook视频下载器",
+      "description": "即时保存Facebook视频"
+    },
+    "snapchat": {
+      "name": "Snapchat视频下载器",
+      "description": "下载Snapchat视频"
+    },
+    "twitter": {
+      "name": "Twitter/X视频下载器",
+      "description": "下载X(Twitter)视频"
+    },
+    "pinterest": {
+      "name": "Pinterest视频下载器",
+      "description": "轻松保存Pinterest视频"
+    },
+    "reddit": {
+      "name": "Reddit视频下载器",
+      "description": "下载Reddit视频"
+    },
+    "linkedin": {
+      "name": "LinkedIn视频下载器",
+      "description": "保存LinkedIn视频"
+    },
+    "twitch": {
+      "name": "Twitch剪辑下载器",
+      "description": "下载Twitch剪辑"
+    },
+    "telegram": {
+      "name": "Telegram视频下载器",
+      "description": "保存Telegram视频"
+    },
+    "audio": {
+      "name": "音频下载器",
+      "description": "从视频中提取音频"
+    },
+    "profilePic": {
+      "name": "头像下载器",
+      "description": "下载个人头像"
+    },
+    "instagramProfile": {
+      "name": "Instagram头像",
+      "description": "获取Instagram头像"
+    },
+    "youtubeThumbnail": {
+      "name": "YouTube缩略图下载器",
+      "description": "下载YouTube缩略图"
+    }
+  },
+  "home": {
+    "title": "TikTok视频下载器无水印 - 免费快速",
+    "description": "以高清质量下载无水印的TikTok视频。快速、免费且易于使用。",
+    "h1": "免费TikTok视频下载器无水印 - 以高清质量下载TikTok视频",
+    "downloadButton": "下载",
+    "pasteUrl": "在此粘贴TikTok链接...",
+    "processing": "处理中...",
+    "features": {
+      "noWatermark": "无水印",
+      "hdQuality": "高清质量",
+      "fast": "闪电般快速",
+      "free": "100%免费",
+      "noLimit": "无限制"
+    },
+    "pasteUrlLong": "在此粘贴TikTok链接... (例如, https://www.tiktok.com/@user/video/123)",
+    "getVideo": "获取视频",
+    "paste": "粘贴",
+    "watermarkFree": "无水印下载",
+    "videoDownloads": "视频下载",
+    "audioDownloads": "音频下载 (MP3)",
+    "readyToDownload": "准备下载",
+    "noVideoFormats": "此TikTok没有可用的视频格式。",
+    "noAudioFormats": "此TikTok没有可用的音频格式。",
+    "downloaded": "已下载",
+    "downloading": "下载中...",
+    "startingDownload": "开始下载...",
+    "processingVideo": "处理TikTok视频中...",
+    "invalidUrl": "请提供有效的TikTok链接",
+    "copyright": "© 2025 TikTok下载器。以高清质量下载无水印视频。",
+    "supportText": "支持所有TikTok视频格式 • 快速下载 • 无需注册"
+  },
+  "howTo": {
+    "title": "如何下载{platform}视频",
+    "step1": {
+      "title": "复制视频链接",
+      "description": "从{platform}复制视频链接"
+    },
+    "step2": {
+      "title": "粘贴链接",
+      "description": "在上面的输入框中粘贴链接"
+    },
+    "step3": {
+      "title": "下载",
+      "description": "点击下载并保存您的视频"
+    }
+  },
+  "faq": {
+    "title": "常见问题",
+    "question1": "使用是免费的吗？",
+    "answer1": "是的，我们的服务完全免费，没有隐藏费用。",
+    "question2": "下载视频合法吗？",
+    "answer2": "您应该仅为个人使用下载视频，并尊重版权法。",
+    "question3": "支持什么视频质量？",
+    "answer3": "根据原始视频，我们支持高清、全高清和最高4K质量。",
+    "question4": "我需要安装软件吗？",
+    "answer4": "无需安装。直接在浏览器中使用。",
+    "question5": "我可以下载多少视频？",
+    "answer5": "没有限制。您想下载多少就下载多少。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "description": "如有任何问题或需要支持，请与我们联系",
+    "name": "姓名",
+    "email": "邮箱",
+    "message": "消息",
+    "send": "发送消息",
+    "sendingMessage": "发送中...",
+    "successMessage": "消息发送成功！",
+    "errorMessage": "消息发送失败。请重试。"
+  },
+  "footer": {
+    "description": "从您最喜欢的社交媒体平台下载视频的终极工具。快速、安全、可靠。",
+    "quickLinks": "快速链接",
+    "legal": "法律",
+    "followUs": "关注我们",
+    "allRightsReserved": "版权所有",
+    "downloaders": "下载器",
+    "instagramReels": "Instagram Reels 下载",
+    "youtubeShorts": "YouTube Shorts 下载",
+    "pinterestVideo": "Pinterest 视频下载",
+    "snapchatVideo": "Snapchat 视频下载",
+    "redditVideo": "Reddit 视频下载",
+    "twitterVideo": "Twitter/X 视频下载",
+    "linkedinVideo": "LinkedIn 视频下载",
+    "home": "首页",
+    "howItWorks": "使用方法",
+    "faq": "常见问题",
+    "contact": "联系我们",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "support": "支持",
+    "copyright": "© {year} SnapSavePro。保留所有权利。",
+    "developedBy": "开发者",
+    "madeWithLove": "用❤️为社区打造"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "tryAgain": "重试",
+    "close": "关闭",
+    "back": "返回",
+    "next": "下一个",
+    "previous": "上一个",
+    "home": "首页",
+    "about": "关于",
+    "features": "特点",
+    "pricing": "价格",
+    "download": "下载",
+    "share": "分享",
+    "copy": "复制",
+    "copied": "已复制！",
+    "learnMore": "了解更多"
+  },
+  "seo": {
+    "howToDownload": {
+      "title": "如何下载 {platform} 视频",
+      "subtitle": "只需 4 个简单步骤即可以最佳质量下载 {platform} 视频",
+      "step": "步骤",
+      "steps": {
+        "step1": {
+          "title": "复制 {platform} 链接",
+          "description": "查找并复制您要下载的 {platform} 视频链接"
+        },
+        "step2": {
+          "title": "粘贴链接",
+          "description": "将 {platform} 视频链接粘贴到我们的下载器中"
+        },
+        "step3": {
+          "title": "选择质量",
+          "description": "选择您想要的视频质量（{platform} 最高支持 4K）"
+        },
+        "step4": {
+          "title": "下载完成",
+          "description": "您的视频已准备好下载，无水印"
+        }
+      },
+      "whyChoose": "为什么选择我们的 {platform} 下载器？",
+      "features": {
+        "free": {
+          "title": "100% 免费和无限制",
+          "description": "完全免费下载无限量的 {platform} 视频，无需高级版"
+        },
+        "quality": {
+          "title": "高质量视频",
+          "description": "以最高可用质量下载，支持高达 4K 分辨率"
+        },
+        "noWatermark": {
+          "title": "无水印",
+          "description": "删除水印，获得无任何品牌标识的干净 {platform} 视频"
+        }
+      }
+    },
+    "infoSection": {
+      "title": "下载 {platform} 视频",
+      "description1": "我们的 {platform} 下载器是最可靠的工具。",
+      "description2": "从 {platform} 即时获取高质量下载。",
+      "description3": "与所有设备和操作系统兼容。",
+      "description4": "我们保留您下载的原始质量。",
+      "description5": "立即开始下载，离线享受您的内容！",
+      "features": {
+        "quality": {
+          "title": "多种质量选项",
+          "description": "从各种质量选项中选择以满足您的需求。"
+        },
+        "speed": {
+          "title": "闪电般快速下载",
+          "description": "在几秒钟内下载 {platform} 视频。"
+        },
+        "security": {
+          "title": "安全可靠",
+          "description": "您的数据已加密，从不存储在我们的服务器上。"
+        },
+        "noWatermark": {
+          "title": "无水印",
+          "description": "获得无任何水印的干净 {platform} 视频。"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "关于下载 {platform} 视频您需要了解的一切"
+    },
+    "tiktokContent": {
+      "mainTitle": "TikTok 视频下载器无水印 - 免费快速",
+      "introduction": {
+        "para1": "欢迎使用 Snap Save Pro，终极无水印 TikTok 视频下载器。我们强大的工具可让您以高质量下载 TikTok 视频，完全免费，且无任何水印。",
+        "para2": "TikTok 已成为世界上最受欢迎的社交媒体平台之一，拥有超过 10 亿活跃用户，每天创建和分享短视频。"
+      },
+      "whyChoose": {
+        "title": "为什么选择 Snap Save Pro 下载 TikTok？",
+        "noWatermark": {
+          "title": "无水印下载",
+          "description": "与其他工具不同，我们提供 100% 无水印下载。"
+        },
+        "hdQuality": {
+          "title": "高清质量下载",
+          "description": "我们保留原始视频质量，提供 HD、Full HD 甚至 4K 下载。"
+        },
+        "noRegistration": {
+          "title": "无需注册",
+          "description": "无需创建账户即可立即开始下载。"
+        },
+        "audioSupport": {
+          "title": "音频下载支持",
+          "description": "以 MP3 格式从 TikTok 视频中提取音频。"
+        }
+      },
+      "howItWorks": {
+        "title": "如何下载无水印 TikTok 视频",
+        "description": "使用 Snap Save Pro 下载 TikTok 视频非常简单。",
+        "step1": {
+          "title": "打开 TikTok 应用或网站",
+          "description": "找到您想下载的 TikTok 视频。"
+        },
+        "step2": {
+          "title": "复制视频链接",
+          "description": "点击 TikTok 视频上的\"分享\"按钮并选择\"复制链接\"。"
+        },
+        "step3": {
+          "title": "粘贴并下载",
+          "description": "将复制的链接粘贴到 Snap Save Pro 的输入框中，点击\"下载\"。"
+        }
+      },
+      "advancedFeatures": {
+        "title": "TikTok 视频下载的高级功能",
+        "description": "Snap Save Pro 不只是另一个 TikTok 下载器。",
+        "unlimited": "无限下载：无每日限制，无高级计划。",
+        "mobileFriendly": "移动友好界面：我们的响应式设计在 iPhone、Android、iPad 上完美运行。",
+        "fastProcessing": "闪电般快速处理：我们的优化服务器在几秒钟内处理您的下载。",
+        "batchDownload": "批量下载支持：需要下载多个 TikTok 视频？",
+        "formatConversion": "格式转换：以 MP4 格式下载视频或提取音频为 MP3。"
+      },
+      "benefits": {
+        "title": "使用 TikTok 视频下载器的好处",
+        "description": "数百万用户依赖 TikTok 视频下载器的原因数不胜数。",
+        "contentCreation": "内容创作和转发",
+        "offlineViewing": "离线观看",
+        "backup": "备份和存档",
+        "educational": "教育目的",
+        "marketing": "营销和分析"
+      },
+      "safetyPrivacy": {
+        "title": "Snap Save Pro 安全合法吗？",
+        "safety": "安全性：绝对安全！",
+        "privacy": "隐私：我们 100% 尊重您的隐私。",
+        "legal": "法律免责声明：我们的工具下载公开可用的 TikTok 视频。"
+      },
+      "proTips": {
+        "title": "TikTok 视频下载专业提示",
+        "tip1": "选择正确的质量",
+        "tip2": "检查视频方向",
+        "tip3": "尽早下载热门内容",
+        "tip4": "明智地使用音频提取",
+        "tip5": "整理您的下载"
+      },
+      "closing": {
+        "title": "立即开始下载 TikTok 视频",
+        "para1": "加入数百万信任 Snap Save Pro 的满意用户。",
+        "para2": "无论您是在构建内容库、保存回忆还是创建合集视频。",
+        "para3": "准备好下载了吗？在上面粘贴您的 TikTok 视频链接！"
+      }
+    },
+    "reviews": {
+      "title": "用户评论",
+      "subtitle": "看看我们的用户对 Snap Save Pro 的评价",
+      "rating": "{rating}/5 ({count}+ 条评论)",
+      "platformUser": "{platform} 用户"
+    },
+    "instagram": {
+      "mainTitle": "Instagram Reels 下载器 - 轻松保存 Instagram 视频",
+      "intro": "我们的 Instagram Reels 下载器是最好的免费工具，可以高质量无水印下载 Instagram Reels、帖子和 IGTV 视频。",
+      "howTo": {
+        "title": "如何下载 Instagram Reels",
+        "step1": "复制 Instagram 链接",
+        "step2": "粘贴 URL",
+        "step3": "点击获取视频",
+        "step4": "选择质量",
+        "step5": "下载"
+      },
+      "features": {
+        "title": "主要功能",
+        "highQuality": "高质量下载：以 HD 和 Full HD 下载",
+        "noWatermark": "无水印：所有下载均无水印",
+        "multipleFormats": "多种格式：支持 MP4、MP3 等",
+        "fastSecure": "快速安全：闪电般的下载速度",
+        "free": "永久免费：完全免费使用",
+        "noRegistration": "无需注册",
+        "allDevices": "所有设备：支持所有设备",
+        "audioExtraction": "音频提取：提取高质量音频"
+      },
+      "whyChoose": {
+        "title": "为什么选择我们？",
+        "description": "我们的工具提供最高质量的下载，没有水印。支持所有类型的 Instagram 内容。"
+      },
+      "faq": {
+        "title": "常见问题",
+        "q1": {
+          "question": "下载合法吗？",
+          "answer": "个人使用通常是可以接受的。"
+        },
+        "q2": {
+          "question": "可以下载私人视频吗？",
+          "answer": "不可以，仅支持公开内容。"
+        },
+        "q3": {
+          "question": "需要安装软件吗？",
+          "answer": "不需要，完全基于网络。"
+        },
+        "q4": {
+          "question": "支持什么质量？",
+          "answer": "支持最高 1080p Full HD。"
+        },
+        "q5": {
+          "question": "有下载限制吗？",
+          "answer": "没有限制，完全免费。"
+        },
+        "q6": {
+          "question": "支持移动设备吗？",
+          "answer": "是的，支持所有设备。"
+        }
+      },
+      "proTip": {
+        "title": "专业提示：",
+        "description": "始终复制完整的 URL 以获得最佳效果。"
+      }
+    },
+    "youtube": {
+      "mainTitle": "YouTube Shorts 下载器 - 保存高质量 Shorts",
+      "intro": "最好的免费 YouTube Shorts 下载工具，支持 4K、1080p 高质量下载。",
+      "howTo": {
+        "title": "如何下载 YouTube Shorts",
+        "step1": "复制 Shorts 链接",
+        "step2": "粘贴 URL",
+        "step3": "点击获取视频",
+        "step4": "选择质量",
+        "step5": "下载"
+      },
+      "features": {
+        "title": "主要功能",
+        "highQuality": "高质量：支持 4K、1080p、720p",
+        "noWatermark": "无水印",
+        "multipleFormats": "多种格式",
+        "fastSecure": "快速安全",
+        "free": "永久免费",
+        "noRegistration": "无需注册",
+        "allDevices": "所有设备",
+        "audioExtraction": "音频提取"
+      },
+      "whyChoose": {
+        "title": "为什么选择我们？",
+        "description": "提供最高 4K 质量的下载，无水印，最快的处理速度。"
+      },
+      "faq": {
+        "title": "常见问题",
+        "q1": {
+          "question": "下载合法吗？",
+          "answer": "个人使用通常可以接受。"
+        },
+        "q2": {
+          "question": "可以下载私人视频吗？",
+          "answer": "不可以。"
+        },
+        "q3": {
+          "question": "需要安装吗？",
+          "answer": "不需要。"
+        },
+        "q4": {
+          "question": "支持什么质量？",
+          "answer": "最高 4K。"
+        },
+        "q5": {
+          "question": "有限制吗？",
+          "answer": "没有限制。"
+        },
+        "q6": {
+          "question": "支持移动设备吗？",
+          "answer": "是的。"
+        }
+      },
+      "proTip": {
+        "title": "提示：",
+        "description": "复制完整 URL 以获得最佳效果。"
+      }
+    },
+    "facebook": {
+      "mainTitle": "Facebook 视频下载器",
+      "intro": "最好的 Facebook 视频下载工具。",
+      "howTo": {
+        "title": "如何下载",
+        "step1": "复制链接",
+        "step2": "粘贴 URL",
+        "step3": "获取视频",
+        "step4": "选择质量",
+        "step5": "下载"
+      },
+      "features": {
+        "title": "功能",
+        "highQuality": "高质量",
+        "noWatermark": "无水印",
+        "multipleFormats": "多格式",
+        "fastSecure": "快速",
+        "free": "免费",
+        "noRegistration": "无需注册",
+        "allDevices": "所有设备",
+        "audioExtraction": "音频提取"
+      },
+      "whyChoose": {
+        "title": "为什么选择？",
+        "description": "最佳质量，无水印。"
+      },
+      "faq": {
+        "title": "常见问题",
+        "q1": {
+          "question": "合法吗？",
+          "answer": "个人使用可以。"
+        },
+        "q2": {
+          "question": "私人视频？",
+          "answer": "不支持。"
+        },
+        "q3": {
+          "question": "安装？",
+          "answer": "不需要。"
+        },
+        "q4": {
+          "question": "质量？",
+          "answer": "1080p HD。"
+        },
+        "q5": {
+          "question": "限制？",
+          "answer": "无限制。"
+        },
+        "q6": {
+          "question": "移动？",
+          "answer": "支持。"
+        }
+      },
+      "proTip": {
+        "title": "提示：",
+        "description": "复制完整 URL。"
+      }
+    },
+    "twitter": {
+      "mainTitle": "Twitter 视频下载器",
+      "intro": "下载 Twitter 视频和 GIF。",
+      "howTo": {
+        "title": "如何下载",
+        "step1": "复制推文链接",
+        "step2": "粘贴 URL",
+        "step3": "获取视频",
+        "step4": "选择格式",
+        "step5": "下载"
+      },
+      "features": {
+        "title": "功能",
+        "highQuality": "高质量 1080p",
+        "noWatermark": "无水印",
+        "multipleFormats": "MP4 和 GIF",
+        "fastSecure": "快速",
+        "free": "免费",
+        "noRegistration": "无需注册",
+        "allDevices": "所有设备",
+        "audioExtraction": "音频 MP3"
+      },
+      "whyChoose": {
+        "title": "为什么？",
+        "description": "最快最可靠。"
+      },
+      "faq": {
+        "title": "常见问题",
+        "q1": {
+          "question": "合法？",
+          "answer": "个人可以。"
+        },
+        "q2": {
+          "question": "私人？",
+          "answer": "不支持。"
+        },
+        "q3": {
+          "question": "安装？",
+          "answer": "不需要。"
+        },
+        "q4": {
+          "question": "质量？",
+          "answer": "1080p。"
+        },
+        "q5": {
+          "question": "限制？",
+          "answer": "无限。"
+        },
+        "q6": {
+          "question": "移动？",
+          "answer": "支持。"
+        }
+      },
+      "proTip": {
+        "title": "提示：",
+        "description": "复制完整链接。"
+      }
+    }
+  },
+  "pages": {
+    "howItWorks": {
+      "title": "使用方法",
+      "subtitle": "通过我们简单的4步流程下载任何YouTube视频的高清质量。无需软件安装，无需注册 - 完全免费且安全。",
+      "statsTitle": "4个简单步骤下载YouTube视频",
+      "ctaTitle": "准备开始下载了吗？",
+      "ctaSubtitle": "立即试用我们免费的YouTube视频下载器。无需注册，完全安全，支持所有视频质量。",
+      "ctaButton": "立即开始下载"
+    },
+    "faqs": {
+      "title": "Snap Save Pro 常见问题 - 视频下载器帮助",
+      "subtitle": "从TikTok、YouTube、Facebook、Pinterest、Snapchat、Reddit和Twitter下载视频的完整指南。查找有关高清视频下载、MP3音频提取和故障排除的答案。",
+      "searchPlaceholder": "搜索：TikTok下载、YouTube MP3、Facebook视频、删除水印...",
+      "searchResults": "找到 {count} 个 \"{query}\" 的结果",
+      "browseCategories": "浏览FAQ类别",
+      "proTipsTitle": "最佳视频下载专业提示",
+      "proTipsSubtitle": "更快更高质量下载TikTok、YouTube和Facebook视频的专家提示",
+      "popularSearches": "热门搜索",
+      "ctaTitle": "关于视频下载还有疑问吗？",
+      "ctaSubtitle": "找不到您要找的内容？我们的FAQ不断更新，包含有关从TikTok、YouTube、Facebook和所有支持平台下载的新问题。",
+      "ctaButton": "立即开始下载视频",
+      "blogButton": "阅读我们的博客和指南",
+      "noResults": "未找到结果",
+      "noResultsDesc": "尝试不同的关键词或浏览上面的类别"
+    },
+    "contact": {
+      "title": "联系我们",
+      "subtitle": "需要我们的YouTube下载器帮助吗？有问题或反馈吗？我们的支持团队随时为您解答任何问题或疑问。",
+      "helpTitle": "我们如何帮助您？",
+      "formTitle": "给我们发消息",
+      "nameLabel": "您的姓名",
+      "namePlaceholder": "输入您的姓名",
+      "emailLabel": "电子邮件地址",
+      "emailPlaceholder": "your.email@example.com",
+      "categoryLabel": "类别",
+      "subjectLabel": "主题",
+      "subjectPlaceholder": "简要描述您的咨询",
+      "messageLabel": "消息",
+      "messagePlaceholder": "请提供有关您的问题的详细信息...",
+      "sendButton": "发送消息",
+      "quickFaqTitle": "快速支持FAQ",
+      "directEmailTitle": "直接电子邮件联系",
+      "directEmailSubtitle": "如需立即帮助，请直接联系我们的支持团队",
+      "responseTime": "我们通常在24小时内回复",
+      "feedbackTitle": "我们重视您的反馈",
+      "feedbackDesc": "您的建议帮助我们改进YouTube下载器服务。无论是功能请求、错误报告还是一般反馈，我们都会阅读每条消息并使用它来增强您的体验。"
+    }
+  },
+  "metadata": {
+    "home": {
+      "title": "TikTok视频下载器无水印 - 免费快速 | Snap Save Pro",
+      "description": "下载TikTok视频无水印高清质量。快速、免费、易于使用。支持TikTok、YouTube、Facebook、Instagram等。",
+      "keywords": "视频下载器, TikTok下载器, YouTube下载器, Facebook视频下载, Instagram下载器, 在线视频下载, 免费视频下载器, 无水印, 高清视频下载, TikTok视频下载, YouTube视频下载, Instagram视频下载, Facebook下载器, Twitter视频下载, video downloader, tiktok downloader, youtube downloader, download videos online, free video downloader, no watermark, hd video download",
+      "ogTitle": "TikTok视频下载器无水印 | Snap Save Pro",
+      "ogDescription": "下载TikTok视频无水印高清质量。快速、免费、易于使用。",
+      "ogImageAlt": "Snap Save Pro - 多平台视频下载器",
+      "twitterTitle": "TikTok视频下载器无水印 - 免费快速",
+      "twitterDescription": "下载TikTok视频无水印高清质量。快速、免费、易于使用。"
+    },
+    "facebook": {
+      "title": "Facebook视频下载器 - 免费下载HD视频 | Snap Save Pro",
+      "description": "免费下载Facebook视频高清质量。保存Facebook视频、Reels和Stories无水印。快速、安全、无需注册。",
+      "keywords": "facebook视频下载器, 下载facebook视频, facebook下载器, 保存facebook视频, facebook视频下载, facebook reels下载器, fb视频下载器, facebook video downloader, download facebook videos, save facebook videos, fb downloader"
+    },
+    "twitter": {
+      "title": "Twitter/X视频下载器 - 无水印下载 | Snap Save Pro",
+      "description": "下载Twitter和X视频无水印高清质量。快速、免费、易用的Twitter视频下载器。",
+      "keywords": "twitter视频下载器, x视频下载器, 下载twitter视频, x视频下载, twitter下载器, x下载器, twitter video downloader, x video downloader, download twitter videos, x video download"
+    },
+    "instagramReels": {
+      "title": "Instagram Reels下载器 - 下载HD 1080p视频 | 无水印",
+      "description": "最佳免费Instagram Reels下载器。下载Instagram Reels、帖子、IGTV、Stories HD 1080p无水印。",
+      "keywords": "instagram reels下载器, instagram下载器, instagram视频下载, reels下载, instagram视频下载器, instagram reels downloader, download instagram reels, instagram downloader, save instagram reels"
+    },
+    "youtubeShorts": {
+      "title": "YouTube Shorts下载器 - 下载HD 1080p, 4K视频 | 无水印",
+      "description": "最佳免费YouTube Shorts下载器。下载YouTube Shorts视频HD 1080p, 4K无水印。",
+      "keywords": "youtube shorts下载器, 下载youtube shorts, youtube shorts下载, 保存youtube shorts, youtube shorts视频下载器, youtube shorts downloader, download youtube shorts, youtube shorts download"
+    }
+  }
+}

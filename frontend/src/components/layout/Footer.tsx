@@ -1,9 +1,11 @@
 'use client'
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/lib/navigation';
 import React from 'react';
 
 export default function ProfessionalFooter() {
   const currentYear = new Date().getFullYear();
+  const t = useTranslations('footer');
 
   return (
     <footer className="bg-gradient-to-r from-slate-900 via-gray-900 to-zinc-900 text-white">
@@ -26,7 +28,7 @@ export default function ProfessionalFooter() {
               </div>
             </div>
             <p className="text-gray-300 text-sm leading-relaxed max-w-md">
-              The ultimate tool for downloading videos from your favorite social media platforms. Fast, secure, and reliable.
+              {t('description')}
             </p>
             <div className="flex items-center gap-4 mt-6">
               <a href="#" className="p-2 bg-slate-800/80 hover:bg-slate-700/80 rounded-lg transition-colors duration-200 backdrop-blur-sm">
@@ -54,50 +56,50 @@ export default function ProfessionalFooter() {
 
           {/* Downloaders */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Downloaders</h4>
+            <h4 className="text-lg font-semibold mb-4 text-white">{t('downloaders')}</h4>
             <ul className="space-y-3">
               <li><Link href='/pages/instagram-reels-downloader' className="text-gray-300 hover:text-teal-400 transition-colors duration-200 text-sm flex items-center gap-2">
-                <span className="text-teal-400">•</span> Instagram Reels Download
+                <span className="text-teal-400">•</span> {t('instagramReels')}
               </Link></li>
               <li><Link href='/pages/youtube-shorts-downloader' className="text-gray-300 hover:text-purple-400 transition-colors duration-200 text-sm flex items-center gap-2">
-                <span className="text-purple-400">•</span> YouTube Shorts Download
+                <span className="text-purple-400">•</span> {t('youtubeShorts')}
               </Link></li>
               <li><Link href='/pages/pinterest-video-download' className="text-gray-300 hover:text-red-400 transition-colors duration-200 text-sm flex items-center gap-2">
-                <span className="text-red-400">•</span> Pinterest Video Download
+                <span className="text-red-400">•</span> {t('pinterestVideo')}
               </Link></li>
               <li><Link href='/pages/snapchat-video-download' className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 text-sm flex items-center gap-2">
-                <span className="text-yellow-400">•</span> Snapchat Video Download
+                <span className="text-yellow-400">•</span> {t('snapchatVideo')}
               </Link></li>
               <li><Link href='/pages/reddit-video-download' className="text-gray-300 hover:text-orange-400 transition-colors duration-200 text-sm flex items-center gap-2">
-                <span className="text-orange-400">•</span> Reddit Video Download
+                <span className="text-orange-400">•</span> {t('redditVideo')}
               </Link></li>
               <li><Link href='/pages/twitter-video-download' className="text-gray-300 hover:text-gray-300 transition-colors duration-200 text-sm flex items-center gap-2">
-                <span className="text-gray-400">•</span> Twitter/X Video Download
+                <span className="text-gray-400">•</span> {t('twitterVideo')}
               </Link></li>
               <li><Link href='/pages/linkedin-video-downloader' className="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm flex items-center gap-2">
-                <span className="text-blue-400">•</span> LinkedIn Video Download
+                <span className="text-blue-400">•</span> {t('linkedinVideo')}
               </Link></li>
             </ul>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-4 text-white">{t('quickLinks')}</h4>
             <ul className="space-y-3">
-              <li><Link href='/' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">Home</Link></li>
-              <li><Link href='/pages/how-it-works' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">How It Works</Link></li>
-              <li><Link href='/pages/faqs' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">FAQ</Link></li>
-              <li><Link href='/pages/contact' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">Contact</Link></li>
+              <li><Link href='/' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('home')}</Link></li>
+              <li><Link href='/pages/how-it-works' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('howItWorks')}</Link></li>
+              <li><Link href='/pages/faqs' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('faq')}</Link></li>
+              <li><Link href='/pages/contact' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('contact')}</Link></li>
             </ul>
           </div>
 
           {/* Legal */}
           <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Legal</h4>
+            <h4 className="text-lg font-semibold mb-4 text-white">{t('legal')}</h4>
             <ul className="space-y-3">
-              <li><Link href='/pages/legal/privacy-policy' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">Privacy Policy</Link></li>
-              <li><Link href='/pages/legal/terms-of-service' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">Terms of Service</Link></li>
-              <li><Link href='/pages/contact' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">Support</Link></li>
+              <li><Link href='/pages/legal/privacy-policy' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('privacyPolicy')}</Link></li>
+              <li><Link href='/pages/legal/terms-of-service' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('termsOfService')}</Link></li>
+              <li><Link href='/pages/contact' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('support')}</Link></li>
             </ul>
           </div>
         </div>
@@ -107,7 +109,7 @@ export default function ProfessionalFooter() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <div className="text-gray-300 text-sm">
-              © {currentYear} SnapSavePro. All rights reserved.
+              {t('copyright', { year: currentYear })}
             </div>
 
             {/* Developer Credit */}
@@ -119,7 +121,7 @@ export default function ProfessionalFooter() {
                   </svg>
                 </div>
                 <div className="text-sm">
-                  <span className="text-gray-300">Developed by</span>
+                  <span className="text-gray-300">{t('developedBy')}</span>
                   <span className="ml-1 font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400">
                     Rafey
                   </span>
@@ -149,7 +151,7 @@ export default function ProfessionalFooter() {
 
             {/* Additional Info */}
             <div className="text-gray-400 text-xs">
-              Made with ❤️ for the community
+              {t('madeWithLove')}
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { CheckCircle, Shield, Zap, Download } from 'lucide-react';
 
 interface InfoSectionProps {
@@ -8,6 +9,7 @@ interface InfoSectionProps {
 }
 
 export default function InfoSection({ platform, platformColor = 'pink' }: InfoSectionProps) {
+  const t = useTranslations('seo.infoSection');
   const colorClasses = {
     pink: 'from-pink-500 to-purple-500',
     blue: 'from-blue-500 to-cyan-500',
@@ -25,16 +27,16 @@ export default function InfoSection({ platform, platformColor = 'pink' }: InfoSe
       <div className="max-w-6xl mx-auto px-4">
         <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
         <h2 className={`text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${gradientClass} mb-6`}>
-          Download {platform} Videos
+          {t('title', { platform })}
         </h2>
 
         <div className="prose prose-invert max-w-none">
           <p className="text-gray-300 leading-relaxed text-lg mb-6">
-            Our {platform} downloader is the most reliable tool available.
+            {t('description1', { platform })}
           </p>
 
           <p className="text-gray-300 leading-relaxed text-lg mb-6">
-            Get high-quality downloads from {platform} instantly.
+            {t('description2', { platform })}
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 my-8">
@@ -43,8 +45,8 @@ export default function InfoSection({ platform, platformColor = 'pink' }: InfoSe
                 <Download className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Multiple Quality Options</h3>
-                <p className="text-gray-400">Choose from various quality options to suit your needs.</p>
+                <h3 className="text-xl font-semibold text-white mb-2">{t('features.quality.title')}</h3>
+                <p className="text-gray-400">{t('features.quality.description')}</p>
               </div>
             </div>
 
@@ -53,8 +55,8 @@ export default function InfoSection({ platform, platformColor = 'pink' }: InfoSe
                 <Zap className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Lightning Fast Downloads</h3>
-                <p className="text-gray-400">Download {platform} videos in seconds.</p>
+                <h3 className="text-xl font-semibold text-white mb-2">{t('features.speed.title')}</h3>
+                <p className="text-gray-400">{t('features.speed.description', { platform })}</p>
               </div>
             </div>
 
@@ -63,8 +65,8 @@ export default function InfoSection({ platform, platformColor = 'pink' }: InfoSe
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-white mb-2">Safe & Secure</h3>
-                <p className="text-gray-400">Your data is encrypted and never stored on our servers.</p>
+                <h3 className="text-xl font-semibold text-white mb-2">{t('features.security.title')}</h3>
+                <p className="text-gray-400">{t('features.security.description')}</p>
               </div>
             </div>
 
@@ -73,22 +75,22 @@ export default function InfoSection({ platform, platformColor = 'pink' }: InfoSe
                 <CheckCircle className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-semibold text-white mb-2">No Watermarks</h3>
-                <p className="text-gray-400">Get clean {platform} videos without any watermarks.</p>
+                <h3 className="text-xl font-semibold text-white mb-2">{t('features.noWatermark.title')}</h3>
+                <p className="text-gray-400">{t('features.noWatermark.description', { platform })}</p>
               </div>
             </div>
           </div>
 
           <p className="text-gray-300 leading-relaxed text-lg mb-6">
-            Compatible with all devices and operating systems.
+            {t('description3')}
           </p>
 
           <p className="text-gray-300 leading-relaxed text-lg mb-6">
-            We preserve the original quality of your downloads.
+            {t('description4')}
           </p>
 
           <p className="text-gray-300 leading-relaxed text-lg">
-            Start downloading now and enjoy your content offline!
+            {t('description5')}
           </p>
         </div>
       </div>

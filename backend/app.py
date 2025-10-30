@@ -20,10 +20,15 @@ from tiktok import TiktokDownloader
 from snapchat import SnapchatDownloader
 from facebook import FacebookDownloader
 from audio_downloader import AudioDownloader
+from youtube_mp3 import YouTubeMp3Downloader
 from pinterest import PinterestDownloader
 from instagram import InstagramDownloader
 from shorts import ShortsDownloader
 from linkedin import LinkedInDownloader
+from twitch import TwitchDownloader
+from instagram_profile import InstagramProfileDownloader
+from profile_picture_downloader import ProfilePictureDownloader
+from telegram_downloader import TelegramDownloader
 from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
@@ -74,7 +79,12 @@ try:
     instagram_downloader = InstagramDownloader()
     shorts_downloader = ShortsDownloader()
     linkedin_downloader = LinkedInDownloader()
+    twitch_downloader = TwitchDownloader()
     audio_downloader = AudioDownloader()
+    youtube_mp3_downloader = YouTubeMp3Downloader()
+    instagram_profile_downloader = InstagramProfileDownloader()
+    profile_picture_downloader = ProfilePictureDownloader()
+    telegram_downloader = TelegramDownloader()
     logger.info("All platform downloaders initialized successfully")
 except Exception as e:
     logger.error(f"Error initializing downloaders: {e}")
@@ -129,7 +139,7 @@ def get_video_info():
         platform = detect_platform(url)
 
         if platform == 'unknown':
-            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Snapchat, Facebook, Twitter, Reddit, Pinterest, LinkedIn, or YouTube Shorts URL'}), 400
+            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Snapchat, Facebook, Twitter, Reddit, Pinterest, LinkedIn, Twitch, Telegram, or YouTube Shorts URL'}), 400
 
         logger.info(f"Processing {platform.upper()} URL: {url}")
 
@@ -150,6 +160,10 @@ def get_video_info():
             return facebook_downloader.get_video_info(url)
         elif platform == 'linkedin':
             return linkedin_downloader.get_video_info(url)
+        elif platform == 'twitch':
+            return twitch_downloader.get_video_info(url)
+        elif platform == 'telegram':
+            return telegram_downloader.get_video_info(url)
         elif platform == 'shorts':
             return shorts_downloader.get_video_info(url)
 
@@ -164,17 +178,22 @@ def get_audio_info():
         data = request.get_json()
         if not data:
             return jsonify({'error': 'Invalid JSON data'}), 400
-            
+
         url = data.get('url', '').strip()
-        
+
         if not url:
             return jsonify({'error': 'URL is required'}), 400
 
         logger.info(f"Processing AUDIO URL: {url}")
 
-        # Route to audio downloader
+        # Check if it's a YouTube URL - use dedicated YouTube MP3 downloader
+        if youtube_mp3_downloader.validate_youtube_url(url):
+            logger.info("Using dedicated YouTube MP3 downloader")
+            return youtube_mp3_downloader.get_youtube_info(url)
+
+        # Otherwise use generic audio downloader
         return audio_downloader.get_audio_info(url)
-            
+
     except Exception as e:
         logger.error(f"Unexpected error in get_audio_info: {str(e)}")
         return jsonify({'error': f'An error occurred: {str(e)}'}), 500
@@ -220,17 +239,31 @@ def download_video():
         }
         
         logger.info(f"Starting {platform} download - Format: {format_id}, Type: {download_type}, Conversion: {is_conversion}")
-        
+
+        # Check if it's YouTube MP3 download
+        if platform == 'youtube' and download_type == 'audio':
+            logger.info(f"Using dedicated YouTube MP3 downloader with bitrate: {target_bitrate}")
+            future = executor.submit(
+                youtube_mp3_downloader.download_youtube_mp3, url, download_id,
+                download_progress, download_files, target_bitrate
+            )
+        # Handle Telegram downloads
+        elif platform == 'telegram':
+            logger.info(f"Using Telegram downloader for {url}")
+            future = executor.submit(
+                telegram_downloader.download_media, url, download_id,
+                download_progress, download_files
+            )
         # Handle audio-specific downloads
-        if platform in ['audio_link', 'audio_platform']:
+        elif platform in ['audio_link', 'audio_platform']:
             if platform == 'audio_link':
                 future = executor.submit(
-                    audio_downloader.download_direct_audio, url, download_id, 
+                    audio_downloader.download_direct_audio, url, download_id,
                     download_progress, download_files
                 )
             else:
                 future = executor.submit(
-                    audio_downloader.download_platform_audio, url, download_id, 
+                    audio_downloader.download_platform_audio, url, download_id,
                     download_progress, download_files, target_bitrate
                 )
         else:
@@ -417,11 +450,12 @@ def health_check():
         import yt_dlp
         return jsonify({
             'status': 'healthy',
-            'service': 'TikTok, Snapchat & Facebook Video Downloader',
+            'service': 'Multi-Platform Video Downloader',
             'active_downloads': len(download_progress),
             'cached_files': len(download_files),
-            'supported_platforms': ['tiktok', 'snapchat', 'facebook'],
+            'supported_platforms': ['tiktok', 'snapchat', 'facebook', 'instagram', 'twitter', 'reddit', 'pinterest', 'linkedin', 'twitch', 'telegram', 'youtube_shorts'],
             'yt_dlp_version': yt_dlp.version.__version__,
+            'telegram_enabled': telegram_downloader.enabled,
             'debug_mode': DEBUG,
             'allowed_origins': ALLOWED_ORIGINS
         })
@@ -469,6 +503,138 @@ def cleanup_old_downloads():
             logger.error(f"Cleanup error: {e}")
         
         time.sleep(600)  # Run every 10 minutes
+
+# Profile Picture Downloader Endpoints
+@app.route('/api/profile-picture', methods=['POST'])
+def get_profile_picture():
+    """Get profile picture from various platforms"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Invalid JSON data'}), 400
+
+        username = data.get('username', '').strip()
+        platform = data.get('platform', 'instagram').lower()
+
+        if not username:
+            return jsonify({'error': 'Username is required'}), 400
+
+        logger.info(f"Fetching profile picture for {username} from {platform}")
+
+        # Use universal profile picture downloader for all platforms
+        response_data = profile_picture_downloader.get_profile_picture(username, platform)
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        logger.error(f"Error fetching profile picture: {str(e)}")
+        return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
+@app.route('/api/instagram-profile', methods=['POST'])
+def get_instagram_profile():
+    """Get Instagram profile picture specifically"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Invalid JSON data'}), 400
+
+        username = data.get('username', '').strip()
+
+        if not username:
+            return jsonify({'error': 'Instagram username is required'}), 400
+
+        logger.info(f"Fetching Instagram profile for {username}")
+
+        # Use the Instagram profile downloader
+        response_data = instagram_profile_downloader.get_profile_info(username)
+
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        logger.error(f"Error fetching Instagram profile: {str(e)}")
+        return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
+@app.route('/api/proxy-image', methods=['GET'])
+def proxy_image():
+    """Proxy profile picture images to avoid CORS issues"""
+    try:
+        import requests
+
+        image_url = request.args.get('url')
+        if not image_url:
+            return jsonify({'error': 'Image URL is required'}), 400
+
+        logger.info(f"Proxying image: {image_url[:80]}...")
+
+        # Fetch the image from Instagram/social media CDN
+        response = requests.get(
+            image_url,
+            headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Referer': 'https://www.instagram.com/',
+            },
+            timeout=15
+        )
+        response.raise_for_status()
+
+        # Return the image with proper headers
+        return Response(
+            response.content,
+            mimetype=response.headers.get('Content-Type', 'image/jpeg'),
+            headers={
+                'Cache-Control': 'public, max-age=31536000',
+                'Access-Control-Allow-Origin': '*'
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"Error proxying image: {str(e)}")
+        return jsonify({'error': f'Failed to load image: {str(e)}'}), 500
+
+@app.route('/api/download-profile-picture', methods=['POST'])
+def download_profile_picture():
+    """Download profile picture file"""
+    try:
+        import requests
+        from io import BytesIO
+
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Invalid JSON data'}), 400
+
+        image_url = data.get('url', '')
+        username = data.get('username', 'profile')
+        format_type = data.get('format', 'jpg').lower()
+
+        if not image_url:
+            return jsonify({'error': 'Image URL is required'}), 400
+
+        logger.info(f"Downloading profile picture for {username} from {image_url[:80]}...")
+
+        # Fetch the image
+        response = requests.get(
+            image_url,
+            headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Referer': 'https://www.instagram.com/',
+            },
+            timeout=15
+        )
+        response.raise_for_status()
+
+        # Prepare filename
+        filename = f"{username}_profile_picture.{format_type}"
+
+        # Return the file for download
+        return send_file(
+            BytesIO(response.content),
+            mimetype=f'image/{format_type}',
+            as_attachment=True,
+            download_name=filename
+        )
+
+    except Exception as e:
+        logger.error(f"Error downloading profile picture: {str(e)}")
+        return jsonify({'error': f'Failed to download image: {str(e)}'}), 500
 
 # Start cleanup thread
 cleanup_thread = threading.Thread(target=cleanup_old_downloads, daemon=True)

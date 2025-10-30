@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { CheckCircle, Copy, Download, Link as LinkIcon } from 'lucide-react';
 
 interface HowToDownloadProps {
@@ -8,25 +9,27 @@ interface HowToDownloadProps {
 }
 
 export default function HowToDownload({ platform, platformColor = 'pink' }: HowToDownloadProps) {
+  const t = useTranslations('seo.howToDownload');
+
   const steps = [
     {
-      title: `Copy ${platform} Link`,
-      description: `Find and copy the link to your ${platform} video that you want to download`,
+      title: t('steps.step1.title', { platform }),
+      description: t('steps.step1.description', { platform }),
       icon: <LinkIcon className="w-6 h-6" />
     },
     {
-      title: 'Paste the Link',
-      description: `Paste the ${platform} video link into our downloader`,
+      title: t('steps.step2.title', { platform }),
+      description: t('steps.step2.description', { platform }),
       icon: <Copy className="w-6 h-6" />
     },
     {
-      title: 'Choose Quality',
-      description: `Select your desired video quality (up to 4K for ${platform})`,
+      title: t('steps.step3.title', { platform }),
+      description: t('steps.step3.description', { platform }),
       icon: <Download className="w-6 h-6" />
     },
     {
-      title: 'Download Complete',
-      description: 'Your video is ready to download without watermarks',
+      title: t('steps.step4.title', { platform }),
+      description: t('steps.step4.description', { platform }),
       icon: <CheckCircle className="w-6 h-6" />
     }
   ];
@@ -48,10 +51,10 @@ export default function HowToDownload({ platform, platformColor = 'pink' }: HowT
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className={`text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${gradientClass} mb-4`}>
-            How to Download {platform} Videos
+            {t('title', { platform })}
           </h2>
           <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-            Download {platform} videos in just 4 simple steps with the best quality
+            {t('subtitle', { platform })}
           </p>
         </div>
 
@@ -68,7 +71,7 @@ export default function HowToDownload({ platform, platformColor = 'pink' }: HowT
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <span className={`text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r ${gradientClass}`}>
-                      STEP {index + 1}
+                      {t('step')} {index + 1}
                     </span>
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-2">
@@ -85,30 +88,30 @@ export default function HowToDownload({ platform, platformColor = 'pink' }: HowT
 
         {/* Additional Info */}
         <div className="mt-12 bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
-          <h3 className="text-2xl font-bold text-white mb-4">Why Choose Our {platform} Downloader?</h3>
+          <h3 className="text-2xl font-bold text-white mb-4">{t('whyChoose', { platform })}</h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h4 className={`text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r ${gradientClass} mb-2`}>
-                100% Free & Unlimited
+                {t('features.free.title')}
               </h4>
               <p className="text-gray-400 text-sm">
-                Download unlimited {platform} videos completely free, no premium required
+                {t('features.free.description', { platform })}
               </p>
             </div>
             <div>
               <h4 className={`text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r ${gradientClass} mb-2`}>
-                High Quality Videos
+                {t('features.quality.title')}
               </h4>
               <p className="text-gray-400 text-sm">
-                Download in the highest available quality up to 4K resolution
+                {t('features.quality.description')}
               </p>
             </div>
             <div>
               <h4 className={`text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r ${gradientClass} mb-2`}>
-                No Watermarks
+                {t('features.noWatermark.title')}
               </h4>
               <p className="text-gray-400 text-sm">
-                Remove watermarks and get clean {platform} videos without any branding
+                {t('features.noWatermark.description', { platform })}
               </p>
             </div>
           </div>

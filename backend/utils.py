@@ -190,6 +190,29 @@ def detect_platform(url):
         if re.match(pattern, url):
             return 'linkedin'
 
+    # Twitch patterns
+    twitch_patterns = [
+        r'(?:https?://)?(?:www\.)?twitch\.tv/[\w-]+/clip/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?clips\.twitch\.tv/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?twitch\.tv/videos/\d+/?',
+        r'(?:https?://)?(?:www\.)?twitch\.tv/[\w-]+/video/\d+/?',
+    ]
+
+    for pattern in twitch_patterns:
+        if re.match(pattern, url):
+            return 'twitch'
+
+    # Telegram patterns
+    telegram_patterns = [
+        r'(?:https?://)?t\.me/([a-zA-Z0-9_]+)/(\d+)',
+        r'(?:https?://)?t\.me/c/(\d+)/(\d+)',
+        r'(?:https?://)?telegram\.me/([a-zA-Z0-9_]+)/(\d+)',
+    ]
+
+    for pattern in telegram_patterns:
+        if re.match(pattern, url):
+            return 'telegram'
+
     return 'unknown'
 
 def get_best_thumbnail(info):
