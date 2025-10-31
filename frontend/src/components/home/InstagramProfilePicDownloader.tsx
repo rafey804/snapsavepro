@@ -336,23 +336,23 @@ const InstagramProfilePicDownloader: React.FC = () => {
               )}
 
               {/* Stats - Only show if there's real data (not all zeros) */}
-              {(profileData.posts_count > 0 || profileData.followers > 0 || profileData.following > 0) && (
+              {((profileData.posts_count ?? 0) > 0 || (profileData.followers ?? 0) > 0 || (profileData.following ?? 0) > 0) && (
               <div className="flex gap-6 mb-6 p-4 bg-slate-900/50 rounded-xl overflow-x-auto">
-                {profileData.posts_count > 0 && (
+                {(profileData.posts_count ?? 0) > 0 && (
                   <div className="text-center min-w-[80px]">
-                    <div className="text-2xl font-bold text-white">{formatCount(profileData.posts_count)}</div>
+                    <div className="text-2xl font-bold text-white">{formatCount(profileData.posts_count ?? 0)}</div>
                     <div className="text-xs text-slate-400">Posts</div>
                   </div>
                 )}
-                {profileData.followers > 0 && (
+                {(profileData.followers ?? 0) > 0 && (
                   <div className="text-center min-w-[80px]">
-                    <div className="text-2xl font-bold text-white">{formatCount(profileData.followers)}</div>
+                    <div className="text-2xl font-bold text-white">{formatCount(profileData.followers ?? 0)}</div>
                     <div className="text-xs text-slate-400">Followers</div>
                   </div>
                 )}
-                {profileData.following > 0 && (
+                {(profileData.following ?? 0) > 0 && (
                   <div className="text-center min-w-[80px]">
-                    <div className="text-2xl font-bold text-white">{formatCount(profileData.following)}</div>
+                    <div className="text-2xl font-bold text-white">{formatCount(profileData.following ?? 0)}</div>
                     <div className="text-xs text-slate-400">Following</div>
                   </div>
                 )}

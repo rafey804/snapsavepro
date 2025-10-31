@@ -4,7 +4,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import type { Metadata } from "next";
-import SnapchatDownloaderContent from './../../../components/details/SnapchatDownloaderContent';
+import SnapchatDownloaderContent from '@/components/details/SnapchatDownloaderContent';
 // Snapchat-specific FAQ data
 const snapchatFAQs = [
   {

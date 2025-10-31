@@ -138,8 +138,8 @@ const TelegramPage = () => {
       <TelegramDownloader/>
       <HowToDownload platform="Telegram" platformColor="blue" />
       <InfoSection platform="Telegram" platformColor="blue" />
-      <FAQSection faqs={telegramFAQs} platform="Telegram" platformColor="blue" />
-      <ReviewsSection reviews={telegramReviews} platform="Telegram" platformColor="blue" />
+      <FAQSection faqs={telegramFAQs} platform="Telegram" />
+      <ReviewsSection reviews={telegramReviews} />
     </>
   );
 };

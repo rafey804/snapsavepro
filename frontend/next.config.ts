@@ -1,9 +1,9 @@
 import createNextIntlPlugin from 'next-intl/plugin';
+import type { NextConfig } from 'next';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
@@ -12,7 +12,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: false,
-    formats: ['image/webp', 'image/avif'],
+    formats: ['image/webp', 'image/avif'] as const,
     remotePatterns: [
       {
         protocol: 'https',
