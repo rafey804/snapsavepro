@@ -1,18 +1,30 @@
 """
-YouTube to MP3 Downloader
+YouTube to MP3 Downloader - ADVANCED VERSION
 Dedicated module for downloading YouTube videos and converting to MP3 audio
-NO COOKIES REQUIRED - Uses mobile client API bypass
+NO COOKIES REQUIRED - Uses advanced bot bypass with throttling & rotation
 """
 
 import yt_dlp
 import os
 import tempfile
 import logging
+import time
+import random
 from flask import jsonify
 from urllib.parse import urlparse, parse_qs
 import re
 
 logger = logging.getLogger(__name__)
+
+# Advanced User Agent rotation for live servers
+USER_AGENTS = [
+    'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
+    'com.google.ios.youtube/19.28.3 (iPhone15,3; U; CPU iOS 17_4_1 like Mac OS X;)',
+    'com.google.ios.youtube/19.27.6 (iPhone14,5; U; CPU iOS 17_3_2 like Mac OS X;)',
+    'com.google.android.youtube/19.29.37 (Linux; U; Android 14; en_US)',
+    'com.google.android.youtube/19.28.35 (Linux; U; Android 13; en_US)',
+    'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Mobile Safari/537.36',
+]
 
 
 class YouTubeToMP3Downloader:
@@ -21,7 +33,9 @@ class YouTubeToMP3Downloader:
     def __init__(self):
         self.platform = 'youtube'
         self.supported_bitrates = [128, 192, 256, 320]
-        logger.info("YouTubeToMP3Downloader initialized successfully")
+        self.last_request_time = 0
+        self.min_request_delay = 2  # Minimum 2 seconds between requests
+        logger.info("YouTubeToMP3Downloader initialized successfully (ADVANCED MODE)")
 
     def validate_youtube_url(self, url):
         """Validate if URL is a YouTube URL"""
@@ -76,60 +90,92 @@ class YouTubeToMP3Downloader:
             logger.error(f"Video ID extraction error: {e}")
             return None
 
+    def _throttle_request(self):
+        """Add random delay between requests to avoid rate limiting"""
+        current_time = time.time()
+        time_since_last_request = current_time - self.last_request_time
+
+        if time_since_last_request < self.min_request_delay:
+            sleep_time = self.min_request_delay - time_since_last_request
+            # Add random jitter (0.5 to 1.5 seconds)
+            sleep_time += random.uniform(0.5, 1.5)
+            logger.info(f"Throttling request: sleeping for {sleep_time:.2f}s")
+            time.sleep(sleep_time)
+
+        self.last_request_time = time.time()
+
+    def _get_random_user_agent(self):
+        """Get random user agent from pool"""
+        return random.choice(USER_AGENTS)
+
     def get_yt_dlp_opts(self, extract_info_only=True):
         """
-        Get yt-dlp options optimized for YouTube with AGGRESSIVE bot bypass
-        NO COOKIES REQUIRED - Uses multiple player clients for live servers
+        Get yt-dlp options with ULTIMATE bot bypass for live servers
+        NO COOKIES - Uses mobile web client + throttling + UA rotation
         """
+        # Throttle requests
+        self._throttle_request()
+
+        # Get random user agent
+        user_agent = self._get_random_user_agent()
+        logger.info(f"Using UA: {user_agent[:50]}...")
+
         opts = {
             'quiet': True,
             'no_warnings': True,
             'extract_flat': False,
-            'socket_timeout': 60,
-            'retries': 10,  # Increased retries for live servers
-            'fragment_retries': 10,
-            'file_access_retries': 5,
-            'extractor_retries': 5,
+            'socket_timeout': 90,
+            'retries': 15,
+            'fragment_retries': 15,
+            'file_access_retries': 10,
+            'extractor_retries': 10,
             'skip_unavailable_fragments': True,
             'ignoreerrors': False,
             'no_color': True,
 
-            # AGGRESSIVE YouTube bot bypass - Multiple player clients for live servers
+            # ULTIMATE YouTube bot bypass - Mobile Web + multiple fallbacks
             'extractor_args': {
                 'youtube': {
-                    # Try multiple player clients in order - more options = better bypass
-                    'player_client': ['ios', 'android', 'web_embedded_player', 'tv_embedded'],
-                    'skip': ['webpage', 'configs', 'dash', 'hls'],  # Skip all webpage parsing
+                    # Mobile web client has LEAST restrictions for live servers!
+                    'player_client': ['mweb', 'ios', 'android', 'tv_embedded'],
+                    'skip': ['webpage', 'configs', 'dash', 'hls'],
                     'player_skip': ['webpage', 'configs'],
-                    'innertube_client': 'ios',  # Force iOS client
                 }
             },
 
-            # Network options for live server bypass
+            # Advanced network options
             'nocheckcertificate': True,
             'geo_bypass': True,
-            'source_address': '0.0.0.0',  # Bind to all interfaces
+            'source_address': '0.0.0.0',
 
-            # iOS YouTube app headers - most reliable for live servers
+            # Sleep between fragments to avoid rate limiting
+            'sleep_interval': 1,
+            'max_sleep_interval': 3,
+            'sleep_interval_requests': 1,
+            'sleep_interval_subtitles': 1,
+
+            # Rotating headers with random UA
             'http_headers': {
-                'User-Agent': 'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
+                'User-Agent': user_agent,
                 'Accept': '*/*',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
-                'Origin': 'https://www.youtube.com',
-                'X-YouTube-Client-Name': '5',
-                'X-YouTube-Client-Version': '19.29.1',
+                'Origin': 'https://m.youtube.com',
+                'Referer': 'https://m.youtube.com/',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-origin',
             },
         }
 
-        # If not just extracting info, add download options
+        # Download-specific options
         if not extract_info_only:
             opts.update({
                 'format': 'bestaudio/best',
                 'prefer_ffmpeg': True,
                 'keepvideo': False,
-                'concurrent_fragment_downloads': 5,  # More concurrent downloads
-                'http_chunk_size': 10485760,  # 10MB chunks for better performance
+                'concurrent_fragment_downloads': 3,  # Reduced to avoid detection
+                'http_chunk_size': 10485760,
+                'throttledratelimit': None,  # No rate limiting
             })
 
         return opts
