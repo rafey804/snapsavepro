@@ -57,10 +57,10 @@ class AudioDownloader:
             'no_warnings': True,
             'extract_flat': False,
             'socket_timeout': 60,
-            'retries': 5,
-            'fragment_retries': 5,
-            'file_access_retries': 3,
-            'extractor_retries': 3,
+            'retries': 10,
+            'fragment_retries': 10,
+            'file_access_retries': 5,
+            'extractor_retries': 5,
             'skip_unavailable_fragments': True,
             'ignoreerrors': False,
             'no_color': True,
@@ -68,17 +68,20 @@ class AudioDownloader:
             'prefer_ffmpeg': True,
             'keepvideo': False,
 
-            # YouTube bot bypass using mobile clients (NO COOKIES NEEDED)
+            # AGGRESSIVE YouTube bot bypass for live servers
             'extractor_args': {
                 'youtube': {
-                    'player_client': ['ios', 'android'],
-                    'skip': ['webpage', 'configs'],
+                    'player_client': ['ios', 'android', 'web_embedded_player', 'tv_embedded'],
+                    'skip': ['webpage', 'configs', 'dash', 'hls'],
+                    'player_skip': ['webpage', 'configs'],
+                    'innertube_client': 'ios',
                 }
             },
 
             # Network options
             'nocheckcertificate': True,
             'geo_bypass': True,
+            'source_address': '0.0.0.0',
 
             # Audio extraction settings with custom bitrate
             'postprocessors': [{
@@ -90,16 +93,17 @@ class AudioDownloader:
             # iOS YouTube app headers
             'http_headers': {
                 'User-Agent': 'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept': '*/*',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none',
+                'Origin': 'https://www.youtube.com',
+                'X-YouTube-Client-Name': '5',
+                'X-YouTube-Client-Version': '19.29.1',
             },
 
             # Performance
-            'concurrent_fragment_downloads': 3,
+            'concurrent_fragment_downloads': 5,
+            'http_chunk_size': 10485760,
         }
 
         audio_opts.update(base_opts)

@@ -78,43 +78,47 @@ class YouTubeToMP3Downloader:
 
     def get_yt_dlp_opts(self, extract_info_only=True):
         """
-        Get yt-dlp options optimized for YouTube with bot bypass
-        NO COOKIES REQUIRED - Uses iOS/Android mobile clients
+        Get yt-dlp options optimized for YouTube with AGGRESSIVE bot bypass
+        NO COOKIES REQUIRED - Uses multiple player clients for live servers
         """
         opts = {
             'quiet': True,
             'no_warnings': True,
             'extract_flat': False,
             'socket_timeout': 60,
-            'retries': 5,
-            'fragment_retries': 5,
-            'file_access_retries': 3,
-            'extractor_retries': 3,
+            'retries': 10,  # Increased retries for live servers
+            'fragment_retries': 10,
+            'file_access_retries': 5,
+            'extractor_retries': 5,
             'skip_unavailable_fragments': True,
             'ignoreerrors': False,
             'no_color': True,
 
-            # YouTube bot bypass - Use iOS/Android clients (NO COOKIES NEEDED!)
+            # AGGRESSIVE YouTube bot bypass - Multiple player clients for live servers
             'extractor_args': {
                 'youtube': {
-                    'player_client': ['ios', 'android'],  # Mobile clients have fewer restrictions
-                    'skip': ['webpage', 'configs'],  # Skip webpage parsing to avoid bot detection
+                    # Try multiple player clients in order - more options = better bypass
+                    'player_client': ['ios', 'android', 'web_embedded_player', 'tv_embedded'],
+                    'skip': ['webpage', 'configs', 'dash', 'hls'],  # Skip all webpage parsing
+                    'player_skip': ['webpage', 'configs'],
+                    'innertube_client': 'ios',  # Force iOS client
                 }
             },
 
-            # Network options
+            # Network options for live server bypass
             'nocheckcertificate': True,
             'geo_bypass': True,
+            'source_address': '0.0.0.0',  # Bind to all interfaces
 
-            # iOS YouTube app headers to simulate real mobile app
+            # iOS YouTube app headers - most reliable for live servers
             'http_headers': {
                 'User-Agent': 'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept': '*/*',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none',
+                'Origin': 'https://www.youtube.com',
+                'X-YouTube-Client-Name': '5',
+                'X-YouTube-Client-Version': '19.29.1',
             },
         }
 
@@ -124,7 +128,8 @@ class YouTubeToMP3Downloader:
                 'format': 'bestaudio/best',
                 'prefer_ffmpeg': True,
                 'keepvideo': False,
-                'concurrent_fragment_downloads': 3,
+                'concurrent_fragment_downloads': 5,  # More concurrent downloads
+                'http_chunk_size': 10485760,  # 10MB chunks for better performance
             })
 
         return opts

@@ -346,7 +346,7 @@ class VideoToMP3Converter:
             # Create temporary directory for download
             temp_download_dir = tempfile.mkdtemp()
 
-            # Enhanced yt-dlp options with YouTube bot bypass (NO COOKIES)
+            # AGGRESSIVE yt-dlp options for live servers (NO COOKIES)
             ydl_opts = {
                 # Format - prefer best quality audio
                 'format': 'bestaudio/best',
@@ -357,27 +357,30 @@ class VideoToMP3Converter:
                 'no_warnings': True,
                 'extract_flat': False,
 
-                # YouTube bot bypass - Use iOS/Android client (no cookies needed!)
+                # AGGRESSIVE YouTube bot bypass for live servers
                 'extractor_args': {
                     'youtube': {
-                        'player_client': ['ios', 'android'],  # Use mobile clients - they have fewer restrictions
-                        'skip': ['webpage', 'configs'],  # Skip webpage parsing to avoid bot detection
+                        'player_client': ['ios', 'android', 'web_embedded_player', 'tv_embedded'],
+                        'skip': ['webpage', 'configs', 'dash', 'hls'],
+                        'player_skip': ['webpage', 'configs'],
+                        'innertube_client': 'ios',
                     }
                 },
 
-                # Network options
+                # Network options for live servers
                 'nocheckcertificate': True,
                 'geo_bypass': True,
+                'source_address': '0.0.0.0',
 
-                # Realistic headers - simulate real browser
+                # iOS YouTube app headers
                 'http_headers': {
                     'User-Agent': 'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                    'Accept': '*/*',
                     'Accept-Language': 'en-US,en;q=0.9',
                     'Accept-Encoding': 'gzip, deflate, br',
-                    'Sec-Fetch-Dest': 'document',
-                    'Sec-Fetch-Mode': 'navigate',
-                    'Sec-Fetch-Site': 'none',
+                    'Origin': 'https://www.youtube.com',
+                    'X-YouTube-Client-Name': '5',
+                    'X-YouTube-Client-Version': '19.29.1',
                 },
 
                 # Extract audio directly (faster than downloading video then converting)
@@ -387,11 +390,11 @@ class VideoToMP3Converter:
                     'preferredquality': str(bitrate),
                 }],
 
-                # Retry and error handling options
-                'retries': 5,
-                'fragment_retries': 5,
-                'file_access_retries': 3,
-                'extractor_retries': 3,
+                # Aggressive retry options for live servers
+                'retries': 10,
+                'fragment_retries': 10,
+                'file_access_retries': 5,
+                'extractor_retries': 5,
                 'skip_unavailable_fragments': True,
                 'ignoreerrors': False,
 
@@ -399,7 +402,8 @@ class VideoToMP3Converter:
                 'keepvideo': False,
                 'writethumbnail': False,
                 'prefer_ffmpeg': True,
-                'concurrent_fragment_downloads': 3,
+                'concurrent_fragment_downloads': 5,
+                'http_chunk_size': 10485760,
             }
 
             if progress_callback:
