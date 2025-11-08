@@ -64,7 +64,7 @@ export default function ProfessionalHeader() {
     },
     {
       name: t('youtubeMP3.name'),
-      route: '/pages/youtube-to-mp3',
+      route: '/pages/video-to-mp3-converter',
       description: t('youtubeMP3.description'),
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

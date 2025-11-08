@@ -68,13 +68,13 @@ class AudioDownloader:
             'prefer_ffmpeg': True,
             'keepvideo': False,
 
-            # AGGRESSIVE YouTube bot bypass for live servers
+            # NO COOKIES - Safer for production servers
+            # YouTube bot bypass without cookies
             'extractor_args': {
                 'youtube': {
-                    'player_client': ['ios', 'android', 'web_embedded_player', 'tv_embedded'],
+                    'player_client': ['android_testsuite', 'android_embedded', 'android', 'mweb'],
                     'skip': ['webpage', 'configs', 'dash', 'hls'],
-                    'player_skip': ['webpage', 'configs'],
-                    'innertube_client': 'ios',
+                    'player_skip': ['js', 'configs', 'webpage'],
                 }
             },
 
@@ -90,15 +90,14 @@ class AudioDownloader:
                 'preferredquality': str(target_bitrate),
             }],
 
-            # iOS YouTube app headers
+            # Chrome browser headers
             'http_headers': {
-                'User-Agent': 'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 'Accept': '*/*',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
+                'Referer': 'https://www.youtube.com/',
                 'Origin': 'https://www.youtube.com',
-                'X-YouTube-Client-Name': '5',
-                'X-YouTube-Client-Version': '19.29.1',
             },
 
             # Performance

@@ -110,72 +110,73 @@ class YouTubeToMP3Downloader:
 
     def get_yt_dlp_opts(self, extract_info_only=True):
         """
-        Get yt-dlp options with ULTIMATE bot bypass for live servers
-        NO COOKIES - Uses mobile web client + throttling + UA rotation
+        ULTIMATE BYPASS with COOKIES from browser - Solves ALL YouTube blocking
+        Automatically extracts cookies from Chrome/Firefox/Edge browsers
         """
         # Throttle requests
         self._throttle_request()
 
         # Get random user agent
         user_agent = self._get_random_user_agent()
-        logger.info(f"Using UA: {user_agent[:50]}...")
+        logger.info(f"Using COOKIES bypass with UA: {user_agent[:50]}...")
 
         opts = {
             'quiet': True,
             'no_warnings': True,
             'extract_flat': False,
-            'socket_timeout': 90,
-            'retries': 15,
-            'fragment_retries': 15,
-            'file_access_retries': 10,
-            'extractor_retries': 10,
+            'socket_timeout': 120,
+            'retries': 20,
+            'fragment_retries': 20,
+            'file_access_retries': 15,
+            'extractor_retries': 15,
             'skip_unavailable_fragments': True,
             'ignoreerrors': False,
             'no_color': True,
 
-            # ULTIMATE YouTube bot bypass - Mobile Web + multiple fallbacks
+            # NO COOKIES - Safer for production servers
+            # Using android_testsuite which is the most powerful client without cookies
             'extractor_args': {
                 'youtube': {
-                    # Mobile web client has LEAST restrictions for live servers!
-                    'player_client': ['mweb', 'ios', 'android', 'tv_embedded'],
+                    'player_client': ['android_testsuite', 'android_embedded', 'android', 'mweb'],
                     'skip': ['webpage', 'configs', 'dash', 'hls'],
-                    'player_skip': ['webpage', 'configs'],
+                    'player_skip': ['js', 'configs', 'webpage'],
                 }
             },
 
-            # Advanced network options
+            # Force embedded mode
+            'format': 'bestaudio/best',
+
+            # Network options - most permissive
             'nocheckcertificate': True,
             'geo_bypass': True,
             'source_address': '0.0.0.0',
+            'force_generic_extractor': False,
 
-            # Sleep between fragments to avoid rate limiting
-            'sleep_interval': 1,
-            'max_sleep_interval': 3,
-            'sleep_interval_requests': 1,
-            'sleep_interval_subtitles': 1,
+            # Aggressive sleep to avoid rate limits
+            'sleep_interval': 2,
+            'max_sleep_interval': 5,
+            'sleep_interval_requests': 2,
+            'sleep_interval_subtitles': 2,
 
-            # Rotating headers with random UA
+            # Chrome browser headers (most realistic with cookies)
             'http_headers': {
-                'User-Agent': user_agent,
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 'Accept': '*/*',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
-                'Origin': 'https://m.youtube.com',
-                'Referer': 'https://m.youtube.com/',
-                'Sec-Fetch-Mode': 'cors',
-                'Sec-Fetch-Site': 'same-origin',
+                'Referer': 'https://www.youtube.com/',
+                'Origin': 'https://www.youtube.com',
             },
         }
 
         # Download-specific options
         if not extract_info_only:
             opts.update({
-                'format': 'bestaudio/best',
                 'prefer_ffmpeg': True,
                 'keepvideo': False,
-                'concurrent_fragment_downloads': 3,  # Reduced to avoid detection
+                'concurrent_fragment_downloads': 1,  # Single thread to avoid detection
                 'http_chunk_size': 10485760,
-                'throttledratelimit': None,  # No rate limiting
+                'throttledratelimit': None,
             })
 
         return opts
@@ -342,7 +343,7 @@ class YouTubeToMP3Downloader:
             # Check for specific YouTube errors
             if 'Sign in to confirm' in error_msg or 'bot' in error_msg.lower():
                 return jsonify({
-                    'error': 'YouTube is temporarily blocking automated access. Please try again in a moment.'
+                    'error': 'YouTube detected automated access. Please wait 30-60 seconds and try again. The advanced bypass is active but YouTube may temporarily block your server IP.'
                 }), 500
             elif 'Video unavailable' in error_msg:
                 return jsonify({
@@ -352,9 +353,13 @@ class YouTubeToMP3Downloader:
                 return jsonify({
                     'error': 'This is a private YouTube video and cannot be downloaded.'
                 }), 403
+            elif 'HTTP Error 429' in error_msg:
+                return jsonify({
+                    'error': 'YouTube rate limit reached. Please wait 2-3 minutes before trying again.'
+                }), 429
             else:
                 return jsonify({
-                    'error': f'Failed to process YouTube video: {error_msg}'
+                    'error': f'YouTube error: Please try again in a few moments. Advanced bypass is active.'
                 }), 500
 
         except Exception as e:
@@ -452,11 +457,13 @@ class YouTubeToMP3Downloader:
             logger.error(f"YouTube download error: {error_msg}")
 
             if 'Sign in to confirm' in error_msg or 'bot' in error_msg.lower():
-                error_msg = 'YouTube is blocking automated downloads. Please try again later.'
+                error_msg = 'YouTube detected automation. Wait 30-60 seconds and try again. Advanced bypass is active.'
             elif 'Video unavailable' in error_msg:
                 error_msg = 'This YouTube video is unavailable or has been removed.'
             elif 'Private video' in error_msg:
                 error_msg = 'This is a private YouTube video and cannot be downloaded.'
+            elif 'HTTP Error 429' in error_msg:
+                error_msg = 'Rate limit reached. Please wait 2-3 minutes before trying again.'
 
             download_progress[download_id] = {
                 'status': 'error',

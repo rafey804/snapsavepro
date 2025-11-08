@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/pages/linkedin-video-downloader', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/pages/youtube-shorts-downloader', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/pages/instagram-reels-downloader', priority: 0.9, changeFrequency: 'daily' as const },
-    { path: '/pages/youtube-to-mp3', priority: 0.95, changeFrequency: 'daily' as const },
+    { path: '/pages/video-to-mp3-converter', priority: 0.95, changeFrequency: 'daily' as const },
     { path: '/pages/audio', priority: 0.8, changeFrequency: 'daily' as const },
     { path: '/pages/youtube-thumbnail-downloader', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/pages/twitch-clip-downloader', priority: 0.9, changeFrequency: 'daily' as const },
