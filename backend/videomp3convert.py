@@ -346,9 +346,9 @@ class VideoToMP3Converter:
             # Create temporary directory for download
             temp_download_dir = tempfile.mkdtemp()
 
-            # Enhanced yt-dlp options with YouTube bot bypass
+            # Enhanced yt-dlp options with YouTube bot bypass (NO COOKIES)
             ydl_opts = {
-                # Format - prefer best quality
+                # Format - prefer best quality audio
                 'format': 'bestaudio/best',
                 'outtmpl': os.path.join(temp_download_dir, '%(title)s.%(ext)s'),
 
@@ -357,25 +357,27 @@ class VideoToMP3Converter:
                 'no_warnings': True,
                 'extract_flat': False,
 
-                # YouTube bot bypass options
-                'nocheckcertificate': True,
-                'prefer_insecure': False,
-                'geo_bypass': True,
-                'geo_bypass_country': 'US',
+                # YouTube bot bypass - Use iOS/Android client (no cookies needed!)
+                'extractor_args': {
+                    'youtube': {
+                        'player_client': ['ios', 'android'],  # Use mobile clients - they have fewer restrictions
+                        'skip': ['webpage', 'configs'],  # Skip webpage parsing to avoid bot detection
+                    }
+                },
 
-                # User agent and headers to avoid bot detection
-                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                # Network options
+                'nocheckcertificate': True,
+                'geo_bypass': True,
+
+                # Realistic headers - simulate real browser
                 'http_headers': {
+                    'User-Agent': 'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                     'Accept-Language': 'en-US,en;q=0.9',
-                    'Accept-Encoding': 'gzip, deflate',
-                    'DNT': '1',
-                    'Connection': 'keep-alive',
-                    'Upgrade-Insecure-Requests': '1',
+                    'Accept-Encoding': 'gzip, deflate, br',
                     'Sec-Fetch-Dest': 'document',
                     'Sec-Fetch-Mode': 'navigate',
                     'Sec-Fetch-Site': 'none',
-                    'Cache-Control': 'max-age=0',
                 },
 
                 # Extract audio directly (faster than downloading video then converting)
@@ -385,13 +387,19 @@ class VideoToMP3Converter:
                     'preferredquality': str(bitrate),
                 }],
 
-                # Additional options
-                'retries': 3,
-                'fragment_retries': 3,
+                # Retry and error handling options
+                'retries': 5,
+                'fragment_retries': 5,
+                'file_access_retries': 3,
+                'extractor_retries': 3,
                 'skip_unavailable_fragments': True,
+                'ignoreerrors': False,
+
+                # Performance options
                 'keepvideo': False,
                 'writethumbnail': False,
                 'prefer_ffmpeg': True,
+                'concurrent_fragment_downloads': 3,
             }
 
             if progress_callback:

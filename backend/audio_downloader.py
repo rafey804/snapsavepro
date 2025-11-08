@@ -44,21 +44,21 @@ class AudioDownloader:
             return None
     
     def get_audio_opts(self, base_opts=None, target_bitrate=192):
-        """Get yt-dlp options optimized for audio extraction"""
+        """Get yt-dlp options optimized for audio extraction (NO COOKIES)"""
         if base_opts is None:
             base_opts = {}
-        
+
         # Ensure target_bitrate is valid
         if target_bitrate not in [128, 192, 256, 320]:
             target_bitrate = 192
-        
+
         audio_opts = {
             'quiet': True,
             'no_warnings': True,
             'extract_flat': False,
             'socket_timeout': 60,
-            'retries': 3,
-            'fragment_retries': 3,
+            'retries': 5,
+            'fragment_retries': 5,
             'file_access_retries': 3,
             'extractor_retries': 3,
             'skip_unavailable_fragments': True,
@@ -67,23 +67,41 @@ class AudioDownloader:
             'format': 'bestaudio/best',
             'prefer_ffmpeg': True,
             'keepvideo': False,
-            
+
+            # YouTube bot bypass using mobile clients (NO COOKIES NEEDED)
+            'extractor_args': {
+                'youtube': {
+                    'player_client': ['ios', 'android'],
+                    'skip': ['webpage', 'configs'],
+                }
+            },
+
+            # Network options
+            'nocheckcertificate': True,
+            'geo_bypass': True,
+
             # Audio extraction settings with custom bitrate
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
                 'preferredquality': str(target_bitrate),
             }],
-            
-            # Headers
+
+            # iOS YouTube app headers
             'http_headers': {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'User-Agent': 'com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Accept-Encoding': 'gzip, deflate, br',
+                'Sec-Fetch-Dest': 'document',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'none',
             },
+
+            # Performance
+            'concurrent_fragment_downloads': 3,
         }
-        
+
         audio_opts.update(base_opts)
         return audio_opts
     

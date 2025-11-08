@@ -31,6 +31,7 @@ from instagram_profile import InstagramProfileDownloader
 from profile_picture_downloader import ProfilePictureDownloader
 from telegram_downloader import TelegramDownloader
 from videomp3convert import VideoToMP3Converter
+from youtube_to_mp3 import YouTubeToMP3Downloader
 from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
@@ -89,6 +90,7 @@ try:
     profile_picture_downloader = ProfilePictureDownloader()
     telegram_downloader = TelegramDownloader()
     video_mp3_converter = VideoToMP3Converter()
+    youtube_mp3_downloader = YouTubeToMP3Downloader()
     logger.info("All platform downloaders initialized successfully")
 except Exception as e:
     logger.error(f"Error initializing downloaders: {e}")
@@ -194,7 +196,12 @@ def get_audio_info():
 
         logger.info(f"Processing AUDIO URL: {url}")
 
-        # Use generic audio downloader
+        # Check if it's a YouTube URL - use dedicated YouTube downloader
+        if youtube_mp3_downloader.validate_youtube_url(url):
+            logger.info("Using YouTube to MP3 downloader")
+            return youtube_mp3_downloader.get_youtube_info(url)
+
+        # Use generic audio downloader for other platforms
         return audio_downloader.get_audio_info(url)
 
     except Exception as e:
@@ -250,6 +257,13 @@ def download_video():
             future = executor.submit(
                 telegram_downloader.download_media, url, download_id,
                 download_progress, download_files
+            )
+        # Handle YouTube to MP3 downloads
+        elif platform == 'youtube' and download_type == 'audio':
+            logger.info(f"Using YouTube to MP3 downloader for {url} at {target_bitrate}kbps")
+            future = executor.submit(
+                youtube_mp3_downloader.download_youtube_audio, url, download_id,
+                download_progress, download_files, target_bitrate
             )
         # Handle audio-specific downloads
         elif platform in ['audio_link', 'audio_platform']:
