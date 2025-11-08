@@ -22,6 +22,8 @@ interface VideoFormat {
   watermark_free?: boolean;
   protocol?: string;
   duration?: number;
+  url?: string;
+  direct_url?: string;
 }
 
 interface VideoInfo {
@@ -34,6 +36,7 @@ interface VideoInfo {
   upload_date: string;
   like_count: number;
   comment_count: number;
+  platform?: string;
   formats: {
     video_formats: VideoFormat[];
     audio_formats: VideoFormat[];
@@ -224,7 +227,8 @@ export default function TikTokDownloader() {
           type: format.type,
           ext: format.ext,
           duration: videoInfo?.duration || 0,
-          platform: 'tiktok',
+          platform: videoInfo?.platform || 'tiktok',
+          direct_video_url: format.url || format.direct_url,
         }),
       });
 

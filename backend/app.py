@@ -20,15 +20,17 @@ from tiktok import TiktokDownloader
 from snapchat import SnapchatDownloader
 from facebook import FacebookDownloader
 from audio_downloader import AudioDownloader
-from youtube_mp3 import YouTubeMp3Downloader
 from pinterest import PinterestDownloader
 from instagram import InstagramDownloader
-from shorts import ShortsDownloader
 from linkedin import LinkedInDownloader
 from twitch import TwitchDownloader
+from kwai import KwaiDownloader
+from dailymotion import DailymotionDownloader
+from threads import ThreadsDownloader
 from instagram_profile import InstagramProfileDownloader
 from profile_picture_downloader import ProfilePictureDownloader
 from telegram_downloader import TelegramDownloader
+from videomp3convert import VideoToMP3Converter
 from utils import detect_platform, ProgressHook, download_worker
 
 # Environment Configuration
@@ -64,7 +66,7 @@ CORS(app, origins=ALLOWED_ORIGINS, supports_credentials=True)
 # Store download progress and files
 download_progress = {}
 download_files = {}
-executor = ThreadPoolExecutor(max_workers=4)
+executor = ThreadPoolExecutor(max_workers=8)  # Increased to 8 to handle 5+ videos simultaneously
 
 # Initialize platform downloaders
 try:
@@ -77,14 +79,16 @@ try:
     reddit_downloader = RedditDownloader()
     pinterest_downloader = PinterestDownloader()
     instagram_downloader = InstagramDownloader()
-    shorts_downloader = ShortsDownloader()
     linkedin_downloader = LinkedInDownloader()
     twitch_downloader = TwitchDownloader()
+    kwai_downloader = KwaiDownloader()
+    dailymotion_downloader = DailymotionDownloader()
+    threads_downloader = ThreadsDownloader()
     audio_downloader = AudioDownloader()
-    youtube_mp3_downloader = YouTubeMp3Downloader()
     instagram_profile_downloader = InstagramProfileDownloader()
     profile_picture_downloader = ProfilePictureDownloader()
     telegram_downloader = TelegramDownloader()
+    video_mp3_converter = VideoToMP3Converter()
     logger.info("All platform downloaders initialized successfully")
 except Exception as e:
     logger.error(f"Error initializing downloaders: {e}")
@@ -139,7 +143,7 @@ def get_video_info():
         platform = detect_platform(url)
 
         if platform == 'unknown':
-            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Snapchat, Facebook, Twitter, Reddit, Pinterest, LinkedIn, Twitch, Telegram, or YouTube Shorts URL'}), 400
+            return jsonify({'error': 'Please provide a valid TikTok, Instagram, Snapchat, Facebook, Twitter, Reddit, Pinterest, LinkedIn, Twitch, or Telegram URL'}), 400
 
         logger.info(f"Processing {platform.upper()} URL: {url}")
 
@@ -162,10 +166,14 @@ def get_video_info():
             return linkedin_downloader.get_video_info(url)
         elif platform == 'twitch':
             return twitch_downloader.get_video_info(url)
+        elif platform == 'kwai':
+            return kwai_downloader.get_video_info(url)
+        elif platform == 'dailymotion':
+            return dailymotion_downloader.get_video_info(url)
+        elif platform == 'threads':
+            return threads_downloader.get_video_info(url)
         elif platform == 'telegram':
             return telegram_downloader.get_video_info(url)
-        elif platform == 'shorts':
-            return shorts_downloader.get_video_info(url)
 
     except Exception as e:
         logger.error(f"Unexpected error in get_video_info: {str(e)}")
@@ -186,12 +194,7 @@ def get_audio_info():
 
         logger.info(f"Processing AUDIO URL: {url}")
 
-        # Check if it's a YouTube URL - use dedicated YouTube MP3 downloader
-        if youtube_mp3_downloader.validate_youtube_url(url):
-            logger.info("Using dedicated YouTube MP3 downloader")
-            return youtube_mp3_downloader.get_youtube_info(url)
-
-        # Otherwise use generic audio downloader
+        # Use generic audio downloader
         return audio_downloader.get_audio_info(url)
 
     except Exception as e:
@@ -214,6 +217,7 @@ def download_video():
         platform = data.get('platform', detect_platform(url))
         is_conversion = data.get('is_conversion', False)
         direct_url = data.get('direct_url')  # For direct audio downloads
+        direct_video_url = data.get('direct_video_url')  # For direct video downloads (Threads)
         image_url = data.get('image_url')  # For direct image downloads
 
         if not url or not format_id:
@@ -240,15 +244,8 @@ def download_video():
         
         logger.info(f"Starting {platform} download - Format: {format_id}, Type: {download_type}, Conversion: {is_conversion}")
 
-        # Check if it's YouTube MP3 download
-        if platform == 'youtube' and download_type == 'audio':
-            logger.info(f"Using dedicated YouTube MP3 downloader with bitrate: {target_bitrate}")
-            future = executor.submit(
-                youtube_mp3_downloader.download_youtube_mp3, url, download_id,
-                download_progress, download_files, target_bitrate
-            )
         # Handle Telegram downloads
-        elif platform == 'telegram':
+        if platform == 'telegram':
             logger.info(f"Using Telegram downloader for {url}")
             future = executor.submit(
                 telegram_downloader.download_media, url, download_id,
@@ -270,7 +267,7 @@ def download_video():
             future = executor.submit(
                 download_worker, download_id, url, format_id, download_type,
                 original_ext, target_bitrate, duration, platform, is_conversion,
-                download_progress, download_files, image_url
+                download_progress, download_files, image_url, direct_video_url
             )
         
         return jsonify({'download_id': download_id})
@@ -453,7 +450,7 @@ def health_check():
             'service': 'Multi-Platform Video Downloader',
             'active_downloads': len(download_progress),
             'cached_files': len(download_files),
-            'supported_platforms': ['tiktok', 'snapchat', 'facebook', 'instagram', 'twitter', 'reddit', 'pinterest', 'linkedin', 'twitch', 'telegram', 'youtube_shorts'],
+            'supported_platforms': ['tiktok', 'snapchat', 'facebook', 'instagram', 'twitter', 'reddit', 'pinterest', 'linkedin', 'twitch', 'telegram'],
             'yt_dlp_version': yt_dlp.version.__version__,
             'telegram_enabled': telegram_downloader.enabled,
             'debug_mode': DEBUG,
@@ -635,6 +632,225 @@ def download_profile_picture():
     except Exception as e:
         logger.error(f"Error downloading profile picture: {str(e)}")
         return jsonify({'error': f'Failed to download image: {str(e)}'}), 500
+
+# Video to MP3 Converter Endpoints
+@app.route('/api/video-to-mp3/upload', methods=['POST'])
+def upload_video_for_mp3():
+    """Upload video file and convert to MP3"""
+    try:
+        # Check if file is in request
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file provided'}), 400
+
+        file = request.files['file']
+
+        if file.filename == '':
+            return jsonify({'error': 'No file selected'}), 400
+
+        # Get bitrate parameter (default 192kbps)
+        bitrate = int(request.form.get('bitrate', 192))
+
+        # Validate bitrate
+        if bitrate not in [128, 192, 256, 320]:
+            bitrate = 192
+
+        # Save uploaded file temporarily
+        temp_dir = tempfile.mkdtemp()
+        original_filename = file.filename
+        temp_filepath = os.path.join(temp_dir, original_filename)
+
+        file.save(temp_filepath)
+        logger.info(f"Video file uploaded: {original_filename} ({os.path.getsize(temp_filepath)} bytes)")
+
+        # Create download ID for progress tracking
+        download_id = str(uuid.uuid4())
+
+        download_progress[download_id] = {
+            'status': 'processing',
+            'percent': 0,
+            'message': 'Starting conversion...',
+            'platform': 'video_to_mp3'
+        }
+
+        def progress_update(percent, message):
+            """Update progress for this conversion"""
+            download_progress[download_id] = {
+                'status': 'processing',
+                'percent': percent,
+                'message': message,
+                'platform': 'video_to_mp3'
+            }
+
+        # Process video in background
+        def process_video():
+            try:
+                logger.info(f"Starting conversion for {original_filename} with ID {download_id}")
+                result = video_mp3_converter.process_uploaded_video(
+                    temp_filepath,
+                    original_filename,
+                    bitrate,
+                    progress_update
+                )
+
+                if result['success']:
+                    logger.info(f"Conversion successful for {original_filename}: {result['output_filename']}")
+                    download_files[download_id] = {
+                        'filepath': result['output_path'],
+                        'filename': result['output_filename'],
+                        'platform': 'video_to_mp3',
+                        'temp_dir': temp_dir
+                    }
+                    download_progress[download_id] = {
+                        'status': 'completed',
+                        'percent': 100,
+                        'message': 'Conversion complete!',
+                        'platform': 'video_to_mp3',
+                        'bitrate': result['bitrate'],
+                        'file_size': result['output_size']
+                    }
+                else:
+                    logger.error(f"Conversion failed for {original_filename}: {result.get('error', 'Unknown error')}")
+                    download_progress[download_id] = {
+                        'status': 'error',
+                        'percent': 0,
+                        'message': result.get('error', 'Conversion failed'),
+                        'platform': 'video_to_mp3'
+                    }
+
+                # Clean up uploaded file
+                try:
+                    if os.path.exists(temp_filepath):
+                        os.remove(temp_filepath)
+                except:
+                    pass
+
+            except Exception as e:
+                logger.error(f"Video to MP3 conversion error: {e}")
+                download_progress[download_id] = {
+                    'status': 'error',
+                    'percent': 0,
+                    'message': f'Error: {str(e)}',
+                    'platform': 'video_to_mp3'
+                }
+
+        # Start background processing
+        executor.submit(process_video)
+
+        return jsonify({
+            'download_id': download_id,
+            'message': 'Video uploaded successfully, conversion started'
+        })
+
+    except Exception as e:
+        logger.error(f"Error uploading video for MP3 conversion: {str(e)}")
+        return jsonify({'error': f'Upload failed: {str(e)}'}), 500
+
+@app.route('/api/video-to-mp3/url', methods=['POST'])
+def convert_url_to_mp3():
+    """Convert video from URL to MP3"""
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Invalid JSON data'}), 400
+
+        url = data.get('url', '').strip()
+        bitrate = int(data.get('bitrate', 192))
+
+        if not url:
+            return jsonify({'error': 'URL is required'}), 400
+
+        # Validate bitrate
+        if bitrate not in [128, 192, 256, 320]:
+            bitrate = 192
+
+        logger.info(f"Converting URL to MP3: {url} at {bitrate}kbps")
+
+        # Create download ID for progress tracking
+        download_id = str(uuid.uuid4())
+
+        download_progress[download_id] = {
+            'status': 'processing',
+            'percent': 0,
+            'message': 'Fetching video...',
+            'platform': 'video_to_mp3'
+        }
+
+        def progress_update(percent, message):
+            """Update progress for this conversion"""
+            download_progress[download_id] = {
+                'status': 'processing',
+                'percent': percent,
+                'message': message,
+                'platform': 'video_to_mp3'
+            }
+
+        # Process URL in background
+        def process_url():
+            try:
+                result = video_mp3_converter.convert_url_to_mp3(
+                    url,
+                    bitrate,
+                    progress_update
+                )
+
+                if result['success']:
+                    temp_dir = os.path.dirname(result['output_path'])
+                    download_files[download_id] = {
+                        'filepath': result['output_path'],
+                        'filename': result['output_filename'],
+                        'platform': 'video_to_mp3',
+                        'temp_dir': temp_dir
+                    }
+                    download_progress[download_id] = {
+                        'status': 'completed',
+                        'percent': 100,
+                        'message': 'Conversion complete!',
+                        'platform': 'video_to_mp3',
+                        'bitrate': result['bitrate'],
+                        'file_size': result['output_size']
+                    }
+                else:
+                    download_progress[download_id] = {
+                        'status': 'error',
+                        'percent': 0,
+                        'message': result.get('error', 'Conversion failed'),
+                        'platform': 'video_to_mp3'
+                    }
+
+            except Exception as e:
+                logger.error(f"URL to MP3 conversion error: {e}")
+                download_progress[download_id] = {
+                    'status': 'error',
+                    'percent': 0,
+                    'message': f'Error: {str(e)}',
+                    'platform': 'video_to_mp3'
+                }
+
+        # Start background processing
+        executor.submit(process_url)
+
+        return jsonify({
+            'download_id': download_id,
+            'message': 'URL conversion started'
+        })
+
+    except Exception as e:
+        logger.error(f"Error converting URL to MP3: {str(e)}")
+        return jsonify({'error': f'Conversion failed: {str(e)}'}), 500
+
+@app.route('/api/video-to-mp3/formats', methods=['GET'])
+def get_supported_formats():
+    """Get list of supported video formats and bitrates"""
+    try:
+        return jsonify({
+            'video_formats': video_mp3_converter.supported_video_formats,
+            'audio_bitrates': video_mp3_converter.supported_audio_bitrates,
+            'max_file_size': '500MB',
+            'message': 'Supported formats retrieved successfully'
+        })
+    except Exception as e:
+        logger.error(f"Error getting supported formats: {str(e)}")
+        return jsonify({'error': f'Failed to get formats: {str(e)}'}), 500
 
 # Start cleanup thread
 cleanup_thread = threading.Thread(target=cleanup_old_downloads, daemon=True)

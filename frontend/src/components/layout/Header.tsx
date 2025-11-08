@@ -74,6 +74,17 @@ export default function ProfessionalHeader() {
       gradient: 'from-red-500 to-orange-500'
     },
     {
+      name: t('videoToMp3Converter.name'),
+      route: '/pages/video-to-mp3-converter',
+      description: t('videoToMp3Converter.description'),
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/>
+        </svg>
+      ),
+      gradient: 'from-purple-600 to-pink-600'
+    },
+    {
       name: t('facebook.name'),
       route: '/pages/facebook-video-download',
       description: t('facebook.description'),
@@ -182,6 +193,40 @@ export default function ProfessionalHeader() {
         </svg>
       ),
       gradient: 'from-purple-500 to-pink-500'
+    },
+    {
+      name: t('kwai.name'),
+      route: '/pages/kwai-video-downloader',
+      description: t('kwai.description'),
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-13c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5zm-7 0c.83 0 1.5.67 1.5 1.5S9.33 10 8.5 10 7 9.33 7 8.5 7.67 7 8.5 7zM12 17.5c-2.33 0-4.32-1.45-5.12-3.5h1.67c.69 1.19 1.97 2 3.45 2s2.75-.81 3.45-2h1.67c-.8 2.05-2.79 3.5-5.12 3.5z"/>
+        </svg>
+      ),
+      gradient: 'from-orange-500 to-yellow-500'
+    },
+    {
+      name: t('dailymotion.name'),
+      route: '/pages/dailymotion-video-downloader',
+      description: t('dailymotion.description'),
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <path fill="white" d="M14 8l-6 4 6 4V8z"/>
+        </svg>
+      ),
+      gradient: 'from-blue-500 to-purple-500'
+    },
+    {
+      name: t('threads.name'),
+      route: '/pages/threads-video-downloader',
+      description: t('threads.description'),
+      icon: (
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+        </svg>
+      ),
+      gradient: 'from-green-500 to-teal-500'
     }
   ];
 

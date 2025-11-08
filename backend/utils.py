@@ -61,27 +61,6 @@ def detect_platform(url):
     """Detect platform from URL"""
     url = url.strip().lower()
 
-    # YouTube Shorts patterns (check before regular YouTube)
-    shorts_patterns = [
-        r'(?:https?://)?(?:www\.)?youtube\.com/shorts/[\w-]+',
-    ]
-
-    for pattern in shorts_patterns:
-        if re.match(pattern, url):
-            return 'shorts'
-
-    # YouTube patterns
-    youtube_patterns = [
-        r'(?:https?://)?(?:www\.)?youtube\.com/watch\?v=[\w-]+',
-        r'(?:https?://)?(?:www\.)?youtu\.be/[\w-]+',
-        r'(?:https?://)?(?:www\.)?youtube\.com/embed/[\w-]+',
-        r'(?:https?://)?(?:m\.)?youtube\.com/watch\?v=[\w-]+',
-    ]
-
-    for pattern in youtube_patterns:
-        if re.match(pattern, url):
-            return 'youtube'
-
     # TikTok patterns
     tiktok_patterns = [
         r'(?:https?://)?(?:www\.)?tiktok\.com/@[\w.-]+/video/\d+',
@@ -202,6 +181,41 @@ def detect_platform(url):
         if re.match(pattern, url):
             return 'twitch'
 
+    # Kwai patterns
+    kwai_patterns = [
+        r'(?:https?://)?(?:www\.)?kwai\.com/@[\w.-]+/video/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?kwai\.me/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?kwai\.video/[\w-]+/?',
+        r'(?:https?://)?m\.kwai\.com/[\w-]+/?',
+        r'(?:https?://)?(?:www\.)?kwai\.com/.*',
+    ]
+
+    for pattern in kwai_patterns:
+        if re.match(pattern, url):
+            return 'kwai'
+
+    # Dailymotion patterns
+    dailymotion_patterns = [
+        r'(?:https?://)?(?:www\.)?dailymotion\.com/video/[\w]+',
+        r'(?:https?://)?(?:www\.)?dai\.ly/[\w]+',
+        r'(?:https?://)?(?:www\.)?dailymotion\.com/[\w]+',
+    ]
+
+    for pattern in dailymotion_patterns:
+        if re.match(pattern, url):
+            return 'dailymotion'
+
+    # Threads patterns - Support both threads.net and threads.com
+    threads_patterns = [
+        r'(?:https?://)?(?:www\.)?threads\.(?:net|com)/@[^/]+/post/[\w-]+',
+        r'(?:https?://)?(?:www\.)?threads\.(?:net|com)/t/[\w-]+',
+        r'(?:https?://)?(?:www\.)?threads\.(?:net|com)/[\w]+',
+    ]
+
+    for pattern in threads_patterns:
+        if re.match(pattern, url):
+            return 'threads'
+
     # Telegram patterns
     telegram_patterns = [
         r'(?:https?://)?t\.me/([a-zA-Z0-9_]+)/(\d+)',
@@ -282,7 +296,7 @@ def detect_audio_in_format(fmt):
 
 def download_worker(download_id, url, format_id, download_type, original_ext='mp4',
                    target_bitrate=192, duration=0, platform='tiktok', is_conversion=False,
-                   download_progress=None, download_files=None, image_url=None):
+                   download_progress=None, download_files=None, image_url=None, direct_video_url=None):
     """Enhanced download worker with better audio handling and image support"""
     temp_dir = None
     try:
@@ -381,17 +395,31 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             # Instagram uses instagrapi (not yt-dlp), so we handle it separately
             # Set dummy base_opts to avoid variable errors (not used for Instagram)
             base_opts = {}
-        elif platform == 'shorts':
-            from shorts import ShortsDownloader
-            downloader = ShortsDownloader()
-            base_opts = downloader.get_robust_shorts_opts({
-                'progress_hooks': [ProgressHook(download_id, download_progress)],
-                'keepvideo': False,
-            })
         elif platform == 'linkedin':
             from linkedin import LinkedInDownloader
             downloader = LinkedInDownloader()
             base_opts = downloader.get_robust_linkedin_opts({
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'keepvideo': False,
+            })
+        elif platform == 'kwai':
+            from kwai import KwaiDownloader
+            downloader = KwaiDownloader()
+            base_opts = downloader.get_robust_kwai_opts({
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'keepvideo': False,
+            })
+        elif platform == 'dailymotion':
+            from dailymotion import DailymotionDownloader
+            downloader = DailymotionDownloader()
+            base_opts = downloader.get_robust_dailymotion_opts({
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'keepvideo': False,
+            })
+        elif platform == 'threads':
+            from threads import ThreadsDownloader
+            downloader = ThreadsDownloader()
+            base_opts = downloader.get_robust_threads_opts({
                 'progress_hooks': [ProgressHook(download_id, download_progress)],
                 'keepvideo': False,
             })
@@ -447,10 +475,12 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             elif platform == 'facebook':
                 # For Facebook, try to get video+audio merged
                 video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
-            elif platform == 'youtube':
-                # For YouTube, use exact format ID only (no merging, no post-processing)
-                # This prevents double download and speeds up the process
-                video_format = format_id
+            elif platform == 'kwai':
+                # For Kwai, try to get video+audio merged
+                video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
+            elif platform == 'dailymotion':
+                # For Dailymotion, try to get video+audio merged
+                video_format = f'{format_id}+bestaudio/best[ext=mp4]/best'
             else:
                 video_format = f'{format_id}'
 
@@ -461,24 +491,13 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 'restrictfilenames': False,  # Allow unicode in filenames
                 'windowsfilenames': True,  # Make filenames Windows-compatible
             }
-
-            # For YouTube, add extra options to prevent re-processing
-            if platform == 'youtube':
-                ydl_opts.update({
-                    'postprocessors': [],  # No post-processing
-                    'keepvideo': True,  # Keep original
-                    'writethumbnail': False,  # Don't download thumbnail
-                    'writeinfojson': False,  # Don't write info
-                    'writesubtitles': False,  # Don't download subs
-                    'writeautomaticsub': False,  # Don't download auto subs
-                })
         
         # Download with retries
         max_attempts = 3
         last_error = None
 
-        # Special handling for Instagram and LinkedIn scraped videos (use direct URL, not yt-dlp)
-        if platform == 'instagram' or (platform == 'linkedin' and format_id == 'scraped_video'):
+        # Special handling for Instagram, LinkedIn scraped videos, and Threads (use direct URL, not yt-dlp)
+        if platform == 'instagram' or platform == 'threads' or (platform == 'linkedin' and format_id == 'scraped_video'):
             try:
                 print(f"[DEBUG] Starting direct download for {platform} - {download_id}")
 
@@ -493,6 +512,24 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                     if not video_formats:
                         raise Exception("No video formats available for Instagram download")
                     direct_video_url = video_formats[0].get('direct_url')
+
+                elif platform == 'threads':
+                    # Check if direct_video_url was passed from frontend (faster, avoids re-scraping)
+                    if direct_video_url:
+                        print(f"[DEBUG] Using direct video URL from frontend for Threads")
+                        # direct_video_url is already set from function parameters
+                    else:
+                        print(f"[DEBUG] Scraping Threads post again to get video URL")
+                        from threads import ThreadsDownloader
+                        downloader = ThreadsDownloader()
+                        # Call with return_json=False to get dict instead of Flask response
+                        video_info = downloader.get_video_info(url, return_json=False)
+
+                        # Get video URL (same for both video and audio - we extract audio later)
+                        video_formats = video_info.get('formats', {}).get('video_formats', [])
+                        if not video_formats:
+                            raise Exception("No video formats available for Threads download")
+                        direct_video_url = video_formats[0].get('direct_url')
 
                 elif platform == 'linkedin' and format_id == 'scraped_video':
                     from linkedin import LinkedInDownloader
@@ -511,12 +548,12 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 response = requests.get(direct_video_url, stream=True, timeout=60)
                 response.raise_for_status()
 
-                # Save to temp file
-                output_file = os.path.join(temp_dir, f'{platform}_video.mp4')
+                # Save video to temp file first (always download as video)
+                temp_video_file = os.path.join(temp_dir, f'{platform}_video_temp.mp4')
                 total_size = int(response.headers.get('content-length', 0))
                 downloaded = 0
 
-                with open(output_file, 'wb') as f:
+                with open(temp_video_file, 'wb') as f:
                     for chunk in response.iter_content(chunk_size=8192):
                         if chunk:
                             f.write(chunk)
@@ -525,14 +562,60 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                                 percent = int((downloaded / total_size) * 100)
                                 download_progress[download_id] = {
                                     'status': 'downloading',
-                                    'percent': min(percent, 99),
+                                    'percent': min(percent, 90) if download_type == 'audio' else min(percent, 99),
                                     'platform': platform
                                 }
 
-                print(f"[DEBUG] Instagram download SUCCESS for {download_id}")
+                print(f"[DEBUG] {platform} video downloaded successfully")
+
+                # If audio download, extract audio using FFmpeg
+                if download_type == 'audio':
+                    print(f"[DEBUG] Extracting audio from video for {platform}...")
+                    download_progress[download_id] = {
+                        'status': 'processing',
+                        'percent': 92,
+                        'platform': platform
+                    }
+
+                    output_file = os.path.join(temp_dir, f'{platform}_audio.mp3')
+
+                    # Use FFmpeg to extract audio
+                    import subprocess
+                    ffmpeg_cmd = [
+                        'ffmpeg', '-i', temp_video_file,
+                        '-vn',  # No video
+                        '-acodec', 'libmp3lame',
+                        '-ab', f'{target_bitrate}k',
+                        '-ar', '44100',
+                        '-y',  # Overwrite output file
+                        output_file
+                    ]
+
+                    try:
+                        subprocess.run(ffmpeg_cmd, check=True, capture_output=True, timeout=60)
+                        print(f"[DEBUG] Audio extraction successful")
+
+                        # Remove temp video file
+                        if os.path.exists(temp_video_file):
+                            os.remove(temp_video_file)
+
+                    except subprocess.CalledProcessError as e:
+                        print(f"[ERROR] FFmpeg extraction failed: {e.stderr.decode() if e.stderr else str(e)}")
+                        raise Exception("Failed to extract audio from video")
+                    except Exception as e:
+                        print(f"[ERROR] Audio extraction error: {str(e)}")
+                        raise Exception(f"Audio extraction failed: {str(e)}")
+                else:
+                    # For video download, just rename the temp file
+                    output_file = os.path.join(temp_dir, f'{platform}_video.mp4')
+                    if os.path.exists(output_file):
+                        os.remove(output_file)
+                    os.rename(temp_video_file, output_file)
+
+                print(f"[DEBUG] {platform} direct download SUCCESS for {download_id}")
 
             except Exception as e:
-                print(f"[ERROR] Instagram download failed: {str(e)}")
+                print(f"[ERROR] {platform} direct download failed: {str(e)}")
                 raise e
         else:
             # Use yt-dlp for other platforms
@@ -601,24 +684,27 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
             print(f"[DEBUG] Largest file: {largest_file}")
             print(f"[DEBUG] File path: {filepath}")
 
-            # Quick stability check - shorter for YouTube
+            # Quick stability check
             print(f"[DEBUG] Waiting for file to be fully written...")
-            max_wait = 5 if platform == 'youtube' else 8  # Faster for YouTube
+            max_wait = 40  # Increased from 8 to 40 (12 seconds total instead of 2.4)
             wait_count = 0
             last_size = 0
             while wait_count < max_wait:
                 time.sleep(0.3)  # Faster polling
                 if os.path.exists(filepath):
                     current_size = os.path.getsize(filepath)
+                    print(f"[DEBUG] File size check {wait_count}: {current_size/1024/1024:.2f} MB (last: {last_size/1024/1024:.2f} MB)")
                     if current_size > 0 and current_size == last_size:
                         # File size stable, probably finished
-                        time.sleep(0.2)  # Shorter final check
+                        print(f"[DEBUG] File size stable at {current_size/1024/1024:.2f} MB, doing final check...")
+                        time.sleep(0.5)  # Longer final check for better stability
                         if os.path.getsize(filepath) == current_size:
+                            print(f"[DEBUG] File confirmed stable, breaking out of wait loop")
                             break
                     last_size = current_size
                 wait_count += 1
 
-            print(f"[DEBUG] File wait complete after {wait_count * 0.3:.1f} seconds")
+            print(f"[DEBUG] File wait complete after {wait_count * 0.3:.1f} seconds, final size: {os.path.getsize(filepath)/1024/1024:.2f} MB" if os.path.exists(filepath) else f"[DEBUG] File wait complete but file not found after {wait_count * 0.3:.1f} seconds")
 
             print(f"[DEBUG] Checking file existence and size...")
             if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
@@ -650,9 +736,46 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 print(f"[DEBUG] SUCCESSFULLY set status to COMPLETED for {download_id}")
                 print(f"[DEBUG] Final progress: {download_progress[download_id]}")
             else:
-                raise Exception("Downloaded file is empty or corrupted")
+                # Retry stability check one more time if file seems incomplete
+                print(f"[WARN] File appears empty or missing, retrying stability check once more...")
+                time.sleep(3)  # Give more time for file system
+                if os.path.exists(filepath):
+                    retry_size = os.path.getsize(filepath)
+                    print(f"[DEBUG] Retry check - file size: {retry_size/1024/1024:.2f} MB")
+                    if retry_size > 0:
+                        # File appeared! Update and continue
+                        file_size = retry_size
+                        print(f"[SUCCESS] File recovered after retry: {file_size/1024/1024:.1f} MB")
+                        download_files[download_id] = {
+                            'filepath': filepath,
+                            'filename': largest_file,
+                            'temp_dir': temp_dir,
+                            'filesize': file_size,
+                            'expected_format': original_ext,
+                            'platform': platform
+                        }
+                        download_progress[download_id] = {
+                            'status': 'completed',
+                            'percent': 100,
+                            'filename': largest_file,
+                            'filepath': filepath,
+                            'filesize': file_size,
+                            'platform': platform
+                        }
+                        print(f"[DEBUG] Recovery successful for {download_id}")
+                    else:
+                        # Still empty after retry - add detailed error logging
+                        file_size = os.path.getsize(filepath)
+                        print(f"[ERROR] File exists but is empty after retry: {filepath} (size: {file_size} bytes)")
+                        raise Exception(f"Downloaded file is empty: {largest_file} (0 bytes). File may still be writing or download failed.")
+                else:
+                    print(f"[ERROR] File not found after download and retry: {filepath}")
+                    print(f"[ERROR] Files in temp_dir: {files}")
+                    raise Exception(f"Downloaded file not found: {largest_file}. File may have been deleted or never created.")
         else:
-            raise Exception("No files were downloaded")
+            print(f"[ERROR] No files found in temp directory: {temp_dir}")
+            print(f"[ERROR] Directory contents: {os.listdir(temp_dir) if os.path.exists(temp_dir) else "Directory does not exist"}")
+            raise Exception("No files were downloaded. Check if yt-dlp is working correctly and URL is valid.")
                 
     except Exception as e:
         error_msg = str(e)
