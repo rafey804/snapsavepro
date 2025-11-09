@@ -19,7 +19,7 @@ export default function Analytics() {
 
       // Google Analytics GA4
       const script = document.createElement('script');
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-HSRYPTLJHH';
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-65R0ST3T4E';
       script.async = true;
       document.head.appendChild(script);
 
@@ -28,7 +28,7 @@ export default function Analytics() {
         (window as any).dataLayer.push(args);
       }
       gtag('js', new Date());
-      gtag('config', 'G-HSRYPTLJHH', {
+      gtag('config', 'G-65R0ST3T4E', {
         page_path: window.location.pathname,
       });
     }

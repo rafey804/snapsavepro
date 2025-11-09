@@ -37,6 +37,7 @@ export async function generateMetadata({
       google: 'xjiCGcMml5ZC_vYg9emsUrFfDQ4gyKb7ErLdYcVv4gs',
       other: {
         'msvalidate.01': 'DD2808B3DE3ED9BBDE14483A464278E2',
+        'google-adsense-account': 'ca-pub-8694080572387733',
       },
     },
     icons: {

@@ -334,9 +334,9 @@ export default function FAQPage() {
   };
 
   const stats = [
-    { icon: <Users className="h-6 w-6" />, number: "2M+", label: "Active Users" },
+    { icon: <Users className="h-6 w-6" />, number: "10k+", label: "Active Users" },
     { icon: <Star className="h-6 w-6" />, number: "4.9/5", label: "User Rating" },
-    { icon: <Download className="h-6 w-6" />, number: "50M+", label: "Videos Downloaded" },
+    { icon: <Download className="h-6 w-6" />, number: "5k+", label: "Videos Downloaded" },
     { icon: <Globe className="h-6 w-6" />, number: "8+", label: "Platforms Supported" }
   ];
 

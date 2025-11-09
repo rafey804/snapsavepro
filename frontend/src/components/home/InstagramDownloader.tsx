@@ -71,13 +71,14 @@ const InstagramDownloader: React.FC = () => {
   // Auto-scroll to video info section when processing is complete
   useEffect(() => {
     if (processingStatus === 'complete' && videoInfo && videoInfoRef.current) {
+      // Immediate scroll when complete - no delay
       setTimeout(() => {
         videoInfoRef.current?.scrollIntoView({
           behavior: 'smooth',
           block: 'start',
           inline: 'nearest'
         });
-      }, 300); // Small delay to ensure UI has rendered
+      }, 100); // Minimal delay to ensure UI has rendered
     }
   }, [processingStatus, videoInfo]);
 
@@ -146,9 +147,9 @@ const InstagramDownloader: React.FC = () => {
     // }
 
     try {
-      setProcessingStatus('validating');
-      setProcessingPercent(0);
-      simulateProcessingStages();
+      // Show loading state immediately
+      setProcessingStatus('extracting');
+      setProcessingPercent(50);
 
       const response = await fetch(`${API_BASE_URL}/video-info`, {
         method: 'POST',
@@ -164,6 +165,7 @@ const InstagramDownloader: React.FC = () => {
         throw new Error(data.error || 'Failed to fetch video information');
       }
 
+      // Immediately show results when API returns
       setVideoInfo(data);
       setProcessingStatus('complete');
       setProcessingPercent(100);
@@ -171,6 +173,7 @@ const InstagramDownloader: React.FC = () => {
       console.error('Error fetching video info:', err);
       setError(err.message || 'An error occurred while fetching video information');
       setProcessingStatus('idle');
+      setProcessingPercent(0);
     }
   };
 

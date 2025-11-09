@@ -25,34 +25,52 @@ class InstagramDownloader:
 
         # Create new client or re-login if timeout
         if cls._client is None or (current_time - cls._last_login_time) > cls._login_timeout:
-            try:
-                logger.info("Initializing Instagram client...")
-                cls._client = Client()
+            max_retries = 3
+            retry_delay = 2  # seconds
 
-                # Try to load existing session first
-                if os.path.exists(cls.SESSION_FILE):
-                    try:
-                        logger.info("Loading saved Instagram session...")
-                        cls._client.load_settings(cls.SESSION_FILE)
-                        cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
-                        logger.info("Successfully loaded Instagram session")
-                    except Exception as e:
-                        logger.warning(f"Failed to load session: {str(e)}, logging in fresh...")
-                        cls._client = Client()
+            for attempt in range(max_retries):
+                try:
+                    logger.info(f"Initializing Instagram client (attempt {attempt + 1}/{max_retries})...")
+                    cls._client = Client()
+
+                    # Try to load existing session first
+                    if os.path.exists(cls.SESSION_FILE):
+                        try:
+                            logger.info("Loading saved Instagram session...")
+                            cls._client.load_settings(cls.SESSION_FILE)
+                            cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
+                            logger.info("Successfully loaded Instagram session")
+                        except Exception as e:
+                            logger.warning(f"Failed to load session: {str(e)}, logging in fresh...")
+                            cls._client = Client()
+                            cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
+                            cls._client.dump_settings(cls.SESSION_FILE)
+                            logger.info("Saved new Instagram session")
+                    else:
+                        logger.info("Logging into Instagram for the first time...")
                         cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
                         cls._client.dump_settings(cls.SESSION_FILE)
-                        logger.info("Saved new Instagram session")
-                else:
-                    logger.info("Logging into Instagram for the first time...")
-                    cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
-                    cls._client.dump_settings(cls.SESSION_FILE)
-                    logger.info("Successfully logged in and saved session")
+                        logger.info("Successfully logged in and saved session")
 
-                cls._last_login_time = current_time
+                    cls._last_login_time = current_time
+                    return cls._client  # Success - return immediately
 
-            except Exception as e:
-                logger.error(f"Instagram login failed: {str(e)}")
-                raise Exception("Instagram authentication failed. Please check credentials.")
+                except Exception as e:
+                    error_msg = str(e).lower()
+                    logger.warning(f"Login attempt {attempt + 1} failed: {str(e)}")
+
+                    # If it's the last attempt, raise the error
+                    if attempt == max_retries - 1:
+                        logger.error(f"Instagram login failed after {max_retries} attempts")
+                        # Check if it's a temporary block
+                        if 'blacklist' in error_msg or 'ip' in error_msg or 'rate' in error_msg:
+                            raise Exception("Instagram temporarily blocked this request. Please try again in a few seconds.")
+                        else:
+                            raise Exception("Instagram authentication failed. Please try again later.")
+
+                    # Wait before retrying
+                    logger.info(f"Waiting {retry_delay} seconds before retry...")
+                    time.sleep(retry_delay)
 
         return cls._client
 
@@ -89,35 +107,85 @@ class InstagramDownloader:
             media_pk = client.media_pk_from_url(url)
             logger.info(f"Got media PK: {media_pk}")
 
-            # Get raw media info using private API
+            # Try to get media info using multiple methods
+            media_data = None
+
+            # Method 1: Try using media_info (recommended method)
             try:
-                result = client.private_request(f"media/{media_pk}/info/")
-                media_data = result.get('items', [{}])[0]
+                logger.info("Attempting to get media info using media_info method...")
+                media = client.media_info(media_pk)
+                # Convert to dict and handle Pydantic types
+                import json
+                media_data = json.loads(media.json())  # This converts HttpUrl to strings
+                logger.info("Successfully retrieved media info using media_info")
             except Exception as e:
-                logger.error(f"Failed to get media info: {str(e)}")
-                raise Exception("Could not retrieve Instagram post information.")
+                logger.warning(f"media_info method failed: {str(e)}")
+
+            # Method 2: Fallback to private_request if media_info fails
+            if not media_data:
+                try:
+                    logger.info("Attempting to get media info using private_request...")
+                    result = client.private_request(f"media/{media_pk}/info/")
+                    media_data = result.get('items', [{}])[0]
+                    logger.info("Successfully retrieved media info using private_request")
+                except Exception as e:
+                    logger.error(f"private_request method failed: {str(e)}")
+
+            # If both methods failed
+            if not media_data:
+                raise Exception("Could not retrieve Instagram post information. The post may be private or unavailable.")
 
             # Check if it's a video
             media_type = media_data.get('media_type')
             if media_type != 2:  # 2 = Video/Reel
                 raise Exception("This Instagram post is not a video. Please provide a video or reel URL.")
 
-            # Extract video URL
-            video_versions = media_data.get('video_versions', [])
-            if not video_versions:
-                raise Exception("Could not extract video URL from Instagram post.")
+            # Extract video URL - handle both response formats
+            video_url = None
 
-            video_url = video_versions[0].get('url')
+            # Try video_versions first (private_request format)
+            video_versions = media_data.get('video_versions', [])
+            if video_versions:
+                video_url = video_versions[0].get('url')
+
+            # Fallback to video_url (media_info format)
+            if not video_url:
+                video_url = media_data.get('video_url')
+
+            # Convert to string if it's not already
+            if video_url:
+                video_url = str(video_url)
+
             if not video_url:
                 raise Exception("Could not extract video URL from Instagram post.")
 
-            # Get thumbnail
-            image_versions = media_data.get('image_versions2', {}).get('candidates', [])
-            thumbnail_url = image_versions[0].get('url') if image_versions else None
+            # Get thumbnail - handle both formats
+            thumbnail_url = None
 
-            # Get caption/title
-            caption_obj = media_data.get('caption', {})
-            caption = caption_obj.get('text', '') if caption_obj else ''
+            # Try image_versions2 (private_request format)
+            image_versions = media_data.get('image_versions2', {})
+            if isinstance(image_versions, dict):
+                candidates = image_versions.get('candidates', [])
+                if candidates:
+                    thumbnail_url = candidates[0].get('url')
+
+            # Fallback to thumbnail_url (media_info format)
+            if not thumbnail_url:
+                thumbnail_url = media_data.get('thumbnail_url')
+
+            # Convert to string if it exists
+            if thumbnail_url:
+                thumbnail_url = str(thumbnail_url)
+
+            # Get caption/title - handle both formats
+            caption = ""
+            caption_obj = media_data.get('caption')
+
+            if isinstance(caption_obj, dict):
+                caption = caption_obj.get('text', '')
+            elif isinstance(caption_obj, str):
+                caption = caption_obj
+
             title = caption[:100] + "..." if len(caption) > 100 else (caption if caption else "Instagram Video")
 
             # Get stats
@@ -125,9 +193,12 @@ class InstagramDownloader:
             views = media_data.get('play_count', 0) or media_data.get('view_count', 0)
             comments = media_data.get('comment_count', 0)
 
-            # Get uploader
+            # Get uploader - handle both formats
             user_data = media_data.get('user', {})
-            uploader = user_data.get('username', 'Unknown')
+            if isinstance(user_data, dict):
+                uploader = user_data.get('username', 'Unknown')
+            else:
+                uploader = str(user_data) if user_data else 'Unknown'
 
             logger.info(f"Successfully extracted Instagram video: {title[:50]}")
 
