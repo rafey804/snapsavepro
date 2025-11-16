@@ -6,15 +6,30 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import type { Metadata } from "next";
 
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
 // SEO Metadata for Telegram Downloader Page
-export const metadata: Metadata = {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: "Telegram Video Downloader - Download Telegram Videos & Photos Free",
   description: "Download videos, photos, and media from Telegram channels for free. Fast and easy Telegram media downloader with no watermark. Works with public Telegram channels.",
   keywords: "telegram downloader, telegram video download, download telegram media, telegram channel downloader, save telegram videos, telegram photo download",
   openGraph: {
     title: "Telegram Video Downloader - Free Telegram Media Download",
     description: "Download videos, photos, and media from Telegram channels for free. Fast and easy Telegram media downloader.",
-    url: "https://snapsavepro.com/pages/telegram-video-download",
+    url: `${baseUrl}/${locale}/pages/telegram-video-download`,
     siteName: 'Snap Save Pro',
     images: [
       {
@@ -24,7 +39,7 @@ export const metadata: Metadata = {
         alt: 'Telegram Video Downloader',
       }
     ],
-    locale: 'en_US',
+    locale: localeToOGLocale[locale] || 'en_US',
     type: 'website',
   },
   twitter: {
@@ -35,7 +50,14 @@ export const metadata: Metadata = {
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: "https://snapsavepro.com/pages/telegram-video-download",
+    canonical: `${baseUrl}/${locale}/pages/telegram-video-download`,
+      languages: {
+        'en': `${baseUrl}/en/pages/telegram-video-download`,
+        'hi': `${baseUrl}/hi/pages/telegram-video-download`,
+        'zh': `${baseUrl}/zh/pages/telegram-video-download`,
+        'ur': `${baseUrl}/ur/pages/telegram-video-download`,
+        'x-default': `${baseUrl}/en/pages/telegram-video-download`,
+      },
   },
   robots: {
     index: true,
@@ -48,7 +70,8 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-};
+  };
+}
 
 const telegramFAQs = [
   {

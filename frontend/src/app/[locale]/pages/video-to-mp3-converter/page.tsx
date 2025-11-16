@@ -6,8 +6,23 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import type { Metadata } from "next";
 import { Music, FileVideo, Download, Settings, CheckCircle, Globe, Shield, Zap } from 'lucide-react';
 
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
 // SEO Metadata - Highly Optimized with Multilingual Keywords
-export const metadata: Metadata = {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'Video to MP3 Converter - Free Online Video Audio Extractor | Convert MP4, AVI, MKV to MP3 320kbps',
   description: 'Convert any video to MP3 audio online free. Extract audio from MP4, AVI, MKV, MOV, WMV videos. High-quality 320kbps MP3 conversion. No software needed. Fast & secure video to MP3 converter.',
   keywords: [
@@ -50,10 +65,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Video to MP3 Converter - Convert Any Video Format to High-Quality MP3',
     description: 'Convert MP4, AVI, MKV, MOV, WMV videos to MP3 in 320kbps quality. Fast, free, secure online video to audio converter. No software installation required.',
-    url: 'https://snapsavepro.com/pages/video-to-mp3-converter',
+    url: `${baseUrl}/${locale}/pages/video-to-mp3-converter`,
     siteName: 'Snap Save Pro',
     images: [{ url: '/og-video-to-mp3.jpg', width: 1200, height: 630, alt: 'Video to MP3 Converter - Free Online Audio Extraction Tool' }],
-    locale: 'en_US',
+    locale: localeToOGLocale[locale] || 'en_US',
     type: 'website',
   },
   twitter: {
@@ -64,12 +79,14 @@ export const metadata: Metadata = {
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/video-to-mp3-converter',
+    canonical: `${baseUrl}/${locale}/pages/video-to-mp3-converter`,
     languages: {
-      'en-US': 'https://snapsavepro.com/pages/video-to-mp3-converter',
-      'hi-IN': 'https://snapsavepro.com/hi/pages/video-to-mp3-converter',
-      'ur-PK': 'https://snapsavepro.com/ur/pages/video-to-mp3-converter',
-    }
+      'en': `${baseUrl}/en/pages/video-to-mp3-converter`,
+      'hi': `${baseUrl}/hi/pages/video-to-mp3-converter`,
+      'zh': `${baseUrl}/zh/pages/video-to-mp3-converter`,
+      'ur': `${baseUrl}/ur/pages/video-to-mp3-converter`,
+      'x-default': `${baseUrl}/en/pages/video-to-mp3-converter`,
+    },
   },
   robots: {
     index: true,
@@ -82,7 +99,8 @@ export const metadata: Metadata = {
       'max-snippet': -1
     }
   },
-};
+  };
+}
 
 // FAQ Data
 const videoToMp3FAQs = [

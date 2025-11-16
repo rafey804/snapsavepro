@@ -2,7 +2,22 @@ import React from 'react';
 import type { Metadata } from 'next';
 import LinkedInDownloader from '@/components/home/LinkedInDownloader';
 
-export const metadata: Metadata = {
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'LinkedIn Video Downloader - Download LinkedIn Videos in HD 1080p Quality | Free',
   description: 'Best free LinkedIn video downloader online. Download LinkedIn videos in HD 1080p, 720p, 480p quality. Save professional videos, webinars, and educational content from LinkedIn. Fast, secure, and no registration required.',
   keywords: 'linkedin video downloader, download linkedin video, linkedin downloader, linkedin video download free, save linkedin videos, linkedin video saver, download linkedin posts, linkedin HD download 1080p, linkedin video tool, linkedin video downloader online, linkedin video to mp4, linkedin video converter, download linkedin content, linkedin professional video download, linkedin webinar download, linkedin educational video download, free linkedin downloader, best linkedin video downloader, linkedin video extractor, linkedin media downloader',
@@ -11,9 +26,9 @@ export const metadata: Metadata = {
     title: 'LinkedIn Video Downloader - Download Videos in HD 1080p Quality | Free',
     description: 'Best free LinkedIn video downloader. Download professional videos, webinars & educational content in HD 1080p, 720p. Fast, secure, no registration required.',
     type: 'website',
-    url: 'https://snapsavepro.com/pages/linkedin-video-downloader',
+    url: `${baseUrl}/${locale}/pages/linkedin-video-downloader`,
     siteName: 'SnapSavePro',
-    locale: 'en_US',
+    locale: localeToOGLocale[locale] || 'en_US',
     images: [
       {
         url: '/linkedin-downloader-og.jpg',
@@ -42,9 +57,17 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/linkedin-video-downloader',
+    canonical: `${baseUrl}/${locale}/pages/linkedin-video-downloader`,
+      languages: {
+        'en': `${baseUrl}/en/pages/linkedin-video-downloader`,
+        'hi': `${baseUrl}/hi/pages/linkedin-video-downloader`,
+        'zh': `${baseUrl}/zh/pages/linkedin-video-downloader`,
+        'ur': `${baseUrl}/ur/pages/linkedin-video-downloader`,
+        'x-default': `${baseUrl}/en/pages/linkedin-video-downloader`,
+      },
   },
-};
+  };
+}
 
 const jsonLd = {
   '@context': 'https://schema.org',

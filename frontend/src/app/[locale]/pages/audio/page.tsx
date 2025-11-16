@@ -8,30 +8,55 @@ import { audioFAQs, audioReviews } from "@/data/pageSEOData";
 import { audioPageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
 
-// SEO Metadata for Audio Converter Page
-export const metadata: Metadata = {
-  title: audioPageSEO.title,
-  description: audioPageSEO.description,
-  keywords: audioPageSEO.keywords,
-  openGraph: {
-    title: audioPageSEO.title,
-    description: audioPageSEO.description,
-    url: audioPageSEO.canonicalUrl,
-    siteName: 'Snap Save Pro',
-    images: [{ url: audioPageSEO.ogImage, width: 1200, height: 630, alt: 'Video to MP3 Converter' }],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: audioPageSEO.title,
-    description: audioPageSEO.description,
-    images: [audioPageSEO.ogImage],
-    creator: '@snapsavepro',
-  },
-  alternates: { canonical: audioPageSEO.canonicalUrl },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 }},
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
 };
+
+// SEO Metadata for Audio Converter Page
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
+    title: audioPageSEO.title,
+    description: audioPageSEO.description,
+    keywords: audioPageSEO.keywords,
+    openGraph: {
+      title: audioPageSEO.title,
+      description: audioPageSEO.description,
+      url: `${baseUrl}/${locale}/pages/audio`,
+      siteName: 'Snap Save Pro',
+      images: [{ url: audioPageSEO.ogImage, width: 1200, height: 630, alt: 'Video to MP3 Converter' }],
+      locale: localeToOGLocale[locale] || 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: audioPageSEO.title,
+      description: audioPageSEO.description,
+      images: [audioPageSEO.ogImage],
+      creator: '@snapsavepro',
+    },
+    alternates: {
+      canonical: `${baseUrl}/${locale}/pages/audio`,
+      languages: {
+        'en': `${baseUrl}/en/pages/audio`,
+        'hi': `${baseUrl}/hi/pages/audio`,
+        'zh': `${baseUrl}/zh/pages/audio`,
+        'ur': `${baseUrl}/ur/pages/audio`,
+        'x-default': `${baseUrl}/en/pages/audio`,
+      },
+    },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-video-preview': -1, 'max-image-preview': 'large', 'max-snippet': -1 }},
+  };
+}
 
 const AudioPage = () => {
   return (

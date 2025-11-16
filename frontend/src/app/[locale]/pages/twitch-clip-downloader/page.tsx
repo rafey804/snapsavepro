@@ -9,7 +9,22 @@ import Breadcrumb from '@/components/layout/Breadcrumb';
 import { twitchFAQs, twitchReviews } from '@/data/twitchSEOData';
 import { Download, Users, Star, Zap, Shield, Sparkles, Globe } from 'lucide-react';
 
-export const metadata: Metadata = {
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'Twitch Clip Downloader - Download Twitch Clips in HD Quality Free',
   description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy Twitch clip downloader. No watermark, no registration required. Save your favorite gaming moments instantly.',
   keywords: 'twitch clip downloader, download twitch clips, twitch video downloader, save twitch clips, twitch clip download, twitch downloader, download twitch videos, twitch clip saver',
@@ -17,7 +32,7 @@ export const metadata: Metadata = {
     title: 'Twitch Clip Downloader - Download Twitch Clips in HD Quality Free',
     description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy. No watermark, no registration required.',
     type: 'website',
-    url: 'https://snapsavepro.com/pages/twitch-clip-downloader',
+    url: `${baseUrl}/${locale}/pages/twitch-clip-downloader`,
   },
   twitter: {
     card: 'summary_large_image',
@@ -25,9 +40,17 @@ export const metadata: Metadata = {
     description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy.',
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/twitch-clip-downloader',
+    canonical: `${baseUrl}/${locale}/pages/twitch-clip-downloader`,
+      languages: {
+        'en': `${baseUrl}/en/pages/twitch-clip-downloader`,
+        'hi': `${baseUrl}/hi/pages/twitch-clip-downloader`,
+        'zh': `${baseUrl}/zh/pages/twitch-clip-downloader`,
+        'ur': `${baseUrl}/ur/pages/twitch-clip-downloader`,
+        'x-default': `${baseUrl}/en/pages/twitch-clip-downloader`,
+      },
   },
-};
+  };
+}
 
 export default function TwitchClipDownloaderPage() {
   return (

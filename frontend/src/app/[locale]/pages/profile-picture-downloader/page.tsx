@@ -8,7 +8,22 @@ import Breadcrumb from '@/components/layout/Breadcrumb';
 import { profilePicFAQs, profilePicReviews } from '@/data/profilePicSEOData';
 import { Download, Users, Star, Zap, Shield, Sparkles, Globe, Image } from 'lucide-react';
 
-export const metadata: Metadata = {
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'Profile Picture Downloader - Instagram, FB, Twitter DP Viewer | SnapSavePro',
   description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer - no app, no login required. Get HD quality DPs instantly.',
   keywords: 'profile picture downloader, instagram dp viewer full size, facebook profile pic in hd, profile picture zoom, dp viewer online, instagram profile viewer, insta dp download, fb dp downloader, twitter dp saver, how to download instagram profile picture, how to see full size dp on instagram, can i download someone\'s profile picture, how to save facebook dp in hd',
@@ -16,7 +31,7 @@ export const metadata: Metadata = {
     title: 'Profile Picture Downloader - Instagram, FB, Twitter DP Viewer | SnapSavePro',
     description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer - no app, no login required.',
     type: 'website',
-    url: 'https://snapsavepro.com/pages/profile-picture-downloader',
+    url: `${baseUrl}/${locale}/pages/profile-picture-downloader`,
   },
   twitter: {
     card: 'summary_large_image',
@@ -24,9 +39,17 @@ export const metadata: Metadata = {
     description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer.',
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/profile-picture-downloader',
+    canonical: `${baseUrl}/${locale}/pages/profile-picture-downloader`,
+      languages: {
+        'en': `${baseUrl}/en/pages/profile-picture-downloader`,
+        'hi': `${baseUrl}/hi/pages/profile-picture-downloader`,
+        'zh': `${baseUrl}/zh/pages/profile-picture-downloader`,
+        'ur': `${baseUrl}/ur/pages/profile-picture-downloader`,
+        'x-default': `${baseUrl}/en/pages/profile-picture-downloader`,
+      },
   },
-};
+  };
+}
 
 export default function ProfilePictureDownloaderPage() {
   return (

@@ -1,13 +1,28 @@
 import type { Metadata } from 'next';
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
 
-export const metadata: Metadata = {
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'Terms of Service - Snap Save Pro Video Downloader',
   description: 'Read Snap Save Pro terms of service. Understand the rules and guidelines for using our multi-platform video downloader. Fair use, legal compliance, and user responsibilities.',
   keywords: "terms of service, terms and conditions, user agreement, service terms, usage terms, terms of use, legal terms, service agreement, user terms, conditions of use, terms policy, usage policy, service rules, legal agreement, user guidelines",
   openGraph: {
     title: 'Terms of Service - Snap Save Pro',
     description: 'Terms and conditions for using our video downloader service.',
-    url: 'https://snapsavepro.com/pages/legal/terms-of-service',
+    url: `${baseUrl}/${locale}/pages/legal/terms-of-service`,
     siteName: 'Snap Save Pro',
     type: 'website',
     images: [
@@ -26,7 +41,14 @@ export const metadata: Metadata = {
     images: ['/og-terms.png'],
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/legal/terms-of-service',
+    canonical: `${baseUrl}/${locale}/pages/legal/terms-of-service`,
+      languages: {
+        'en': `${baseUrl}/en/pages/legal/terms-of-service`,
+        'hi': `${baseUrl}/hi/pages/legal/terms-of-service`,
+        'zh': `${baseUrl}/zh/pages/legal/terms-of-service`,
+        'ur': `${baseUrl}/ur/pages/legal/terms-of-service`,
+        'x-default': `${baseUrl}/en/pages/legal/terms-of-service`,
+      },
   },
   robots: {
     index: true,
@@ -39,7 +61,8 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-};
+  };
+}
 
 export default function TermsOfServiceLayout({
   children,

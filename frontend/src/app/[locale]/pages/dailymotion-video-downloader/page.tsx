@@ -7,7 +7,22 @@ import Breadcrumb from '@/components/layout/Breadcrumb';
 import { dailymotionFAQs, dailymotionReviews, dailymotionStats, dailymotionFeatures, dailymotionSEOContent } from '@/data/dailymotionSEOData';
 import { Download, Users, Star, Zap, Shield, Sparkles, Globe, CheckCircle, Video } from 'lucide-react';
 
-export const metadata: Metadata = {
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'Dailymotion Video Downloader - Download Dailymotion Videos in HD Quality Free | Short & Long Videos',
   description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy Dailymotion video downloader. Supports both short and long videos. No watermark, no registration required.',
   keywords: 'dailymotion video downloader, download dailymotion videos, dailymotion downloader, save dailymotion videos, dailymotion video download, dailymotion video saver, download dailymotion, dailymotion downloader online, free dailymotion downloader, dailymotion video download hd, download dailymotion short videos, download dailymotion long videos',
@@ -15,7 +30,7 @@ export const metadata: Metadata = {
     title: 'Dailymotion Video Downloader - Download Dailymotion Videos in HD Quality Free',
     description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy. Supports both short and long videos.',
     type: 'website',
-    url: 'https://snapsavepro.com/pages/dailymotion-video-downloader',
+    url: `${baseUrl}/${locale}/pages/dailymotion-video-downloader`,
   },
   twitter: {
     card: 'summary_large_image',
@@ -23,9 +38,17 @@ export const metadata: Metadata = {
     description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy.',
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/dailymotion-video-downloader',
+    canonical: `${baseUrl}/${locale}/pages/dailymotion-video-downloader`,
+      languages: {
+        'en': `${baseUrl}/en/pages/dailymotion-video-downloader`,
+        'hi': `${baseUrl}/hi/pages/dailymotion-video-downloader`,
+        'zh': `${baseUrl}/zh/pages/dailymotion-video-downloader`,
+        'ur': `${baseUrl}/ur/pages/dailymotion-video-downloader`,
+        'x-default': `${baseUrl}/en/pages/dailymotion-video-downloader`,
+      },
   },
-};
+  };
+}
 
 export default function DailymotionVideoDownloaderPage() {
   return (

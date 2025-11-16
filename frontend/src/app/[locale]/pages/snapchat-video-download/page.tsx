@@ -5,6 +5,13 @@ import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import type { Metadata } from "next";
 import SnapchatDownloaderContent from '@/components/details/SnapchatDownloaderContent';
+
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
 // Snapchat-specific FAQ data
 const snapchatFAQs = [
   {
@@ -74,14 +81,22 @@ const snapchatReviews = [
 ];
 
 // SEO Metadata for Snapchat Page
-export const metadata: Metadata = {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: "Snapchat Video Downloader - Download Spotlight & Stories in HD Free",
   description: "Download Snapchat videos, Spotlight, and stories in HD quality without watermark. Free Snapchat downloader for posts, reels, and content. Fast, secure, no registration required.",
   keywords: "snapchat downloader, download snapchat videos, snapchat spotlight downloader, snapchat story downloader, snapchat video download, save snapchat videos, snapchat to mp4, snapchat content saver, download snapchat spotlight, snapchat video saver, free snapchat downloader, snapchat hd downloader, snapchat without watermark",
   openGraph: {
     title: "Free Snapchat Video Downloader - HD Spotlight & Stories Download",
     description: "Download Snapchat videos, Spotlight, and stories in HD quality without watermark. Free and easy to use.",
-    url: "https://snapsavepro.com/pages/snapchat-video-download",
+    url: `${baseUrl}/${locale}/pages/snapchat-video-download`,
     siteName: "Snap Save Pro",
     images: [
       {
@@ -91,7 +106,7 @@ export const metadata: Metadata = {
         alt: "Snapchat Video Downloader",
       }
     ],
-    locale: "en_US",
+    locale: localeToOGLocale[locale] || 'en_US',
     type: "website",
   },
   twitter: {
@@ -102,7 +117,14 @@ export const metadata: Metadata = {
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: "https://snapsavepro.com/pages/snapchat-video-download",
+    canonical: `${baseUrl}/${locale}/pages/snapchat-video-download`,
+      languages: {
+        'en': `${baseUrl}/en/pages/snapchat-video-download`,
+        'hi': `${baseUrl}/hi/pages/snapchat-video-download`,
+        'zh': `${baseUrl}/zh/pages/snapchat-video-download`,
+        'ur': `${baseUrl}/ur/pages/snapchat-video-download`,
+        'x-default': `${baseUrl}/en/pages/snapchat-video-download`,
+      },
   },
   robots: {
     index: true,
@@ -115,7 +137,8 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-};
+  };
+}
 
 const SnapchatDownloadPage = () => {
   return (

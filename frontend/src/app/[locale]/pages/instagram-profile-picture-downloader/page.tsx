@@ -8,7 +8,22 @@ import Breadcrumb from '@/components/layout/Breadcrumb';
 import { instagramProfileFAQs, instagramProfileReviews } from '@/data/instagramProfileSEOData';
 import { Download, Users, Star, Zap, Shield, Sparkles, Image, Eye } from 'lucide-react';
 
-export const metadata: Metadata = {
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'Instagram Profile Picture Downloader - View & Download HD DP Free',
   description: 'Download Instagram profile pictures in full HD quality. View and save any Instagram DP without login. Free, fast, and easy-to-use IG profile viewer.',
   keywords: 'instagram profile picture downloader, instagram dp viewer full size, insta dp download, instagram profile viewer, ig dp downloader, instagram dp zoom, profile picture zoom, how to download instagram profile picture, how to see full size dp on instagram, instagram dp saver, insta profile pic download',
@@ -16,7 +31,7 @@ export const metadata: Metadata = {
     title: 'Instagram Profile Picture Downloader - View & Download HD DP Free',
     description: 'Download Instagram profile pictures in full HD quality. View and save any Instagram DP without login. Free, fast, and easy-to-use IG profile viewer.',
     type: 'website',
-    url: 'https://snapsavepro.com/pages/instagram-profile-picture-downloader',
+    url: `${baseUrl}/${locale}/pages/instagram-profile-picture-downloader`,
   },
   twitter: {
     card: 'summary_large_image',
@@ -24,9 +39,17 @@ export const metadata: Metadata = {
     description: 'Download Instagram profile pictures in full HD quality. View and save any Instagram DP without login.',
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/instagram-profile-picture-downloader',
+    canonical: `${baseUrl}/${locale}/pages/instagram-profile-picture-downloader`,
+      languages: {
+        'en': `${baseUrl}/en/pages/instagram-profile-picture-downloader`,
+        'hi': `${baseUrl}/hi/pages/instagram-profile-picture-downloader`,
+        'zh': `${baseUrl}/zh/pages/instagram-profile-picture-downloader`,
+        'ur': `${baseUrl}/ur/pages/instagram-profile-picture-downloader`,
+        'x-default': `${baseUrl}/en/pages/instagram-profile-picture-downloader`,
+      },
   },
-};
+  };
+}
 
 export default function InstagramProfilePictureDownloaderPage() {
   return (

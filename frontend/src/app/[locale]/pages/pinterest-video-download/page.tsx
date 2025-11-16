@@ -7,7 +7,22 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import PinterestContentSection from "@/components/SEO/PinterestContentSection";
 import { pinterestFAQs, pinterestReviews } from '@/data/pinterestSEOData';
 
-export const metadata: Metadata = {
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+
+  return {
   title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free Online | SnapSavePro',
   description: 'Free Pinterest video and image downloader. Download Pinterest pins in HD quality without watermarks. Fast, easy, and free - no registration required.',
   keywords: "pinterest video downloader, download pinterest videos, pinterest image downloader, save pinterest pins, pinterest downloader free, download from pinterest, pinterest video saver, pinterest image saver, pinterest pin downloader, pinterest media downloader, pinterest video download hd, pinterest gif downloader, free pinterest downloader, pinterest content downloader, save pinterest images",
@@ -27,8 +42,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://snapsavepro.com/pages/pinterest-video-download',
+    locale: localeToOGLocale[locale] || 'en_US',
+    url: `${baseUrl}/${locale}/pages/pinterest-video-download`,
     siteName: 'SnapSavePro',
     title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free',
     description: 'Download Pinterest videos and images in HD quality. Fast, free, and easy to use Pinterest downloader. No watermarks, no registration required.',
@@ -49,14 +64,22 @@ export const metadata: Metadata = {
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: 'https://snapsavepro.com/pages/pinterest-video-download',
+    canonical: `${baseUrl}/${locale}/pages/pinterest-video-download`,
+      languages: {
+        'en': `${baseUrl}/en/pages/pinterest-video-download`,
+        'hi': `${baseUrl}/hi/pages/pinterest-video-download`,
+        'zh': `${baseUrl}/zh/pages/pinterest-video-download`,
+        'ur': `${baseUrl}/ur/pages/pinterest-video-download`,
+        'x-default': `${baseUrl}/en/pages/pinterest-video-download`,
+      },
   },
   other: {
     'pinterest:card': 'summary',
     'pinterest:title': 'Pinterest Video Downloader',
     'pinterest:description': 'Download Pinterest videos and images for free',
   },
-};
+  };
+}
 
 export default function PinterestDownloadPage() {
   const jsonLd = {

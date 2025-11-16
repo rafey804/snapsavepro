@@ -2,13 +2,21 @@ import { getBlogBySlug } from '@/data/blogs';
 import type { Metadata } from 'next';
 
 type Props = {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string; locale: string }>
   children: React.ReactNode
 }
 
+const localeToOGLocale: Record<string, string> = {
+  en: 'en_US',
+  hi: 'hi_IN',
+  zh: 'zh_CN',
+  ur: 'ur_PK',
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const blog = getBlogBySlug(slug);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
   if (!blog) {
     return {
@@ -19,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = `${blog.title} | Snap Save Pro Blog`;
   const description = blog.description;
-  const url = `https://snapsavepro.com/blog/${slug}`;
+  const url = `${baseUrl}/${locale}/blog/${slug}`;
 
   return {
     title,
@@ -31,6 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url,
       siteName: 'Snap Save Pro',
+      locale: localeToOGLocale[locale] || 'en_US',
       type: 'article',
       publishedTime: blog.date,
       authors: [blog.author],
@@ -53,6 +62,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: url,
+      languages: {
+        'en': `${baseUrl}/en/blog/${slug}`,
+        'hi': `${baseUrl}/hi/blog/${slug}`,
+        'zh': `${baseUrl}/zh/blog/${slug}`,
+        'ur': `${baseUrl}/ur/blog/${slug}`,
+        'x-default': `${baseUrl}/en/blog/${slug}`,
+      },
     },
     robots: {
       index: true,

@@ -117,7 +117,7 @@ export default function HowItWorksPage() {
 
   const stats = [
     { icon: <Users className="h-8 w-8" />, number: "10k+", label: "Happy Users" },
-    { icon: <Download className="h-8 w-8" />, number: "5k+", label: "Videos Downloaded" },
+    { icon: <Download className="h-8 w-8" />, number: "5k+", label: "Videos Downloaded" },  
     { icon: <Star className="h-8 w-8" />, number: "4.9", label: "User Rating" },
     { icon: <TrendingUp className="h-8 w-8" />, number: "99.9%", label: "Uptime" }
   ];
