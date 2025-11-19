@@ -1,28 +1,32 @@
 // Reddit FAQs and Reviews
 export const redditFAQs = [
   {
-    question: "Can I download Reddit videos and images?",
-    answer: "Yes! Snap Save Pro supports downloading both Reddit videos and images from any public post. Just paste the Reddit post URL."
+    question: "Can I download videos with sound from v.redd.it links?",
+    answer: "Yes, our tool automatically merges video and audio tracks from v.redd.it posts. You get the complete video with sound in one download."
   },
   {
-    question: "Does this work with v.redd.it links?",
-    answer: "Absolutely! Our downloader supports v.redd.it, i.redd.it, redd.it and all Reddit post URLs."
+    question: "How do I download Reddit videos from mobile app?",
+    answer: "Tap 'Share' on any Reddit post, select 'Copy link', then paste it into our downloader. Works with both official Reddit app and third-party clients."
   },
   {
-    question: "Can I download videos from private subreddits?",
-    answer: "Only if the subreddit is public. Private or NSFW subreddits that require login cannot be downloaded."
+    question: "Can I save videos from NSFW subreddits?",
+    answer: "NSFW content from public subreddits can be downloaded. Just ensure the subreddit doesn't require login verification to view the content."
   },
   {
-    question: "What video qualities are available?",
-    answer: "We support multiple qualities including 1080p, 720p, 480p and more. Choose the quality that works best for you."
+    question: "How do I download crossposted videos on Reddit?",
+    answer: "For crossposts, use the URL of the original post containing the video for best results. Crosspost URLs may redirect to the source automatically."
   },
   {
-    question: "Can I extract audio from Reddit videos?",
-    answer: "Yes! You can download audio-only MP3 files from Reddit videos in 192kbps and 128kbps quality."
+    question: "Can I download Reddit gallery videos and images?",
+    answer: "Reddit galleries with multiple items require downloading each piece individually. Copy the direct link to each video or image you want to save."
   },
   {
-    question: "Do I need a Reddit account to download?",
-    answer: "No account needed! Just paste the Reddit post URL and download instantly."
+    question: "How do I save videos from archived Reddit posts?",
+    answer: "Archived posts work the same as active ones. Copy the post URL and download normally, even if the post is years old and locked."
+  },
+  {
+    question: "Can I download Reddit videos with subtitles?",
+    answer: "If subtitles are embedded in the video by the creator, they'll be included. Reddit doesn't add separate subtitle tracks to downloaded content."
   }
 ];
 

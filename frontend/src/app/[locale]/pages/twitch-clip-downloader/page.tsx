@@ -40,7 +40,7 @@ export async function generateMetadata({
     description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy.',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/twitch-clip-downloader`,
+    canonical: `${baseUrl}/en/pages/twitch-clip-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/twitch-clip-downloader`,
         'hi': `${baseUrl}/hi/pages/twitch-clip-downloader`,

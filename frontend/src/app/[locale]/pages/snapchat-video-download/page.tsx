@@ -3,8 +3,8 @@ import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
+import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import type { Metadata } from "next";
-import SnapchatDownloaderContent from '@/components/details/SnapchatDownloaderContent';
 
 const localeToOGLocale: Record<string, string> = {
   en: 'en_US',
@@ -91,11 +91,11 @@ export async function generateMetadata({
 
   return {
   title: "Snapchat Video Downloader - Download Spotlight & Stories in HD Free",
-  description: "Download Snapchat videos, Spotlight, and stories in HD quality without watermark. Free Snapchat downloader for posts, reels, and content. Fast, secure, no registration required.",
-  keywords: "snapchat downloader, download snapchat videos, snapchat spotlight downloader, snapchat story downloader, snapchat video download, save snapchat videos, snapchat to mp4, snapchat content saver, download snapchat spotlight, snapchat video saver, free snapchat downloader, snapchat hd downloader, snapchat without watermark",
+  description: "Download Snapchat videos, Spotlight, and stories in HD quality. Free Snapchat downloader for posts and content. Fast, secure, no registration required.",
+  keywords: "snapchat downloader, download snapchat videos, snapchat spotlight downloader, snapchat story downloader, snapchat video download, save snapchat videos, snapchat to mp4, snapchat content saver, download snapchat spotlight, snapchat video saver, free snapchat downloader, snapchat hd downloader",
   openGraph: {
     title: "Free Snapchat Video Downloader - HD Spotlight & Stories Download",
-    description: "Download Snapchat videos, Spotlight, and stories in HD quality without watermark. Free and easy to use.",
+    description: "Download Snapchat videos, Spotlight, and stories in HD quality. Free and easy to use.",
     url: `${baseUrl}/${locale}/pages/snapchat-video-download`,
     siteName: "Snap Save Pro",
     images: [
@@ -112,12 +112,12 @@ export async function generateMetadata({
   twitter: {
     card: "summary_large_image",
     title: "Snapchat Video Downloader - Free HD Download",
-    description: "Download Snapchat videos, Spotlight, and stories in HD quality without watermark.",
+    description: "Download Snapchat videos, Spotlight, and stories in HD quality.",
     images: ["/snapchat-downloader-twitter.png"],
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/snapchat-video-download`,
+    canonical: `${baseUrl}/en/pages/snapchat-video-download`,
       languages: {
         'en': `${baseUrl}/en/pages/snapchat-video-download`,
         'hi': `${baseUrl}/hi/pages/snapchat-video-download`,
@@ -151,7 +151,7 @@ const SnapchatDownloadPage = () => {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Snapchat Video Downloader - Download Spotlight & Stories in HD",
-            "description": "Free online Snapchat video downloader. Download Spotlight videos, stories, and posts in HD quality without watermark.",
+            "description": "Free online Snapchat video downloader. Download Spotlight videos, stories, and posts in HD quality.",
             "url": "https://snapsavepro.com/pages/snapchat-video-download",
             "mainEntity": {
               "@type": "SoftwareApplication",
@@ -182,10 +182,8 @@ const SnapchatDownloadPage = () => {
    
 
       <HowToDownload platform="Snapchat" platformColor="yellow" />
-
-     
       <InfoSection platform="Snapchat" platformColor="yellow" />
-      <SnapchatDownloaderContent />
+      <PlatformContentSection platform="snapchat" platformColor="yellow" />
       <FAQSection faqs={snapchatFAQs} platform="Snapchat" />
 
       <ReviewsSection reviews={snapchatReviews} />

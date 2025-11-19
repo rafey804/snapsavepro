@@ -38,7 +38,7 @@ export async function generateMetadata({
     description: 'Download Kwai videos in HD quality for free. Fast, safe, and easy.',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/kwai-video-downloader`,
+    canonical: `${baseUrl}/en/pages/kwai-video-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/kwai-video-downloader`,
         'hi': `${baseUrl}/hi/pages/kwai-video-downloader`,

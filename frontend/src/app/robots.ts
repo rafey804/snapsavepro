@@ -44,6 +44,29 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: ['facebookexternalhit', 'Twitterbot', 'LinkedInBot', 'WhatsApp', 'TelegramBot'],
         allow: '/',
       },
+      {
+        userAgent: 'GPTBot',
+        allow: '/',
+        crawlDelay: 2,
+      },
+      {
+        userAgent: 'ChatGPT-User',
+        allow: '/',
+      },
+      {
+        userAgent: 'CCBot',
+        allow: '/',
+        crawlDelay: 2,
+      },
+      {
+        userAgent: 'anthropic-ai',
+        allow: '/',
+        crawlDelay: 2,
+      },
+      {
+        userAgent: 'Claude-Web',
+        allow: '/',
+      },
     ],
     sitemap: 'https://snapsavepro.com/sitemap.xml',
     host: 'https://snapsavepro.com',

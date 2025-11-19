@@ -34,7 +34,7 @@ export async function generateMetadata({
     images: ['/og-faq.png'],
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/faqs`,
+    canonical: `${baseUrl}/en/pages/faqs`,
       languages: {
         'en': `${baseUrl}/en/pages/faqs`,
         'hi': `${baseUrl}/hi/pages/faqs`,

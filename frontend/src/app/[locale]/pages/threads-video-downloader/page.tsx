@@ -38,7 +38,7 @@ export async function generateMetadata({
     description: 'Download Threads videos in HD quality for free. Fast, safe, and easy.',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/threads-video-downloader`,
+    canonical: `${baseUrl}/en/pages/threads-video-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/threads-video-downloader`,
         'hi': `${baseUrl}/hi/pages/threads-video-downloader`,

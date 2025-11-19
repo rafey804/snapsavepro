@@ -62,7 +62,7 @@ export async function generateMetadata({
       },
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/youtube-shorts-downloader`,
+      canonical: `${baseUrl}/en/pages/youtube-shorts-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/youtube-shorts-downloader`,
         'hi': `${baseUrl}/hi/pages/youtube-shorts-downloader`,

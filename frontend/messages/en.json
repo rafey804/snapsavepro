@@ -20,7 +20,7 @@
   "downloaders": {
     "tiktok": {
       "name": "TikTok Video Downloader",
-      "description": "Download TikTok videos without watermark"
+      "description": "Download TikTok videos in HD quality"
     },
     "instagram": {
       "name": "Instagram Reels Downloader",
@@ -100,16 +100,16 @@
     }
   },
   "home": {
-    "title": "TikTok Video Downloader Without Watermark - Free & Fast",
-    "description": "Download TikTok videos without watermark in HD quality. Fast, free, and easy to use.",
-    "h1": "Free TikTok Video Downloader Without Watermark - Download TikTok Videos in HD Quality",
+    "title": "TikTok Video Downloader - Free & Fast HD Downloads",
+    "description": "Download TikTok videos in HD quality. Fast, free, and easy to use. Save TikTok videos with high quality.",
+    "h1": "Free TikTok Video Downloader - Download TikTok Videos in HD Quality",
     "downloadButton": "Download",
     "pasteUrl": "Paste TikTok URL here...",
     "pasteUrlLong": "Paste TikTok URL here... (e.g., https://www.tiktok.com/@user/video/123)",
     "processing": "Processing...",
     "getVideo": "Get Video",
     "paste": "Paste",
-    "watermarkFree": "Watermark-Free Downloads",
+    "watermarkFree": "HD Quality Downloads",
     "videoDownloads": "Video Downloads",
     "audioDownloads": "Audio Downloads (MP3)",
     "readyToDownload": "Ready to download",
@@ -120,7 +120,7 @@
     "startingDownload": "Starting Download...",
     "processingVideo": "Processing TikTok video...",
     "invalidUrl": "Please provide a valid TikTok URL",
-    "copyright": "© 2025 TikTok Downloader. Download videos without watermark in HD quality.",
+    "copyright": "© 2025 TikTok Downloader. Download videos in HD quality.",
     "supportText": "Supports all TikTok video formats • Fast downloads • No registration required",
     "features": {
       "noWatermark": "No Watermark",
@@ -233,7 +233,7 @@
         },
         "step4": {
           "title": "Download Complete",
-          "description": "Your video is ready to download without watermarks"
+          "description": "Your video is ready to download in high quality"
         }
       },
       "whyChoose": "Why Choose Our {platform} Downloader?",
@@ -247,8 +247,8 @@
           "description": "Download in the highest available quality up to 4K resolution"
         },
         "noWatermark": {
-          "title": "No Watermarks",
-          "description": "Remove watermarks and get clean {platform} videos without any branding"
+          "title": "Clean Downloads",
+          "description": "Get clean {platform} videos in original quality without any modifications"
         }
       }
     },
@@ -273,8 +273,8 @@
           "description": "Your data is encrypted and never stored on our servers."
         },
         "noWatermark": {
-          "title": "No Watermarks",
-          "description": "Get clean {platform} videos without any watermarks."
+          "title": "Original Quality",
+          "description": "Get clean {platform} videos in their original quality."
         }
       }
     },
@@ -283,16 +283,16 @@
       "subtitle": "Everything you need to know about downloading {platform} videos"
     },
     "tiktokContent": {
-      "mainTitle": "TikTok Video Downloader Without Watermark - Free & Fast",
+      "mainTitle": "TikTok Video Downloader - Free & Fast HD Downloads",
       "introduction": {
-        "para1": "Welcome to Snap Save Pro, the ultimate TikTok video downloader without watermark. Our powerful tool allows you to download TikTok videos in high quality, completely free, and without any watermarks. Whether you're a content creator, marketer, or just someone who loves saving favorite TikTok moments, our downloader is designed to meet all your needs.",
-        "para2": "TikTok has become one of the world's most popular social media platforms, with over 1 billion active users creating and sharing short-form videos daily. From viral dance challenges to educational content, cooking tutorials to comedy sketches, TikTok offers endless entertainment. However, downloading these videos directly from TikTok includes an annoying watermark. That's where Snap Save Pro comes in - providing a seamless solution to download TikTok videos without watermark."
+        "para1": "Welcome to Snap Save Pro, the ultimate TikTok video downloader. Our powerful tool allows you to download TikTok videos in high quality, completely free and easy to use. Whether you're a content creator, marketer, or just someone who loves saving favorite TikTok moments, our downloader is designed to meet all your needs.",
+        "para2": "TikTok has become one of the world's most popular social media platforms, with over 1 billion active users creating and sharing short-form videos daily. From viral dance challenges to educational content, cooking tutorials to comedy sketches, TikTok offers endless entertainment. Our tool provides a seamless solution to download and save your favorite TikTok videos in high quality for offline viewing."
       },
       "whyChoose": {
         "title": "Why Choose Snap Save Pro for TikTok Downloads?",
         "noWatermark": {
-          "title": "No Watermark Downloads",
-          "description": "Unlike other tools, we provide 100% watermark-free downloads. Your downloaded TikTok videos will be clean and professional, perfect for reposting, editing, or personal collections without any TikTok branding."
+          "title": "High Quality Downloads",
+          "description": "We provide downloads in the highest available quality. Your downloaded TikTok videos will be clean and professional, perfect for reposting, editing, or personal collections. Save videos featuring Duets, Stitches, and all TikTok creative formats."
         },
         "hdQuality": {
           "title": "HD Quality Downloads",
@@ -308,11 +308,11 @@
         }
       },
       "howItWorks": {
-        "title": "How to Download TikTok Videos Without Watermark",
+        "title": "How to Download TikTok Videos in HD Quality",
         "description": "Downloading TikTok videos with Snap Save Pro is incredibly easy. Follow these simple steps to save your favorite TikTok content:",
         "step1": {
           "title": "Open TikTok App or Website",
-          "description": "Find the TikTok video you want to download. This works with any public TikTok video, including trending videos, challenges, or your favorite creator's content."
+          "description": "Find the TikTok video you want to download. This works with any public TikTok video, including trending videos, challenges, Duets, Stitches, or your favorite creator's content."
         },
         "step2": {
           "title": "Copy the Video Link",
@@ -320,7 +320,7 @@
         },
         "step3": {
           "title": "Paste and Download",
-          "description": "Paste the copied link into Snap Save Pro's input field, click \"Download\", and choose your preferred quality. Your watermark-free TikTok video will be ready in seconds!"
+          "description": "Paste the copied link into Snap Save Pro's input field, click \"Download\", and choose your preferred quality. Your high-quality TikTok video will be ready in seconds!"
         }
       },
       "advancedFeatures": {
@@ -335,7 +335,7 @@
       "benefits": {
         "title": "Benefits of Using a TikTok Video Downloader",
         "description": "There are countless reasons why millions of users rely on TikTok video downloaders. Here are the top benefits:",
-        "contentCreation": "Content Creation & Reposting: Content creators often need to download TikTok videos for compilation videos, reaction content, or cross-platform sharing. Our watermark-free downloads ensure your content looks professional on Instagram Reels, YouTube Shorts, or Facebook.",
+        "contentCreation": "Content Creation & Reposting: Content creators often need to download TikTok videos for compilation videos, reaction content, or cross-platform sharing. Our high-quality downloads ensure your content looks professional on Instagram Reels, YouTube Shorts, or Facebook. Perfect for studying trending Duets and Stitches formats.",
         "offlineViewing": "Offline Viewing: Internet connectivity isn't always reliable. Download your favorite TikTok videos to watch offline during commutes, flights, or in areas with poor network coverage.",
         "backup": "Backup & Archive: Creators often delete videos, or accounts get banned. By downloading TikTok videos, you can preserve memorable content, important tutorials, or viral moments forever.",
         "educational": "Educational Purposes: Teachers, students, and researchers use TikTok for educational content. Our downloader helps save valuable learning resources for presentations, research, or classroom use.",
@@ -350,21 +350,21 @@
       "proTips": {
         "title": "Pro Tips for TikTok Video Downloads",
         "tip1": "Choose the Right Quality: For social media reposting, HD quality (720p) is usually sufficient. For archiving or professional use, select the highest available quality.",
-        "tip2": "Check Video Orientation: TikTok videos are typically vertical (9:16). Ensure your download maintains the correct aspect ratio for your intended use.",
-        "tip3": "Download Trending Content Early: Viral videos can be deleted or made private. Download trending content promptly to ensure you don't miss out.",
-        "tip4": "Use Audio Extraction Wisely: When you only need the audio (trending songs, sound effects), use our MP3 extraction feature to save storage space.",
-        "tip5": "Organize Your Downloads: Create folders by category (tutorials, entertainment, inspiration) to easily find your downloaded TikTok videos later."
+        "tip2": "Download Duets and Stitches: TikTok's unique collaborative features like Duets and Stitches work perfectly with our downloader. Save these creative formats to study trending collaboration techniques.",
+        "tip3": "Download Trending Content Early: Viral videos can be deleted or made private. Download trending content promptly to ensure you don't miss out on important trends and challenges.",
+        "tip4": "Use Audio Extraction Wisely: When you only need the audio (trending songs, sound effects, voice-overs), use our MP3 extraction feature to save storage space and create your own content.",
+        "tip5": "Organize Your Downloads: Create folders by category (tutorials, entertainment, inspiration, trends, challenges) to easily find your downloaded TikTok videos later."
       },
       "closing": {
         "title": "Start Downloading TikTok Videos Today",
-        "para1": "Join millions of satisfied users who trust Snap Save Pro as their go-to TikTok video downloader without watermark. Our commitment to providing free, fast, and high-quality downloads has made us the #1 choice for TikTok enthusiasts worldwide.",
-        "para2": "Whether you're building a content library, saving memories, or creating compilation videos, Snap Save Pro delivers the best downloading experience. No ads, no limits, no hassle - just pure, simple functionality that works every time.",
-        "para3": "Ready to download? Paste your TikTok video link above and experience the difference. Your next favorite video is just one click away!"
+        "para1": "Join millions of satisfied users who trust Snap Save Pro as their go-to TikTok video downloader. Our commitment to providing free, fast, and high-quality downloads has made us the #1 choice for TikTok enthusiasts worldwide.",
+        "para2": "Whether you're building a content library, saving memories, studying Duets and Stitches, or creating compilation videos, Snap Save Pro delivers the best downloading experience. No ads, no limits, no hassle - just pure, simple functionality that works every time.",
+        "para3": "Ready to download? Paste your TikTok video link above and experience the difference. Save your favorite TikTok moments, challenges, and creative content today!"
       }
     },
     "instagram": {
       "mainTitle": "Instagram Reels Downloader - Save Instagram Videos Easily",
-      "intro": "Our Instagram Reels Downloader is the best free tool to download Instagram Reels, Posts, and IGTV videos in high quality without any watermark. Save your favorite Instagram content directly to your device with just a few clicks.",
+      "intro": "Our Instagram Reels Downloader is the best free tool to download Instagram Reels, Posts, IGTV videos, and Stories in high quality. Save your favorite Instagram content directly to your device with just a few clicks. Perfect for downloading trending Reels, educational content, and memorable moments from Instagram.",
       "howTo": {
         "title": "How to Download Instagram Reels",
         "step1": "Copy the Instagram link: Open Instagram app or website, find the Reel or video you want to download, and copy its URL",
@@ -376,17 +376,17 @@
       "features": {
         "title": "Key Features",
         "highQuality": "High Quality Downloads: Download Instagram Reels in the best available quality including HD and Full HD",
-        "noWatermark": "No Watermark: All downloads are watermark-free, giving you clean videos",
+        "noWatermark": "Clean Downloads: All downloads maintain original quality, giving you clean videos perfect for personal use",
         "multipleFormats": "Multiple Formats: Choose from various video formats (MP4, WebM) and audio formats (MP3, M4A)",
         "fastSecure": "Fast & Secure: Lightning-fast downloads with secure connections",
         "free": "Free Forever: Completely free to use with no hidden charges or subscriptions",
         "noRegistration": "No Registration: Download without creating an account or logging in",
         "allDevices": "All Devices: Works on desktop, mobile, and tablet devices",
-        "audioExtraction": "Audio Extraction: Extract and download audio from Instagram videos in high quality"
+        "audioExtraction": "Audio Extraction: Extract and download audio from Instagram Reels and videos in high quality"
       },
       "whyChoose": {
         "title": "Why Choose Our Instagram Downloader?",
-        "description": "Unlike other Instagram downloaders, our tool offers the highest quality downloads without any watermarks or branding. We support all types of Instagram content including Reels, regular posts, IGTV videos, and more. Our advanced technology ensures fast processing and downloading, making it the most efficient Instagram video downloader available online."
+        "description": "Our tool offers the highest quality downloads for all Instagram content types. We support Instagram Reels, regular posts, IGTV videos, and Stories. Perfect for saving trending Reels, educational content, recipes, fitness routines, and memorable moments. Our advanced technology ensures fast processing and downloading, making it the most efficient Instagram video downloader available online."
       },
       "supportedTypes": {
         "title": "Supported Instagram Content Types",
@@ -435,7 +435,7 @@
     },
     "youtube": {
       "mainTitle": "YouTube Shorts Downloader - Save Shorts Videos in HD Quality",
-      "intro": "Our YouTube Shorts Downloader is the best free tool to download YouTube Shorts videos in HD 1080p, 4K quality without any watermark. Save your favorite Shorts content directly to your device with just a few clicks.",
+      "intro": "Our YouTube Shorts Downloader is the best free tool to download YouTube Shorts videos in HD 1080p and 4K quality. Save your favorite Shorts content directly to your device with just a few clicks. Perfect for downloading trending Shorts, educational content, music videos, and creative content from YouTube's vertical video format.",
       "howTo": {
         "title": "How to Download YouTube Shorts",
         "step1": "Copy the Shorts link: Open YouTube app or website, find the Short video you want to download, and copy its URL",
@@ -447,7 +447,7 @@
       "features": {
         "title": "Key Features",
         "highQuality": "High Quality Downloads: Download YouTube Shorts in 4K, Full HD 1080p, and HD 720p quality",
-        "noWatermark": "No Watermark: All downloads are completely watermark-free and clean",
+        "noWatermark": "Original Quality: All downloads maintain the original quality and format",
         "multipleFormats": "Multiple Formats: Choose from various video formats (MP4, WebM) and audio formats (MP3, M4A)",
         "fastSecure": "Fast & Secure: Lightning-fast downloads with encrypted secure connections",
         "free": "Free Forever: Completely free to use with no hidden charges or premium plans",
@@ -457,7 +457,7 @@
       },
       "whyChoose": {
         "title": "Why Choose Our YouTube Shorts Downloader?",
-        "description": "Unlike other YouTube Shorts downloaders, our tool provides the highest quality downloads up to 4K resolution without any watermarks. We support all types of Shorts content and offer the fastest processing speeds. Our advanced technology ensures seamless downloading, making it the most reliable YouTube Shorts downloader available online."
+        "description": "Our tool provides the highest quality downloads up to 4K resolution for YouTube Shorts. We support all types of Shorts content including music videos, comedy clips, educational content, and trending challenges. Our advanced technology ensures seamless downloading with the fastest processing speeds. Perfect for creators studying successful Shorts formats or building content libraries."
       },
       "faq": {
         "title": "Frequently Asked Questions",
@@ -493,7 +493,7 @@
     },
     "facebook": {
       "mainTitle": "Facebook Video Downloader - Save Facebook Videos in HD Quality",
-      "intro": "Our Facebook Video Downloader is the best free tool to download Facebook videos in HD quality without any watermark. Save your favorite Facebook videos directly to your device with just a few clicks.",
+      "intro": "Our Facebook Video Downloader is the best free tool to download Facebook videos in HD quality. Save your favorite Facebook videos, Reels, Watch content, and live streams directly to your device with just a few clicks. Perfect for downloading educational content, entertainment, news clips, and memorable moments from Facebook.",
       "howTo": {
         "title": "How to Download Facebook Videos",
         "step1": "Copy the Facebook video link: Open Facebook, find the video you want to download, and copy its URL",
@@ -505,7 +505,7 @@
       "features": {
         "title": "Key Features",
         "highQuality": "High Quality Downloads: Download Facebook videos in HD 1080p and 720p quality",
-        "noWatermark": "No Watermark: All downloads are completely watermark-free",
+        "noWatermark": "Original Quality: All downloads maintain original quality",
         "multipleFormats": "Multiple Formats: Choose from various video formats (MP4) and audio formats (MP3)",
         "fastSecure": "Fast & Secure: Lightning-fast downloads with encrypted connections",
         "free": "Free Forever: Completely free to use with no hidden charges",
@@ -515,7 +515,7 @@
       },
       "whyChoose": {
         "title": "Why Choose Our Facebook Video Downloader?",
-        "description": "Unlike other Facebook video downloaders, our tool provides the highest quality downloads without any watermarks. We support all types of Facebook videos including public posts, pages, and groups. Our advanced technology ensures fast processing and downloading."
+        "description": "Our tool provides the highest quality downloads for all Facebook content types. We support Facebook videos from public posts, pages, groups, Facebook Watch, and Facebook Reels. Perfect for saving cooking tutorials, news clips, entertainment content, educational videos, and viral moments. Our advanced technology ensures fast processing and downloading."
       },
       "faq": {
         "title": "Frequently Asked Questions",
@@ -563,7 +563,7 @@
       "features": {
         "title": "Key Features",
         "highQuality": "High Quality Downloads: Download Twitter videos in the best available quality up to 1080p",
-        "noWatermark": "No Watermark: All downloads are watermark-free",
+        "noWatermark": "Original Quality: All downloads maintain original quality",
         "multipleFormats": "Multiple Formats: Download videos in MP4 format or save GIFs",
         "fastSecure": "Fast & Secure: Quick downloads with secure encrypted connections",
         "free": "Free Forever: Completely free with no subscription required",
@@ -573,7 +573,7 @@
       },
       "whyChoose": {
         "title": "Why Choose Our Twitter Video Downloader?",
-        "description": "Our tool provides the fastest and most reliable way to download Twitter videos and GIFs. We support all types of Twitter content including videos, GIFs, and media from tweets. No watermarks, no registration, just simple and fast downloads."
+        "description": "Our tool provides the fastest and most reliable way to download Twitter (X) videos and GIFs. We support all types of Twitter content including videos, GIFs, media from tweets, and viral moments. Perfect for saving breaking news clips, sports highlights, entertainment content, and trending videos. No registration required, just simple and fast downloads."
       },
       "faq": {
         "title": "Frequently Asked Questions",
@@ -605,6 +605,354 @@
       "proTip": {
         "title": "Pro Tip:",
         "description": "Copy the full tweet URL by clicking the share icon on any tweet and selecting 'Copy link'. Make sure to include the complete URL for best results."
+      }
+    },
+    "pinterest": {
+      "mainTitle": "Pinterest Video Downloader - Save Pinterest Videos & Pins",
+      "intro": "Our Pinterest Video Downloader is the best free tool to download Pinterest videos and video pins in high quality. Save your favorite Pinterest videos, DIY tutorials, recipes, and creative inspiration directly to your device. Perfect for saving design ideas, cooking videos, crafting tutorials, home improvement guides, and trending pins.",
+      "howTo": {
+        "title": "How to Download Pinterest Videos",
+        "step1": "Copy the Pinterest pin link: Open Pinterest, find the video pin you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the Pinterest link in the input box above",
+        "step3": "Click 'Get Video': Our tool will analyze the pin and fetch the video",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the video to your device"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Pinterest videos in the best available quality",
+        "noWatermark": "Original Quality: All downloads maintain Pinterest's original quality",
+        "multipleFormats": "Multiple Formats: Download videos in MP4 format",
+        "fastSecure": "Fast & Secure: Quick downloads with secure connections",
+        "free": "Free Forever: Completely free with no subscription required",
+        "noRegistration": "No Registration: No Pinterest account needed to download",
+        "allDevices": "All Devices: Works on all devices and platforms",
+        "audioExtraction": "Audio Extraction: Extract audio from Pinterest videos"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Pinterest Video Downloader?",
+        "description": "Our tool provides the easiest way to download Pinterest videos and video pins. Perfect for saving DIY projects, cooking recipes, home decor ideas, fashion inspiration, fitness routines, beauty tutorials, and crafting guides. Pinterest is known for its visual content and creative ideas - save your favorite video pins to reference later, even offline. Great for creators building mood boards and collecting inspiration."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Pinterest videos?",
+          "answer": "Downloading Pinterest videos for personal reference and inspiration is generally acceptable. Always respect copyright and creator rights. Give credit when sharing or using content."
+        },
+        "q2": {
+          "question": "Can I download private Pinterest pins?",
+          "answer": "No, our tool only works with publicly accessible Pinterest pins and boards. Private content cannot be downloaded."
+        },
+        "q3": {
+          "question": "Do I need a Pinterest account?",
+          "answer": "No! Our downloader works without requiring a Pinterest account. Just paste the pin URL and download."
+        },
+        "q4": {
+          "question": "What video quality can I download?",
+          "answer": "We provide the best quality available from Pinterest, which varies based on how the original video was uploaded."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited Pinterest videos completely free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works perfectly on all mobile devices, tablets, and computers."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Pinterest is perfect for collecting inspiration. Download DIY tutorials, recipe videos, and home improvement guides to access them offline. Organize downloads by category (recipes, crafts, fashion, home) for easy reference."
+      }
+    },
+    "reddit": {
+      "mainTitle": "Reddit Video Downloader - Save Reddit Videos & GIFs",
+      "intro": "Our Reddit Video Downloader is the best free tool to download Reddit videos, GIFs, and v.redd.it content in high quality. Save your favorite Reddit content from any subreddit directly to your device. Perfect for downloading funny clips, educational content, gaming highlights, news footage, and viral moments from Reddit.",
+      "howTo": {
+        "title": "How to Download Reddit Videos",
+        "step1": "Copy the Reddit post link: Open Reddit, find the video post you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the Reddit link in the input box above",
+        "step3": "Click 'Get Video': Our tool will analyze the post and fetch the video with audio",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the file to your device"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Reddit videos in the best available quality with audio",
+        "noWatermark": "Original Quality: All downloads maintain original quality including audio",
+        "multipleFormats": "Multiple Formats: Download videos with audio in MP4 format",
+        "fastSecure": "Fast & Secure: Quick downloads with secure encrypted connections",
+        "free": "Free Forever: Completely free with no subscription required",
+        "noRegistration": "No Registration: No Reddit account needed",
+        "allDevices": "All Devices: Works seamlessly on all devices",
+        "audioExtraction": "Audio Support: Downloads include audio when available"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Reddit Video Downloader?",
+        "description": "Our tool provides the fastest and most reliable way to download Reddit videos with audio. Reddit hosts diverse content from educational tutorials to entertainment, gaming clips to news footage. Perfect for saving funny videos from r/funny, educational content from various subreddits, gaming highlights, DIY tutorials, and viral moments. Our downloader handles v.redd.it links and combines video with audio automatically."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Reddit videos?",
+          "answer": "Downloading Reddit videos for personal use is generally acceptable. Always respect copyright and give credit to original posters (OPs) when sharing content."
+        },
+        "q2": {
+          "question": "Can I download videos from private subreddits?",
+          "answer": "No, our tool only works with publicly accessible Reddit posts. Private subreddit content cannot be downloaded."
+        },
+        "q3": {
+          "question": "Does it include audio?",
+          "answer": "Yes! Our downloader automatically combines video and audio for Reddit posts, giving you complete content."
+        },
+        "q4": {
+          "question": "What about v.redd.it links?",
+          "answer": "Yes, we fully support v.redd.it links (Reddit's native video hosting) and automatically merge audio with video."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited Reddit videos completely free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works perfectly on all devices including mobile phones and tablets."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Reddit has specialized content in every niche. Use our downloader to save educational content, tutorials, news clips, and entertainment. Always credit the original poster when sharing downloaded content."
+      }
+    },
+    "snapchat": {
+      "mainTitle": "Snapchat Video Downloader - Save Snapchat Spotlight Videos",
+      "intro": "Our Snapchat Video Downloader helps you save Snapchat Spotlight videos and public stories in high quality. Download your favorite Snapchat content directly to your device. Perfect for saving creative Spotlight videos, trending challenges, entertaining content, and memorable public stories from Snapchat.",
+      "howTo": {
+        "title": "How to Download Snapchat Videos",
+        "step1": "Copy the Snapchat link: Open Snapchat, find the Spotlight video or public story you want, and copy its URL",
+        "step2": "Paste the URL: Paste the Snapchat link in the input box above",
+        "step3": "Click 'Get Video': Our tool will process the content",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the video"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Snapchat videos in original quality",
+        "noWatermark": "Original Quality: Maintains Snapchat's video quality",
+        "multipleFormats": "MP4 Format: Downloads in universally compatible MP4 format",
+        "fastSecure": "Fast & Secure: Quick and secure downloads",
+        "free": "Free Forever: Completely free to use",
+        "noRegistration": "No Registration: No Snapchat account required",
+        "allDevices": "All Devices: Works on all devices",
+        "audioExtraction": "Audio Included: Downloads with audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Snapchat Video Downloader?",
+        "description": "Snapchat Spotlight features creative vertical videos, trending challenges, and entertaining content. Our tool helps you download and save these videos for offline viewing. Perfect for content creators studying trending formats, saving entertaining clips, or archiving memorable Spotlight moments. Snapchat's unique AR filters and creative tools make it a hub for innovative content worth saving."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Snapchat videos?",
+          "answer": "Downloading publicly shared Snapchat Spotlight videos for personal use is generally acceptable. Always respect creator rights and privacy."
+        },
+        "q2": {
+          "question": "Can I download private Snaps?",
+          "answer": "No, our tool only works with publicly accessible Spotlight videos and public stories. Private content is protected."
+        },
+        "q3": {
+          "question": "Do I need a Snapchat account?",
+          "answer": "No! Our downloader works without requiring a Snapchat account."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the best quality available from Snapchat Spotlight videos."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited Snapchat videos free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works perfectly on all mobile devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Snapchat Spotlight showcases creative vertical video content. Download trending videos to study successful content formats and AR filter usage."
+      }
+    },
+    "linkedin": {
+      "mainTitle": "LinkedIn Video Downloader - Save LinkedIn Videos",
+      "intro": "Our LinkedIn Video Downloader is the best tool to download LinkedIn videos in high quality. Save professional content, educational videos, industry insights, and thought leadership content directly from LinkedIn. Perfect for downloading business tutorials, motivational content, career advice, industry news, and professional development videos.",
+      "howTo": {
+        "title": "How to Download LinkedIn Videos",
+        "step1": "Copy the LinkedIn video link: Open LinkedIn, find the video post you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the LinkedIn link in the input box above",
+        "step3": "Click 'Get Video': Our tool will analyze the post and fetch the video",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save to your device"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download LinkedIn videos in original quality",
+        "noWatermark": "Original Quality: Maintains professional video quality",
+        "multipleFormats": "MP4 Format: Standard MP4 format for easy viewing",
+        "fastSecure": "Fast & Secure: Secure professional downloads",
+        "free": "Free Forever: Completely free service",
+        "noRegistration": "No Registration: No extra accounts needed",
+        "allDevices": "All Devices: Works on all professional devices",
+        "audioExtraction": "Full Audio: Complete video with audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our LinkedIn Video Downloader?",
+        "description": "LinkedIn is the premier platform for professional content and business insights. Our downloader helps you save valuable educational videos, industry expert talks, career advice, motivational content, and thought leadership presentations. Perfect for professionals building knowledge libraries, students learning from industry experts, and entrepreneurs studying business strategies. Download webinars, conference talks, and professional development content for offline viewing and reference."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download LinkedIn videos?",
+          "answer": "Downloading LinkedIn videos for personal professional development is generally acceptable. Always respect professional content creator rights and copyright."
+        },
+        "q2": {
+          "question": "Can I download videos from private profiles?",
+          "answer": "No, our tool only works with publicly accessible LinkedIn posts and videos."
+        },
+        "q3": {
+          "question": "Do I need a LinkedIn account?",
+          "answer": "While having a LinkedIn account helps access more content, our downloader doesn't require special permissions."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the best quality available from LinkedIn, typically professional HD quality."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited professional content free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works on all professional devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "LinkedIn hosts valuable professional content from industry experts. Download webinars, conference talks, and educational videos to build your professional knowledge library."
+      }
+    },
+    "telegram": {
+      "mainTitle": "Telegram Video Downloader - Save Telegram Videos",
+      "intro": "Our Telegram Video Downloader helps you download videos from Telegram channels and groups in high quality. Save your favorite Telegram content directly to your device. Perfect for downloading educational content, news clips, entertainment videos, and content from public Telegram channels.",
+      "howTo": {
+        "title": "How to Download Telegram Videos",
+        "step1": "Copy the Telegram video link: Open Telegram, find the video you want to download, and copy its link",
+        "step2": "Paste the URL: Paste the Telegram link in the input box above",
+        "step3": "Click 'Get Video': Our tool will fetch the video from Telegram",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the file"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Telegram videos in original quality",
+        "noWatermark": "Original Quality: Maintains original video quality",
+        "multipleFormats": "MP4 Format: Universal MP4 format",
+        "fastSecure": "Fast & Secure: Encrypted secure downloads",
+        "free": "Free Forever: Completely free service",
+        "noRegistration": "No Registration: No accounts needed",
+        "allDevices": "All Devices: Works on all devices",
+        "audioExtraction": "Audio Included: Full video with audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Telegram Video Downloader?",
+        "description": "Telegram hosts diverse content from news channels to educational groups. Our downloader helps you save videos from public Telegram channels and groups. Perfect for downloading news footage, educational tutorials, entertainment content, and documentary clips. Telegram's large file size support means high-quality videos - save them for offline viewing."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Telegram videos?",
+          "answer": "Downloading publicly shared Telegram videos for personal use is generally acceptable. Always respect copyright and creator rights."
+        },
+        "q2": {
+          "question": "Can I download from private channels?",
+          "answer": "No, our tool only works with publicly accessible Telegram content."
+        },
+        "q3": {
+          "question": "Do I need Telegram installed?",
+          "answer": "No! Our downloader works independently."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the original quality from Telegram, which often includes HD and high-quality videos."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited videos free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works on all devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Telegram channels often share high-quality educational and news content. Download valuable videos for offline access and reference."
+      }
+    },
+    "twitch": {
+      "mainTitle": "Twitch Clip Downloader - Save Twitch Clips & Highlights",
+      "intro": "Our Twitch Clip Downloader is the best tool to download Twitch clips and highlights in high quality. Save your favorite gaming moments, esports highlights, and streaming clips directly to your device. Perfect for downloading epic gaming moments, funny clips, esports highlights, speedrun records, and memorable streaming content from Twitch.",
+      "howTo": {
+        "title": "How to Download Twitch Clips",
+        "step1": "Copy the Twitch clip link: Open Twitch, find the clip or highlight you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the Twitch link in the input box above",
+        "step3": "Click 'Get Video': Our tool will fetch the clip from Twitch",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the clip"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Twitch clips in original streaming quality",
+        "noWatermark": "Original Quality: Maintains Twitch's video quality",
+        "multipleFormats": "MP4 Format: Standard MP4 format",
+        "fastSecure": "Fast & Secure: Quick secure downloads",
+        "free": "Free Forever: Completely free service",
+        "noRegistration": "No Registration: No Twitch account required",
+        "allDevices": "All Devices: Works on all gaming devices",
+        "audioExtraction": "Audio Included: Full gaming audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Twitch Clip Downloader?",
+        "description": "Twitch is the world's leading live streaming platform for gaming, esports, and creative content. Our downloader helps you save epic gaming moments, esports tournament highlights, funny streaming clips, and memorable broadcasts. Perfect for content creators building highlight reels, gamers saving their best moments, esports fans archiving tournament plays, and streamers collecting clips. Download speedrun records, pro player highlights, and community moments."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Twitch clips?",
+          "answer": "Downloading publicly shared Twitch clips for personal use is generally acceptable. Always respect streamer rights and give credit when sharing."
+        },
+        "q2": {
+          "question": "Can I download full VODs?",
+          "answer": "Our tool is optimized for clips. Some tools support full VODs, but clips are the most common format."
+        },
+        "q3": {
+          "question": "Do I need a Twitch account?",
+          "answer": "No! Our downloader works without requiring a Twitch account."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the original quality from Twitch, typically 1080p for clips and highlights."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited clips free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works on all devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Twitch clips capture the best gaming moments. Download epic plays, funny moments, and esports highlights to create highlight reels or study pro strategies."
       }
     }
   },
@@ -658,34 +1006,34 @@
   },
   "metadata": {
     "home": {
-      "title": "TikTok Video Downloader Without Watermark - Free & Fast | Snap Save Pro",
-      "description": "Download TikTok videos without watermark in HD quality. Fast, free, and easy to use. Support for TikTok, YouTube, Facebook, Instagram, and more.",
-      "keywords": "video downloader, tiktok downloader, youtube downloader, facebook video download, instagram downloader, download videos online, free video downloader, no watermark, hd video download, snap save pro, tiktok video download, youtube video download, instagram video download, facebook downloader, twitter video download, video saver, online video downloader, download tiktok videos, download youtube videos, download instagram videos",
-      "ogTitle": "TikTok Video Downloader Without Watermark - Free & Fast | Snap Save Pro",
-      "ogDescription": "Download TikTok videos without watermark in HD quality. Fast, free, and easy to use.",
+      "title": "TikTok Video Downloader - Free & Fast HD Downloads | Snap Save Pro",
+      "description": "Download TikTok videos in HD quality. Fast, free, and easy to use. Support for TikTok, YouTube, Facebook, Instagram, and more.",
+      "keywords": "video downloader, tiktok downloader, youtube downloader, facebook video download, instagram downloader, download videos online, free video downloader, hd video download, snap save pro, tiktok video download, youtube video download, instagram video download, facebook downloader, twitter video download, video saver, online video downloader, download tiktok videos, download youtube videos, download instagram videos",
+      "ogTitle": "TikTok Video Downloader - Free & Fast HD Downloads | Snap Save Pro",
+      "ogDescription": "Download TikTok videos in HD quality. Fast, free, and easy to use.",
       "ogImageAlt": "Snap Save Pro - Multi-Platform Video Downloader",
-      "twitterTitle": "TikTok Video Downloader Without Watermark - Free & Fast",
-      "twitterDescription": "Download TikTok videos without watermark in HD quality. Fast, free, and easy to use."
+      "twitterTitle": "TikTok Video Downloader - Free & Fast HD Downloads",
+      "twitterDescription": "Download TikTok videos in HD quality. Fast, free, and easy to use."
     },
     "facebook": {
       "title": "Facebook Video Downloader - Download Facebook Videos in HD Free | Snap Save Pro",
-      "description": "Download Facebook videos in HD quality for free. Save Facebook videos, reels, and stories without watermark. Fast, secure, and no registration required.",
-      "keywords": "facebook video downloader, download facebook videos, facebook downloader, save facebook videos, facebook video download, facebook reels downloader, facebook story downloader, facebook video saver, download facebook videos hd, facebook downloader online, free facebook downloader, fb video downloader, fb downloader, download fb videos, facebook video download free"
+      "description": "Download Facebook videos in HD quality for free. Save Facebook videos, reels, and Watch content. Fast, secure, and no registration required.",
+      "keywords": "facebook video downloader, download facebook videos, facebook downloader, save facebook videos, facebook video download, facebook reels downloader, facebook watch downloader, facebook video saver, download facebook videos hd, facebook downloader online, free facebook downloader, fb video downloader, fb downloader, download fb videos, facebook video download free"
     },
     "twitter": {
-      "title": "Twitter/X Video Downloader - Download X Videos Without Watermark | Snap Save Pro",
-      "description": "Download Twitter and X videos in HD quality without watermark. Fast, free, and easy Twitter video downloader. Supports all video formats from Twitter/X posts.",
-      "keywords": "twitter video downloader, x video downloader, download twitter videos, x video download, twitter video download without watermark, twitter downloader, x downloader, save twitter videos, twitter video saver, x video saver, download x videos, twitter video download hd, x video download hd, twitter video downloader online, free twitter downloader"
+      "title": "Twitter/X Video Downloader - Download X Videos in HD | Snap Save Pro",
+      "description": "Download Twitter and X videos in HD quality. Fast, free, and easy Twitter video downloader. Supports all video formats from Twitter/X posts.",
+      "keywords": "twitter video downloader, x video downloader, download twitter videos, x video download, twitter video download, twitter downloader, x downloader, save twitter videos, twitter video saver, x video saver, download x videos, twitter video download hd, x video download hd, twitter video downloader online, free twitter downloader"
     },
     "instagramReels": {
-      "title": "Instagram Reels Downloader - Download Reels & Videos in HD 1080p | No Watermark",
-      "description": "Best free Instagram Reels downloader online. Download Instagram Reels, Posts, IGTV, Stories in HD 1080p without watermark. Fast, secure, no registration required.",
-      "keywords": "instagram reels downloader, download instagram reels, instagram downloader, instagram video downloader, save instagram reels, instagram video download, instagram reels download, download reels, instagram no watermark, instagram HD download 1080p, instagram reels to mp4, instagram reels to mp3, download instagram posts, IGTV downloader, instagram story downloader"
+      "title": "Instagram Reels Downloader - Download Reels & Videos in HD 1080p | SnapSavePro",
+      "description": "Best free Instagram Reels downloader online. Download Instagram Reels, Posts, IGTV, Stories in HD 1080p. Fast, secure, no registration required.",
+      "keywords": "instagram reels downloader, download instagram reels, instagram downloader, instagram video downloader, save instagram reels, instagram video download, instagram reels download, download reels, instagram HD download 1080p, instagram reels to mp4, instagram reels to mp3, download instagram posts, IGTV downloader, instagram story downloader"
     },
     "youtubeShorts": {
-      "title": "YouTube Shorts Downloader - Download Shorts in HD 1080p, 4K Quality | No Watermark",
-      "description": "Best free YouTube Shorts downloader online. Download YouTube Shorts videos in HD 1080p, 4K without watermark. Fast, secure, no registration required.",
-      "keywords": "youtube shorts downloader, download youtube shorts, youtube shorts download, save youtube shorts, youtube shorts video downloader, youtube shorts saver, download shorts, youtube shorts HD download, youtube shorts no watermark, youtube shorts to mp4, youtube shorts to mp3, download youtube shorts 4k, youtube shorts downloader online"
+      "title": "YouTube Shorts Downloader - Download Shorts in HD 1080p, 4K Quality | SnapSavePro",
+      "description": "Best free YouTube Shorts downloader online. Download YouTube Shorts videos in HD 1080p and 4K quality. Fast, secure, no registration required.",
+      "keywords": "youtube shorts downloader, download youtube shorts, youtube shorts download, save youtube shorts, youtube shorts video downloader, youtube shorts saver, download shorts, youtube shorts HD download, youtube shorts to mp4, youtube shorts to mp3, download youtube shorts 4k, youtube shorts downloader online"
     }
   },
   "videoToMp3": {

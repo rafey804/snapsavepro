@@ -45,7 +45,7 @@ export async function generateMetadata({
       creator: '@snapsavepro',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/audio`,
+      canonical: `${baseUrl}/en/pages/audio`,
       languages: {
         'en': `${baseUrl}/en/pages/audio`,
         'hi': `${baseUrl}/hi/pages/audio`,

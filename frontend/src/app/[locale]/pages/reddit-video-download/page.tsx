@@ -3,7 +3,7 @@ import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
-import RedditContentSection from "@/components/SEO/RedditContentSection";
+import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import { redditFAQs, redditReviews } from "@/data/redditSEOData";
 import type { Metadata } from "next";
 
@@ -48,7 +48,7 @@ export async function generateMetadata({
       creator: '@snapsavepro',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/reddit-video-download`,
+      canonical: `${baseUrl}/en/pages/reddit-video-download`,
       languages: {
         'en': `${baseUrl}/en/pages/reddit-video-download`,
         'hi': `${baseUrl}/hi/pages/reddit-video-download`,
@@ -109,7 +109,7 @@ const RedditPage = () => {
       <RedditDownloader/>
       <HowToDownload platform="Reddit" platformColor="orange" />
       <InfoSection platform="Reddit" platformColor="orange" />
-      <RedditContentSection />
+      <PlatformContentSection platform="reddit" platformColor="orange" />
       <FAQSection faqs={redditFAQs} platform="Reddit" />
       <ReviewsSection reviews={redditReviews} />
     </>

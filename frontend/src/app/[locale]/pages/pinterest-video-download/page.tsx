@@ -4,7 +4,7 @@ import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
-import PinterestContentSection from "@/components/SEO/PinterestContentSection";
+import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import { pinterestFAQs, pinterestReviews } from '@/data/pinterestSEOData';
 
 const localeToOGLocale: Record<string, string> = {
@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   return {
   title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free Online | SnapSavePro',
-  description: 'Free Pinterest video and image downloader. Download Pinterest pins in HD quality without watermarks. Fast, easy, and free - no registration required.',
+  description: 'Free Pinterest video and image downloader. Download Pinterest pins in HD quality. Fast, easy, and free - no registration required.',
   keywords: "pinterest video downloader, download pinterest videos, pinterest image downloader, save pinterest pins, pinterest downloader free, download from pinterest, pinterest video saver, pinterest image saver, pinterest pin downloader, pinterest media downloader, pinterest video download hd, pinterest gif downloader, free pinterest downloader, pinterest content downloader, save pinterest images",
   authors: [{ name: 'SnapSavePro' }],
   creator: 'SnapSavePro',
@@ -46,7 +46,7 @@ export async function generateMetadata({
     url: `${baseUrl}/${locale}/pages/pinterest-video-download`,
     siteName: 'SnapSavePro',
     title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free',
-    description: 'Download Pinterest videos and images in HD quality. Fast, free, and easy to use Pinterest downloader. No watermarks, no registration required.',
+    description: 'Download Pinterest videos and images in HD quality. Fast, free, and easy to use Pinterest downloader. No registration required.',
     images: [
       {
         url: 'https://snapsavepro.com/og-pinterest.jpg',
@@ -64,7 +64,7 @@ export async function generateMetadata({
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/pinterest-video-download`,
+    canonical: `${baseUrl}/en/pages/pinterest-video-download`,
       languages: {
         'en': `${baseUrl}/en/pages/pinterest-video-download`,
         'hi': `${baseUrl}/hi/pages/pinterest-video-download`,
@@ -86,7 +86,7 @@ export default function PinterestDownloadPage() {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'Pinterest Video Downloader - SnapSavePro',
-    description: 'Free online Pinterest video and image downloader. Download Pinterest pins in HD quality without watermarks.',
+    description: 'Free online Pinterest video and image downloader. Download Pinterest pins in HD quality.',
     url: 'https://snapsavepro.com/pages/pinterest-video-download',
     applicationCategory: 'MultimediaApplication',
     operatingSystem: 'Web Browser',
@@ -118,7 +118,7 @@ export default function PinterestDownloadPage() {
       <PinterestDownloader />
       <HowToDownload platform="Pinterest" platformColor="red" />
       <InfoSection platform="Pinterest" platformColor="red" />
-      <PinterestContentSection />
+      <PlatformContentSection platform="pinterest" platformColor="red" />
       <FAQSection faqs={pinterestFAQs} platform="Pinterest" />
       <ReviewsSection reviews={pinterestReviews} />
     </>

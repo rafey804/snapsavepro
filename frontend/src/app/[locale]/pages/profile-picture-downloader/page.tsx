@@ -39,7 +39,7 @@ export async function generateMetadata({
     description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer.',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/profile-picture-downloader`,
+    canonical: `${baseUrl}/en/pages/profile-picture-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/profile-picture-downloader`,
         'hi': `${baseUrl}/hi/pages/profile-picture-downloader`,

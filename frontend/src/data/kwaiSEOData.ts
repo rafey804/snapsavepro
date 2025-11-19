@@ -1,83 +1,31 @@
 export const kwaiFAQs = [
   {
-    question: "Is it legal to download Kwai videos?",
-    answer: "Yes, downloading Kwai videos for personal use is generally legal. However, you should respect copyright laws and the creator's rights when using downloaded videos. Personal archiving and offline viewing are acceptable, but republishing or monetizing someone else's content without permission may violate copyright laws and Kwai's Terms of Service. Always give credit to the original creator and obtain permission before using videos commercially or redistributing them on other platforms."
+    question: "Can I download Kwai trending videos from the Explore page?",
+    answer: "Yes, any video from Kwai's Explore or trending sections can be downloaded. Copy the video link and paste it into our tool for instant downloads."
   },
   {
-    question: "Can I download both short and long videos from Kwai?",
-    answer: "Absolutely! Our Kwai video downloader supports both short-form content (typically 15-60 seconds) and long-form videos (up to several minutes). Kwai offers a variety of content lengths, from quick comedy clips to extended vlogs and tutorials. Our tool handles all video durations seamlessly, processing and downloading them in the highest available quality regardless of length."
+    question: "How do I save Kwai comedy skits and memes?",
+    answer: "Comedy content downloads just like regular videos. Kwai's popular meme and sketch videos save in full quality with all effects and audio intact."
   },
   {
-    question: "Do I need to install any software to download Kwai videos?",
-    answer: "No installation required! Our Kwai video downloader is completely web-based and works directly in your browser. You don't need to download or install any software, browser extensions, or mobile applications. Simply paste the video URL into our website, select your preferred quality, and download instantly. This makes it safe, convenient, and accessible from any device - desktop, laptop, tablet, or smartphone - with internet access."
+    question: "Can I download Kwai videos from regional content creators?",
+    answer: "Absolutely! Our tool supports all Kwai regions including Brazil, India, Pakistan, and Southeast Asian markets. Download content in any language or region."
   },
   {
-    question: "What quality options are available for Kwai video downloads?",
-    answer: "We offer multiple quality options to suit your needs, including Full HD (1080p), HD (720p), SD (480p), and lower resolutions for smaller file sizes. The available qualities depend on how the video was originally uploaded to Kwai. We preserve the original video and audio quality without any re-encoding or compression, ensuring you get the best possible quality. For users with limited storage or slower internet connections, lower quality options provide faster downloads and smaller file sizes."
+    question: "How do I save Kwai challenge videos?",
+    answer: "Challenge and hashtag videos download normally. Browse any challenge, find videos you like, copy their links, and download them for your collection."
   },
   {
-    question: "Can I download Kwai videos on mobile devices?",
-    answer: "Yes, absolutely! Our Kwai video downloader is fully responsive and works perfectly on all mobile devices including iPhones, iPads, Android phones, and tablets. The interface automatically adapts to your screen size for optimal usability. You can paste the video URL, select your preferred quality and format, and download directly to your mobile device's storage. The mobile experience is just as smooth and efficient as the desktop version."
+    question: "Can I download Kwai videos with text overlays intact?",
+    answer: "Yes, all text overlays, stickers, and visual effects embedded by creators remain in downloaded videos. You get the complete video as posted."
   },
   {
-    question: "How long does it take to download a Kwai video?",
-    answer: "Download times are typically very fast, usually taking only 5-20 seconds to process and initiate your download. The actual download speed depends on several factors including your internet connection speed, the video's file size, and our server load. We use high-speed servers and advanced optimization techniques to ensure that processing is nearly instantaneous. Real-time progress updates keep you informed throughout the download process so you know exactly what's happening."
+    question: "How do I download Kwai talent show and performance videos?",
+    answer: "Performance videos from Kwai's talent features download in full quality. Perfect for saving singing, dancing, and variety show content offline."
   },
   {
-    question: "Is there a limit to how many Kwai videos I can download?",
-    answer: "No, there are absolutely no limits! You can download as many Kwai videos as you want, whenever you want, completely free of charge. Unlike some services that impose daily limits, require premium subscriptions for unlimited downloads, or throttle speeds after certain usage, we provide unrestricted access to all users. Whether you need to download one video or hundreds for a compilation project, our service is always available without any restrictions."
-  },
-  {
-    question: "Do downloaded Kwai videos have watermarks?",
-    answer: "The watermark situation depends on the original video. Some Kwai videos may have the creator's watermark or Kwai branding embedded in the video itself - these will be present in your download as they are part of the original content. However, our tool does not add any additional watermarks to your downloads. You receive the video exactly as it appears on Kwai, without any extra branding from our service."
-  },
-  {
-    question: "Can I extract just the audio from a Kwai video?",
-    answer: "Yes! We offer a dedicated audio extraction feature that allows you to download only the audio track from Kwai videos. This is perfect for saving music, podcasts, dialogue, sound effects, or voice-overs without the video component. You can choose between high-quality MP3 and AAC audio formats. This feature is especially useful for creating music playlists, audio compilations, or when you only need the sound without the visual component, saving storage space on your device."
-  },
-  {
-    question: "What video formats are available for download?",
-    answer: "We support multiple video formats to ensure maximum compatibility with your devices and software. Available formats include MP4 (the most universally compatible format, recommended for most users), WebM (offers smaller file sizes with good quality), and other formats depending on the original upload. For audio-only downloads, we provide MP3 and AAC formats. MP4 is the recommended format as it works with virtually all video players, editing software, and devices including smartphones, tablets, computers, and smart TVs."
-  },
-  {
-    question: "Do I need a Kwai account to use this downloader?",
-    answer: "No, you don't need a Kwai account to download videos using our service. You also don't need to create an account with us - there's no registration, sign-up, or login process required. Simply paste the public video URL and download - it's completely anonymous and hassle-free. However, you can only download publicly available videos. Private videos or content restricted to specific users cannot be downloaded without proper access permissions on Kwai itself."
-  },
-  {
-    question: "Is my privacy protected when using this service?",
-    answer: "Yes, your privacy is our absolute top priority. We implement comprehensive privacy protections: we don't store your downloaded videos on our servers, we don't track your browsing activity or download history, we don't create user profiles or collect personal information, and we don't sell or share any data with third parties. All downloads are processed through secure, encrypted connections (HTTPS). Your download history is not saved anywhere, and we use minimal cookies only for essential functionality, not for tracking or advertising purposes."
-  },
-  {
-    question: "Why does my download sometimes fail?",
-    answer: "Download failures can occur for several reasons. Common issues include: incorrect or malformed video URL, the video may have been deleted from Kwai, the video might be private or restricted to certain regions, temporary server issues on either Kwai's side or ours, or internet connectivity problems. If you experience a download failure, first verify that the URL is correct and complete, ensure the video is publicly accessible on Kwai, check your internet connection, and try refreshing the page. If problems persist after these checks, wait a few minutes and try again, as temporary server issues usually resolve quickly."
-  },
-  {
-    question: "Can I download Kwai videos from any country?",
-    answer: "Generally yes, our service works globally. However, some Kwai videos may be geo-restricted by the creator or due to regional content policies. If a video is not available in your region on Kwai itself, our downloader won't be able to access it either. We operate internationally and don't impose any regional restrictions on our service - if you can view the video on Kwai, you should be able to download it through our tool, regardless of your location."
-  },
-  {
-    question: "How can I find the URL of a Kwai video?",
-    answer: "Finding a Kwai video URL is easy. On the Kwai mobile app: open the video you want to download, tap the 'Share' button (usually three dots or an arrow icon), select 'Copy Link' from the sharing options. On Kwai's website: navigate to the video, right-click on the video or click the share button, select 'Copy Link' or copy the URL from your browser's address bar. The URL format typically looks like 'https://www.kwai.com/@username/video/...' or 'https://m.kwai.com/...'. Once you have the URL, simply paste it into our downloader."
-  },
-  {
-    question: "What makes Kwai videos unique compared to other platforms?",
-    answer: "Kwai has carved out a unique position in the social video space with several distinctive features. The platform emphasizes authentic, relatable content from everyday creators rather than polished professional productions. Kwai's algorithm prioritizes content discovery, helping smaller creators reach wider audiences more easily than on some competing platforms. The platform is particularly popular in certain markets including India, Russia, Brazil, and Southeast Asia, offering localized content and features. Kwai videos span both short-form (similar to TikTok) and longer-form content, giving creators more flexibility in their storytelling."
-  },
-  {
-    question: "Can I use downloaded Kwai videos for my own content?",
-    answer: "Using downloaded Kwai videos in your own content requires careful consideration of copyright and fair use. For personal, non-commercial use such as private viewing or archiving, it's generally acceptable. However, republishing, remixing, or incorporating Kwai videos into your commercial content requires permission from the original creator. Even with attribution, using someone else's content without explicit permission may violate copyright laws. Best practices include: always credit the original creator, seek explicit permission for commercial use, consider fair use doctrine for commentary or educational purposes, and when in doubt, create original content or use royalty-free alternatives."
-  },
-  {
-    question: "Does this downloader work with Kwai live streams?",
-    answer: "Our tool is primarily designed for downloading pre-recorded Kwai videos rather than live streams. Kwai live streams are broadcast in real-time and don't have a permanent URL until they're archived by the creator. If a creator saves their live stream as a video on their profile after broadcasting, you can then download it using our tool just like any other Kwai video. For active live streams, you would need specialized live stream recording software rather than a video downloader."
-  },
-  {
-    question: "Are there any video length limitations?",
-    answer: "No, our Kwai video downloader can handle videos of any length that Kwai supports - from very short 10-15 second clips to longer videos of several minutes. Unlike some services that impose time limits, we process all video durations equally. The main factor affecting download time is file size rather than duration - a high-quality 1080p video of 5 minutes will take longer to download than a low-quality 30-second clip, but both are fully supported by our system."
-  },
-  {
-    question: "What should I do if the video quality is poor after downloading?",
-    answer: "If your downloaded video has poor quality, first check that you selected the highest quality option available during download. The quality of your download cannot exceed the original upload quality on Kwai - if a video was uploaded in 480p, you won't be able to download it in 1080p. Ensure you have a stable internet connection during download, as interruptions can corrupt files. If issues persist, try clearing your browser cache, attempting the download again, or using a different browser. The video quality also depends on how it was originally recorded and uploaded by the creator."
+    question: "Can I save Kwai videos shared in chat or messages?",
+    answer: "If you receive a Kwai video link via message, you can download it using our tool. Just paste the shared link for instant video access."
   }
 ];
 

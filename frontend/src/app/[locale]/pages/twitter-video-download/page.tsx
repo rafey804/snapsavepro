@@ -46,7 +46,7 @@ export async function generateMetadata({
       images: ['https://snapsavepro.com/og-twitter.png'],
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/twitter-video-download`,
+      canonical: `${baseUrl}/en/pages/twitter-video-download`,
       languages: {
         'en': `${baseUrl}/en/pages/twitter-video-download`,
         'hi': `${baseUrl}/hi/pages/twitter-video-download`,
@@ -79,8 +79,8 @@ const TwitterPage = () => {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Twitter/X Video Downloader Without Watermark",
-            "description": "Download Twitter and X videos in HD quality without watermark. Fast, free, and easy video downloader.",
+            "name": "Twitter/X Video Downloader",
+            "description": "Download Twitter and X videos in HD quality. Fast, free, and easy video downloader.",
             "url": "https://snapsavepro.com/pages/twitter-video-download",
             "mainEntity": {
               "@type": "SoftwareApplication",
@@ -103,7 +103,7 @@ const TwitterPage = () => {
 
       {/* Main H1 Heading for SEO */}
       <header className="sr-only">
-        <h1>Twitter/X Video Downloader - Download Videos Without Watermark in HD Quality</h1>
+        <h1>Twitter/X Video Downloader - Download Videos in HD Quality</h1>
       </header>
 
       <TwitterDownloader/>

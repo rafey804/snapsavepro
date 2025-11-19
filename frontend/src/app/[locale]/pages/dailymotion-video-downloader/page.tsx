@@ -38,7 +38,7 @@ export async function generateMetadata({
     description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy.',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/dailymotion-video-downloader`,
+    canonical: `${baseUrl}/en/pages/dailymotion-video-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/dailymotion-video-downloader`,
         'hi': `${baseUrl}/hi/pages/dailymotion-video-downloader`,

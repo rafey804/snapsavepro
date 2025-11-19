@@ -74,7 +74,7 @@ export async function generateMetadata({
       creator: '@snapsavepro',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}`,
+      canonical: `${baseUrl}/en`,
       languages: {
         'en': `${baseUrl}/en`,
         'hi': `${baseUrl}/hi`,

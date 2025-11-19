@@ -1,63 +1,35 @@
 export const profilePicFAQs = [
   {
-    question: "How to download Instagram profile picture?",
-    answer: "Download Instagram profile pictures easily by entering the username in our tool. No need for URLs - just type the Instagram username (without @ symbol), click the search button, and you'll see the full-size profile picture. Then click the download button to save it in HD quality to your device. No login required, completely free, and works on all devices."
+    question: "Can I download profile pictures from multiple social platforms?",
+    answer: "Yes! Our tool supports Instagram, Facebook, Twitter, TikTok, YouTube, LinkedIn, and more. Download profile pictures from any major social media platform in one place."
   },
   {
-    question: "Can I download profile pictures from private accounts?",
-    answer: "You can download profile pictures from private Instagram accounts only if the profile picture itself is set to public. Most profile pictures are visible even on private accounts. If you can see the profile picture on Instagram, you can download it with our tool. However, if the account has completely restricted access, the profile picture won't be available."
+    question: "How do I download profile pictures in original quality?",
+    answer: "Enter the username and our tool fetches the highest resolution available, up to 4K quality. No compression or quality loss, just the original image."
   },
   {
-    question: "How to see full size dp on Instagram?",
-    answer: "Instagram doesn't allow you to view profile pictures in full size on their app or website. Our DP viewer tool solves this problem by displaying Instagram profile pictures in their original full HD resolution. Simply enter the username, and you'll be able to view and zoom the profile picture in full size. You can also download it for offline viewing."
+    question: "Can I save profile pictures without creating an account?",
+    answer: "Absolutely! No registration needed on any platform. Enter the username, view the full-size picture, and download anonymously without signing in anywhere."
   },
   {
-    question: "Is it legal to download someone's profile picture?",
-    answer: "Downloading profile pictures for personal use (like saving a friend's photo or viewing in full size) is generally acceptable. However, using someone's profile picture without permission for commercial purposes, impersonation, or harassment is illegal and violates privacy laws and platform terms of service. Always respect privacy and use downloaded images responsibly."
+    question: "How do I view Facebook profile pictures in full size?",
+    answer: "Facebook limits profile picture display size. Enter the Facebook username in our tool to view and download the full HD version that Facebook hides."
   },
   {
-    question: "Do I need to login to download profile pictures?",
-    answer: "No login required! You don't need to sign in to Instagram, Facebook, Twitter, or any other platform to download profile pictures. Our tool works completely anonymously - just enter the username and download. No registration, no personal information required, completely free and private."
+    question: "Can I download YouTube channel profile pictures?",
+    answer: "Yes, YouTube channel avatars can be downloaded in high quality. Enter the channel name or ID to fetch and save their profile picture."
   },
   {
-    question: "What platforms are supported for profile picture downloads?",
-    answer: "We support all major social media platforms including Instagram, Facebook, Twitter/X, TikTok, YouTube, LinkedIn, WhatsApp, and Telegram. Download profile pictures from any of these platforms in full HD quality. Simply select your platform, enter the username, and download instantly."
+    question: "How do I save LinkedIn profile photos in HD?",
+    answer: "Enter the LinkedIn profile username to download professional profile photos in their original quality. Perfect for business directories and contact lists."
   },
   {
-    question: "What quality are the downloaded profile pictures?",
-    answer: "We provide profile pictures in the highest quality available - up to 4K resolution depending on the original upload. Download Instagram DPs in full HD (1080p or higher), Facebook profile pics in original quality, and all other platform pictures in their maximum available resolution. No compression, no quality loss."
+    question: "Can I download TikTok profile pictures?",
+    answer: "Yes, TikTok profile pictures download just like other platforms. Enter the TikTok username to view and save their avatar in full resolution."
   },
   {
-    question: "Can I download profile pictures on mobile?",
-    answer: "Yes! Our profile picture downloader works perfectly on all mobile devices including iPhone, iPad, Android phones, and tablets. The interface is fully responsive and optimized for mobile use. Download Instagram DPs, Facebook profile pics, and more directly to your mobile device's gallery."
-  },
-  {
-    question: "How to save Facebook dp in HD?",
-    answer: "To save Facebook profile pictures in HD: 1) Copy the person's Facebook username or profile URL, 2) Select Facebook from our platform options, 3) Paste the username or URL, 4) View the full HD profile picture, 5) Click download to save in original quality. Our tool fetches the highest resolution version available."
-  },
-  {
-    question: "Are downloaded profile pictures saved on your servers?",
-    answer: "No, we never save or store any profile pictures. All images are fetched directly from the social media platform's servers and delivered to your device. We don't keep copies, create databases, or track what you download. Your privacy is completely protected."
-  },
-  {
-    question: "Can I download multiple profile pictures at once?",
-    answer: "Currently, our tool processes one profile picture at a time to ensure the highest quality and fastest speeds. However, you can download as many profile pictures as you want - there are no limits. Simply enter each username one by one and download."
-  },
-  {
-    question: "What format are downloaded profile pictures?",
-    answer: "Profile pictures are available in JPG and PNG formats. JPG is recommended for smaller file sizes while maintaining high quality. PNG is perfect if you need transparency support or want the absolute highest quality without any compression. Both formats are universally compatible with all devices and applications."
-  },
-  {
-    question: "Why can't I see some profile pictures?",
-    answer: "If a profile picture doesn't load, possible reasons include: the account doesn't exist, the username is incorrect, the account is completely private with restricted profile picture access, the account was deleted or banned, or there's a temporary server issue. Verify the username is correct and the profile is accessible on the actual platform."
-  },
-  {
-    question: "How to download Twitter profile picture?",
-    answer: "Download Twitter (X) profile pictures by entering the Twitter username without the @ symbol. Our tool will fetch the profile picture in its original quality and display it for preview. Click the download button to save the Twitter DP to your device. Works with all Twitter accounts - personal, verified, and business accounts."
-  },
-  {
-    question: "Can I zoom profile pictures before downloading?",
-    answer: "Yes! Our profile picture viewer includes a zoom feature that lets you view the full-size profile picture before downloading. Click on the image to zoom in and see every detail in high resolution. This helps you verify the quality and see the picture clearly before saving it to your device."
+    question: "How do I download WhatsApp profile pictures?",
+    answer: "For WhatsApp profile pictures, you'll need the phone number or contact information. Our tool can help you view and download available public WhatsApp display pictures."
   }
 ];
 

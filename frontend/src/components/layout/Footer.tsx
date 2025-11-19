@@ -12,7 +12,7 @@ export default function ProfessionalFooter() {
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/10 via-emerald-600/5 to-purple-600/10" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
-        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
@@ -82,6 +82,25 @@ export default function ProfessionalFooter() {
             </ul>
           </div>
 
+          {/* Resources & Guides */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4 text-white">Resources & Guides</h4>
+            <ul className="space-y-3">
+              <li><Link href='/pages/platform-comparison-guide' className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 text-sm flex items-center gap-2">
+                <span className="text-cyan-400">📊</span> Platform Comparison
+              </Link></li>
+              <li><Link href='/pages/video-quality-technical-guide' className="text-gray-300 hover:text-purple-400 transition-colors duration-200 text-sm flex items-center gap-2">
+                <span className="text-purple-400">🎬</span> Video Quality Guide
+              </Link></li>
+              <li><Link href='/pages/legal-copyright-guide' className="text-gray-300 hover:text-blue-400 transition-colors duration-200 text-sm flex items-center gap-2">
+                <span className="text-blue-400">⚖️</span> Legal & Copyright
+              </Link></li>
+              <li><Link href='/pages/content-creator-handbook' className="text-gray-300 hover:text-pink-400 transition-colors duration-200 text-sm flex items-center gap-2">
+                <span className="text-pink-400">📚</span> Creator's Handbook
+              </Link></li>
+            </ul>
+          </div>
+
           {/* Quick Links */}
           <div>
             <h4 className="text-lg font-semibold mb-4 text-white">{t('quickLinks')}</h4>
@@ -89,7 +108,7 @@ export default function ProfessionalFooter() {
               <li><Link href='/' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('home')}</Link></li>
               <li><Link href='/pages/how-it-works' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('howItWorks')}</Link></li>
               <li><Link href='/pages/faqs' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('faq')}</Link></li>
-              <li><Link href='/pages/contact' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('contact')}</Link></li>
+              <li><Link href='/pages/about' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">About Us</Link></li>
             </ul>
           </div>
 
@@ -99,7 +118,7 @@ export default function ProfessionalFooter() {
             <ul className="space-y-3">
               <li><Link href='/pages/legal/privacy-policy' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('privacyPolicy')}</Link></li>
               <li><Link href='/pages/legal/terms-of-service' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('termsOfService')}</Link></li>
-              <li><Link href='/pages/contact' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">{t('support')}</Link></li>
+              <li><Link href='/blog' className="text-gray-300 hover:text-white transition-colors duration-200 text-sm">Blog</Link></li>
             </ul>
           </div>
         </div>

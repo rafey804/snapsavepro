@@ -41,7 +41,7 @@ export async function generateMetadata({
     images: ['/og-terms.png'],
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/legal/terms-of-service`,
+    canonical: `${baseUrl}/en/pages/legal/terms-of-service`,
       languages: {
         'en': `${baseUrl}/en/pages/legal/terms-of-service`,
         'hi': `${baseUrl}/hi/pages/legal/terms-of-service`,

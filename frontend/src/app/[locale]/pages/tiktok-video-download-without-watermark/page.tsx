@@ -4,6 +4,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import TikTokContentSection from "@/components/SEO/TikTokContentSection";
+import TikTokUniqueContent from "@/components/SEO/TikTokUniqueContent";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
 import { homePageSEO } from "@/data/comprehensiveSEOData";
@@ -54,7 +55,7 @@ export async function generateMetadata({
       creator: '@snapsavepro',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/tiktok-video-download-without-watermark`,
+      canonical: `${baseUrl}/en/pages/tiktok-video-download-without-watermark`,
       languages: {
         'en': `${baseUrl}/en/pages/tiktok-video-download-without-watermark`,
         'hi': `${baseUrl}/hi/pages/tiktok-video-download-without-watermark`,
@@ -122,6 +123,7 @@ const TikTokPage = () => {
       <HowToDownload platform="TikTok" platformColor="pink" />
       <InfoSection platform="TikTok" platformColor="pink" />
       <TikTokContentSection />
+      <TikTokUniqueContent />
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />
       <ReviewsSection reviews={tiktokReviews} />
     </>

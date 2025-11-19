@@ -3,6 +3,7 @@ import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
+import YouTubeUniqueContent from "@/components/SEO/YouTubeUniqueContent";
 import { youtubeFAQs, youtubeReviews } from "@/data/youtubeSEOData";
 import type { Metadata } from "next";
 
@@ -51,7 +52,7 @@ export async function generateMetadata({
       creator: '@snapsavepro',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/youtube-downloader`,
+      canonical: `${baseUrl}/en/pages/youtube-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/youtube-downloader`,
         'hi': `${baseUrl}/hi/pages/youtube-downloader`,
@@ -208,6 +209,7 @@ const YouTubePage = () => {
       <TikTokDownloader/>
       <HowToDownload platform="YouTube" platformColor="red" />
       <InfoSection platform="YouTube" platformColor="red" />
+      <YouTubeUniqueContent />
       <FAQSection faqs={youtubeFAQs || []} platform="YouTube" />
       <ReviewsSection reviews={youtubeReviews || []} />
     </>

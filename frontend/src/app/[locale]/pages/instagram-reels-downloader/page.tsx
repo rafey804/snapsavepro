@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import InstagramDownloader from '@/components/home/InstagramDownloader';
 import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import InstagramUniqueContent from '@/components/SEO/InstagramUniqueContent';
 import { getTranslations } from 'next-intl/server';
 
 // Locale to OG locale mapping
@@ -62,7 +63,7 @@ export async function generateMetadata({
       },
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/instagram-reels-downloader`,
+      canonical: `${baseUrl}/en/pages/instagram-reels-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/instagram-reels-downloader`,
         'hi': `${baseUrl}/hi/pages/instagram-reels-downloader`,
@@ -134,6 +135,7 @@ export default function InstagramDownloaderPage() {
 
       {/* SEO Content Section */}
       <PlatformContentSection platform="instagram" platformColor="teal" />
+      <InstagramUniqueContent />
     </>
   );
 }

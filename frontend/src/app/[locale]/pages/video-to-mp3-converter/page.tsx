@@ -79,7 +79,7 @@ export async function generateMetadata({
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/video-to-mp3-converter`,
+    canonical: `${baseUrl}/en/pages/video-to-mp3-converter`,
     languages: {
       'en': `${baseUrl}/en/pages/video-to-mp3-converter`,
       'hi': `${baseUrl}/hi/pages/video-to-mp3-converter`,

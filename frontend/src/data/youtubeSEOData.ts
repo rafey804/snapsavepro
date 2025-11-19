@@ -1,63 +1,35 @@
 export const youtubeFAQs = [
   {
-    question: "How to download YouTube videos for free?",
-    answer: "Simply copy the YouTube video URL, paste it into SnapSavePro's downloader, select your preferred format (MP4 or MP3) and quality, then click download. It's completely free with no registration required."
+    question: "Can I download YouTube Shorts separately from regular videos?",
+    answer: "Yes, YouTube Shorts download the same way as regular videos. Copy the Shorts link and paste it into our tool for instant downloads in vertical format."
   },
   {
-    question: "Can I download YouTube videos in HD quality?",
-    answer: "Yes! SnapSavePro supports downloading YouTube videos in various HD qualities including 720p, 1080p, and even 4K resolution when available."
+    question: "How do I download entire YouTube playlists?",
+    answer: "While bulk playlist download isn't available, you can quickly download each video individually by copying their URLs. Each video processes in seconds for efficient batch saving."
   },
   {
-    question: "Is it legal to download YouTube videos?",
-    answer: "Downloading YouTube videos is allowed for personal, offline viewing only. You should respect copyright laws and only download videos you have permission to use. Always follow YouTube's Terms of Service."
+    question: "Can I download age-restricted YouTube content?",
+    answer: "Age-restricted videos can be downloaded if they're publicly accessible. Some heavily restricted content may require verification, but most public age-gated videos work fine."
   },
   {
-    question: "Can I convert YouTube videos to MP3?",
-    answer: "Yes, SnapSavePro allows you to extract audio from YouTube videos and download it as high-quality MP3 files up to 320kbps."
+    question: "How do I save YouTube live stream recordings?",
+    answer: "Once a live stream ends and is saved to the channel, you can download it like any regular video. Active streams cannot be captured."
   },
   {
-    question: "Does YouTube downloader work on mobile?",
-    answer: "Absolutely! SnapSavePro works perfectly on all devices including iPhone, Android, tablets, and desktop computers. No app installation needed."
+    question: "Can I download all videos from a YouTube channel?",
+    answer: "You can download channel videos individually by copying each video URL. Visit the channel's videos tab, select the content you want, and download them one by one."
   },
   {
-    question: "How long does it take to download a YouTube video?",
-    answer: "Download time depends on video length and quality. Most videos download within 30 seconds to 2 minutes. Our servers are optimized for fast downloads."
+    question: "How do I download YouTube videos with subtitles?",
+    answer: "Subtitles are embedded in many videos and will be included if they're burned into the video. Separate subtitle files are not currently available for download."
   },
   {
-    question: "Do I need to install any software?",
-    answer: "No installation required! SnapSavePro is a web-based tool that works directly in your browser. Just visit our website and start downloading."
+    question: "Can I download YouTube Premium exclusive content?",
+    answer: "Only publicly available YouTube content can be downloaded. Premium-exclusive or membership-only content requires proper access permissions and may not be downloadable."
   },
   {
-    question: "What video formats are supported?",
-    answer: "We support MP4 (video), MP3 (audio), WEBM, and M4A formats. MP4 is the most popular and works on all devices."
-  },
-  {
-    question: "Can I download YouTube Shorts?",
-    answer: "Yes, you can download YouTube Shorts videos using the same process. Copy the Shorts URL and paste it into our downloader."
-  },
-  {
-    question: "Is there a download limit?",
-    answer: "No limits! Download as many YouTube videos as you want, completely free. We don't restrict the number of downloads."
-  },
-  {
-    question: "Why is my YouTube video not downloading?",
-    answer: "Make sure the URL is correct and the video is publicly available. Private, age-restricted, or region-locked videos may not be downloadable. Try refreshing the page and trying again."
-  },
-  {
-    question: "Can I download YouTube playlists?",
-    answer: "Currently, you need to download videos individually. Copy each video URL from the playlist and download them one by one."
-  },
-  {
-    question: "Does downloading affect video quality?",
-    answer: "No, we preserve the original video quality. You can choose the quality you want, and we'll deliver exactly that without compression."
-  },
-  {
-    question: "Is SnapSavePro safe to use?",
-    answer: "Yes, SnapSavePro is completely safe. We don't require registration, don't install any software on your device, and don't store your personal information."
-  },
-  {
-    question: "Can I download YouTube live streams?",
-    answer: "You can download YouTube live streams after they've ended and been saved as regular videos. Active live streams cannot be downloaded."
+    question: "How do I save YouTube music videos in audio-only format?",
+    answer: "Select the MP3 format option when downloading. Our tool extracts high-quality audio up to 320kbps, perfect for creating offline music libraries from YouTube."
   }
 ];
 

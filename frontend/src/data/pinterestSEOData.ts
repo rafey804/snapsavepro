@@ -1,27 +1,35 @@
 export const pinterestFAQs = [
   {
-    question: "How to download Pinterest videos?",
-    answer: "Simply copy the Pinterest pin URL, paste it into our downloader, and click 'Get Content'. You can then choose your preferred video quality and download the Pinterest video to your device for free."
+    question: "Can I download Pinterest Idea Pins versus regular video pins?",
+    answer: "Yes, both Idea Pins and standard video pins can be downloaded. Idea Pins with multiple pages require downloading each segment individually."
   },
   {
-    question: "Can I download Pinterest images?",
-    answer: "Yes! Our Pinterest downloader supports both video and image downloads. You can download high-quality Pinterest images in their original resolution without watermarks."
+    question: "How do I save videos from Pinterest boards?",
+    answer: "Open any video pin from a board, copy the pin's URL, and paste it into our downloader. You can download videos from both public and your own boards."
   },
   {
-    question: "Is it free to download from Pinterest?",
-    answer: "Absolutely! Our Pinterest video and image downloader is completely free with no hidden fees, subscriptions, or limitations on the number of downloads."
+    question: "Can I download Pinterest recipe videos?",
+    answer: "Absolutely! Recipe videos download with all content intact. Perfect for saving cooking tutorials, step-by-step instructions, and culinary inspiration offline."
   },
   {
-    question: "What video quality can I download?",
-    answer: "We offer multiple quality options for Pinterest videos including HD, Full HD, and the original quality uploaded by the creator. Choose the quality that best suits your needs."
+    question: "How do I save DIY tutorial videos from Pinterest?",
+    answer: "Copy the pin URL of any DIY video and download it in HD. Great for keeping craft tutorials, home improvement guides, and project instructions accessible offline."
   },
   {
-    question: "Do I need to install any software?",
-    answer: "No installation required! Our Pinterest downloader is a web-based tool that works directly in your browser. Just paste the Pinterest URL and download."
+    question: "What's the difference between video pins and static pins?",
+    answer: "Video pins are downloadable as MP4 files, while static pins are saved as images. Our tool automatically detects the content type and provides appropriate download options."
   },
   {
-    question: "Can I download private Pinterest pins?",
-    answer: "No, you can only download public Pinterest pins. Private or restricted pins cannot be downloaded as they require special access permissions."
+    question: "Can I download Pinterest stories or only permanent pins?",
+    answer: "Our tool works with permanent pins. Pinterest Stories are temporary and may not have permanent URLs for downloading once they expire."
+  },
+  {
+    question: "How do I download videos from Pinterest collections?",
+    answer: "Navigate to the specific pin within your collection, copy its URL, and download. Collections are just organizational tools, individual pins download normally."
+  },
+  {
+    question: "Can I save Pinterest ads or promoted pins?",
+    answer: "Promoted pins and ads download like regular pins if they're publicly accessible. Copy the pin URL and our tool will fetch the video content."
   }
 ];
 

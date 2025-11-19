@@ -57,7 +57,7 @@ export async function generateMetadata({
     },
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/linkedin-video-downloader`,
+    canonical: `${baseUrl}/en/pages/linkedin-video-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/linkedin-video-downloader`,
         'hi': `${baseUrl}/hi/pages/linkedin-video-downloader`,

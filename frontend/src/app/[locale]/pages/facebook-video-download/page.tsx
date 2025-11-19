@@ -4,6 +4,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
+import FacebookUniqueContent from "@/components/SEO/FacebookUniqueContent";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { facebookFAQs, facebookReviews } from "@/data/pageSEOData";
 import { facebookPageSEO } from "@/data/comprehensiveSEOData";
@@ -49,7 +50,7 @@ export async function generateMetadata({
       creator: '@snapsavepro',
     },
     alternates: {
-      canonical: `${baseUrl}/${locale}/pages/facebook-video-download`,
+      canonical: `${baseUrl}/en/pages/facebook-video-download`,
       languages: {
         'en': `${baseUrl}/en/pages/facebook-video-download`,
         'hi': `${baseUrl}/hi/pages/facebook-video-download`,
@@ -72,6 +73,7 @@ const FacebookPage = () => {
       <HowToDownload platform="Facebook" platformColor="blue" />
       <InfoSection platform="Facebook" platformColor="blue" />
       <PlatformContentSection platform="facebook" platformColor="blue" />
+      <FacebookUniqueContent />
       <FAQSection faqs={facebookFAQs} platform="Facebook" />
       <ReviewsSection reviews={facebookReviews} />
     </>

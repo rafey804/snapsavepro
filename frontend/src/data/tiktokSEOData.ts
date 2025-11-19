@@ -1,36 +1,36 @@
 // TikTok FAQs
 export const tiktokFAQs = [
   {
-    question: "How do I download TikTok videos without watermark?",
-    answer: "Simply copy the TikTok video URL and paste it into Snap Save Pro. Our tool automatically removes the watermark and provides HD quality downloads for free."
+    question: "Can I download TikTok Duets and Stitches?",
+    answer: "Yes, you can download any TikTok video including Duets and Stitches. Our tool captures the complete video with all combined content intact in HD quality."
   },
   {
-    question: "Is Snap Save Pro safe to use?",
-    answer: "Yes, absolutely! Snap Save Pro is 100% safe and secure. We don't require login, don't store videos, and protect your privacy completely."
+    question: "How do I save TikTok videos with original sounds?",
+    answer: "All TikTok videos are downloaded with their original audio preserved, including trending sounds, music, and voiceovers. The sound quality matches the original upload."
   },
   {
-    question: "Can I download TikTok videos on mobile?",
-    answer: "Yes! Our TikTok downloader works perfectly on all devices - iPhone, Android, tablets, and computers. Fully responsive design for mobile use."
+    question: "Can I download TikTok Live recordings?",
+    answer: "TikTok Live recordings can be downloaded once they're saved to the creator's profile. Active live streams cannot be captured, but replays are fully downloadable."
   },
   {
-    question: "What quality options are available?",
-    answer: "We offer multiple quality options including SD, HD, and Full HD. You can choose the quality that best fits your needs and storage space."
+    question: "How do I save videos from my For You Page?",
+    answer: "Simply tap the share button on any FYP video, copy the link, and paste it into our downloader. You can save any video from your For You feed."
   },
   {
-    question: "Do I need to install any app or software?",
-    answer: "No installation needed! Snap Save Pro is a web-based tool that works directly in your browser without any downloads or installations."
+    question: "Can I download videos from TikTok Creator mode accounts?",
+    answer: "Absolutely! Videos from Creator mode accounts download just like regular TikTok videos. All quality options and features work the same regardless of account type."
   },
   {
-    question: "Can I download TikTok videos with sound?",
-    answer: "Absolutely! All TikTok downloads include audio by default. You can also extract audio-only MP3 files from TikTok videos."
+    question: "How do I download TikTok Shop product videos?",
+    answer: "TikTok Shop videos can be downloaded by copying the video link. Product tags and overlays remain in the video as they're part of the original content."
   },
   {
-    question: "Is there a limit on downloads?",
-    answer: "No limits! Download unlimited TikTok videos for free. No registration, no premium plans, completely unlimited access."
+    question: "Can I save TikTok videos without the watermark?",
+    answer: "Yes, our tool removes the TikTok watermark automatically. Download clean videos in HD quality perfect for repurposing or personal collections."
   },
   {
-    question: "How long does it take to download?",
-    answer: "Downloads are super fast! Usually completed within seconds. Our optimized servers ensure quick processing and download speeds."
+    question: "How do I download TikTok videos with effects intact?",
+    answer: "All TikTok effects, filters, and transitions are preserved in downloads. You get the complete video exactly as it appears on TikTok including all visual effects."
   }
 ];
 

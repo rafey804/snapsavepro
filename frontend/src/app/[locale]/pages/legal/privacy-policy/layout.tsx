@@ -41,7 +41,7 @@ export async function generateMetadata({
     images: ['/og-privacy.png'],
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/legal/privacy-policy`,
+    canonical: `${baseUrl}/en/pages/legal/privacy-policy`,
       languages: {
         'en': `${baseUrl}/en/pages/legal/privacy-policy`,
         'hi': `${baseUrl}/hi/pages/legal/privacy-policy`,

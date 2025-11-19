@@ -1,28 +1,32 @@
 // Twitter/X FAQs and Reviews
 export const twitterFAQs = [
   {
-    question: "Can I download Twitter videos without watermark?",
-    answer: "Yes! Snap Save Pro supports downloading Twitter/X videos in HD quality without watermarks. Simply paste the tweet URL and select your preferred quality."
+    question: "Can I download videos from Twitter thread posts?",
+    answer: "Yes, you can download videos from any tweet in a thread. Copy the specific tweet's URL containing the video and paste it into our downloader."
   },
   {
-    question: "Does this work with X (formerly Twitter)?",
-    answer: "Absolutely! Our downloader fully supports both twitter.com and x.com URLs. Download videos from any public tweet on X platform."
+    question: "How do I save Twitter Spaces recordings?",
+    answer: "Twitter Spaces recordings can be downloaded if the host has saved them publicly. Copy the Spaces link and our tool will extract the audio for download."
   },
   {
-    question: "Can I download videos from private Twitter accounts?",
-    answer: "Videos from private accounts can only be downloaded if you have viewing access. Public tweets can be downloaded by anyone."
+    question: "Can I download Twitter GIFs or only videos?",
+    answer: "Both work! Twitter GIFs are actually short video files. Download them as MP4 videos, and they'll loop just like the original GIFs."
   },
   {
-    question: "What video qualities are available?",
-    answer: "We support multiple qualities including 1080p, 720p, 480p, and more. Choose the quality that best suits your needs and internet speed."
+    question: "How do I download videos from quote tweets?",
+    answer: "Videos in quote tweets download normally. Copy the URL of the quote tweet containing the video, and our tool will fetch it in your chosen quality."
   },
   {
-    question: "Can I extract audio from Twitter videos?",
-    answer: "Yes! Our tool allows you to download audio-only MP3 files from Twitter videos in various bitrates including 192kbps and 128kbps."
+    question: "Can I save multiple videos from one tweet?",
+    answer: "If a tweet has multiple videos, you'll need to access each video individually. Click on each video to get its direct link, then download them separately."
   },
   {
-    question: "Is registration required to download Twitter videos?",
-    answer: "No registration or login needed! Just paste the Twitter/X URL and download instantly without creating any account."
+    question: "How do I download Twitter videos on X app?",
+    answer: "Tap the share button on any tweet with video, select 'Copy link', then paste the URL into our web-based downloader. Works seamlessly with the X mobile app."
+  },
+  {
+    question: "Can I download videos from Twitter Moments?",
+    answer: "Yes, navigate to the specific tweet within the Moment that contains the video, copy its URL, and download it like any other Twitter video."
   }
 ];
 

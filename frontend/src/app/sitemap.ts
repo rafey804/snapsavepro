@@ -31,9 +31,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/blog', priority: 0.6, changeFrequency: 'weekly' as const },
     { path: '/pages/how-it-works', priority: 0.7, changeFrequency: 'weekly' as const },
     { path: '/pages/faqs', priority: 0.7, changeFrequency: 'weekly' as const },
+    { path: '/pages/about', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/pages/contact', priority: 0.6, changeFrequency: 'monthly' as const },
     { path: '/pages/legal/privacy-policy', priority: 0.5, changeFrequency: 'monthly' as const },
     { path: '/pages/legal/terms-of-service', priority: 0.5, changeFrequency: 'monthly' as const },
+    // New Resource & Guide Pages for AdSense
+    { path: '/pages/platform-comparison-guide', priority: 0.85, changeFrequency: 'weekly' as const },
+    { path: '/pages/video-quality-technical-guide', priority: 0.85, changeFrequency: 'weekly' as const },
+    { path: '/pages/legal-copyright-guide', priority: 0.85, changeFrequency: 'weekly' as const },
+    { path: '/pages/content-creator-handbook', priority: 0.85, changeFrequency: 'weekly' as const },
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];

@@ -41,7 +41,7 @@ export async function generateMetadata({
     images: ['/og-how-it-works.png'],
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/how-it-works`,
+    canonical: `${baseUrl}/en/pages/how-it-works`,
       languages: {
         'en': `${baseUrl}/en/pages/how-it-works`,
         'hi': `${baseUrl}/hi/pages/how-it-works`,

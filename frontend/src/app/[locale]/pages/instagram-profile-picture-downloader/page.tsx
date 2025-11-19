@@ -39,7 +39,7 @@ export async function generateMetadata({
     description: 'Download Instagram profile pictures in full HD quality. View and save any Instagram DP without login.',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/instagram-profile-picture-downloader`,
+    canonical: `${baseUrl}/en/pages/instagram-profile-picture-downloader`,
       languages: {
         'en': `${baseUrl}/en/pages/instagram-profile-picture-downloader`,
         'hi': `${baseUrl}/hi/pages/instagram-profile-picture-downloader`,

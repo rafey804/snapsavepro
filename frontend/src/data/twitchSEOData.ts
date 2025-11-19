@@ -1,63 +1,35 @@
 export const twitchFAQs = [
   {
-    question: "Is it legal to download Twitch clips?",
-    answer: "Yes, downloading Twitch clips for personal use is generally legal. However, you should respect copyright laws and the streamer's rights when using downloaded clips. Personal archiving and offline viewing are acceptable, but republishing or monetizing someone else's content without permission may violate copyright laws and Twitch's Terms of Service. Always give credit to the original creator and obtain permission before using clips commercially."
+    question: "Can I download clips from Twitch VODs?",
+    answer: "You can create clips from VODs on Twitch first, then download those clips using our tool. Direct VOD downloads aren't supported, but all saved clips work perfectly."
   },
   {
-    question: "Do I need to install any software to download Twitch clips?",
-    answer: "No installation required! Our Twitch clip downloader is completely web-based and works directly in your browser. You don't need to download or install any software, browser extensions, or applications. Simply paste the clip URL into our website, and you can download the clip instantly. This makes it safe, convenient, and accessible from any device with internet access."
+    question: "How do I save Twitch highlight reels?",
+    answer: "Highlight reels are longer than standard clips. If they're saved as VODs, you'll need to clip specific moments first, then download those individual clips."
   },
   {
-    question: "What quality options are available for Twitch clip downloads?",
-    answer: "We offer all quality options that were available during the original broadcast, including source quality (the highest available), 1080p60fps, 720p60fps, 720p30fps, 480p, and 360p. The available qualities depend on how the clip was originally streamed. We preserve the original video and audio quality without any re-encoding or compression, ensuring you get the best possible quality."
+    question: "Can I download Twitch clips from deleted channels?",
+    answer: "Unfortunately, clips from deleted or banned channels are removed from Twitch servers. Download clips you want to preserve while the channel is still active."
   },
   {
-    question: "Can I download Twitch clips on mobile devices?",
-    answer: "Absolutely! Our Twitch clip downloader is fully responsive and works perfectly on all mobile devices including iPhones, iPads, Android phones, and tablets. The interface automatically adapts to your screen size for optimal usability. You can paste the clip URL, select your preferred quality, and download directly to your mobile device's storage."
+    question: "How do I download clips with streamer overlays intact?",
+    answer: "All overlays, alerts, and stream graphics are preserved in downloads. You get the complete clip exactly as it appeared during the live stream."
   },
   {
-    question: "How long does it take to download a Twitch clip?",
-    answer: "Download times are typically very fast, usually taking only 5-15 seconds to process your request. The actual download speed depends on your internet connection and the clip's file size. Our high-speed servers ensure that processing is nearly instantaneous, and we provide real-time progress updates during the download process so you know exactly what's happening."
+    question: "Can I save Twitch clips from subscriber-only streams?",
+    answer: "Subscriber-only clips can only be accessed if you're subscribed. Our tool downloads publicly accessible clips without requiring Twitch login."
   },
   {
-    question: "Is there a limit to how many clips I can download?",
-    answer: "No, there are absolutely no limits! You can download as many Twitch clips as you want, whenever you want, completely free. Unlike some services that impose daily limits or require premium subscriptions for unlimited downloads, we provide unrestricted access to all users. Whether you need to download one clip or hundreds, our service is always available."
+    question: "How do I download tournament or esports clips from Twitch?",
+    answer: "Tournament clips download like any other Twitch clip. Copy the clip URL from official tournament channels and save in source quality for best results."
   },
   {
-    question: "Can I download Twitch clips that are deleted or removed?",
-    answer: "Unfortunately, once a clip is deleted from Twitch's servers, it cannot be downloaded anymore. This is why we recommend downloading clips you want to preserve as soon as possible. Clips can be deleted by the streamer, removed due to DMCA claims, or lost if a channel is banned or deleted. Our tool can only download clips that are currently available on Twitch's platform."
+    question: "Can I download clips with Twitch chat replay?",
+    answer: "Clips contain only the video content, not the chat overlay. Chat replays are a separate Twitch feature not included in downloaded clips."
   },
   {
-    question: "Do downloaded clips have watermarks?",
-    answer: "No, clips downloaded through our service do not have any watermarks added by our tool. You receive the original Twitch clip exactly as it appears on the platform. However, note that if the original stream had overlays, logos, or watermarks from the streamer, those will be present in the downloaded clip as they are part of the original content."
-  },
-  {
-    question: "Can I extract just the audio from a Twitch clip?",
-    answer: "Yes! We offer an audio extraction feature that allows you to download only the audio track from Twitch clips. This is perfect for creating podcasts, sound effects libraries, music compilations, or when you only need the streamer's commentary without the video. You can choose between MP3 and AAC audio formats, both available in high quality."
-  },
-  {
-    question: "What formats are available for downloaded clips?",
-    answer: "We support multiple formats to ensure compatibility with your needs. For video, we offer MP4 (most universally compatible), WebM (smaller file sizes), and FLV formats. For audio-only downloads, we provide MP3 and AAC formats. MP4 is recommended for most users as it works with virtually all video players and editing software."
-  },
-  {
-    question: "Do I need a Twitch account to use this downloader?",
-    answer: "No, you don't need a Twitch account to download clips using our service. You also don't need to create an account with us. Simply paste the public clip URL and download - it's completely anonymous and hassle-free. However, you can only download publicly available clips; private or subscriber-only clips cannot be downloaded."
-  },
-  {
-    question: "Is my privacy protected when using this service?",
-    answer: "Yes, your privacy is our top priority. We don't store your downloaded clips, track your activity, create user profiles, or require personal information. All downloads are processed through secure, encrypted connections. We don't sell or share any data with third parties. Your download history is not saved, and we don't use cookies to track you across the internet."
-  },
-  {
-    question: "Why does my download fail sometimes?",
-    answer: "Download failures can occur for several reasons: the clip URL might be incorrect or malformed, the clip may have been deleted from Twitch, the clip might be private or subscriber-only, or there could be temporary server issues. If you experience a download failure, first verify the URL is correct and the clip is publicly accessible on Twitch. If problems persist, try refreshing the page or waiting a few minutes before trying again."
-  },
-  {
-    question: "Can I download clips from Twitch VODs or full streams?",
-    answer: "Our tool is specifically designed for downloading Twitch clips (short segments typically 5-60 seconds). For full VODs (Video on Demand) or entire stream recordings, you would need a different tool designed for longer content. However, you can create clips from VODs on Twitch first, then use our tool to download those clips."
-  },
-  {
-    question: "How can I find the URL of a Twitch clip?",
-    answer: "To find a clip URL on desktop, click the 'Share' button below the clip player and select 'Copy Link'. On mobile, tap the three dots menu, select 'Share', then 'Copy Link'. You can also copy the URL directly from your browser's address bar while viewing the clip. The URL format is typically 'https://clips.twitch.tv/ClipSlug' or 'https://www.twitch.tv/username/clip/ClipSlug'."
+    question: "How do I save clips from Twitch mobile app?",
+    answer: "Tap the share button on any clip in the Twitch mobile app, select 'Copy Link', then paste into our web-based downloader on your mobile browser."
   }
 ];
 

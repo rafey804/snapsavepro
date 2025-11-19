@@ -50,7 +50,7 @@ export async function generateMetadata({
     creator: '@snapsavepro',
   },
   alternates: {
-    canonical: `${baseUrl}/${locale}/pages/telegram-video-download`,
+    canonical: `${baseUrl}/en/pages/telegram-video-download`,
       languages: {
         'en': `${baseUrl}/en/pages/telegram-video-download`,
         'hi': `${baseUrl}/hi/pages/telegram-video-download`,
