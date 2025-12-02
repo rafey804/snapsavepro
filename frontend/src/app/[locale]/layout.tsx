@@ -1,13 +1,11 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { i18n, rtlLocales, type Locale } from '@/i18n/config';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Analytics from '@/components/Analytics';
 import '../globals.css';
-import type { Metadata } from 'next';
-import { constructMetadata } from '@/utils/seo';
 
 // Locale to OG locale mapping
 const localeToOGLocale: Record<string, string> = {
@@ -17,23 +15,7 @@ const localeToOGLocale: Record<string, string> = {
   ur: 'ur_PK',
 };
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata.home' });
-
-  return constructMetadata({
-    title: t('title'),
-    description: t('description'),
-    keywords: t('keywords'),
-    path: '/',
-    locale,
-    image: '/og-multi-platform-downloader.png',
-  });
-}
+// generateMetadata removed to prevent default canonical inheritance
 
 export function generateStaticParams() {
   return i18n.locales.map((locale) => ({ locale }));

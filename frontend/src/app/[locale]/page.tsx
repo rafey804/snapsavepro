@@ -7,6 +7,28 @@ import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
 import { homePageSEO } from "@/data/comprehensiveSEOData";
 import TikTokContentSection from '@/components/SEO/TikTokContentSection';
 
+import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import { constructMetadata } from '@/utils/seo';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata.home' });
+
+  return constructMetadata({
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    path: '/',
+    locale,
+    image: '/og-multi-platform-downloader.png',
+  });
+}
+
 export default function HomePage() {
   return (
     <>
@@ -44,11 +66,11 @@ export default function HomePage() {
         <h1>{homePageSEO.h1}</h1>
       </header>
 
-      <TikTokDownloader/>
+      <TikTokDownloader />
 
       <HowToDownload platform="TikTok" platformColor="pink" />
       <InfoSection platform="TikTok" platformColor="pink" />
-      <TikTokContentSection/>
+      <TikTokContentSection />
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />
       <ReviewsSection reviews={tiktokReviews} />
     </>

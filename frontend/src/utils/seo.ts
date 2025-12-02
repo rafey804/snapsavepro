@@ -15,7 +15,7 @@ export function constructMetadata({
 }: {
   title: string;
   description: string;
-  keywords?: string;
+  keywords?: string | string[];
   image?: string;
   path: string;
   locale: string;
@@ -23,7 +23,7 @@ export function constructMetadata({
 }): Metadata {
   // Ensure path starts with /
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  
+
   // Construct canonical URL for THIS locale
   const canonicalUrl = `${baseUrl}/${locale}${cleanPath === '/' ? '' : cleanPath}`;
 
@@ -32,7 +32,7 @@ export function constructMetadata({
   locales.forEach(l => {
     languages[l] = `${baseUrl}/${l}${cleanPath === '/' ? '' : cleanPath}`;
   });
-  
+
   // Add x-default (usually points to English)
   languages['x-default'] = `${baseUrl}/en${cleanPath === '/' ? '' : cleanPath}`;
 
