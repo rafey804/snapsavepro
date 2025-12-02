@@ -1,13 +1,27 @@
-'use client';
-
 import React from 'react';
 import { Shield, Eye, Cookie, Database, Lock, Globe, FileText, UserCheck, AlertTriangle, Mail, RefreshCw, Server, MapPin, Scale, Users, FileCheck, Ban, Info } from 'lucide-react';
+import type { Metadata } from 'next';
+import { constructMetadata } from '@/utils/seo';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return constructMetadata({
+    title: 'Privacy Policy - SnapSavePro',
+    description: 'Privacy Policy for SnapSavePro - Learn how we collect, use, and protect your information.',
+    path: '/pages/legal/privacy-policy',
+    locale,
+  });
+}
 
 export default function PrivacyPolicyPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900">
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/10 via-emerald-600/5 to-purple-600/10" />
-      
+
       <div className="relative z-10 container mx-auto px-4 py-16">
         <header className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -29,7 +43,7 @@ export default function PrivacyPolicyPage() {
               <FileText className="h-6 w-6 text-cyan-400" />
               <h2 className="text-2xl font-bold text-white">Introduction</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm leading-relaxed">
               <p>
                 Welcome to Snap Save Pro (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your personal information and your right to privacy. This Privacy Policy describes how we collect, use, store, share, and protect your information when you use our video and audio downloading services across multiple platforms including TikTok, Facebook, Pinterest, Snapchat, Reddit, Twitter/X, and audio content.
@@ -49,7 +63,7 @@ export default function PrivacyPolicyPage() {
               <Database className="h-6 w-6 text-emerald-400" />
               <h2 className="text-2xl font-bold text-white">Information We Collect</h2>
             </div>
-            
+
             <div className="space-y-6 text-gray-300">
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">1. Information You Provide Directly</h3>
@@ -61,7 +75,7 @@ export default function PrivacyPolicyPage() {
                   <li><strong>User Preferences:</strong> Your download format preferences, quality settings, and other customization options</li>
                 </ul>
               </div>
-              
+
               <div>
                 <h3 className="text-lg font-semibold text-white mb-3">2. Automatically Collected Information</h3>
                 <p className="text-sm mb-2">When you access our service, we automatically collect certain information:</p>
@@ -93,10 +107,10 @@ export default function PrivacyPolicyPage() {
               <Eye className="h-6 w-6 text-purple-400" />
               <h2 className="text-2xl font-bold text-white">How We Use Your Information</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300">
               <p className="text-sm">We use the collected information for various purposes, including:</p>
-              
+
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
@@ -144,10 +158,10 @@ export default function PrivacyPolicyPage() {
               <Lock className="h-6 w-6 text-orange-400" />
               <h2 className="text-2xl font-bold text-white">Data Protection & Security</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300">
               <p className="text-sm">We implement comprehensive security measures to protect your information from unauthorized access, alteration, disclosure, or destruction:</p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
@@ -162,7 +176,7 @@ export default function PrivacyPolicyPage() {
                     <li>DDoS protection and anti-bot measures</li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <UserCheck className="h-4 w-4 text-orange-400" />
@@ -196,26 +210,26 @@ export default function PrivacyPolicyPage() {
               <RefreshCw className="h-6 w-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">Data Retention</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy:</p>
-              
+
               <div className="space-y-3">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Service Data</h4>
                   <p>URLs and download requests are processed in real-time and not permanently stored. Temporary logs are kept for 24-48 hours for troubleshooting purposes only.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Contact Information</h4>
                   <p>Contact form submissions are retained for up to 2 years or until the inquiry is resolved and no longer needed for support purposes.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Analytics Data</h4>
                   <p>Anonymized usage statistics and analytics data are retained for up to 26 months to help us understand long-term trends and improve our service.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Security Logs</h4>
                   <p>Security and access logs are retained for 90 days for fraud prevention and security analysis purposes.</p>
@@ -232,10 +246,10 @@ export default function PrivacyPolicyPage() {
               <Cookie className="h-6 w-6 text-yellow-400" />
               <h2 className="text-2xl font-bold text-white">Cookies & Tracking Technologies</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300">
               <p className="text-sm">We use cookies and similar tracking technologies to enhance your experience. Here&apos;s what you need to know:</p>
-              
+
               <div className="space-y-3">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
@@ -250,7 +264,7 @@ export default function PrivacyPolicyPage() {
                     <li>Load balancing and performance optimization</li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Info className="h-4 w-4 text-blue-400" />
@@ -265,7 +279,7 @@ export default function PrivacyPolicyPage() {
                   </ul>
                   <p className="text-sm mt-2 text-cyan-400">You can opt-out of analytics cookies through your browser settings.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Ban className="h-4 w-4 text-red-400" />
@@ -282,7 +296,7 @@ export default function PrivacyPolicyPage() {
 
               <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 mt-4">
                 <h4 className="font-semibold text-blue-400 mb-2">Managing Cookies</h4>
-                <p className="text-sm">You can control cookies through your browser settings. Please note that disabling essential cookies may affect site functionality. Most browsers allow you to refuse cookies or delete existing ones.</p>
+                <p>You can control cookies through your browser settings. Please note that disabling essential cookies may affect site functionality. Most browsers allow you to refuse cookies or delete existing ones.</p>
               </div>
             </div>
           </div>
@@ -293,10 +307,10 @@ export default function PrivacyPolicyPage() {
               <Globe className="h-6 w-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">Third-Party Services & Integrations</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300">
               <p className="text-sm">To provide our services, we integrate with several third-party platforms and services. Each has its own privacy policy:</p>
-              
+
               <div className="space-y-3">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Social Media Platforms</h4>
@@ -311,7 +325,7 @@ export default function PrivacyPolicyPage() {
                   </ul>
                   <p className="text-sm mt-2 text-gray-400">We only access publicly available information and do not access private or restricted content.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Analytics Providers</h4>
                   <ul className="list-disc list-inside space-y-1 text-sm ml-4">
@@ -320,7 +334,7 @@ export default function PrivacyPolicyPage() {
                     <li>User behavior patterns (aggregated data only)</li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Infrastructure & Security</h4>
                   <ul className="list-disc list-inside space-y-1 text-sm ml-4">
@@ -342,10 +356,10 @@ export default function PrivacyPolicyPage() {
               <Shield className="h-6 w-6 text-green-400" />
               <h2 className="text-2xl font-bold text-white">Your Privacy Rights</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300">
               <p className="text-sm">Depending on your location, you have certain rights regarding your personal information:</p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
@@ -354,7 +368,7 @@ export default function PrivacyPolicyPage() {
                   </h4>
                   <p className="text-sm">Request a copy of the personal information we hold about you and how we use it.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <FileCheck className="h-4 w-4 text-green-400" />
@@ -362,7 +376,7 @@ export default function PrivacyPolicyPage() {
                   </h4>
                   <p className="text-sm">Request correction of inaccurate or incomplete personal information.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Ban className="h-4 w-4 text-green-400" />
@@ -370,7 +384,7 @@ export default function PrivacyPolicyPage() {
                   </h4>
                   <p className="text-sm">Request deletion of your personal data, subject to certain exceptions.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Database className="h-4 w-4 text-green-400" />
@@ -378,7 +392,7 @@ export default function PrivacyPolicyPage() {
                   </h4>
                   <p className="text-sm">Request your data in a structured, commonly used, machine-readable format.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Lock className="h-4 w-4 text-green-400" />
@@ -386,7 +400,7 @@ export default function PrivacyPolicyPage() {
                   </h4>
                   <p className="text-sm">Request restriction of processing of your personal information in certain circumstances.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Ban className="h-4 w-4 text-green-400" />
@@ -412,10 +426,10 @@ export default function PrivacyPolicyPage() {
               <Users className="h-6 w-6 text-pink-400" />
               <h2 className="text-2xl font-bold text-white">Children&apos;s Privacy</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>Our service is not directed to children under the age of 13, and we do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe that your child has provided us with personal information, please contact us immediately.</p>
-              
+
               <p>If we discover that we have collected personal information from a child under 13, we will delete that information as quickly as possible. If you believe we might have any information from or about a child under 13, please contact us at solutions@nafeytech.com.</p>
 
               <div className="bg-pink-500/10 border border-pink-500/20 rounded-lg p-4">
@@ -431,10 +445,10 @@ export default function PrivacyPolicyPage() {
               <MapPin className="h-6 w-6 text-indigo-400" />
               <h2 className="text-2xl font-bold text-white">International Data Transfers</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>Your information may be transferred to and maintained on servers located outside of your state, province, country, or other governmental jurisdiction where data protection laws may differ from those in your jurisdiction.</p>
-              
+
               <p>If you are located outside Pakistan and choose to provide information to us, please note that we transfer the data, including personal information, to Pakistan and process it there. Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.</p>
 
               <p>We will take all steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy. We use appropriate safeguards to protect your information during international transfers, including:</p>
@@ -454,26 +468,26 @@ export default function PrivacyPolicyPage() {
               <Scale className="h-6 w-6 text-yellow-400" />
               <h2 className="text-2xl font-bold text-white">Legal Basis for Processing</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>We process your personal information based on the following legal grounds:</p>
-              
+
               <div className="space-y-3">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Consent</h4>
                   <p>When you provide explicit consent for us to process your information for specific purposes (e.g., contacting us through forms).</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Contract Performance</h4>
                   <p>Processing necessary to provide the services you requested (video/audio downloading).</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Legitimate Interests</h4>
                   <p>Processing necessary for our legitimate interests in operating and improving our service, provided these interests are not overridden by your rights and interests.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Legal Obligations</h4>
                   <p>Processing necessary to comply with legal obligations, court orders, or regulatory requirements.</p>
@@ -488,10 +502,10 @@ export default function PrivacyPolicyPage() {
               <AlertTriangle className="h-6 w-6 text-red-400" />
               <h2 className="text-2xl font-bold text-white">Data Breach Notification</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>In the unlikely event of a data breach that affects your personal information, we will:</p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Notify affected users within 72 hours of becoming aware of the breach</li>
                 <li>Provide detailed information about the nature of the breach and data affected</li>
@@ -511,10 +525,10 @@ export default function PrivacyPolicyPage() {
               <RefreshCw className="h-6 w-6 text-purple-400" />
               <h2 className="text-2xl font-bold text-white">Changes to This Privacy Policy</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors. When we make changes, we will:</p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Update the &quot;Last Updated&quot; date at the top of this policy</li>
                 <li>Notify users of material changes through a prominent notice on our website</li>
@@ -537,7 +551,7 @@ export default function PrivacyPolicyPage() {
               <Ban className="h-6 w-6 text-red-400" />
               <h2 className="text-2xl font-bold text-white">Do Not Track Signals</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>Some web browsers include a &quot;Do Not Track&quot; (DNT) feature that signals to websites you visit that you do not want to have your online activity tracked. Currently, there is no uniform standard for how DNT signals should be interpreted.</p>
 
@@ -553,26 +567,26 @@ export default function PrivacyPolicyPage() {
               <Scale className="h-6 w-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">California Privacy Rights (CCPA)</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA):</p>
-              
+
               <div className="space-y-3">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Right to Know</h4>
                   <p>You can request information about the personal information we have collected about you in the past 12 months, including categories of information, sources, purposes, and third parties with whom we share it.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Right to Delete</h4>
                   <p>You can request deletion of your personal information, subject to certain exceptions.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Right to Opt-Out</h4>
                   <p>You have the right to opt-out of the sale of your personal information. Note: We do not sell personal information.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Right to Non-Discrimination</h4>
                   <p>We will not discriminate against you for exercising any of your CCPA rights.</p>
@@ -589,10 +603,10 @@ export default function PrivacyPolicyPage() {
               <Globe className="h-6 w-6 text-green-400" />
               <h2 className="text-2xl font-bold text-white">GDPR Compliance (European Users)</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>If you are located in the European Economic Area (EEA), you have rights under the General Data Protection Regulation (GDPR):</p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li><strong>Right to Access:</strong> Obtain confirmation of whether we process your personal data and access to such data</li>
                 <li><strong>Right to Rectification:</strong> Correct inaccurate or incomplete personal data</li>
@@ -614,12 +628,12 @@ export default function PrivacyPolicyPage() {
               <Mail className="h-6 w-6 text-cyan-400" />
               <h2 className="text-2xl font-bold text-white">Contact Us</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300">
               <p className="text-sm">
                 If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please don&apos;t hesitate to contact us:
               </p>
-              
+
               <div className="bg-slate-900/50 p-6 rounded-lg space-y-3">
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0" />
@@ -628,7 +642,7 @@ export default function PrivacyPolicyPage() {
                     <a href="mailto:solutions@nafeytech.com" className="text-cyan-400 hover:text-cyan-300 text-sm">solutions@nafeytech.com</a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
                   <FileText className="h-5 w-5 text-cyan-400 flex-shrink-0" />
                   <div>
@@ -636,7 +650,7 @@ export default function PrivacyPolicyPage() {
                     <p className="text-sm text-gray-300">Privacy Policy Inquiry / Privacy Rights Request</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
                   <Globe className="h-5 w-5 text-cyan-400 flex-shrink-0" />
                   <div>
@@ -658,12 +672,12 @@ export default function PrivacyPolicyPage() {
               <UserCheck className="h-6 w-6 text-green-400" />
               <h2 className="text-2xl font-bold text-white">Acknowledgment</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 By using our service, you acknowledge that you have read and understood this Privacy Policy and agree to be bound by its terms. If you do not agree with this policy, please discontinue use of our service immediately.
               </p>
-              
+
               <p>
                 This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collected through Snap Save Pro. This policy does not apply to any information collected offline or via channels other than this website.
               </p>

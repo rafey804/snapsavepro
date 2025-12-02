@@ -13,23 +13,27 @@ import {
   TrendingUp
 } from 'lucide-react';
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
+import { constructMetadata } from '@/utils/seo';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Video Quality Technical Guide - Codecs, Bitrates, Resolutions Explained | SnapSavePro',
-  description: 'Complete technical guide to video quality: understanding codecs (H.264, VP9, AV1), bitrates, resolutions (4K, 1080p, 720p), file formats, and optimal download settings.',
-  keywords: 'video quality, codecs, bitrate, resolution, h264, vp9, av1, 4k video, 1080p, 720p, mp4, webm, video formats, compression',
-  alternates: {
-    canonical: `${baseUrl}/en/pages/video-quality-technical-guide`,
-    languages: {
-      'en': `${baseUrl}/en/pages/video-quality-technical-guide`,
-      'hi': `${baseUrl}/hi/pages/video-quality-technical-guide`,
-      'zh': `${baseUrl}/zh/pages/video-quality-technical-guide`,
-      'ur': `${baseUrl}/ur/pages/video-quality-technical-guide`,
-      'x-default': `${baseUrl}/en/pages/video-quality-technical-guide`,
-    },
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  // We might not have translations for this guide yet, so we can use hardcoded strings or fetch if available.
+  // For now, I will use the existing hardcoded strings but wrapped in constructMetadata to fix the canonicals.
+
+  return constructMetadata({
+    title: 'Video Quality Technical Guide - Codecs, Bitrates, Resolutions Explained | SnapSavePro',
+    description: 'Complete technical guide to video quality: understanding codecs (H.264, VP9, AV1), bitrates, resolutions (4K, 1080p, 720p), file formats, and optimal download settings.',
+    keywords: 'video quality, codecs, bitrate, resolution, h264, vp9, av1, 4k video, 1080p, 720p, mp4, webm, video formats, compression',
+    path: '/pages/video-quality-technical-guide',
+    locale,
+    image: '/og-multi-platform-downloader.png', // Using default or specific if available
+  });
+}
 
 export default function VideoQualityTechnicalGuidePage() {
   return (

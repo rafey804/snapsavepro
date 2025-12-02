@@ -1,7 +1,8 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
+import { getTranslations } from 'next-intl/server';
 import {
   Users,
   Shield,
@@ -16,6 +17,22 @@ import {
   Lock,
   Sparkles
 } from 'lucide-react';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'pages.about' });
+
+  return constructMetadata({
+    title: t('title', { default: 'About SnapSavePro - The Best Video Downloader' }),
+    description: t('description', { default: 'Learn about SnapSavePro, the free and fast video downloader for TikTok, YouTube, Facebook, and more. Our mission is to make video downloading simple and accessible.' }),
+    path: '/pages/about',
+    locale,
+  });
+}
 
 export default function AboutPage() {
   const values = [

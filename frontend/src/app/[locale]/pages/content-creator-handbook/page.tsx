@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import Link from 'next/link';
 import {
   Video,
@@ -16,21 +17,21 @@ import {
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-export const metadata: Metadata = {
-  title: 'Content Creator\'s Download Handbook - Professional Video Management Guide | SnapSavePro',
-  description: 'Complete guide for content creators: backup strategies, cross-platform repurposing, portfolio building, analytics, and professional video management across TikTok, YouTube, Instagram.',
-  keywords: 'content creator guide, video backup, content repurposing, portfolio building, creator tools, cross-platform strategy, video archival',
-  alternates: {
-    canonical: `${baseUrl}/en/pages/content-creator-handbook`,
-    languages: {
-      'en': `${baseUrl}/en/pages/content-creator-handbook`,
-      'hi': `${baseUrl}/hi/pages/content-creator-handbook`,
-      'zh': `${baseUrl}/zh/pages/content-creator-handbook`,
-      'ur': `${baseUrl}/ur/pages/content-creator-handbook`,
-      'x-default': `${baseUrl}/en/pages/content-creator-handbook`,
-    },
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  return constructMetadata({
+    title: 'Content Creator\'s Download Handbook - Professional Video Management Guide | SnapSavePro',
+    description: 'Complete guide for content creators: backup strategies, cross-platform repurposing, portfolio building, analytics, and professional video management across TikTok, YouTube, Instagram.',
+    keywords: 'content creator guide, video backup, content repurposing, portfolio building, creator tools, cross-platform strategy, video archival',
+    path: '/pages/content-creator-handbook',
+    locale,
+  });
+}
 
 export default function ContentCreatorHandbookPage() {
   return (

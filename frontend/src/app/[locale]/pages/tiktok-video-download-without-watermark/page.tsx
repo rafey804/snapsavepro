@@ -9,6 +9,7 @@ import Breadcrumb from "@/components/layout/Breadcrumb";
 import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
 import { homePageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
+import { constructMetadata } from "@/utils/seo";
 
 // Locale to OG locale mapping
 const localeToOGLocale: Record<string, string> = {
@@ -25,57 +26,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
+  return constructMetadata({
     title: homePageSEO.title,
     description: homePageSEO.description,
     keywords: homePageSEO.keywords,
-    openGraph: {
-      title: homePageSEO.title,
-      description: homePageSEO.description,
-      url: `${baseUrl}/${locale}/pages/tiktok-video-download-without-watermark`,
-      siteName: 'Snap Save Pro',
-      images: [
-        {
-          url: homePageSEO.ogImage,
-          width: 1200,
-          height: 630,
-          alt: 'TikTok Video Downloader Without Watermark',
-        }
-      ],
-      locale: localeToOGLocale[locale] || 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: homePageSEO.title,
-      description: homePageSEO.description,
-      images: [homePageSEO.ogImage],
-      creator: '@snapsavepro',
-    },
-    alternates: {
-      canonical: `${baseUrl}/en/pages/tiktok-video-download-without-watermark`,
-      languages: {
-        'en': `${baseUrl}/en/pages/tiktok-video-download-without-watermark`,
-        'hi': `${baseUrl}/hi/pages/tiktok-video-download-without-watermark`,
-        'zh': `${baseUrl}/zh/pages/tiktok-video-download-without-watermark`,
-        'ur': `${baseUrl}/ur/pages/tiktok-video-download-without-watermark`,
-        'x-default': `${baseUrl}/en/pages/tiktok-video-download-without-watermark`,
-      },
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-  };
+    path: '/pages/tiktok-video-download-without-watermark',
+    locale,
+    image: homePageSEO.ogImage,
+  });
 }
 
 const TikTokPage = () => {
@@ -119,7 +78,7 @@ const TikTokPage = () => {
         { label: "TikTok Video Downloader" }
       ]} />
 
-      <TikTokDownloader/>
+      <TikTokDownloader />
       <HowToDownload platform="TikTok" platformColor="pink" />
       <InfoSection platform="TikTok" platformColor="pink" />
       <TikTokContentSection />

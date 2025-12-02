@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import DailymotionDownloader from '@/components/home/DailymotionDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import FAQSection from '@/components/SEO/FAQSection';
@@ -20,34 +21,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Dailymotion Video Downloader - Download Dailymotion Videos in HD Quality Free | Short & Long Videos',
-  description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy Dailymotion video downloader. Supports both short and long videos. No watermark, no registration required.',
-  keywords: 'dailymotion video downloader, download dailymotion videos, dailymotion downloader, save dailymotion videos, dailymotion video download, dailymotion video saver, download dailymotion, dailymotion downloader online, free dailymotion downloader, dailymotion video download hd, download dailymotion short videos, download dailymotion long videos',
-  openGraph: {
-    title: 'Dailymotion Video Downloader - Download Dailymotion Videos in HD Quality Free',
-    description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy. Supports both short and long videos.',
-    type: 'website',
-    url: `${baseUrl}/${locale}/pages/dailymotion-video-downloader`,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Dailymotion Video Downloader - Download Dailymotion Videos in HD Quality Free',
-    description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy.',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/dailymotion-video-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/dailymotion-video-downloader`,
-        'hi': `${baseUrl}/hi/pages/dailymotion-video-downloader`,
-        'zh': `${baseUrl}/zh/pages/dailymotion-video-downloader`,
-        'ur': `${baseUrl}/ur/pages/dailymotion-video-downloader`,
-        'x-default': `${baseUrl}/en/pages/dailymotion-video-downloader`,
-      },
-  },
-  };
+  return constructMetadata({
+    title: 'Dailymotion Video Downloader - Download Dailymotion Videos in HD Quality Free | Short & Long Videos',
+    description: 'Download Dailymotion videos in HD quality for free. Fast, safe, and easy Dailymotion video downloader. Supports both short and long videos. No watermark, no registration required.',
+    keywords: 'dailymotion video downloader, download dailymotion videos, dailymotion downloader, save dailymotion videos, dailymotion video download, dailymotion video saver, download dailymotion, dailymotion downloader online, free dailymotion downloader, dailymotion video download hd, download dailymotion short videos, download dailymotion long videos',
+    path: '/pages/dailymotion-video-downloader',
+    locale,
+  });
 }
 
 export default function DailymotionVideoDownloaderPage() {

@@ -6,6 +6,7 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import YouTubeUniqueContent from "@/components/SEO/YouTubeUniqueContent";
 import { youtubeFAQs, youtubeReviews } from "@/data/youtubeSEOData";
 import type { Metadata } from "next";
+import { constructMetadata } from "@/utils/seo";
 
 // Locale to OG locale mapping
 const localeToOGLocale: Record<string, string> = {
@@ -22,57 +23,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
+  return constructMetadata({
     title: "YouTube Video Downloader - Free Download YouTube Videos in HD, MP4, MP3 | SnapSavePro",
     description: "Download YouTube videos for free in HD quality. Save YouTube videos as MP4, convert to MP3, download 1080p, 4K videos. Fast, free, and no registration required.",
     keywords: "youtube downloader, download youtube videos, youtube to mp4, youtube to mp3, youtube video download free, download youtube videos hd, youtube downloader 1080p, youtube downloader 4k, youtube video saver, save youtube videos, youtube mp4 converter, youtube mp3 converter, free youtube downloader, youtube video download online, youtube downloader no registration, youtube downloader free, youtube video download hd quality, download youtube shorts, youtube playlist downloader, youtube audio downloader",
-    openGraph: {
-      title: "YouTube Video Downloader - Download HD Videos Free | SnapSavePro",
-      description: "Download YouTube videos in HD, MP4, MP3. Free YouTube downloader with 4K support. No registration, fast downloads.",
-      url: `${baseUrl}/${locale}/pages/youtube-downloader`,
-      siteName: 'Snap Save Pro',
-      images: [
-        {
-          url: '/og-youtube-downloader.png',
-          width: 1200,
-          height: 630,
-          alt: 'YouTube Video Downloader - Free HD Download',
-        }
-      ],
-      locale: localeToOGLocale[locale] || 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: "YouTube Video Downloader - Download HD Videos Free",
-      description: "Download YouTube videos in HD, MP4, MP3. Free YouTube downloader with 4K support.",
-      images: ['/og-youtube-downloader.png'],
-      creator: '@snapsavepro',
-    },
-    alternates: {
-      canonical: `${baseUrl}/en/pages/youtube-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/youtube-downloader`,
-        'hi': `${baseUrl}/hi/pages/youtube-downloader`,
-        'zh': `${baseUrl}/zh/pages/youtube-downloader`,
-        'ur': `${baseUrl}/ur/pages/youtube-downloader`,
-        'x-default': `${baseUrl}/en/pages/youtube-downloader`,
-      },
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-  };
+    path: '/pages/youtube-downloader',
+    locale,
+    image: '/og-youtube-downloader.png',
+  });
 }
 
 const YouTubePage = () => {
@@ -206,7 +165,7 @@ const YouTubePage = () => {
         <h1>YouTube Video Downloader - Download YouTube Videos in HD, MP4, MP3</h1>
       </header>
 
-      <TikTokDownloader/>
+      <TikTokDownloader />
       <HowToDownload platform="YouTube" platformColor="red" />
       <InfoSection platform="YouTube" platformColor="red" />
       <YouTubeUniqueContent />

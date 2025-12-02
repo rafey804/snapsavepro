@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import Link from 'next/link';
 import {
   TrendingUp,
@@ -16,21 +17,21 @@ import {
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-export const metadata: Metadata = {
-  title: 'Platform Comparison Guide - TikTok vs YouTube vs Instagram vs Facebook Video Downloads | SnapSavePro',
-  description: 'Comprehensive comparison of TikTok, YouTube, Instagram, Facebook for video content. Learn which platform is best for your needs, quality differences, and download strategies.',
-  keywords: 'platform comparison, tiktok vs youtube, instagram vs tiktok, facebook video vs youtube, social media comparison, best video platform, video quality comparison',
-  alternates: {
-    canonical: `${baseUrl}/en/pages/platform-comparison-guide`,
-    languages: {
-      'en': `${baseUrl}/en/pages/platform-comparison-guide`,
-      'hi': `${baseUrl}/hi/pages/platform-comparison-guide`,
-      'zh': `${baseUrl}/zh/pages/platform-comparison-guide`,
-      'ur': `${baseUrl}/ur/pages/platform-comparison-guide`,
-      'x-default': `${baseUrl}/en/pages/platform-comparison-guide`,
-    },
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  return constructMetadata({
+    title: 'Platform Comparison Guide - TikTok vs YouTube vs Instagram vs Facebook Video Downloads | SnapSavePro',
+    description: 'Comprehensive comparison of TikTok, YouTube, Instagram, Facebook for video content. Learn which platform is best for your needs, quality differences, and download strategies.',
+    keywords: 'platform comparison, tiktok vs youtube, instagram vs tiktok, facebook video vs youtube, social media comparison, best video platform, video quality comparison',
+    path: '/pages/platform-comparison-guide',
+    locale,
+  });
+}
 
 export default function PlatformComparisonGuidePage() {
   const platformComparison = [

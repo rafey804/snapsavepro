@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import LinkedInDownloader from '@/components/home/LinkedInDownloader';
 
 const localeToOGLocale: Record<string, string> = {
@@ -15,58 +16,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'LinkedIn Video Downloader - Download LinkedIn Videos in HD 1080p Quality | Free',
-  description: 'Best free LinkedIn video downloader online. Download LinkedIn videos in HD 1080p, 720p, 480p quality. Save professional videos, webinars, and educational content from LinkedIn. Fast, secure, and no registration required.',
-  keywords: 'linkedin video downloader, download linkedin video, linkedin downloader, linkedin video download free, save linkedin videos, linkedin video saver, download linkedin posts, linkedin HD download 1080p, linkedin video tool, linkedin video downloader online, linkedin video to mp4, linkedin video converter, download linkedin content, linkedin professional video download, linkedin webinar download, linkedin educational video download, free linkedin downloader, best linkedin video downloader, linkedin video extractor, linkedin media downloader',
-  authors: [{ name: 'SnapSavePro' }],
-  openGraph: {
-    title: 'LinkedIn Video Downloader - Download Videos in HD 1080p Quality | Free',
-    description: 'Best free LinkedIn video downloader. Download professional videos, webinars & educational content in HD 1080p, 720p. Fast, secure, no registration required.',
-    type: 'website',
-    url: `${baseUrl}/${locale}/pages/linkedin-video-downloader`,
-    siteName: 'SnapSavePro',
-    locale: localeToOGLocale[locale] || 'en_US',
-    images: [
-      {
-        url: '/linkedin-downloader-og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'LinkedIn Video Downloader - Download HD Videos Free',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'LinkedIn Video Downloader - Save Videos in HD 1080p Quality',
-    description: 'Download LinkedIn videos in HD quality. Free, fast, and secure. No registration required.',
-    site: '@SnapSavePro',
-    creator: '@SnapSavePro',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/linkedin-video-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/linkedin-video-downloader`,
-        'hi': `${baseUrl}/hi/pages/linkedin-video-downloader`,
-        'zh': `${baseUrl}/zh/pages/linkedin-video-downloader`,
-        'ur': `${baseUrl}/ur/pages/linkedin-video-downloader`,
-        'x-default': `${baseUrl}/en/pages/linkedin-video-downloader`,
-      },
-  },
-  };
+  return constructMetadata({
+    title: 'LinkedIn Video Downloader - Download LinkedIn Videos in HD 1080p Quality | Free',
+    description: 'Best free LinkedIn video downloader online. Download LinkedIn videos in HD 1080p, 720p, 480p quality. Save professional videos, webinars, and educational content from LinkedIn. Fast, secure, and no registration required.',
+    keywords: 'linkedin video downloader, download linkedin video, linkedin downloader, linkedin video download free, save linkedin videos, linkedin video saver, download linkedin posts, linkedin HD download 1080p, linkedin video tool, linkedin video downloader online, linkedin video to mp4, linkedin video converter, download linkedin content, linkedin professional video download, linkedin webinar download, linkedin educational video download, free linkedin downloader, best linkedin video downloader, linkedin video extractor, linkedin media downloader',
+    path: '/pages/linkedin-video-downloader',
+    locale,
+    image: '/linkedin-downloader-og.jpg',
+  });
 }
 
 const jsonLd = {

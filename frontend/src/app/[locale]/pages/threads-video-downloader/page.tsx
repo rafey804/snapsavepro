@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import ThreadsDownloader from '@/components/home/ThreadsDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import FAQSection from '@/components/SEO/FAQSection';
@@ -20,34 +21,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Threads Video Downloader - Download Threads Videos in HD Quality Free | Short & Long Videos',
-  description: 'Download Threads videos in HD quality for free. Fast, safe, and easy Threads video downloader. Supports both short and long videos. No watermark, no registration required.',
-  keywords: 'threads video downloader, download threads videos, threads downloader, save threads videos, threads video download, threads video saver, download threads, threads downloader online, free threads downloader, threads video download hd, download threads short videos, download threads long videos',
-  openGraph: {
-    title: 'Threads Video Downloader - Download Threads Videos in HD Quality Free',
-    description: 'Download Threads videos in HD quality for free. Fast, safe, and easy. Supports both short and long videos.',
-    type: 'website',
-    url: `${baseUrl}/${locale}/pages/threads-video-downloader`,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Threads Video Downloader - Download Threads Videos in HD Quality Free',
-    description: 'Download Threads videos in HD quality for free. Fast, safe, and easy.',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/threads-video-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/threads-video-downloader`,
-        'hi': `${baseUrl}/hi/pages/threads-video-downloader`,
-        'zh': `${baseUrl}/zh/pages/threads-video-downloader`,
-        'ur': `${baseUrl}/ur/pages/threads-video-downloader`,
-        'x-default': `${baseUrl}/en/pages/threads-video-downloader`,
-      },
-  },
-  };
+  return constructMetadata({
+    title: 'Threads Video Downloader - Download Threads Videos in HD Quality Free | Short & Long Videos',
+    description: 'Download Threads videos in HD quality for free. Fast, safe, and easy Threads video downloader. Supports both short and long videos. No watermark, no registration required.',
+    keywords: 'threads video downloader, download threads videos, threads downloader, save threads videos, threads video download, threads video saver, download threads, threads downloader online, free threads downloader, threads video download hd, download threads short videos, download threads long videos',
+    path: '/pages/threads-video-downloader',
+    locale,
+  });
 }
 
 export default function ThreadsVideoDownloaderPage() {

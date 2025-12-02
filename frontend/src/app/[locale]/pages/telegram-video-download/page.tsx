@@ -5,6 +5,7 @@ import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import type { Metadata } from "next";
+import { constructMetadata } from "@/utils/seo";
 
 const localeToOGLocale: Record<string, string> = {
   en: 'en_US',
@@ -20,57 +21,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: "Telegram Video Downloader - Download Telegram Videos & Photos Free",
-  description: "Download videos, photos, and media from Telegram channels for free. Fast and easy Telegram media downloader with no watermark. Works with public Telegram channels.",
-  keywords: "telegram downloader, telegram video download, download telegram media, telegram channel downloader, save telegram videos, telegram photo download",
-  openGraph: {
-    title: "Telegram Video Downloader - Free Telegram Media Download",
-    description: "Download videos, photos, and media from Telegram channels for free. Fast and easy Telegram media downloader.",
-    url: `${baseUrl}/${locale}/pages/telegram-video-download`,
-    siteName: 'Snap Save Pro',
-    images: [
-      {
-        url: '/og-telegram.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Telegram Video Downloader',
-      }
-    ],
-    locale: localeToOGLocale[locale] || 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Telegram Video Downloader - Free Download",
-    description: "Download videos and media from Telegram channels for free",
-    images: ['/og-telegram.jpg'],
-    creator: '@snapsavepro',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/telegram-video-download`,
-      languages: {
-        'en': `${baseUrl}/en/pages/telegram-video-download`,
-        'hi': `${baseUrl}/hi/pages/telegram-video-download`,
-        'zh': `${baseUrl}/zh/pages/telegram-video-download`,
-        'ur': `${baseUrl}/ur/pages/telegram-video-download`,
-        'x-default': `${baseUrl}/en/pages/telegram-video-download`,
-      },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  };
+  return constructMetadata({
+    title: "Telegram Video Downloader - Download Telegram Videos & Photos Free",
+    description: "Download videos, photos, and media from Telegram channels for free. Fast and easy Telegram media downloader with no watermark. Works with public Telegram channels.",
+    keywords: "telegram downloader, telegram video download, download telegram media, telegram channel downloader, save telegram videos, telegram photo download",
+    path: '/pages/telegram-video-download',
+    locale,
+    image: '/og-telegram.jpg',
+  });
 }
 
 const telegramFAQs = [
@@ -158,7 +117,7 @@ const TelegramPage = () => {
         { label: "Telegram Video Downloader" }
       ]} />
 
-      <TelegramDownloader/>
+      <TelegramDownloader />
       <HowToDownload platform="Telegram" platformColor="blue" />
       <InfoSection platform="Telegram" platformColor="blue" />
       <FAQSection faqs={telegramFAQs} platform="Telegram" />

@@ -348,8 +348,8 @@ export default function TikTokDownloader() {
     <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
       <div
         className={`h-2 rounded-full transition-all duration-300 ${
-          progress.status === 'error' ? 'bg-red-500' : 
-          progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' : 
+          progress.status === 'error' ? 'bg-red-500' :
+          progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
           progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-pink-500'
         }`}
         style={{ width: `${progress.percent}%` }}
@@ -359,7 +359,7 @@ export default function TikTokDownloader() {
 
   const ProcessingIndicator = ({ status }: { status: ProcessingStatus }) => (
     <div className="max-w-4xl mx-auto mb-6 sm:mb-8 px-4">
-      <div className="bg-slate-800/80 border border-pink-400/30 rounded-xl p-4 sm:p-6 text-center backdrop-blur-sm">
+      <div className="bg-slate-800/80 backdrop-blur-lg border border-pink-500/20 rounded-xl p-4 sm:p-6 text-center shadow-lg">
         <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4">
           {status.stage === 'complete' ? (
             <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-400" />
@@ -368,8 +368,8 @@ export default function TikTokDownloader() {
           )}
           <span className="text-base sm:text-lg font-medium text-white">{status.message}</span>
         </div>
-        
-        <div className="w-full bg-slate-700 rounded-full h-2 sm:h-3 mb-2">
+
+        <div className="w-full bg-gray-700 rounded-full h-2 sm:h-3 mb-2">
           <div
             className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${
               status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-pink-500 to-purple-500'
@@ -377,7 +377,7 @@ export default function TikTokDownloader() {
             style={{ width: `${status.percent}%` }}
           />
         </div>
-        
+
         <div className="flex justify-between text-xs sm:text-sm text-gray-300">
           <span>Processing TikTok video...</span>
           <span>{status.percent}%</span>
@@ -577,7 +577,7 @@ export default function TikTokDownloader() {
                         <span className="text-xs sm:text-sm">{formatViewCount(videoInfo.view_count)} views</span>
                       </div>
                       <div className="flex items-center gap-1 sm:gap-2 text-gray-300 col-span-2 sm:col-span-1">
-                        <Heart className="h-3 w-3 sm:h-4 sm:w-4 text-red-400 flex-shrink-0" />
+                        <Heart className="h-3 w-3 sm:h-4 sm:w-4 text-red-500 flex-shrink-0" />
                         <span className="text-xs sm:text-sm">{formatLikeCount(videoInfo.like_count)} likes</span>
                       </div>
                       <div className="flex items-center gap-1 sm:gap-2 text-gray-300">
@@ -588,7 +588,7 @@ export default function TikTokDownloader() {
                         <Clock className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         <span className="text-xs sm:text-sm">{formatDuration(videoInfo.duration)}</span>
                       </div>
-                      <div className="flex items-center gap-1 sm:gap-2 text-emerald-300 col-span-2 sm:col-span-1">
+                      <div className="flex items-center gap-1 sm:gap-2 text-emerald-400 col-span-2 sm:col-span-1">
                         <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                         <span className="text-xs sm:text-sm font-semibold">Ready to download</span>
                       </div>
@@ -638,7 +638,7 @@ export default function TikTokDownloader() {
                                       )}
                                     </div>
                                     {format.width && format.height && (
-                                      <div className="text-xs text-gray-500 mt-1">
+                                      <div className="text-xs text-gray-400 mt-1">
                                         {format.width} x {format.height} • {format.fps || 30}fps
                                       </div>
                                     )}
@@ -684,7 +684,7 @@ export default function TikTokDownloader() {
                   ) : (
                     <div>
                       <div className="flex items-center gap-2 mb-3 sm:mb-4">
-                        <Music className="h-4 w-4 sm:h-5 sm:w-5 text-purple-400" />
+                        <Music className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
                         <h3 className="text-lg sm:text-xl font-semibold text-white">Audio Downloads (MP3)</h3>
                         <span className="bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full text-xs">
                           Audio Only
@@ -709,7 +709,7 @@ export default function TikTokDownloader() {
                                       🎵 {format.description || 'Audio Track'}
                                     </div>
                                     {format.abr && (
-                                      <div className="text-xs text-gray-500 mt-1">
+                                      <div className="text-xs text-gray-400 mt-1">
                                         Bitrate: {format.abr}kbps
                                       </div>
                                     )}

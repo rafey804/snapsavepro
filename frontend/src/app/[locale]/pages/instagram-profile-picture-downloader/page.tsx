@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import InstagramProfilePicDownloader from '@/components/home/InstagramProfilePicDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import InstagramProfileContentSection from '@/components/SEO/InstagramProfileContentSection';
@@ -21,34 +22,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Instagram Profile Picture Downloader - View & Download HD DP Free',
-  description: 'Download Instagram profile pictures in full HD quality. View and save any Instagram DP without login. Free, fast, and easy-to-use IG profile viewer.',
-  keywords: 'instagram profile picture downloader, instagram dp viewer full size, insta dp download, instagram profile viewer, ig dp downloader, instagram dp zoom, profile picture zoom, how to download instagram profile picture, how to see full size dp on instagram, instagram dp saver, insta profile pic download',
-  openGraph: {
+  return constructMetadata({
     title: 'Instagram Profile Picture Downloader - View & Download HD DP Free',
     description: 'Download Instagram profile pictures in full HD quality. View and save any Instagram DP without login. Free, fast, and easy-to-use IG profile viewer.',
-    type: 'website',
-    url: `${baseUrl}/${locale}/pages/instagram-profile-picture-downloader`,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Instagram Profile Picture Downloader - View & Download HD DP Free',
-    description: 'Download Instagram profile pictures in full HD quality. View and save any Instagram DP without login.',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/instagram-profile-picture-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/instagram-profile-picture-downloader`,
-        'hi': `${baseUrl}/hi/pages/instagram-profile-picture-downloader`,
-        'zh': `${baseUrl}/zh/pages/instagram-profile-picture-downloader`,
-        'ur': `${baseUrl}/ur/pages/instagram-profile-picture-downloader`,
-        'x-default': `${baseUrl}/en/pages/instagram-profile-picture-downloader`,
-      },
-  },
-  };
+    keywords: 'instagram profile picture downloader, instagram dp viewer full size, insta dp download, instagram profile viewer, ig dp downloader, instagram dp zoom, profile picture zoom, how to download instagram profile picture, how to see full size dp on instagram, instagram dp saver, insta profile pic download',
+    path: '/pages/instagram-profile-picture-downloader',
+    locale,
+  });
 }
 
 export default function InstagramProfilePictureDownloaderPage() {

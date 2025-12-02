@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import PinterestDownloader from '@/components/home/PinterestDownloader';
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
@@ -20,65 +21,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free Online | SnapSavePro',
-  description: 'Free Pinterest video and image downloader. Download Pinterest pins in HD quality. Fast, easy, and free - no registration required.',
-  keywords: "pinterest video downloader, download pinterest videos, pinterest image downloader, save pinterest pins, pinterest downloader free, download from pinterest, pinterest video saver, pinterest image saver, pinterest pin downloader, pinterest media downloader, pinterest video download hd, pinterest gif downloader, free pinterest downloader, pinterest content downloader, save pinterest images",
-  authors: [{ name: 'SnapSavePro' }],
-  creator: 'SnapSavePro',
-  publisher: 'SnapSavePro',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  openGraph: {
-    type: 'website',
-    locale: localeToOGLocale[locale] || 'en_US',
-    url: `${baseUrl}/${locale}/pages/pinterest-video-download`,
-    siteName: 'SnapSavePro',
-    title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free',
-    description: 'Download Pinterest videos and images in HD quality. Fast, free, and easy to use Pinterest downloader. No registration required.',
-    images: [
-      {
-        url: 'https://snapsavepro.com/og-pinterest.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Pinterest Video Downloader - SnapSavePro',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free',
-    description: 'Download Pinterest videos and images in HD quality. Fast, free, and easy to use.',
-    images: ['https://snapsavepro.com/og-pinterest.jpg'],
-    creator: '@snapsavepro',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/pinterest-video-download`,
-      languages: {
-        'en': `${baseUrl}/en/pages/pinterest-video-download`,
-        'hi': `${baseUrl}/hi/pages/pinterest-video-download`,
-        'zh': `${baseUrl}/zh/pages/pinterest-video-download`,
-        'ur': `${baseUrl}/ur/pages/pinterest-video-download`,
-        'x-default': `${baseUrl}/en/pages/pinterest-video-download`,
-      },
-  },
-  other: {
-    'pinterest:card': 'summary',
-    'pinterest:title': 'Pinterest Video Downloader',
-    'pinterest:description': 'Download Pinterest videos and images for free',
-  },
-  };
+  return constructMetadata({
+    title: 'Pinterest Video Downloader - Download Pinterest Videos & Images Free Online | SnapSavePro',
+    description: 'Free Pinterest video and image downloader. Download Pinterest pins in HD quality. Fast, easy, and free - no registration required.',
+    keywords: "pinterest video downloader, download pinterest videos, pinterest image downloader, save pinterest pins, pinterest downloader free, download from pinterest, pinterest video saver, pinterest image saver, pinterest pin downloader, pinterest media downloader, pinterest video download hd, pinterest gif downloader, free pinterest downloader, pinterest content downloader, save pinterest images",
+    path: '/pages/pinterest-video-download',
+    locale,
+    image: 'https://snapsavepro.com/og-pinterest.jpg',
+  });
 }
 
 export default function PinterestDownloadPage() {

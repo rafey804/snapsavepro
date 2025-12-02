@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import KwaiDownloader from '@/components/home/KwaiDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import FAQSection from '@/components/SEO/FAQSection';
@@ -20,34 +21,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Kwai Video Downloader - Download Kwai Videos in HD Quality Free | Short & Long Videos',
-  description: 'Download Kwai videos in HD quality for free. Fast, safe, and easy Kwai video downloader. Supports both short and long videos. No watermark, no registration required.',
-  keywords: 'kwai video downloader, download kwai videos, kwai downloader, save kwai videos, kwai video download, kwai video saver, download kwai, kwai downloader online, free kwai downloader, kwai video download hd, download kwai short videos, download kwai long videos',
-  openGraph: {
-    title: 'Kwai Video Downloader - Download Kwai Videos in HD Quality Free',
-    description: 'Download Kwai videos in HD quality for free. Fast, safe, and easy. Supports both short and long videos.',
-    type: 'website',
-    url: `${baseUrl}/${locale}/pages/kwai-video-downloader`,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Kwai Video Downloader - Download Kwai Videos in HD Quality Free',
-    description: 'Download Kwai videos in HD quality for free. Fast, safe, and easy.',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/kwai-video-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/kwai-video-downloader`,
-        'hi': `${baseUrl}/hi/pages/kwai-video-downloader`,
-        'zh': `${baseUrl}/zh/pages/kwai-video-downloader`,
-        'ur': `${baseUrl}/ur/pages/kwai-video-downloader`,
-        'x-default': `${baseUrl}/en/pages/kwai-video-downloader`,
-      },
-  },
-  };
+  return constructMetadata({
+    title: 'Kwai Video Downloader - Download Kwai Videos in HD Quality Free | Short & Long Videos',
+    description: 'Download Kwai videos in HD quality for free. Fast, safe, and easy Kwai video downloader. Supports both short and long videos. No watermark, no registration required.',
+    keywords: 'kwai video downloader, download kwai videos, kwai downloader, save kwai videos, kwai video download, kwai video saver, download kwai, kwai downloader online, free kwai downloader, kwai video download hd, download kwai short videos, download kwai long videos',
+    path: '/pages/kwai-video-downloader',
+    locale,
+  });
 }
 
 export default function KwaiVideoDownloaderPage() {

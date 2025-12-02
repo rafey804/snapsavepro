@@ -7,6 +7,7 @@ import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import { twitterFAQs, twitterReviews } from "@/data/twitterSEOData";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
+import { constructMetadata } from "@/utils/seo";
 
 // Locale to OG locale mapping
 const localeToOGLocale: Record<string, string> = {
@@ -24,49 +25,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata.twitter' });
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
+  return constructMetadata({
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: `${baseUrl}/${locale}/pages/twitter-video-download`,
-      siteName: 'Snap Save Pro',
-      images: [{ url: 'https://snapsavepro.com/og-twitter.png', width: 1200, height: 630, alt: 'Twitter/X Video Downloader' }],
-      locale: localeToOGLocale[locale] || 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-      images: ['https://snapsavepro.com/og-twitter.png'],
-    },
-    alternates: {
-      canonical: `${baseUrl}/en/pages/twitter-video-download`,
-      languages: {
-        'en': `${baseUrl}/en/pages/twitter-video-download`,
-        'hi': `${baseUrl}/hi/pages/twitter-video-download`,
-        'zh': `${baseUrl}/zh/pages/twitter-video-download`,
-        'ur': `${baseUrl}/ur/pages/twitter-video-download`,
-        'x-default': `${baseUrl}/en/pages/twitter-video-download`,
-      },
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-  };
+    path: '/pages/twitter-video-download',
+    locale,
+    image: 'https://snapsavepro.com/og-twitter.png',
+  });
 }
 
 const TwitterPage = () => {
@@ -106,7 +73,7 @@ const TwitterPage = () => {
         <h1>Twitter/X Video Downloader - Download Videos in HD Quality</h1>
       </header>
 
-      <TwitterDownloader/>
+      <TwitterDownloader />
       <HowToDownload platform="Twitter/X" platformColor="blue" />
       <InfoSection platform="Twitter/X" platformColor="blue" />
       <PlatformContentSection platform="twitter" platformColor="blue" />

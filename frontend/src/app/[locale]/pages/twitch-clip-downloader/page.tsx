@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import TwitchDownloader from '@/components/home/TwitchDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import InfoSection from '@/components/SEO/InfoSection';
@@ -22,34 +23,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Twitch Clip Downloader - Download Twitch Clips in HD Quality Free',
-  description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy Twitch clip downloader. No watermark, no registration required. Save your favorite gaming moments instantly.',
-  keywords: 'twitch clip downloader, download twitch clips, twitch video downloader, save twitch clips, twitch clip download, twitch downloader, download twitch videos, twitch clip saver',
-  openGraph: {
+  return constructMetadata({
     title: 'Twitch Clip Downloader - Download Twitch Clips in HD Quality Free',
-    description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy. No watermark, no registration required.',
-    type: 'website',
-    url: `${baseUrl}/${locale}/pages/twitch-clip-downloader`,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Twitch Clip Downloader - Download Twitch Clips in HD Quality Free',
-    description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy.',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/twitch-clip-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/twitch-clip-downloader`,
-        'hi': `${baseUrl}/hi/pages/twitch-clip-downloader`,
-        'zh': `${baseUrl}/zh/pages/twitch-clip-downloader`,
-        'ur': `${baseUrl}/ur/pages/twitch-clip-downloader`,
-        'x-default': `${baseUrl}/en/pages/twitch-clip-downloader`,
-      },
-  },
-  };
+    description: 'Download Twitch clips in HD quality for free. Fast, safe, and easy Twitch clip downloader. No watermark, no registration required. Save your favorite gaming moments instantly.',
+    keywords: 'twitch clip downloader, download twitch clips, twitch video downloader, save twitch clips, twitch clip download, twitch downloader, download twitch videos, twitch clip saver',
+    path: '/pages/twitch-clip-downloader',
+    locale,
+  });
 }
 
 export default function TwitchClipDownloaderPage() {

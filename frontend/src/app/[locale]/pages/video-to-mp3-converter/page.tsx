@@ -4,6 +4,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import type { Metadata } from "next";
+import { constructMetadata } from "@/utils/seo";
 import { Music, FileVideo, Download, Settings, CheckCircle, Globe, Shield, Zap } from 'lucide-react';
 
 const localeToOGLocale: Record<string, string> = {
@@ -20,12 +21,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Video to MP3 Converter - Free Online Video Audio Extractor | Convert MP4, AVI, MKV to MP3 320kbps',
-  description: 'Convert any video to MP3 audio online free. Extract audio from MP4, AVI, MKV, MOV, WMV videos. High-quality 320kbps MP3 conversion. No software needed. Fast & secure video to MP3 converter.',
-  keywords: [
+  const keywordsList = [
     // Primary English Keywords
     'video to mp3', 'video to mp3 converter', 'convert video to mp3', 'video to audio converter', 'mp4 to mp3',
     'extract audio from video', 'video audio extractor', 'video to mp3 online', 'free video to mp3 converter',
@@ -61,45 +58,16 @@ export async function generateMetadata({
     // Use-case specific
     'music video to mp3', 'lecture video to audio', 'podcast video to mp3', 'movie to mp3 audio',
     'video clip to mp3', 'video song to mp3', 'video background music extractor'
-  ],
-  openGraph: {
-    title: 'Free Video to MP3 Converter - Convert Any Video Format to High-Quality MP3',
-    description: 'Convert MP4, AVI, MKV, MOV, WMV videos to MP3 in 320kbps quality. Fast, free, secure online video to audio converter. No software installation required.',
-    url: `${baseUrl}/${locale}/pages/video-to-mp3-converter`,
-    siteName: 'Snap Save Pro',
-    images: [{ url: '/og-video-to-mp3.jpg', width: 1200, height: 630, alt: 'Video to MP3 Converter - Free Online Audio Extraction Tool' }],
-    locale: localeToOGLocale[locale] || 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Video to MP3 Converter - Extract Audio from Videos 320kbps Free',
-    description: 'Convert any video format to high-quality MP3. Supports MP4, AVI, MKV, MOV. 128-320kbps quality options.',
-    images: ['/og-video-to-mp3.jpg'],
-    creator: '@snapsavepro',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/video-to-mp3-converter`,
-    languages: {
-      'en': `${baseUrl}/en/pages/video-to-mp3-converter`,
-      'hi': `${baseUrl}/hi/pages/video-to-mp3-converter`,
-      'zh': `${baseUrl}/zh/pages/video-to-mp3-converter`,
-      'ur': `${baseUrl}/ur/pages/video-to-mp3-converter`,
-      'x-default': `${baseUrl}/en/pages/video-to-mp3-converter`,
-    },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1
-    }
-  },
-  };
+  ];
+
+  return constructMetadata({
+    title: 'Video to MP3 Converter - Free Online Video Audio Extractor | Convert MP4, AVI, MKV to MP3 320kbps',
+    description: 'Convert any video to MP3 audio online free. Extract audio from MP4, AVI, MKV, MOV, WMV videos. High-quality 320kbps MP3 conversion. No software needed. Fast & secure video to MP3 converter.',
+    keywords: keywordsList.join(', '),
+    path: '/pages/video-to-mp3-converter',
+    locale,
+    image: '/og-video-to-mp3.jpg',
+  });
 }
 
 // FAQ Data
@@ -178,40 +146,42 @@ const VideoToMP3Page = async ({ params }: PageProps) => {
   return (
     <div className="bg-white min-h-screen">
       {/* Schema.org Structured Data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Video to MP3 Converter - Snap Save Pro",
-        "description": "Free online video to MP3 converter. Extract audio from MP4, AVI, MKV, MOV, WMV videos. Convert to high-quality MP3 up to 320kbps. No software required.",
-        "url": "https://snapsavepro.com/pages/video-to-mp3-converter",
-        "applicationCategory": "MultimediaApplication",
-        "operatingSystem": "Web Browser, Windows, Mac, Linux, Android, iOS",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock"
-        },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "reviewCount": "12847",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "featureList": [
-          "Convert all video formats to MP3",
-          "Support for MP4, AVI, MKV, MOV, WMV, FLV, WebM",
-          "High-quality audio up to 320kbps",
-          "URL and file upload conversion",
-          "No file size limits (URL method)",
-          "Fast conversion speed",
-          "No registration required",
-          "Mobile friendly",
-          "Secure and private",
-          "No watermarks"
-        ]
-      })}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "Video to MP3 Converter - Snap Save Pro",
+          "description": "Free online video to MP3 converter. Extract audio from MP4, AVI, MKV, MOV, WMV videos. Convert to high-quality MP3 up to 320kbps. No software required.",
+          "url": "https://snapsavepro.com/pages/video-to-mp3-converter",
+          "applicationCategory": "MultimediaApplication",
+          "operatingSystem": "Web Browser, Windows, Mac, Linux, Android, iOS",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "12847",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "featureList": [
+            "Convert all video formats to MP3",
+            "Support for MP4, AVI, MKV, MOV, WMV, FLV, WebM",
+            "High-quality audio up to 320kbps",
+            "URL and file upload conversion",
+            "No file size limits (URL method)",
+            "Fast conversion speed",
+            "No registration required",
+            "Mobile friendly",
+            "Secure and private",
+            "No watermarks"
+          ]
+        })
+      }} />
 
       {/* Accessibility Header */}
       <header className="sr-only">
@@ -220,7 +190,7 @@ const VideoToMP3Page = async ({ params }: PageProps) => {
       </header>
 
       {/* Main Converter Component */}
-      <VideoToMP3Converter/>
+      <VideoToMP3Converter />
 
       {/* Comprehensive SEO Content Section with White Background */}
       <section className="relative w-full px-4 py-16 bg-white">
@@ -321,15 +291,15 @@ const VideoToMP3Page = async ({ params }: PageProps) => {
 
               <ol className="space-y-6 text-lg md:text-xl text-gray-700 mb-12">
                 <li className="pl-8 text-center">
-                  <strong className="text-purple-600 text-xl">Step 1: Upload Your Video</strong><br/>
+                  <strong className="text-purple-600 text-xl">Step 1: Upload Your Video</strong><br />
                   <span className="text-gray-600">Select up to 5 video files from your device. Supports all popular formats like MP4, AVI, MKV, and more.</span>
                 </li>
                 <li className="pl-8 text-center">
-                  <strong className="text-pink-600 text-xl">Step 2: Automatic Conversion</strong><br/>
+                  <strong className="text-pink-600 text-xl">Step 2: Automatic Conversion</strong><br />
                   <span className="text-gray-600">Your videos are automatically converted to high-quality 320kbps MP3 format. Watch the progress in real-time.</span>
                 </li>
                 <li className="pl-8 text-center">
-                  <strong className="text-pink-600 text-xl">Step 3: Download Your MP3 Files</strong><br/>
+                  <strong className="text-pink-600 text-xl">Step 3: Download Your MP3 Files</strong><br />
                   <span className="text-gray-600">Once conversion is complete, all your MP3 files will download automatically with unique names. Enjoy your audio!</span>
                 </li>
               </ol>
@@ -372,134 +342,134 @@ const VideoToMP3Page = async ({ params }: PageProps) => {
 
           {/* Hindi Content - Only show for Hindi locale */}
           {locale === 'hi' && (
-          <div className="mb-16 border-t-4 border-purple-200 pt-12">
-            <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-              वीडियो को MP3 में बदलें - फ्री ऑनलाइन वीडियो ऑडियो कन्वर्टर
-            </h2>
+            <div className="mb-16 border-t-4 border-purple-200 pt-12">
+              <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+                वीडियो को MP3 में बदलें - फ्री ऑनलाइन वीडियो ऑडियो कन्वर्टर
+              </h2>
 
-            <p className="text-xl text-gray-700 leading-relaxed mb-6">
-              हमारा <strong>वीडियो टू MP3 कन्वर्टर</strong> किसी भी वीडियो फॉर्मेट से हाई-क्वालिटी ऑडियो निकालने का सबसे आसान तरीका है। चाहे आप <strong>MP4 को MP3</strong> में बदलना चाहें, <strong>AVI को MP3</strong> में, या किसी अन्य वीडियो फॉर्मेट को, हमारा टूल सभी प्रकार के वीडियो को <strong>320kbps तक की क्वालिटी</strong> में कन्वर्ट कर सकता है।
-            </p>
+              <p className="text-xl text-gray-700 leading-relaxed mb-6">
+                हमारा <strong>वीडियो टू MP3 कन्वर्टर</strong> किसी भी वीडियो फॉर्मेट से हाई-क्वालिटी ऑडियो निकालने का सबसे आसान तरीका है। चाहे आप <strong>MP4 को MP3</strong> में बदलना चाहें, <strong>AVI को MP3</strong> में, या किसी अन्य वीडियो फॉर्मेट को, हमारा टूल सभी प्रकार के वीडियो को <strong>320kbps तक की क्वालिटी</strong> में कन्वर्ट कर सकता है।
+              </p>
 
-            <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900">
-              वीडियो टू MP3 कन्वर्टर की मुख्य विशेषताएं
-            </h3>
+              <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900">
+                वीडियो टू MP3 कन्वर्टर की मुख्य विशेषताएं
+              </h3>
 
-            <ul className="space-y-3 text-lg text-gray-700 mb-6">
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>सभी वीडियो फॉर्मेट सपोर्ट:</strong> MP4, AVI, MKV, MOV, WMV, FLV, WebM और अन्य सभी वीडियो फॉर्मेट को MP3 में बदलें।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>हाई क्वालिटी ऑडियो:</strong> 128, 192, 256, या 320 kbps बिटरेट में ऑडियो प्राप्त करें। बेहतरीन साउंड क्वालिटी।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>तेज़ कन्वर्जन:</strong> मिनटों में अपने वीडियो को MP3 में बदलें। रियल-टाइम प्रोग्रेस ट्रैकिंग।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>पूरी तरह फ्री:</strong> बिना किसी लिमिट के अनलिमिटेड वीडियो कन्वर्ट करें। कोई रजिस्ट्रेशन नहीं चाहिए।</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>सुरक्षित और प्राइवेट:</strong> आपकी फाइलें एन्क्रिप्टेड हैं और कन्वर्जन के बाद ऑटोमैटिक डिलीट हो जाती हैं।</span>
-              </li>
-            </ul>
+              <ul className="space-y-3 text-lg text-gray-700 mb-6">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>सभी वीडियो फॉर्मेट सपोर्ट:</strong> MP4, AVI, MKV, MOV, WMV, FLV, WebM और अन्य सभी वीडियो फॉर्मेट को MP3 में बदलें।</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>हाई क्वालिटी ऑडियो:</strong> 128, 192, 256, या 320 kbps बिटरेट में ऑडियो प्राप्त करें। बेहतरीन साउंड क्वालिटी।</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>तेज़ कन्वर्जन:</strong> मिनटों में अपने वीडियो को MP3 में बदलें। रियल-टाइम प्रोग्रेस ट्रैकिंग।</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>पूरी तरह फ्री:</strong> बिना किसी लिमिट के अनलिमिटेड वीडियो कन्वर्ट करें। कोई रजिस्ट्रेशन नहीं चाहिए।</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>सुरक्षित और प्राइवेट:</strong> आपकी फाइलें एन्क्रिप्टेड हैं और कन्वर्जन के बाद ऑटोमैटिक डिलीट हो जाती हैं।</span>
+                </li>
+              </ul>
 
-            <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900">
-              वीडियो को MP3 में कैसे बदलें - आसान स्टेप्स
-            </h3>
+              <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900">
+                वीडियो को MP3 में कैसे बदलें - आसान स्टेप्स
+              </h3>
 
-            <ol className="space-y-4 text-lg text-gray-700 mb-8">
-              <li className="pl-6">
-                <strong className="text-purple-600">स्टेप 1:</strong> "Upload File" या "From URL" विकल्प चुनें।
-              </li>
-              <li className="pl-6">
-                <strong className="text-purple-600">स्टेप 2:</strong> ऑडियो क्वालिटी सेलेक्ट करें (128, 192, 256, या 320 kbps)।
-              </li>
-              <li className="pl-6">
-                <strong className="text-purple-600">स्टेप 3:</strong> अपना वीडियो अपलोड करें या वीडियो URL पेस्ट करें।
-              </li>
-              <li className="pl-6">
-                <strong className="text-purple-600">स्टेप 4:</strong> "Convert to MP3" बटन पर क्लिक करें।
-              </li>
-              <li className="pl-6">
-                <strong className="text-purple-600">स्टेप 5:</strong> अपनी हाई-क्वालिटी MP3 फाइल डाउनलोड करें।
-              </li>
-            </ol>
+              <ol className="space-y-4 text-lg text-gray-700 mb-8">
+                <li className="pl-6">
+                  <strong className="text-purple-600">स्टेप 1:</strong> "Upload File" या "From URL" विकल्प चुनें।
+                </li>
+                <li className="pl-6">
+                  <strong className="text-purple-600">स्टेप 2:</strong> ऑडियो क्वालिटी सेलेक्ट करें (128, 192, 256, या 320 kbps)।
+                </li>
+                <li className="pl-6">
+                  <strong className="text-purple-600">स्टेप 3:</strong> अपना वीडियो अपलोड करें या वीडियो URL पेस्ट करें।
+                </li>
+                <li className="pl-6">
+                  <strong className="text-purple-600">स्टेप 4:</strong> "Convert to MP3" बटन पर क्लिक करें।
+                </li>
+                <li className="pl-6">
+                  <strong className="text-purple-600">स्टेप 5:</strong> अपनी हाई-क्वालिटी MP3 फाइल डाउनलोड करें।
+                </li>
+              </ol>
 
-            <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              हमारा वीडियो टू MP3 कन्वर्टर मोबाइल, टैबलेट, कंप्यूटर सभी डिवाइस पर काम करता है। यूट्यूब, फेसबुक, इंस्टाग्राम, टिकटॉक की वीडियो को भी MP3 में बदल सकते हैं। बिल्कुल फ्री और बिना किसी सॉफ्टवेयर इंस्टॉल किए।
-            </p>
-          </div>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                हमारा वीडियो टू MP3 कन्वर्टर मोबाइल, टैबलेट, कंप्यूटर सभी डिवाइस पर काम करता है। यूट्यूब, फेसबुक, इंस्टाग्राम, टिकटॉक की वीडियो को भी MP3 में बदल सकते हैं। बिल्कुल फ्री और बिना किसी सॉफ्टवेयर इंस्टॉल किए।
+              </p>
+            </div>
           )}
 
           {/* Urdu Content - Only show for Urdu locale */}
           {locale === 'ur' && (
-          <div className="mb-16 border-t-4 border-purple-200 pt-12">
-            <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600" dir="rtl">
-              ویڈیو کو MP3 میں تبدیل کریں - مفت آن لائن ویڈیو آڈیو کنورٹر
-            </h2>
+            <div className="mb-16 border-t-4 border-purple-200 pt-12">
+              <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600" dir="rtl">
+                ویڈیو کو MP3 میں تبدیل کریں - مفت آن لائن ویڈیو آڈیو کنورٹر
+              </h2>
 
-            <p className="text-xl text-gray-700 leading-relaxed mb-6" dir="rtl">
-              ہمارا <strong>ویڈیو ٹو MP3 کنورٹر</strong> کسی بھی ویڈیو فارمیٹ سے ہائی کوالٹی آڈیو نکالنے کا سب سے آسان طریقہ ہے۔ چاہے آپ <strong>MP4 کو MP3</strong> میں تبدیل کرنا چاہیں، <strong>AVI کو MP3</strong> میں، یا کسی اور ویڈیو فارمیٹ کو، ہمارا ٹول تمام قسم کی ویڈیوز کو <strong>320kbps تک کی کوالٹی</strong> میں کنورٹ کر سکتا ہے۔
-            </p>
+              <p className="text-xl text-gray-700 leading-relaxed mb-6" dir="rtl">
+                ہمارا <strong>ویڈیو ٹو MP3 کنورٹر</strong> کسی بھی ویڈیو فارمیٹ سے ہائی کوالٹی آڈیو نکالنے کا سب سے آسان طریقہ ہے۔ چاہے آپ <strong>MP4 کو MP3</strong> میں تبدیل کرنا چاہیں، <strong>AVI کو MP3</strong> میں، یا کسی اور ویڈیو فارمیٹ کو، ہمارا ٹول تمام قسم کی ویڈیوز کو <strong>320kbps تک کی کوالٹی</strong> میں کنورٹ کر سکتا ہے۔
+              </p>
 
-            <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900" dir="rtl">
-              ویڈیو ٹو MP3 کنورٹر کی اہم خصوصیات
-            </h3>
+              <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900" dir="rtl">
+                ویڈیو ٹو MP3 کنورٹر کی اہم خصوصیات
+              </h3>
 
-            <ul className="space-y-3 text-lg text-gray-700 mb-6" dir="rtl">
-              <li className="flex items-start gap-3 flex-row-reverse">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>تمام ویڈیو فارمیٹس سپورٹ:</strong> MP4, AVI, MKV, MOV, WMV, FLV, WebM اور دیگر تمام ویڈیو فارمیٹس کو MP3 میں تبدیل کریں۔</span>
-              </li>
-              <li className="flex items-start gap-3 flex-row-reverse">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>ہائی کوالٹی آڈیو:</strong> 128, 192, 256, یا 320 kbps بِٹ ریٹ میں آڈیو حاصل کریں۔ بہترین آواز کی کوالٹی۔</span>
-              </li>
-              <li className="flex items-start gap-3 flex-row-reverse">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>تیز رفتار کنورژن:</strong> منٹوں میں اپنی ویڈیو کو MP3 میں تبدیل کریں۔ ریئل ٹائم پروگریس ٹریکنگ۔</span>
-              </li>
-              <li className="flex items-start gap-3 flex-row-reverse">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>مکمل طور پر مفت:</strong> بغیر کسی حد کے لامحدود ویڈیوز کنورٹ کریں۔ کوئی رجسٹریشن کی ضرورت نہیں۔</span>
-              </li>
-              <li className="flex items-start gap-3 flex-row-reverse">
-                <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
-                <span><strong>محفوظ اور پرائیویٹ:</strong> آپ کی فائلیں انکرپٹڈ ہیں اور کنورژن کے بعد خودکار طور پر ڈیلیٹ ہو جاتی ہیں۔</span>
-              </li>
-            </ul>
+              <ul className="space-y-3 text-lg text-gray-700 mb-6" dir="rtl">
+                <li className="flex items-start gap-3 flex-row-reverse">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>تمام ویڈیو فارمیٹس سپورٹ:</strong> MP4, AVI, MKV, MOV, WMV, FLV, WebM اور دیگر تمام ویڈیو فارمیٹس کو MP3 میں تبدیل کریں۔</span>
+                </li>
+                <li className="flex items-start gap-3 flex-row-reverse">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>ہائی کوالٹی آڈیو:</strong> 128, 192, 256, یا 320 kbps بِٹ ریٹ میں آڈیو حاصل کریں۔ بہترین آواز کی کوالٹی۔</span>
+                </li>
+                <li className="flex items-start gap-3 flex-row-reverse">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>تیز رفتار کنورژن:</strong> منٹوں میں اپنی ویڈیو کو MP3 میں تبدیل کریں۔ ریئل ٹائم پروگریس ٹریکنگ۔</span>
+                </li>
+                <li className="flex items-start gap-3 flex-row-reverse">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>مکمل طور پر مفت:</strong> بغیر کسی حد کے لامحدود ویڈیوز کنورٹ کریں۔ کوئی رجسٹریشن کی ضرورت نہیں۔</span>
+                </li>
+                <li className="flex items-start gap-3 flex-row-reverse">
+                  <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-1" />
+                  <span><strong>محفوظ اور پرائیویٹ:</strong> آپ کی فائلیں انکرپٹڈ ہیں اور کنورژن کے بعد خودکار طور پر ڈیلیٹ ہو جاتی ہیں۔</span>
+                </li>
+              </ul>
 
-            <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900" dir="rtl">
-              ویڈیو کو MP3 میں کیسے تبدیل کریں - آسان قدم
-            </h3>
+              <h3 className="text-3xl font-bold mt-12 mb-6 text-gray-900" dir="rtl">
+                ویڈیو کو MP3 میں کیسے تبدیل کریں - آسان قدم
+              </h3>
 
-            <ol className="space-y-4 text-lg text-gray-700 mb-8" dir="rtl">
-              <li className="pr-6">
-                <strong className="text-purple-600">قدم 1:</strong> "Upload File" یا "From URL" آپشن منتخب کریں۔
-              </li>
-              <li className="pr-6">
-                <strong className="text-purple-600">قدم 2:</strong> آڈیو کوالٹی سلیکٹ کریں (128, 192, 256, یا 320 kbps)۔
-              </li>
-              <li className="pr-6">
-                <strong className="text-purple-600">قدم 3:</strong> اپنی ویڈیو اپ لوڈ کریں یا ویڈیو URL پیسٹ کریں۔
-              </li>
-              <li className="pr-6">
-                <strong className="text-purple-600">قدم 4:</strong> "Convert to MP3" بٹن پر کلک کریں۔
-              </li>
-              <li className="pr-6">
-                <strong className="text-purple-600">قدم 5:</strong> اپنی ہائی کوالٹی MP3 فائل ڈاؤن لوڈ کریں۔
-              </li>
-            </ol>
+              <ol className="space-y-4 text-lg text-gray-700 mb-8" dir="rtl">
+                <li className="pr-6">
+                  <strong className="text-purple-600">قدم 1:</strong> "Upload File" یا "From URL" آپشن منتخب کریں۔
+                </li>
+                <li className="pr-6">
+                  <strong className="text-purple-600">قدم 2:</strong> آڈیو کوالٹی سلیکٹ کریں (128, 192, 256, یا 320 kbps)۔
+                </li>
+                <li className="pr-6">
+                  <strong className="text-purple-600">قدم 3:</strong> اپنی ویڈیو اپ لوڈ کریں یا ویڈیو URL پیسٹ کریں۔
+                </li>
+                <li className="pr-6">
+                  <strong className="text-purple-600">قدم 4:</strong> "Convert to MP3" بٹن پر کلک کریں۔
+                </li>
+                <li className="pr-6">
+                  <strong className="text-purple-600">قدم 5:</strong> اپنی ہائی کوالٹی MP3 فائل ڈاؤن لوڈ کریں۔
+                </li>
+              </ol>
 
-            <p className="text-lg text-gray-700 leading-relaxed mb-6" dir="rtl">
-              ہمارا ویڈیو ٹو MP3 کنورٹر موبائل، ٹیبلٹ، کمپیوٹر تمام ڈیوائسز پر کام کرتا ہے۔ یوٹیوب، فیس بک، انسٹاگرام، ٹک ٹاک کی ویڈیوز کو بھی MP3 میں تبدیل کر سکتے ہیں۔ بالکل مفت اور بغیر کسی سافٹ ویئر انسٹال کیے۔
-            </p>
-          </div>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6" dir="rtl">
+                ہمارا ویڈیو ٹو MP3 کنورٹر موبائل، ٹیبلٹ، کمپیوٹر تمام ڈیوائسز پر کام کرتا ہے۔ یوٹیوب، فیس بک، انسٹاگرام، ٹک ٹاک کی ویڈیوز کو بھی MP3 میں تبدیل کر سکتے ہیں۔ بالکل مفت اور بغیر کسی سافٹ ویئر انسٹال کیے۔
+              </p>
+            </div>
           )}
         </article>
       </section>

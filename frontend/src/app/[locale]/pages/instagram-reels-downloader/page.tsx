@@ -4,6 +4,7 @@ import InstagramDownloader from '@/components/home/InstagramDownloader';
 import PlatformContentSection from '@/components/SEO/PlatformContentSection';
 import InstagramUniqueContent from '@/components/SEO/InstagramUniqueContent';
 import { getTranslations } from 'next-intl/server';
+import { constructMetadata } from '@/utils/seo';
 
 // Locale to OG locale mapping
 const localeToOGLocale: Record<string, string> = {
@@ -21,58 +22,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata.instagramReels' });
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
+  return constructMetadata({
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
-    authors: [{ name: 'SnapSavePro' }],
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      type: 'website',
-      url: `${baseUrl}/${locale}/pages/instagram-reels-downloader`,
-      siteName: 'SnapSavePro',
-      locale: localeToOGLocale[locale] || 'en_US',
-      images: [
-        {
-          url: '/instagram-downloader-og.jpg',
-          width: 1200,
-          height: 630,
-          alt: 'Instagram Reels Downloader - Download HD Videos Without Watermark',
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-      site: '@SnapSavePro',
-      creator: '@SnapSavePro',
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-    alternates: {
-      canonical: `${baseUrl}/en/pages/instagram-reels-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/instagram-reels-downloader`,
-        'hi': `${baseUrl}/hi/pages/instagram-reels-downloader`,
-        'zh': `${baseUrl}/zh/pages/instagram-reels-downloader`,
-        'ur': `${baseUrl}/ur/pages/instagram-reels-downloader`,
-        'x-default': `${baseUrl}/en/pages/instagram-reels-downloader`,
-      },
-    },
-  };
+    path: '/pages/instagram-reels-downloader',
+    locale,
+    image: '/instagram-downloader-og.jpg',
+  });
 }
 
 const jsonLd = {

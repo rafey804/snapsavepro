@@ -1,13 +1,43 @@
-'use client';
-
 import React from 'react';
-import { FileText, AlertTriangle, CheckCircle, XCircle, Scale, Users, Shield, Clock, Gavel, Info, Mail, Lock, Globe, Ban, RefreshCw } from 'lucide-react';
+import type { Metadata } from 'next';
+import { constructMetadata } from '@/utils/seo';
+import {
+  FileText,
+  Info,
+  CheckCircle,
+  Users,
+  XCircle,
+  AlertTriangle,
+  Scale,
+  Gavel,
+  Ban,
+  Shield,
+  Globe,
+  Clock,
+  Lock,
+  RefreshCw,
+  Mail
+} from 'lucide-react';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return constructMetadata({
+    title: 'Terms of Service - SnapSavePro',
+    description: 'Terms of Service for SnapSavePro. Read our rules, user responsibilities, and legal agreements for using our video downloader service.',
+    path: '/pages/legal/terms-of-service',
+    locale,
+  });
+}
 
 export default function TermsOfServicePage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900">
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/10 via-emerald-600/5 to-purple-600/10" />
-      
+
       <div className="relative z-10 container mx-auto px-4 py-16">
         <header className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-6">
@@ -29,7 +59,7 @@ export default function TermsOfServicePage() {
               <Info className="h-6 w-6 text-cyan-400" />
               <h2 className="text-2xl font-bold text-white">Introduction & Agreement</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 Welcome to Snap Save Pro. These Terms of Service (&quot;Terms&quot;) govern your access to and use of our video and audio downloading service across multiple platforms including TikTok, Facebook, Pinterest, Snapchat, Reddit, Twitter/X, and audio content. These Terms constitute a legally binding agreement between you (&quot;User,&quot; &quot;you,&quot; or &quot;your&quot;) and Snap Save Pro (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;).
@@ -49,7 +79,7 @@ export default function TermsOfServicePage() {
               <CheckCircle className="h-6 w-6 text-emerald-400" />
               <h2 className="text-2xl font-bold text-white">Acceptance of Terms</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 By accessing and using Snap Save Pro&apos;s video and audio downloader service, you accept and agree to be bound by the terms and provisions of this agreement. Your use of our service constitutes your acceptance of these Terms, and you agree to comply with all applicable laws and regulations.
@@ -70,12 +100,12 @@ export default function TermsOfServicePage() {
               <Users className="h-6 w-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">Use License & Permitted Uses</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 Permission is granted to temporarily download videos and audio from supported platforms for personal, non-commercial use only. This license is subject to the following restrictions and does not include the sale or commercial use of the service or its contents.
               </p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-6">
                   <h3 className="text-lg font-semibold text-emerald-400 mb-4 flex items-center gap-2">
@@ -105,7 +135,7 @@ export default function TermsOfServicePage() {
                     </li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
                   <h3 className="text-lg font-semibold text-red-400 mb-4 flex items-center gap-2">
                     <XCircle className="h-5 w-5" />
@@ -144,10 +174,10 @@ export default function TermsOfServicePage() {
               <AlertTriangle className="h-6 w-6 text-yellow-400" />
               <h2 className="text-2xl font-bold text-white">User Responsibilities & Obligations</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>As a user of our service, you agree to the following responsibilities and obligations:</p>
-              
+
               <div className="space-y-3 mt-4">
                 <div className="border-l-4 border-yellow-400 pl-4 bg-yellow-400/5 p-4 rounded-r-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
@@ -156,7 +186,7 @@ export default function TermsOfServicePage() {
                   </h4>
                   <p>You are solely responsible for ensuring you have the legal right to download and use any content. You must respect intellectual property rights, creator copyrights, trademarks, and other proprietary rights. Downloading copyrighted material without proper authorization may violate copyright laws and could result in legal consequences.</p>
                 </div>
-                
+
                 <div className="border-l-4 border-cyan-400 pl-4 bg-cyan-400/5 p-4 rounded-r-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Gavel className="h-4 w-4 text-cyan-400" />
@@ -164,7 +194,7 @@ export default function TermsOfServicePage() {
                   </h4>
                   <p>You must comply with all applicable local, state, national, and international laws, regulations, and ordinances when using our service. This includes, but is not limited to, copyright laws, data protection regulations, and platform-specific terms of service.</p>
                 </div>
-                
+
                 <div className="border-l-4 border-purple-400 pl-4 bg-purple-400/5 p-4 rounded-r-lg">
                   <h4 className="font-semibold text-white mb-2 flex items-center gap-2">
                     <Ban className="h-4 w-4 text-purple-400" />
@@ -190,10 +220,10 @@ export default function TermsOfServicePage() {
               <Globe className="h-6 w-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">Service Description & Features</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>Snap Save Pro provides a web-based platform that allows users to download videos and audio content from various social media platforms. Our service includes:</p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Supported Platforms</h4>
@@ -207,7 +237,7 @@ export default function TermsOfServicePage() {
                     <li>Audio extraction and downloads</li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Features</h4>
                   <ul className="list-disc list-inside space-y-1 text-xs">
@@ -230,10 +260,10 @@ export default function TermsOfServicePage() {
               <Clock className="h-6 w-6 text-purple-400" />
               <h2 className="text-2xl font-bold text-white">Service Availability & Modifications</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>We strive to provide reliable and consistent service, but please understand the following:</p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Our service is provided &quot;as is&quot; and &quot;as available&quot; without any guarantees of availability, performance, or uninterrupted access</li>
                 <li>We reserve the right to modify, suspend, or discontinue the service (or any part thereof) at any time with or without notice</li>
@@ -256,10 +286,10 @@ export default function TermsOfServicePage() {
               <XCircle className="h-6 w-6 text-red-400" />
               <h2 className="text-2xl font-bold text-white">Prohibited Activities & Restrictions</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>The following activities are strictly prohibited when using our service. Violation of these terms may result in immediate termination of access:</p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-white">Technical Abuse</h4>
@@ -272,7 +302,7 @@ export default function TermsOfServicePage() {
                     <li>Using proxies or VPNs to bypass restrictions</li>
                   </ul>
                 </div>
-                
+
                 <div className="space-y-2">
                   <h4 className="font-semibold text-white">Content & Usage Abuse</h4>
                   <ul className="list-disc list-inside space-y-1 text-xs">
@@ -302,19 +332,19 @@ export default function TermsOfServicePage() {
               <Lock className="h-6 w-6 text-indigo-400" />
               <h2 className="text-2xl font-bold text-white">Intellectual Property Rights</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <div className="space-y-3">
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Our Intellectual Property</h4>
                   <p>The service, including its original content, features, functionality, design, code, graphics, logos, and trademarks, is owned by Snap Save Pro and is protected by international copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, or create derivative works without our express written permission.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">Third-Party Content</h4>
                   <p>All downloaded content remains the property of its original creators and copyright holders. Our service does not claim ownership of any downloaded content. You acknowledge that downloading content does not transfer any intellectual property rights to you.</p>
                 </div>
-                
+
                 <div className="bg-slate-900/50 p-4 rounded-lg">
                   <h4 className="font-semibold text-white mb-2">DMCA Compliance</h4>
                   <p>We respect intellectual property rights and comply with the Digital Millennium Copyright Act (DMCA). If you believe your copyrighted work has been infringed, please contact us with detailed information about the alleged infringement.</p>
@@ -329,7 +359,7 @@ export default function TermsOfServicePage() {
               <AlertTriangle className="h-6 w-6 text-orange-400" />
               <h2 className="text-2xl font-bold text-white">Disclaimers & Warranties</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-4">
                 <p className="font-semibold text-orange-400 mb-2">IMPORTANT DISCLAIMER</p>
@@ -337,7 +367,7 @@ export default function TermsOfServicePage() {
                   THE SERVICE IS PROVIDED ON AN &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
                 </p>
               </div>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>We do not host, store, or distribute any copyrighted content on our servers</li>
                 <li>Our service merely facilitates access to content that is already publicly available on third-party platforms</li>
@@ -361,12 +391,12 @@ export default function TermsOfServicePage() {
               <Scale className="h-6 w-6 text-green-400" />
               <h2 className="text-2xl font-bold text-white">Limitation of Liability</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p className="font-semibold text-white">
                 TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL SNAP SAVE PRO, ITS OFFICERS, DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE FOR ANY DAMAGES WHATSOEVER, INCLUDING BUT NOT LIMITED TO:
               </p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Indirect, incidental, special, consequential, or punitive damages</li>
                 <li>Loss of profits, revenue, data, use, goodwill, or other intangible losses</li>
@@ -391,12 +421,12 @@ export default function TermsOfServicePage() {
               <Shield className="h-6 w-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">Indemnification</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 You agree to indemnify, defend, and hold harmless Snap Save Pro, its officers, directors, employees, agents, affiliates, and partners from and against any and all claims, liabilities, damages, losses, costs, expenses, or fees (including reasonable attorneys&apos; fees) arising from:
               </p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Your use or misuse of the service</li>
                 <li>Your violation of these Terms of Service</li>
@@ -419,13 +449,13 @@ export default function TermsOfServicePage() {
               <Gavel className="h-6 w-6 text-purple-400" />
               <h2 className="text-2xl font-bold text-white">Governing Law & Dispute Resolution</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <div className="bg-slate-900/50 p-4 rounded-lg">
                 <h4 className="font-semibold text-white mb-2">Applicable Law</h4>
                 <p>These Terms shall be governed by and construed in accordance with the laws of Pakistan, without regard to its conflict of law provisions. You agree to submit to the personal jurisdiction of the courts located in Pakistan for the purpose of litigating all such claims or disputes.</p>
               </div>
-              
+
               <div className="bg-slate-900/50 p-4 rounded-lg">
                 <h4 className="font-semibold text-white mb-2">Dispute Resolution</h4>
                 <p>In the event of any dispute arising from these Terms or your use of the service, you agree to first attempt to resolve the dispute informally by contacting us. If a dispute cannot be resolved informally within 30 days, either party may pursue formal legal remedies.</p>
@@ -444,12 +474,12 @@ export default function TermsOfServicePage() {
               <Ban className="h-6 w-6 text-red-400" />
               <h2 className="text-2xl font-bold text-white">Termination</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 We reserve the right to terminate or suspend your access to the service immediately, without prior notice or liability, for any reason whatsoever, including but not limited to:
               </p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Violation of these Terms of Service</li>
                 <li>Engaging in prohibited activities</li>
@@ -469,12 +499,12 @@ export default function TermsOfServicePage() {
               <RefreshCw className="h-6 w-6 text-blue-400" />
               <h2 className="text-2xl font-bold text-white">Modifications to Terms</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 We reserve the right to modify, update, or replace these Terms of Service at any time at our sole discretion. Changes will be effective immediately upon posting to this page. We will update the &quot;Last Updated&quot; date at the top of this page when changes are made.
               </p>
-              
+
               <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
                 <h4 className="font-semibold text-blue-400 mb-2">Notification of Changes</h4>
                 <p>For material changes to these Terms, we will make reasonable efforts to provide notice through:</p>
@@ -497,13 +527,13 @@ export default function TermsOfServicePage() {
               <FileText className="h-6 w-6 text-indigo-400" />
               <h2 className="text-2xl font-bold text-white">Severability & Waiver</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <div className="bg-slate-900/50 p-4 rounded-lg">
                 <h4 className="font-semibold text-white mb-2">Severability</h4>
                 <p>If any provision of these Terms is found to be unenforceable or invalid by a court of competent jurisdiction, that provision will be limited or eliminated to the minimum extent necessary so that these Terms will otherwise remain in full force and effect and enforceable.</p>
               </div>
-              
+
               <div className="bg-slate-900/50 p-4 rounded-lg">
                 <h4 className="font-semibold text-white mb-2">Waiver</h4>
                 <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. Any waiver of any provision of these Terms will be effective only if in writing and signed by an authorized representative of Snap Save Pro.</p>
@@ -522,12 +552,12 @@ export default function TermsOfServicePage() {
               <Globe className="h-6 w-6 text-cyan-400" />
               <h2 className="text-2xl font-bold text-white">Third-Party Links & Services</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 Our service may contain links to third-party websites, services, or platforms (including but not limited to TikTok, Facebook, Pinterest, Snapchat, Reddit, Twitter/X) that are not owned or controlled by Snap Save Pro.
               </p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party websites or services</li>
                 <li>You acknowledge and agree that we shall not be responsible or liable for any damage or loss caused by your use of any third-party websites or services</li>
@@ -544,12 +574,12 @@ export default function TermsOfServicePage() {
               <Users className="h-6 w-6 text-green-400" />
               <h2 className="text-2xl font-bold text-white">User Feedback & Suggestions</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 We welcome and encourage you to provide feedback, comments, and suggestions for improvements to our service (&quot;Feedback&quot;). You may submit Feedback by emailing us or through other communication channels.
               </p>
-              
+
               <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
                 <h4 className="font-semibold text-green-400 mb-2">License to Feedback</h4>
                 <p>By submitting Feedback, you grant us a non-exclusive, worldwide, perpetual, irrevocable, fully-paid, royalty-free, sublicensable, and transferable license to use, reproduce, modify, adapt, publish, translate, create derivative works from, distribute, and display such Feedback in any media.</p>
@@ -567,12 +597,12 @@ export default function TermsOfServicePage() {
               <Lock className="h-6 w-6 text-purple-400" />
               <h2 className="text-2xl font-bold text-white">Privacy & Data Protection</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p>
                 Your use of our service is also governed by our Privacy Policy, which is incorporated into these Terms by reference. Please review our Privacy Policy to understand our practices regarding the collection, use, and disclosure of your information.
               </p>
-              
+
               <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-4">
                 <h4 className="font-semibold text-purple-400 mb-2">Key Privacy Points</h4>
                 <ul className="list-disc list-inside space-y-1 ml-4">
@@ -596,12 +626,12 @@ export default function TermsOfServicePage() {
               <Mail className="h-6 w-6 text-cyan-400" />
               <h2 className="text-2xl font-bold text-white">Contact Information</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300">
               <p className="text-sm">
                 If you have any questions, concerns, or feedback regarding these Terms of Service, please don&apos;t hesitate to contact us:
               </p>
-              
+
               <div className="bg-slate-900/50 p-6 rounded-lg space-y-3">
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-cyan-400 flex-shrink-0" />
@@ -610,7 +640,7 @@ export default function TermsOfServicePage() {
                     <a href="mailto:solutions@nafeytech.com" className="text-cyan-400 hover:text-cyan-300 text-sm">solutions@nafeytech.com</a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
                   <FileText className="h-5 w-5 text-cyan-400 flex-shrink-0" />
                   <div>
@@ -618,7 +648,7 @@ export default function TermsOfServicePage() {
                     <p className="text-sm text-gray-300">Terms of Service Inquiry / Legal Question</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3">
                   <Globe className="h-5 w-5 text-cyan-400 flex-shrink-0" />
                   <div>
@@ -648,12 +678,12 @@ export default function TermsOfServicePage() {
               <CheckCircle className="h-6 w-6 text-emerald-400" />
               <h2 className="text-2xl font-bold text-white">Acknowledgment & Acceptance</h2>
             </div>
-            
+
             <div className="space-y-4 text-gray-300 text-sm">
               <p className="font-semibold text-white">
                 BY USING OUR SERVICE, YOU ACKNOWLEDGE THAT:
               </p>
-              
+
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>You have read, understood, and agree to be bound by these Terms of Service</li>
                 <li>You meet all age and eligibility requirements</li>

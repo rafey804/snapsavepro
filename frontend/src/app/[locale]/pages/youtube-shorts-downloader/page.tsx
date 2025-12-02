@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import ShortsDownloader from '@/components/home/ShortsDownloader';
 import PlatformContentSection from '@/components/SEO/PlatformContentSection';
 import { getTranslations } from 'next-intl/server';
@@ -20,58 +21,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata.youtubeShorts' });
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
+  return constructMetadata({
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
-    authors: [{ name: 'SnapSavePro' }],
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      type: 'website',
-      url: `${baseUrl}/${locale}/pages/youtube-shorts-downloader`,
-      siteName: 'SnapSavePro',
-      locale: localeToOGLocale[locale] || 'en_US',
-      images: [
-        {
-          url: '/youtube-shorts-downloader-og.jpg',
-          width: 1200,
-          height: 630,
-          alt: 'YouTube Shorts Downloader - Download HD Videos Without Watermark',
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-      site: '@SnapSavePro',
-      creator: '@SnapSavePro',
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-    alternates: {
-      canonical: `${baseUrl}/en/pages/youtube-shorts-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/youtube-shorts-downloader`,
-        'hi': `${baseUrl}/hi/pages/youtube-shorts-downloader`,
-        'zh': `${baseUrl}/zh/pages/youtube-shorts-downloader`,
-        'ur': `${baseUrl}/ur/pages/youtube-shorts-downloader`,
-        'x-default': `${baseUrl}/en/pages/youtube-shorts-downloader`,
-      },
-    },
-  };
+    path: '/pages/youtube-shorts-downloader',
+    locale,
+    image: '/youtube-shorts-downloader-og.jpg',
+  });
 }
 
 const jsonLd = {

@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import Link from 'next/link';
 import {
   Scale,
@@ -15,21 +16,21 @@ import {
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-export const metadata: Metadata = {
-  title: 'Legal & Copyright Guide for Video Downloads | SnapSavePro',
-  description: 'Complete guide to legal video downloading, copyright laws, fair use, and responsible content use. Understand your rights and obligations when downloading videos from social media.',
-  keywords: 'copyright law, fair use, video download legal, dmca, content rights, legal video download, youtube copyright, tiktok copyright, instagram copyright',
-  alternates: {
-    canonical: `${baseUrl}/en/pages/legal-copyright-guide`,
-    languages: {
-      'en': `${baseUrl}/en/pages/legal-copyright-guide`,
-      'hi': `${baseUrl}/hi/pages/legal-copyright-guide`,
-      'zh': `${baseUrl}/zh/pages/legal-copyright-guide`,
-      'ur': `${baseUrl}/ur/pages/legal-copyright-guide`,
-      'x-default': `${baseUrl}/en/pages/legal-copyright-guide`,
-    },
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  return constructMetadata({
+    title: 'Legal & Copyright Guide for Video Downloads | SnapSavePro',
+    description: 'Complete guide to legal video downloading, copyright laws, fair use, and responsible content use. Understand your rights and obligations when downloading videos from social media.',
+    keywords: 'copyright law, fair use, video download legal, dmca, content rights, legal video download, youtube copyright, tiktok copyright, instagram copyright',
+    path: '/pages/legal-copyright-guide',
+    locale,
+  });
+}
 
 export default function LegalCopyrightGuidePage() {
   return (

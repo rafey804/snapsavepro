@@ -5,6 +5,7 @@ import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import type { Metadata } from "next";
+import { constructMetadata } from "@/utils/seo";
 
 const localeToOGLocale: Record<string, string> = {
   en: 'en_US',
@@ -87,57 +88,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: "Snapchat Video Downloader - Download Spotlight & Stories in HD Free",
-  description: "Download Snapchat videos, Spotlight, and stories in HD quality. Free Snapchat downloader for posts and content. Fast, secure, no registration required.",
-  keywords: "snapchat downloader, download snapchat videos, snapchat spotlight downloader, snapchat story downloader, snapchat video download, save snapchat videos, snapchat to mp4, snapchat content saver, download snapchat spotlight, snapchat video saver, free snapchat downloader, snapchat hd downloader",
-  openGraph: {
-    title: "Free Snapchat Video Downloader - HD Spotlight & Stories Download",
-    description: "Download Snapchat videos, Spotlight, and stories in HD quality. Free and easy to use.",
-    url: `${baseUrl}/${locale}/pages/snapchat-video-download`,
-    siteName: "Snap Save Pro",
-    images: [
-      {
-        url: "/snapchat-downloader-og.png",
-        width: 1200,
-        height: 630,
-        alt: "Snapchat Video Downloader",
-      }
-    ],
-    locale: localeToOGLocale[locale] || 'en_US',
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Snapchat Video Downloader - Free HD Download",
-    description: "Download Snapchat videos, Spotlight, and stories in HD quality.",
-    images: ["/snapchat-downloader-twitter.png"],
-    creator: '@snapsavepro',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/snapchat-video-download`,
-      languages: {
-        'en': `${baseUrl}/en/pages/snapchat-video-download`,
-        'hi': `${baseUrl}/hi/pages/snapchat-video-download`,
-        'zh': `${baseUrl}/zh/pages/snapchat-video-download`,
-        'ur': `${baseUrl}/ur/pages/snapchat-video-download`,
-        'x-default': `${baseUrl}/en/pages/snapchat-video-download`,
-      },
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  };
+  return constructMetadata({
+    title: "Snapchat Video Downloader - Download Spotlight & Stories in HD Free",
+    description: "Download Snapchat videos, Spotlight, and stories in HD quality. Free Snapchat downloader for posts and content. Fast, secure, no registration required.",
+    keywords: "snapchat downloader, download snapchat videos, snapchat spotlight downloader, snapchat story downloader, snapchat video download, save snapchat videos, snapchat to mp4, snapchat content saver, download snapchat spotlight, snapchat video saver, free snapchat downloader, snapchat hd downloader",
+    path: '/pages/snapchat-video-download',
+    locale,
+    image: "/snapchat-downloader-og.png",
+  });
 }
 
 const SnapchatDownloadPage = () => {
@@ -179,7 +138,7 @@ const SnapchatDownloadPage = () => {
 
       <SnapchatDownloader />
 
-   
+
 
       <HowToDownload platform="Snapchat" platformColor="yellow" />
       <InfoSection platform="Snapchat" platformColor="yellow" />

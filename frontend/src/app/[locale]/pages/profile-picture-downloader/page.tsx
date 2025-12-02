@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { constructMetadata } from "@/utils/seo";
 import ProfilePictureDownloader from '@/components/home/ProfilePictureDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import ProfilePicContentSection from '@/components/SEO/ProfilePicContentSection';
@@ -21,34 +22,14 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-  return {
-  title: 'Profile Picture Downloader - Instagram, FB, Twitter DP Viewer | SnapSavePro',
-  description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer - no app, no login required. Get HD quality DPs instantly.',
-  keywords: 'profile picture downloader, instagram dp viewer full size, facebook profile pic in hd, profile picture zoom, dp viewer online, instagram profile viewer, insta dp download, fb dp downloader, twitter dp saver, how to download instagram profile picture, how to see full size dp on instagram, can i download someone\'s profile picture, how to save facebook dp in hd',
-  openGraph: {
+  return constructMetadata({
     title: 'Profile Picture Downloader - Instagram, FB, Twitter DP Viewer | SnapSavePro',
-    description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer - no app, no login required.',
-    type: 'website',
-    url: `${baseUrl}/${locale}/pages/profile-picture-downloader`,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Profile Picture Downloader - Instagram, FB, Twitter DP Viewer | SnapSavePro',
-    description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer.',
-  },
-  alternates: {
-    canonical: `${baseUrl}/en/pages/profile-picture-downloader`,
-      languages: {
-        'en': `${baseUrl}/en/pages/profile-picture-downloader`,
-        'hi': `${baseUrl}/hi/pages/profile-picture-downloader`,
-        'zh': `${baseUrl}/zh/pages/profile-picture-downloader`,
-        'ur': `${baseUrl}/ur/pages/profile-picture-downloader`,
-        'x-default': `${baseUrl}/en/pages/profile-picture-downloader`,
-      },
-  },
-  };
+    description: 'Download any profile picture in full HD from Instagram, Facebook, Twitter, TikTok. Free online DP viewer - no app, no login required. Get HD quality DPs instantly.',
+    keywords: 'profile picture downloader, instagram dp viewer full size, facebook profile pic in hd, profile picture zoom, dp viewer online, instagram profile viewer, insta dp download, fb dp downloader, twitter dp saver, how to download instagram profile picture, how to see full size dp on instagram, can i download someone\'s profile picture, how to save facebook dp in hd',
+    path: '/pages/profile-picture-downloader',
+    locale,
+  });
 }
 
 export default function ProfilePictureDownloaderPage() {
