@@ -1,4 +1,32 @@
 // TikTok FAQs
+// TikTok Info
+export const tiktokInfo = {
+  title: "Download TikTok Videos Without Watermark",
+  description: [
+    "SnapSavePro is the best TikTok Downloader available online to download TikTok videos without a watermark. You are not required to install any software on your computer or mobile phone, all that you need is a TikTok video link, and all the processing is done on our side so you can be one click away from downloading videos to your devices.",
+    "We support high-quality downloads, ensuring you get the best resolution available. Whether it's a funny clip, a dance trend, or an educational video, save it instantly.",
+    "Our tool is completely free and works on any device: Android, iPhone, Mac, and Windows. Enjoy unlimited downloads without any restrictions."
+  ],
+  features: {
+    quality: {
+      title: "HD Quality",
+      description: "Download TikTok videos in High Definition, exactly as they were uploaded."
+    },
+    speed: {
+      title: "Fast Download",
+      description: "Our servers are optimized to process your downloads in milliseconds."
+    },
+    security: {
+      title: "Secure & Safe",
+      description: "No data is stored on our servers. Your downloads are completely anonymous."
+    },
+    noWatermark: {
+      title: "No Watermark",
+      description: "Remove the annoying TikTok logo and username from your saved videos."
+    }
+  }
+};
+
 export const tiktokFAQs = [
   {
     question: "Can I download TikTok Duets and Stitches?",

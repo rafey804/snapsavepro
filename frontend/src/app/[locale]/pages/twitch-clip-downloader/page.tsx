@@ -7,7 +7,7 @@ import TwitchContentSection from '@/components/SEO/TwitchContentSection';
 import FAQSection from '@/components/SEO/FAQSection';
 import ReviewsSection from '@/components/SEO/ReviewsSection';
 import Breadcrumb from '@/components/layout/Breadcrumb';
-import { twitchFAQs, twitchReviews } from '@/data/twitchSEOData';
+import { twitchFAQs, twitchReviews, twitchInfo } from '@/data/twitchSEOData';
 import { Download, Users, Star, Zap, Shield, Sparkles, Globe } from 'lucide-react';
 
 const localeToOGLocale: Record<string, string> = {
@@ -122,6 +122,15 @@ export default function TwitchClipDownloaderPage() {
             />
           </div>
         </section>
+
+        {/* Info Section with Unique Content */}
+        <InfoSection
+          platform="Twitch"
+          platformColor="purple"
+          customTitle={twitchInfo.title}
+          customDescription={twitchInfo.description}
+          customFeatures={twitchInfo.features}
+        />
 
         {/* Stats Section */}
         <section className="py-12 bg-gradient-to-r from-purple-900/20 to-pink-900/20 backdrop-blur-sm">

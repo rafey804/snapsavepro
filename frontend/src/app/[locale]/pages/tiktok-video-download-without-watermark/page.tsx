@@ -6,7 +6,7 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import TikTokContentSection from "@/components/SEO/TikTokContentSection";
 import TikTokUniqueContent from "@/components/SEO/TikTokUniqueContent";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
+import { tiktokFAQs, tiktokReviews, tiktokInfo } from "@/data/tiktokSEOData";
 import { homePageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
@@ -80,7 +80,15 @@ const TikTokPage = () => {
 
       <TikTokDownloader />
       <HowToDownload platform="TikTok" platformColor="pink" />
-      <InfoSection platform="TikTok" platformColor="pink" />
+
+      <InfoSection
+        platform="TikTok"
+        platformColor="pink"
+        customTitle={tiktokInfo.title}
+        customDescription={tiktokInfo.description}
+        customFeatures={tiktokInfo.features}
+      />
+
       <TikTokContentSection />
       <TikTokUniqueContent />
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />

@@ -4,17 +4,9 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import YouTubeUniqueContent from "@/components/SEO/YouTubeUniqueContent";
-import { youtubeFAQs, youtubeReviews } from "@/data/youtubeSEOData";
+import { youtubeFAQs, youtubeReviews, youtubeInfo } from "@/data/youtubeSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
-
-// Locale to OG locale mapping
-const localeToOGLocale: Record<string, string> = {
-  en: 'en_US',
-  hi: 'hi_IN',
-  zh: 'zh_CN',
-  ur: 'ur_PK',
-};
 
 // SEO Metadata for YouTube Downloader Page
 export async function generateMetadata({
@@ -167,7 +159,15 @@ const YouTubePage = () => {
 
       <TikTokDownloader />
       <HowToDownload platform="YouTube" platformColor="red" />
-      <InfoSection platform="YouTube" platformColor="red" />
+
+      <InfoSection
+        platform="YouTube"
+        platformColor="red"
+        customTitle={youtubeInfo.title}
+        customDescription={youtubeInfo.description}
+        customFeatures={youtubeInfo.features}
+      />
+
       <YouTubeUniqueContent />
       <FAQSection faqs={youtubeFAQs || []} platform="YouTube" />
       <ReviewsSection reviews={youtubeReviews || []} />

@@ -1,4 +1,32 @@
 // Twitter/X FAQs and Reviews
+// Twitter/X Info
+export const twitterInfo = {
+  title: "Download Twitter (X) Videos & GIFs",
+  description: [
+    "Save videos and GIFs from Twitter (now X) effortlessly with SnapSavePro. Our downloader is designed to handle tweets, threads, and moments, providing you with high-quality MP4 files.",
+    "Whether it's a funny meme, a news clip, or a sports highlight, you can download it directly to your device. We support both standard videos and GIFs (converted to MP4 for easy sharing).",
+    "No account required, no limits. Just paste the tweet link and download your content in seconds. Compatible with all browsers and devices."
+  ],
+  features: {
+    quality: {
+      title: "HD Quality",
+      description: "Download Twitter videos in the best available quality, up to 1080p."
+    },
+    speed: {
+      title: "Instant Processing",
+      description: "Get your video links generated in milliseconds."
+    },
+    security: {
+      title: "Private & Secure",
+      description: "Download anonymously without logging into your Twitter account."
+    },
+    noWatermark: {
+      title: "No Watermark",
+      description: "Save clean videos perfect for reposting or sharing."
+    }
+  }
+};
+
 export const twitterFAQs = [
   {
     question: "Can I download videos from Twitter thread posts?",

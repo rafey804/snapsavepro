@@ -1,10 +1,11 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import InstagramDownloader from '@/components/home/InstagramDownloader';
-import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import InfoSection from '@/components/SEO/InfoSection';
 import InstagramUniqueContent from '@/components/SEO/InstagramUniqueContent';
 import { getTranslations } from 'next-intl/server';
 import { constructMetadata } from '@/utils/seo';
+import { instagramInfo } from '@/data/instagramSEOData';
 
 // Locale to OG locale mapping
 const localeToOGLocale: Record<string, string> = {
@@ -91,8 +92,15 @@ export default function InstagramDownloaderPage() {
       {/* Main Downloader Component */}
       <InstagramDownloader />
 
-      {/* SEO Content Section */}
-      <PlatformContentSection platform="instagram" platformColor="teal" />
+      {/* Info Section with Unique Content */}
+      <InfoSection
+        platform="Instagram"
+        platformColor="purple"
+        customTitle={instagramInfo.title}
+        customDescription={instagramInfo.description}
+        customFeatures={instagramInfo.features}
+      />
+
       <InstagramUniqueContent />
     </>
   );

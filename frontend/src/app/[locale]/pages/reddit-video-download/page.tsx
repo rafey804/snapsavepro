@@ -4,7 +4,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
-import { redditFAQs, redditReviews } from "@/data/redditSEOData";
+import { redditFAQs, redditReviews, redditInfo } from "@/data/redditSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
 
@@ -69,7 +69,15 @@ const RedditPage = () => {
 
       <RedditDownloader />
       <HowToDownload platform="Reddit" platformColor="orange" />
-      <InfoSection platform="Reddit" platformColor="orange" />
+
+      <InfoSection
+        platform="Reddit"
+        platformColor="orange"
+        customTitle={redditInfo.title}
+        customDescription={redditInfo.description}
+        customFeatures={redditInfo.features}
+      />
+
       <PlatformContentSection platform="reddit" platformColor="orange" />
       <FAQSection faqs={redditFAQs} platform="Reddit" />
       <ReviewsSection reviews={redditReviews} />

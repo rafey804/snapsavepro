@@ -6,7 +6,7 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import FacebookUniqueContent from "@/components/SEO/FacebookUniqueContent";
 import Breadcrumb from "@/components/layout/Breadcrumb";
-import { facebookFAQs, facebookReviews } from "@/data/pageSEOData";
+import { facebookFAQs, facebookReviews, facebookInfo } from "@/data/facebookSEOData";
 import { facebookPageSEO } from "@/data/comprehensiveSEOData";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
@@ -47,7 +47,15 @@ const FacebookPage = () => {
       <Breadcrumb items={[{ label: "Facebook Video Downloader" }]} />
       <FacebookDownloader />
       <HowToDownload platform="Facebook" platformColor="blue" />
-      <InfoSection platform="Facebook" platformColor="blue" />
+
+      <InfoSection
+        platform="Facebook"
+        platformColor="blue"
+        customTitle={facebookInfo.title}
+        customDescription={facebookInfo.description}
+        customFeatures={facebookInfo.features}
+      />
+
       <PlatformContentSection platform="facebook" platformColor="blue" />
       <FacebookUniqueContent />
       <FAQSection faqs={facebookFAQs} platform="Facebook" />

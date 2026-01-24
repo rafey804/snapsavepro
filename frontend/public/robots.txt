@@ -4,6 +4,30 @@
 User-agent: *
 Allow: /
 
+# Block API and internal paths
+Disallow: /api
+Disallow: /api/
+Disallow: /search
+Disallow: /_next/
+
+# Block non-existent locales (only en, hi, zh, ur are supported)
+Disallow: /ko
+Disallow: /ko/
+Disallow: /ar
+Disallow: /ar/
+Disallow: /fr
+Disallow: /fr/
+Disallow: /de
+Disallow: /de/
+Disallow: /es
+Disallow: /es/
+Disallow: /ja
+Disallow: /ja/
+Disallow: /pt
+Disallow: /pt/
+Disallow: /ru
+Disallow: /ru/
+
 # Sitemaps
 Sitemap: https://snapsavepro.com/sitemap.xml
 
@@ -25,10 +49,6 @@ Allow: /
 
 User-agent: YandexBot
 Allow: /
-
-# Disallow specific paths if needed (currently allowing all)
-# Disallow: /api/
-# Disallow: /admin/
 
 # Crawl-delay for non-Google bots (optional)
 Crawl-delay: 1

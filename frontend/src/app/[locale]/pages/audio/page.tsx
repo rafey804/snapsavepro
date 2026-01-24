@@ -4,7 +4,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import AudioContentSection from "@/components/SEO/AudioContentSection";
-import { audioFAQs, audioReviews } from "@/data/pageSEOData";
+import { audioInfo, audioFAQs, audioReviews } from "@/data/audioSEOData";
 import { audioPageSEO } from "@/data/comprehensiveSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
@@ -33,7 +33,15 @@ const AudioPage = () => {
       <header className="sr-only"><h1>{audioPageSEO.h1}</h1></header>
       <AudioDownloader />
       <HowToDownload platform="Audio" platformColor="emerald" />
-      <InfoSection platform="Audio" platformColor="emerald" />
+
+      <InfoSection
+        platform="Audio"
+        platformColor="emerald"
+        customTitle={audioInfo.title}
+        customDescription={audioInfo.description}
+        customFeatures={audioInfo.features}
+      />
+
       <AudioContentSection />
       <FAQSection faqs={audioFAQs} platform="Audio" />
       <ReviewsSection reviews={audioReviews} />

@@ -4,18 +4,10 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
-import { twitterFAQs, twitterReviews } from "@/data/twitterSEOData";
+import { twitterFAQs, twitterReviews, twitterInfo } from "@/data/twitterSEOData";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
-
-// Locale to OG locale mapping
-const localeToOGLocale: Record<string, string> = {
-  en: 'en_US',
-  hi: 'hi_IN',
-  zh: 'zh_CN',
-  ur: 'ur_PK',
-};
 
 // Dynamic SEO Metadata for Twitter/X Downloader Page
 export async function generateMetadata({
@@ -75,7 +67,15 @@ const TwitterPage = () => {
 
       <TwitterDownloader />
       <HowToDownload platform="Twitter/X" platformColor="blue" />
-      <InfoSection platform="Twitter/X" platformColor="blue" />
+
+      <InfoSection
+        platform="Twitter/X"
+        platformColor="blue"
+        customTitle={twitterInfo.title}
+        customDescription={twitterInfo.description}
+        customFeatures={twitterInfo.features}
+      />
+
       <PlatformContentSection platform="twitter" platformColor="blue" />
       <FAQSection faqs={twitterFAQs} platform="Twitter/X" />
       <ReviewsSection reviews={twitterReviews} />

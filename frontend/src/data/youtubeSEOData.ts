@@ -1,3 +1,30 @@
+export const youtubeInfo = {
+  title: "Download YouTube Videos in 4K & 8K",
+  description: [
+    "SnapSavePro is the ultimate YouTube Downloader, allowing you to save videos in the highest possible quality. From standard 1080p to stunning 4K and 8K resolutions, we ensure you get the best offline viewing experience.",
+    "Our tool supports all YouTube content types: regular videos, Shorts, and even audio extraction. Whether you want to save a music video as MP3 or a tutorial as MP4, we've got you covered.",
+    "Enjoy unlimited downloads with no restrictions. Our service is completely free, secure, and works on any device without requiring software installation."
+  ],
+  features: {
+    quality: {
+      title: "4K & 8K Support",
+      description: "Download videos in their original crystal-clear quality, up to 8K resolution."
+    },
+    speed: {
+      title: "Lightning Fast",
+      description: "Our advanced servers process YouTube videos instantly for quick downloads."
+    },
+    security: {
+      title: "100% Safe",
+      description: "We do not track your download history or store any personal data."
+    },
+    noWatermark: {
+      title: "Clean Downloads",
+      description: "Get the original video file without any added watermarks or logos."
+    }
+  }
+};
+
 export const youtubeFAQs = [
   {
     question: "Can I download YouTube Shorts separately from regular videos?",

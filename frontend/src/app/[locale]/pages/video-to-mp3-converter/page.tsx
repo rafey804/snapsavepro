@@ -6,6 +6,7 @@ import ReviewsSection from "@/components/SEO/ReviewsSection";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
 import { Music, FileVideo, Download, Settings, CheckCircle, Globe, Shield, Zap } from 'lucide-react';
+import { videoToMp3Info, videoToMp3FAQs, videoToMp3Reviews } from "@/data/videoToMp3SEOData";
 
 const localeToOGLocale: Record<string, string> = {
   en: 'en_US',
@@ -69,70 +70,6 @@ export async function generateMetadata({
     image: '/og-video-to-mp3.jpg',
   });
 }
-
-// FAQ Data
-const videoToMp3FAQs = [
-  {
-    question: "How do I convert a video to MP3?",
-    answer: "Converting a video to MP3 is simple: 1) Choose your conversion method (upload file or paste URL), 2) Select your desired audio quality (128-320 kbps), 3) Upload your video or paste the video URL, 4) Click 'Convert to MP3' and wait for the conversion to complete, 5) Download your high-quality MP3 file. Our converter supports all major video formats including MP4, AVI, MKV, MOV, WMV, FLV, and WebM."
-  },
-  {
-    question: "What video formats can I convert to MP3?",
-    answer: "Our converter supports all popular video formats: MP4, AVI, MKV, MOV, WMV, FLV, WebM, 3GP, MPG, MPEG, M4V, F4V, TS, and more. You can convert videos from any platform including YouTube, Facebook, Instagram, TikTok, Vimeo, and Dailymotion. The maximum file size is 500MB for uploaded files."
-  },
-  {
-    question: "What audio quality options are available?",
-    answer: "We offer four high-quality audio bitrate options: 128 kbps (good quality, smaller file size), 192 kbps (standard quality, balanced), 256 kbps (high quality, recommended), and 320 kbps (maximum quality, best sound). Choose based on your needs - 320 kbps provides studio-quality audio perfect for music, while 128 kbps works well for podcasts and lectures."
-  },
-  {
-    question: "Is this video to MP3 converter free?",
-    answer: "Yes! Our video to MP3 converter is 100% free with no hidden charges, no registration required, and no download limits. You can convert unlimited videos to MP3 at any time. We don't add watermarks or compress your audio. All features including 320kbps conversion are completely free forever."
-  },
-  {
-    question: "Can I convert YouTube videos to MP3?",
-    answer: "Yes, you can convert YouTube videos to MP3 using the URL conversion method. Simply copy the YouTube video URL, paste it into our converter, select your desired bitrate, and click convert. Our tool will extract the audio and convert it to high-quality MP3 format. This works for YouTube videos, shorts, music, and live streams."
-  },
-  {
-    question: "How long does the conversion take?",
-    answer: "Conversion speed depends on your video file size and selected quality. Typically, a 3-minute video converts to MP3 in 10-30 seconds. Larger videos may take 1-2 minutes. We use advanced technology to ensure fast processing without compromising audio quality. You can monitor the real-time progress during conversion."
-  },
-  {
-    question: "Is it safe to use this video to MP3 converter?",
-    answer: "Absolutely! We prioritize your security and privacy. All conversions happen securely using HTTPS encryption. We don't store your videos or converted files permanently - they're automatically deleted after download. No personal information is collected, and we don't require registration. Your files are processed safely on our secure servers."
-  },
-  {
-    question: "Can I convert large video files?",
-    answer: "Yes, you can convert video files up to 500MB in size. For videos larger than 500MB, we recommend using the URL conversion method which doesn't have size restrictions. You can also split large videos into smaller parts using video editing software before converting to MP3."
-  },
-  {
-    question: "Will the audio quality be good?",
-    answer: "Yes! We maintain the original audio quality during conversion. When you select 320 kbps, you get studio-quality MP3 audio that preserves all frequencies and details. Our converter uses advanced audio codecs (libmp3lame) to ensure crystal-clear sound with no quality loss. The converted MP3 files are compatible with all devices and music players."
-  },
-  {
-    question: "Can I use this on mobile devices?",
-    answer: "Yes! Our video to MP3 converter works perfectly on all devices including Android phones, iPhones, iPads, tablets, Windows PCs, Macs, and Linux computers. The interface is fully responsive and touch-friendly. You can upload videos or paste URLs directly from your mobile browser without installing any app."
-  },
-  {
-    question: "Do I need to install any software?",
-    answer: "No installation required! Our converter is 100% online and works directly in your web browser. You don't need to download or install any software, plugins, or apps. Just visit our website, upload your video or paste the URL, and start converting. This saves storage space and ensures you always use the latest version."
-  },
-  {
-    question: "Can I convert multiple videos at once?",
-    answer: "Currently, our converter processes one video at a time to ensure optimal quality and speed. However, you can queue multiple conversions back-to-back. Simply convert one video, download it, and immediately start the next conversion. We're working on adding batch conversion features in future updates."
-  },
-  {
-    question: "What happens to my files after conversion?",
-    answer: "For security and privacy, all uploaded videos and converted MP3 files are automatically deleted from our servers within 1-2 hours after conversion. We recommend downloading your MP3 file immediately after conversion completes. We never share, sell, or use your files for any purpose."
-  },
-  {
-    question: "Can I convert video URLs from social media?",
-    answer: "Yes! You can convert videos from YouTube, Facebook, Instagram, TikTok, Twitter, Vimeo, Dailymotion, Twitch, and many other platforms. Just copy the video URL and paste it into our converter. The tool will automatically fetch the video and extract the audio in your chosen quality."
-  },
-  {
-    question: "Why should I choose your converter over others?",
-    answer: "Our converter offers: ✓ 100% free with no limits, ✓ High-quality audio up to 320 kbps, ✓ Support for all video formats, ✓ Fast conversion speed, ✓ No watermarks or ads on files, ✓ No registration required, ✓ Mobile-friendly interface, ✓ Secure and private processing, ✓ Batch URL conversion support, ✓ Regular updates and improvements."
-  }
-];
 
 interface PageProps {
   params: Promise<{
@@ -478,13 +415,19 @@ const VideoToMP3Page = async ({ params }: PageProps) => {
       <HowToDownload platform="Video to MP3" platformColor="purple" />
 
       {/* Info Section */}
-      <InfoSection platform="Video to MP3" platformColor="purple" />
+      <InfoSection
+        platform="Video to MP3"
+        platformColor="purple"
+        customTitle={videoToMp3Info.title}
+        customDescription={videoToMp3Info.description}
+        customFeatures={videoToMp3Info.features}
+      />
 
       {/* FAQ Section */}
       <FAQSection faqs={videoToMp3FAQs} platform="Video to MP3 Converter" />
 
       {/* Reviews Section */}
-      <ReviewsSection reviews={[]} />
+      <ReviewsSection reviews={videoToMp3Reviews} />
     </div>
   );
 }

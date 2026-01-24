@@ -1,9 +1,12 @@
 import { MetadataRoute } from 'next';
 
+import { getAllBlogs } from '@/data/blogs';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://snapsavepro.com';
   const currentDate = new Date().toISOString().split('T')[0];
   const locales = ['en', 'hi', 'zh', 'ur'];
+  const blogs = getAllBlogs();
 
   // Define all pages with their priorities and change frequencies
   const pages = [
@@ -26,6 +29,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/pages/kwai-video-downloader', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/pages/dailymotion-video-downloader', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/pages/threads-video-downloader', priority: 0.9, changeFrequency: 'daily' as const },
+    { path: '/pages/telegram-video-download', priority: 0.9, changeFrequency: 'daily' as const },
+    { path: '/pages/youtube-to-mp3', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/pages/profile-picture-downloader', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/pages/instagram-profile-picture-downloader', priority: 0.9, changeFrequency: 'daily' as const },
     { path: '/blog', priority: 0.6, changeFrequency: 'weekly' as const },
@@ -58,6 +63,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
             hi: `${baseUrl}/hi${page.path}`,
             zh: `${baseUrl}/zh${page.path}`,
             ur: `${baseUrl}/ur${page.path}`,
+          }
+        }
+      });
+    });
+  });
+
+  // Generate entries for blog posts
+  blogs.forEach(blog => {
+    locales.forEach(locale => {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}/blog/${blog.slug}`,
+        lastModified: blog.date,
+        changeFrequency: 'monthly',
+        priority: 0.7,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/blog/${blog.slug}`,
+            hi: `${baseUrl}/hi/blog/${blog.slug}`,
+            zh: `${baseUrl}/zh/blog/${blog.slug}`,
+            ur: `${baseUrl}/ur/blog/${blog.slug}`,
           }
         }
       });

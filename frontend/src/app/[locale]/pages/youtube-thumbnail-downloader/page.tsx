@@ -1,6 +1,12 @@
 import type { Metadata } from 'next';
 import { constructMetadata } from "@/utils/seo";
 import YouTubeThumbnailDownloader from '@/components/home/YouTubeThumbnailDownloader';
+import InfoSection from '@/components/SEO/InfoSection';
+import FAQSection from '@/components/SEO/FAQSection';
+import ReviewsSection from '@/components/SEO/ReviewsSection';
+import HowToDownload from '@/components/SEO/HowToDownload';
+import { youtubeThumbnailInfo, youtubeThumbnailFAQs, youtubeThumbnailReviews } from '@/data/youtubeThumbnailSEOData';
+import Breadcrumb from '@/components/layout/Breadcrumb';
 
 export async function generateMetadata({
   params,
@@ -19,5 +25,71 @@ export async function generateMetadata({
 }
 
 export default function YouTubeThumbnailDownloaderPage() {
-  return <YouTubeThumbnailDownloader />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": youtubeThumbnailInfo.title,
+    "description": youtubeThumbnailInfo.description[0],
+    "url": "https://snapsavepro.com/pages/youtube-thumbnail-downloader",
+    "applicationCategory": "MultimediaApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "1250"
+    },
+    "operatingSystem": "Windows, MacOS, Linux, Android, iOS",
+    "featureList": Object.values(youtubeThumbnailInfo.features).map(f => f.title)
+  };
+
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": youtubeThumbnailFAQs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-zinc-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLd, faqLd]) }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <Breadcrumb
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Tools', href: '/pages' },
+            { label: 'YouTube Thumbnail Downloader', href: '/pages/youtube-thumbnail-downloader' },
+          ]}
+        />
+      </div>
+
+      <YouTubeThumbnailDownloader />
+
+      <HowToDownload platform="YouTube Thumbnail" platformColor="red" />
+
+      <InfoSection
+        platform="YouTube Thumbnail"
+        platformColor="red"
+        customTitle={youtubeThumbnailInfo.title}
+        customDescription={youtubeThumbnailInfo.description}
+        customFeatures={youtubeThumbnailInfo.features}
+      />
+
+      <FAQSection faqs={youtubeThumbnailFAQs} platform="YouTube Thumbnail" />
+      <ReviewsSection reviews={youtubeThumbnailReviews} />
+    </div>
+  );
 }

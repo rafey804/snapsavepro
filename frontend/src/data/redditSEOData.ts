@@ -1,4 +1,32 @@
 // Reddit FAQs and Reviews
+// Reddit Info
+export const redditInfo = {
+  title: "Reddit Video Downloader with Audio",
+  description: [
+    "Download Reddit videos with sound easily using SnapSavePro. Our tool handles v.redd.it links perfectly, merging video and audio for a complete file.",
+    "Save funny clips, news, and discussions from your favorite subreddits. We also support downloading GIFs and images from Reddit posts.",
+    "No account required. Just paste the Reddit post link and download. Works on mobile and desktop browsers seamlessly."
+  ],
+  features: {
+    quality: {
+      title: "HD with Audio",
+      description: "Download Reddit videos in HD quality with synchronized audio."
+    },
+    speed: {
+      title: "Fast Processing",
+      description: "Quickly convert and download Reddit videos without waiting."
+    },
+    security: {
+      title: "Anonymous",
+      description: "Download from Reddit without logging in or leaving a trace."
+    },
+    noWatermark: {
+      title: "Original Quality",
+      description: "Get the raw video file as it was uploaded to Reddit."
+    }
+  }
+};
+
 export const redditFAQs = [
   {
     question: "Can I download videos with sound from v.redd.it links?",

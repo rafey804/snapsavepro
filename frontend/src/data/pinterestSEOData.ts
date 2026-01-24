@@ -1,3 +1,31 @@
+// Pinterest Info
+export const pinterestInfo = {
+  title: "Pinterest Video & Image Downloader",
+  description: [
+    "SnapSavePro Pinterest Downloader allows you to save Pinterest videos, images, and GIFs directly to your device. It is a free and easy-to-use tool that helps you keep your favorite ideas offline.",
+    "Whether you're looking for design inspiration, recipes, or DIY projects, our downloader ensures you can access your saved pins anytime, anywhere.",
+    "We support high-quality downloads for both videos and images. No registration is needed, and the service is 100% free."
+  ],
+  features: {
+    quality: {
+      title: "High Resolution",
+      description: "Download images and videos in the highest quality available on Pinterest."
+    },
+    speed: {
+      title: "Instant Save",
+      description: "Get your Pinterest content saved to your device in seconds."
+    },
+    security: {
+      title: "Privacy First",
+      description: "We respect your privacy and do not track your download activity."
+    },
+    noWatermark: {
+      title: "Clean Content",
+      description: "Download content without any added watermarks or overlays."
+    }
+  }
+};
+
 export const pinterestFAQs = [
   {
     question: "Can I download Pinterest Idea Pins versus regular video pins?",

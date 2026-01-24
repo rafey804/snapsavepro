@@ -50,7 +50,7 @@ export default function BlogDetailPage() {
     "keywords": blog.tags.join(', '),
     "articleSection": blog.category,
     "wordCount": blog.content.introduction.split(' ').length +
-                 blog.content.sections.reduce((acc: number, section: any) => acc + section.content.split(' ').length, 0)
+      blog.content.sections.reduce((acc: number, section: any) => acc + section.content.split(' ').length, 0)
   };
 
   return (
@@ -110,9 +110,10 @@ export default function BlogDetailPage() {
         <div className="prose prose-invert prose-lg max-w-none">
           {/* Introduction */}
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 mb-8 border border-slate-700/50">
-            <p className="text-gray-300 leading-relaxed text-lg">
-              {blog.content.introduction}
-            </p>
+            <div
+              className="text-gray-300 leading-relaxed text-lg"
+              dangerouslySetInnerHTML={{ __html: blog.content.introduction }}
+            />
           </div>
 
           {/* Sections */}
@@ -121,9 +122,10 @@ export default function BlogDetailPage() {
               <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-4">
                 {section.heading}
               </h2>
-              <p className="text-gray-300 leading-relaxed text-lg">
-                {section.content}
-              </p>
+              <div
+                className="text-gray-300 leading-relaxed text-lg"
+                dangerouslySetInnerHTML={{ __html: section.content }}
+              />
             </div>
           ))}
 
@@ -132,9 +134,10 @@ export default function BlogDetailPage() {
             <h2 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 mb-4">
               Conclusion
             </h2>
-            <p className="text-gray-300 leading-relaxed text-lg">
-              {blog.content.conclusion}
-            </p>
+            <div
+              className="text-gray-300 leading-relaxed text-lg"
+              dangerouslySetInnerHTML={{ __html: blog.content.conclusion }}
+            />
           </div>
         </div>
 

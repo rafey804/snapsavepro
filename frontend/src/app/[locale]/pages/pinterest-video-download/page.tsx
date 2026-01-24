@@ -6,7 +6,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
-import { pinterestFAQs, pinterestReviews } from '@/data/pinterestSEOData';
+import { pinterestFAQs, pinterestReviews, pinterestInfo } from '@/data/pinterestSEOData';
 
 const localeToOGLocale: Record<string, string> = {
   en: 'en_US',
@@ -68,7 +68,15 @@ export default function PinterestDownloadPage() {
 
       <PinterestDownloader />
       <HowToDownload platform="Pinterest" platformColor="red" />
-      <InfoSection platform="Pinterest" platformColor="red" />
+
+      <InfoSection
+        platform="Pinterest"
+        platformColor="red"
+        customTitle={pinterestInfo.title}
+        customDescription={pinterestInfo.description}
+        customFeatures={pinterestInfo.features}
+      />
+
       <PlatformContentSection platform="pinterest" platformColor="red" />
       <FAQSection faqs={pinterestFAQs} platform="Pinterest" />
       <ReviewsSection reviews={pinterestReviews} />

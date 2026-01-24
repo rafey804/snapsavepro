@@ -2,7 +2,11 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { constructMetadata } from "@/utils/seo";
 import ShortsDownloader from '@/components/home/ShortsDownloader';
-import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import InfoSection from '@/components/SEO/InfoSection';
+import FAQSection from '@/components/SEO/FAQSection';
+import ReviewsSection from '@/components/SEO/ReviewsSection';
+import HowToDownload from '@/components/SEO/HowToDownload';
+import { youtubeShortsInfo, youtubeShortsFAQs, youtubeShortsReviews } from '@/data/youtubeShortsSEOData';
 import { getTranslations } from 'next-intl/server';
 
 // Locale to OG locale mapping
@@ -90,8 +94,19 @@ export default function ShortsDownloaderPage() {
         {/* Main Downloader Component */}
         <ShortsDownloader />
 
-        {/* SEO Content Section */}
-        <PlatformContentSection platform="youtube" platformColor="purple" />
+        <HowToDownload platform="YouTube Shorts" platformColor="red" />
+
+        {/* Info Section with Unique Content */}
+        <InfoSection
+          platform="YouTube Shorts"
+          platformColor="red"
+          customTitle={youtubeShortsInfo.title}
+          customDescription={youtubeShortsInfo.description}
+          customFeatures={youtubeShortsInfo.features}
+        />
+
+        <FAQSection faqs={youtubeShortsFAQs} platform="YouTube Shorts" />
+        <ReviewsSection reviews={youtubeShortsReviews} />
       </main>
     </>
   );

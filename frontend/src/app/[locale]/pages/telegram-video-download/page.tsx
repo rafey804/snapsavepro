@@ -4,6 +4,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
 import ReviewsSection from "@/components/SEO/ReviewsSection";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import { telegramInfo, telegramFAQs, telegramReviews } from "@/data/telegramSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
 
@@ -31,50 +32,6 @@ export async function generateMetadata({
     image: '/og-telegram.jpg',
   });
 }
-
-const telegramFAQs = [
-  {
-    question: "How to download videos from Telegram?",
-    answer: "Paste the Telegram channel message link into our downloader, select your preferred format, and click download. Our tool will fetch the media from the public Telegram channel instantly."
-  },
-  {
-    question: "Can I download from private Telegram channels?",
-    answer: "Currently, our tool supports downloading from public Telegram channels only. Private channels and secret chats are not accessible without login."
-  },
-  {
-    question: "Is it free to download Telegram videos?",
-    answer: "Yes! Our Telegram downloader is completely free with no registration required. Download unlimited videos and photos from public Telegram channels."
-  },
-  {
-    question: "What formats can I download from Telegram?",
-    answer: "You can download videos (MP4), photos (JPG), and documents from Telegram in their original quality. The format depends on what was shared in the channel."
-  },
-  {
-    question: "Do I need to install any software?",
-    answer: "No installation needed! Our Telegram downloader is completely web-based. Just paste the link and download directly from your browser."
-  }
-];
-
-const telegramReviews = [
-  {
-    name: "Ahmed K.",
-    rating: 5,
-    comment: "Finally a working Telegram downloader! Downloaded videos from my favorite channels easily.",
-    date: "2 days ago"
-  },
-  {
-    name: "Maria S.",
-    rating: 5,
-    comment: "Super fast and works perfectly for public channels. No login required!",
-    date: "1 week ago"
-  },
-  {
-    name: "Carlos R.",
-    rating: 4,
-    comment: "Good tool for Telegram downloads. Would love to see support for private channels in the future.",
-    date: "3 weeks ago"
-  }
-];
 
 const TelegramPage = () => {
   return (
@@ -119,7 +76,15 @@ const TelegramPage = () => {
 
       <TelegramDownloader />
       <HowToDownload platform="Telegram" platformColor="blue" />
-      <InfoSection platform="Telegram" platformColor="blue" />
+
+      <InfoSection
+        platform="Telegram"
+        platformColor="blue"
+        customTitle={telegramInfo.title}
+        customDescription={telegramInfo.description}
+        customFeatures={telegramInfo.features}
+      />
+
       <FAQSection faqs={telegramFAQs} platform="Telegram" />
       <ReviewsSection reviews={telegramReviews} />
     </>

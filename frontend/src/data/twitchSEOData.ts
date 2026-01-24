@@ -1,3 +1,31 @@
+// Twitch Info
+export const twitchInfo = {
+  title: "Twitch Clip & Video Downloader",
+  description: [
+    "Download Twitch clips, VODs, and past broadcasts effortlessly with SnapSavePro. Save your favorite gaming moments, funny reactions, and epic plays in 1080p 60fps.",
+    "Our tool allows you to download content from any Twitch channel. Whether it's a short clip or a full-length stream, we handle it all.",
+    "No login required. Just paste the Twitch link and download. Perfect for content creators and fans alike."
+  ],
+  features: {
+    quality: {
+      title: "1080p 60fps",
+      description: "Download Twitch videos in the highest quality, up to 1080p at 60 frames per second."
+    },
+    speed: {
+      title: "Fast Processing",
+      description: "Our servers process Twitch links instantly for quick downloads."
+    },
+    security: {
+      title: "Anonymous",
+      description: "Download without connecting your Twitch account."
+    },
+    noWatermark: {
+      title: "No Watermark",
+      description: "Get clean video files without any branding."
+    }
+  }
+};
+
 export const twitchFAQs = [
   {
     question: "Can I download clips from Twitch VODs?",
