@@ -954,6 +954,64 @@
         "title": "Pro Tip:",
         "description": "Twitch clips capture the best gaming moments. Download epic plays, funny moments, and esports highlights to create highlight reels or study pro strategies."
       }
+    },
+    "videoToMp3": {
+      "mainTitle": "Video to MP3 Converter - Extract High-Quality Audio from Any Video",
+      "intro": "Welcome to the most advanced and user-friendly video to MP3 converter available online. Whether you need to extract audio from a music video, create an audiobook from video lectures, or save podcast audio, our powerful tool makes it effortless. Convert MP4 to MP3, AVI to MP3, MKV to MP3, and virtually any video format to high-quality audio files up to 320kbps bitrate.",
+      "howTo": {
+        "title": "How to Convert Video to MP3",
+        "step1": "Upload Your Video: Select up to 5 video files from your device. Supports all popular formats like MP4, AVI, MKV, and more.",
+        "step2": "Start Conversion: Your videos are automatically converted to high-quality 320kbps MP3 format.",
+        "step3": "Download Audio: Once conversion is complete, click download to save your MP3 file.",
+        "step4": "Choose Quality: Select from 128kbps, 256kbps, or 320kbps audio quality options.",
+        "step5": "Enjoy: Listen to your high-quality MP3 audio offline on any device."
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "Premium Audio: Get studio-quality MP3 audio with 320kbps bitrate.",
+        "noWatermark": "Clean Audio: No watermarks or intro/outro ads added to your audio.",
+        "multipleFormats": "All Formats: Supports MP4, AVI, MKV, MOV, WMV, FLV, and more.",
+        "fastSecure": "Lightning Fast: Convert videos to MP3 in seconds with secure processing.",
+        "free": "100% Free: Unlimited conversions with no hidden fees.",
+        "noRegistration": "No Registration: Start converting immediately without an account.",
+        "allDevices": "Cross-Platform: Works on Windows, Mac, Linux, Android, and iOS.",
+        "audioExtraction": "Audio Extractor: Advanced technology to extract crystal clear audio."
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Video to MP3 Converter?",
+        "description": "Unlike other converters that limit features or require paid subscriptions, our tool offers 100% free unlimited conversions with all premium features included. We support all popular video formats and ensure your privacy by automatically deleting files after conversion. Whether you're a musician, student, or content creator, our tool provides the best audio quality available online."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "What formats are supported?",
+          "answer": "We support converting videos from MP4, AVI, MKV, MOV, WMV, FLV, WebM, 3GP, and many more formats."
+        },
+        "q2": {
+          "question": "Can I choose the audio quality?",
+          "answer": "Yes, you can select from various quality options including 320kbps (Best), 256kbps, and 128kbps."
+        },
+        "q3": {
+          "question": "Is it free to use?",
+          "answer": "Yes, our service is completely free and unlimited. Convert as many videos as you want."
+        },
+        "q4": {
+          "question": "Can I convert long videos?",
+          "answer": "Yes, we support converting videos of various lengths, including long podcasts and music mixes."
+        },
+        "q5": {
+          "question": "Is it secure?",
+          "answer": "Absolutely. All files are processed securely and deleted from our servers immediately after conversion."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes, our converter works perfectly on iPhone, iPad, and Android devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "For the best audio quality, always select the 320kbps option. This preserves the full range of sound from your original video."
+      }
     }
   },
   "pages": {

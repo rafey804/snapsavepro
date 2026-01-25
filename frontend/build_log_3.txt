@@ -1,0 +1,336 @@
+
+> youtube-downloader-frontend@0.1.0 build
+> next build --turbopack
+
+   ▲ Next.js 15.5.1 (Turbopack)
+
+   Creating an optimized production build ...
+ ✓ Finished writing to disk in 219ms
+ ✓ Compiled successfully in 8.7s
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/147) ...
+Error: MISSING_MESSAGE: pages.faq (en)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:8266) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.faq (en)'
+}
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Error: MISSING_MESSAGE: pages.faq (hi)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:8266) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.faq (hi)'
+}
+Error: MISSING_MESSAGE: pages.about (en)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.r (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__35fac5af._.js:1:12125) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.about (en)'
+}
+Error: MISSING_MESSAGE: pages.about (hi)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.r (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__35fac5af._.js:1:12125) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.about (hi)'
+}
+Error: MISSING_MESSAGE: pages.contact.description (ur)
+    at k (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42462)
+    at l (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42626)
+    at m (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:43777)
+    at Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__de73f17b._.js:1:8451) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.contact.description (ur)'
+}
+Error: MISSING_MESSAGE: pages.contact.description (zh)
+    at k (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42462)
+    at l (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42626)
+    at m (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:43777)
+    at Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__de73f17b._.js:1:8451) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.contact.description (zh)'
+}
+Error: MISSING_MESSAGE: pages.faq (zh)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:8266) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.faq (zh)'
+}
+Error: MISSING_MESSAGE: pages.faq (ur)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:8266) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.faq (ur)'
+}
+Error: MISSING_MESSAGE: pages.about (zh)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.r (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__35fac5af._.js:1:12125) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.about (zh)'
+}
+   Generating static pages (36/147) 
+Error: MISSING_MESSAGE: pages.about (ur)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42186)
+    at az (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42238)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6670)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6702)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:6809)
+    at <unknown> (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__133631ed._.js:1:7075)
+    at async Module.r (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__35fac5af._.js:1:12125) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.about (ur)'
+}
+ ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+   Generating static pages (73/147) 
+   Generating static pages (110/147) 
+Error: MISSING_MESSAGE: pages.contact.description (en)
+    at k (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42462)
+    at l (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42626)
+    at m (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:43777)
+    at Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__de73f17b._.js:1:8451) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.contact.description (en)'
+}
+Error: MISSING_MESSAGE: pages.contact.description (hi)
+    at k (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42462)
+    at l (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:42626)
+    at m (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\_fb579776._.js:1:43777)
+    at Module.f (C:\Users\rafey1\Desktop\youtude video final\snapsavepro\frontend\.next\server\chunks\ssr\[root-of-the-server]__de73f17b._.js:1:8451) {
+  code: 'MISSING_MESSAGE',
+  originalMessage: 'pages.contact.description (hi)'
+}
+ ✓ Generating static pages (147/147)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                                     Size  First Load JS
+┌ ○ /                                                            0 B         114 kB
+├ ○ /_not-found                                                  0 B         114 kB
+├ ● /[locale]                                                10.9 kB         161 kB
+├   ├ /en
+├   ├ /hi
+├   ├ /zh
+├   └ /ur
+├ ● /[locale]/blog                                           2.36 kB         188 kB
+├   ├ /en/blog
+├   ├ /hi/blog
+├   ├ /zh/blog
+├   └ /ur/blog
+├ ƒ /[locale]/blog/[slug]                                    2.72 kB         188 kB
+├ ● /[locale]/pages/about                                        0 B         151 kB
+├   ├ /en/pages/about
+├   ├ /hi/pages/about
+├   ├ /zh/pages/about
+├   └ /ur/pages/about
+├ ● /[locale]/pages/audio                                    15.3 kB         166 kB
+├   ├ /en/pages/audio
+├   ├ /hi/pages/audio
+├   ├ /zh/pages/audio
+├   └ /ur/pages/audio
+├ ● /[locale]/pages/contact                                  5.24 kB         156 kB
+├   ├ /en/pages/contact
+├   ├ /hi/pages/contact
+├   ├ /zh/pages/contact
+├   └ /ur/pages/contact
+├ ● /[locale]/pages/content-creator-handbook                     0 B         151 kB
+├   ├ /en/pages/content-creator-handbook
+├   ├ /hi/pages/content-creator-handbook
+├   ├ /zh/pages/content-creator-handbook
+├   └ /ur/pages/content-creator-handbook
+├ ● /[locale]/pages/dailymotion-video-downloader             11.5 kB         162 kB
+├   ├ /en/pages/dailymotion-video-downloader
+├   ├ /hi/pages/dailymotion-video-downloader
+├   ├ /zh/pages/dailymotion-video-downloader
+├   └ /ur/pages/dailymotion-video-downloader
+├ ● /[locale]/pages/facebook-video-download                  17.3 kB         168 kB
+├   ├ /en/pages/facebook-video-download
+├   ├ /hi/pages/facebook-video-download
+├   ├ /zh/pages/facebook-video-download
+├   └ /ur/pages/facebook-video-download
+├ ● /[locale]/pages/faqs                                     12.1 kB         163 kB
+├   ├ /en/pages/faqs
+├   ├ /hi/pages/faqs
+├   ├ /zh/pages/faqs
+├   └ /ur/pages/faqs
+├ ● /[locale]/pages/how-it-works                             5.48 kB         156 kB
+├   ├ /en/pages/how-it-works
+├   ├ /hi/pages/how-it-works
+├   ├ /zh/pages/how-it-works
+├   └ /ur/pages/how-it-works
+├ ● /[locale]/pages/instagram-profile-picture-downloader     13.8 kB         164 kB
+├   ├ /en/pages/instagram-profile-picture-downloader
+├   ├ /hi/pages/instagram-profile-picture-downloader
+├   ├ /zh/pages/instagram-profile-picture-downloader
+├   └ /ur/pages/instagram-profile-picture-downloader
+├ ● /[locale]/pages/instagram-reels-downloader                   0 B         165 kB
+├   ├ /en/pages/instagram-reels-downloader
+├   ├ /hi/pages/instagram-reels-downloader
+├   ├ /zh/pages/instagram-reels-downloader
+├   └ /ur/pages/instagram-reels-downloader
+├ ● /[locale]/pages/instagram-video-download                     0 B         165 kB
+├   ├ /en/pages/instagram-video-download
+├   ├ /hi/pages/instagram-video-download
+├   ├ /zh/pages/instagram-video-download
+├   └ /ur/pages/instagram-video-download
+├ ● /[locale]/pages/kwai-video-downloader                    11.5 kB         162 kB
+├   ├ /en/pages/kwai-video-downloader
+├   ├ /hi/pages/kwai-video-downloader
+├   ├ /zh/pages/kwai-video-downloader
+├   └ /ur/pages/kwai-video-downloader
+├ ● /[locale]/pages/legal-copyright-guide                        0 B         151 kB
+├   ├ /en/pages/legal-copyright-guide
+├   ├ /hi/pages/legal-copyright-guide
+├   ├ /zh/pages/legal-copyright-guide
+├   └ /ur/pages/legal-copyright-guide
+├ ● /[locale]/pages/legal/privacy-policy                         0 B         151 kB
+├   ├ /en/pages/legal/privacy-policy
+├   ├ /hi/pages/legal/privacy-policy
+├   ├ /zh/pages/legal/privacy-policy
+├   └ /ur/pages/legal/privacy-policy
+├ ● /[locale]/pages/legal/terms-of-service                       0 B         151 kB
+├   ├ /en/pages/legal/terms-of-service
+├   ├ /hi/pages/legal/terms-of-service
+├   ├ /zh/pages/legal/terms-of-service
+├   └ /ur/pages/legal/terms-of-service
+├ ● /[locale]/pages/linkedin-video-downloader                4.85 kB         158 kB
+├   ├ /en/pages/linkedin-video-downloader
+├   ├ /hi/pages/linkedin-video-downloader
+├   ├ /zh/pages/linkedin-video-downloader
+├   └ /ur/pages/linkedin-video-downloader
+├ ● /[locale]/pages/pinterest-video-download                 10.6 kB         161 kB
+├   ├ /en/pages/pinterest-video-download
+├   ├ /hi/pages/pinterest-video-download
+├   ├ /zh/pages/pinterest-video-download
+├   └ /ur/pages/pinterest-video-download
+├ ● /[locale]/pages/platform-comparison-guide                    0 B         151 kB
+├   ├ /en/pages/platform-comparison-guide
+├   ├ /hi/pages/platform-comparison-guide
+├   ├ /zh/pages/platform-comparison-guide
+├   └ /ur/pages/platform-comparison-guide
+├ ● /[locale]/pages/profile-picture-downloader               14.1 kB         165 kB
+├   ├ /en/pages/profile-picture-downloader
+├   ├ /hi/pages/profile-picture-downloader
+├   ├ /zh/pages/profile-picture-downloader
+├   └ /ur/pages/profile-picture-downloader
+├ ● /[locale]/pages/reddit-video-download                    7.89 kB         158 kB
+├   ├ /en/pages/reddit-video-download
+├   ├ /hi/pages/reddit-video-download
+├   ├ /zh/pages/reddit-video-download
+├   └ /ur/pages/reddit-video-download
+├ ● /[locale]/pages/snapchat-video-download                  11.2 kB         162 kB
+├   ├ /en/pages/snapchat-video-download
+├   ├ /hi/pages/snapchat-video-download
+├   ├ /zh/pages/snapchat-video-download
+├   └ /ur/pages/snapchat-video-download
+├ ● /[locale]/pages/telegram-video-download                  6.19 kB         157 kB
+├   ├ /en/pages/telegram-video-download
+├   ├ /hi/pages/telegram-video-download
+├   ├ /zh/pages/telegram-video-download
+├   └ /ur/pages/telegram-video-download
+├ ● /[locale]/pages/threads-video-downloader                 11.6 kB         162 kB
+├   ├ /en/pages/threads-video-downloader
+├   ├ /hi/pages/threads-video-downloader
+├   ├ /zh/pages/threads-video-downloader
+├   └ /ur/pages/threads-video-downloader
+├ ● /[locale]/pages/tiktok-video-download-without-watermark  12.5 kB         163 kB
+├   ├ /en/pages/tiktok-video-download-without-watermark
+├   ├ /hi/pages/tiktok-video-download-without-watermark
+├   ├ /zh/pages/tiktok-video-download-without-watermark
+├   └ /ur/pages/tiktok-video-download-without-watermark
+├ ● /[locale]/pages/twitch-clip-downloader                   10.9 kB         161 kB
+├   ├ /en/pages/twitch-clip-downloader
+├   ├ /hi/pages/twitch-clip-downloader
+├   ├ /zh/pages/twitch-clip-downloader
+├   └ /ur/pages/twitch-clip-downloader
+├ ● /[locale]/pages/twitter-video-download                   7.97 kB         159 kB
+├   ├ /en/pages/twitter-video-download
+├   ├ /hi/pages/twitter-video-download
+├   ├ /zh/pages/twitter-video-download
+├   └ /ur/pages/twitter-video-download
+├ ● /[locale]/pages/video-quality-technical-guide                0 B         151 kB
+├   ├ /en/pages/video-quality-technical-guide
+├   ├ /hi/pages/video-quality-technical-guide
+├   ├ /zh/pages/video-quality-technical-guide
+├   └ /ur/pages/video-quality-technical-guide
+├ ● /[locale]/pages/video-to-mp3-converter                   9.23 kB         160 kB
+├   ├ /en/pages/video-to-mp3-converter
+├   ├ /hi/pages/video-to-mp3-converter
+├   ├ /zh/pages/video-to-mp3-converter
+├   └ /ur/pages/video-to-mp3-converter
+├ ● /[locale]/pages/x-video-download                         11.1 kB         162 kB
+├   ├ /en/pages/x-video-download
+├   ├ /hi/pages/x-video-download
+├   ├ /zh/pages/x-video-download
+├   └ /ur/pages/x-video-download
+├ ● /[locale]/pages/youtube-downloader                       14.7 kB         165 kB
+├   ├ /en/pages/youtube-downloader
+├   ├ /hi/pages/youtube-downloader
+├   ├ /zh/pages/youtube-downloader
+├   └ /ur/pages/youtube-downloader
+├ ● /[locale]/pages/youtube-shorts-downloader                7.37 kB         161 kB
+├   ├ /en/pages/youtube-shorts-downloader
+├   ├ /hi/pages/youtube-shorts-downloader
+├   ├ /zh/pages/youtube-shorts-downloader
+├   └ /ur/pages/youtube-shorts-downloader
+├ ● /[locale]/pages/youtube-thumbnail-downloader               19 kB         170 kB
+├   ├ /en/pages/youtube-thumbnail-downloader
+├   ├ /hi/pages/youtube-thumbnail-downloader
+├   ├ /zh/pages/youtube-thumbnail-downloader
+├   └ /ur/pages/youtube-thumbnail-downloader
+├ ● /[locale]/pages/youtube-to-mp3                               0 B         151 kB
+├   ├ /en/pages/youtube-to-mp3
+├   ├ /hi/pages/youtube-to-mp3
+├   ├ /zh/pages/youtube-to-mp3
+├   └ /ur/pages/youtube-to-mp3
+├ ○ /robots.txt                                                  0 B            0 B
+└ ○ /sitemap.xml                                                 0 B            0 B
++ First Load JS shared by all                                 114 kB
+  ├ chunks/017a0de52310b3ca.js                               59.2 kB
+  ├ chunks/9a2f0ae81108b96a.js                               20.4 kB
+  └ chunks/f0380d005ebc03eb.js                               17.2 kB
+  └ other shared chunks (total)                              17.4 kB
+
+
+ƒ Middleware                                                  141 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

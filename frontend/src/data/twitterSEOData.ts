@@ -102,3 +102,31 @@ export const twitterReviews = [
     platform: "Twitter"
   }
 ];
+
+export const twitterSEOContent = {
+  mainTitle: twitterInfo.title,
+  intro: twitterInfo.description.join('\n\n'),
+  whatIs: {
+    title: "What is X Video Downloader?",
+    content: twitterInfo.description.join('\n\n')
+  },
+  howItWorks: {
+    title: "How to Download X (Twitter) Videos",
+    content: `1. Copy the tweet video link.
+2. Paste into the input box above.
+3. Click "Download" to process.
+4. Save your video in HD.`
+  },
+  benefits: {
+    title: "Why Use Our X Downloader?",
+    content: "Download Twitter videos and GIFs in HD quality instantly, securely, and completely free."
+  },
+  features: {
+    title: "Key Features",
+    list: Object.values(twitterInfo.features).map(f => `${f.title}: ${f.description}`)
+  },
+  faqs: {
+    title: "Frequently Asked Questions",
+    items: twitterFAQs
+  }
+};

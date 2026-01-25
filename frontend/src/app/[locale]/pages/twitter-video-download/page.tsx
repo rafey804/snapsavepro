@@ -1,8 +1,7 @@
 import TwitterDownloader from '@/components/home/TwitterDownloader'
-import XDownloaderContent from '@/components/details/XDownloaderContent';
-import InfoSection from "@/components/SEO/InfoSection";
-import FAQSection from "@/components/SEO/FAQSection";
-import { twitterFAQs, twitterInfo } from "@/data/twitterSEOData";
+import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import RelatedTools from '@/components/common/RelatedTools';
+import { twitterSEOContent } from "@/data/twitterSEOData";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
@@ -64,19 +63,13 @@ const XVideoDownloaderPage = () => {
 
       <TwitterDownloader />
 
-      {/* New Visual Content with Images & Animations */}
-      <XDownloaderContent />
-
-      <InfoSection
+      <PlatformContentSection
         platform="X"
         platformColor="blue"
-        customTitle={twitterInfo.title}
-        customDescription={twitterInfo.description}
-        customFeatures={twitterInfo.features}
-        featureImage="/images/x-features.png"
+        content={twitterSEOContent}
       />
 
-      <FAQSection faqs={twitterFAQs} platform="X" />
+      <RelatedTools exclude="twitter" />
     </>
   )
 }

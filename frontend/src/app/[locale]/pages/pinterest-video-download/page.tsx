@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { constructMetadata } from "@/utils/seo";
 import PinterestDownloader from '@/components/home/PinterestDownloader';
 import PinterestDownloaderContent from '@/components/details/PinterestDownloaderContent';
-import InfoSection from "@/components/SEO/InfoSection";
-import FAQSection from "@/components/SEO/FAQSection";
-import { pinterestFAQs, pinterestInfo } from '@/data/pinterestSEOData';
+import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import RelatedTools from '@/components/common/RelatedTools';
+import { pinterestSEOContent } from '@/data/pinterestSEOData';
 
 export async function generateMetadata({
   params,
@@ -62,16 +62,13 @@ export default function PinterestDownloadPage() {
       {/* New Visual Content with Images & Animations */}
       <PinterestDownloaderContent />
 
-      <InfoSection
+      <PlatformContentSection
         platform="Pinterest"
         platformColor="red"
-        customTitle={pinterestInfo.title}
-        customDescription={pinterestInfo.description}
-        customFeatures={pinterestInfo.features}
-        featureImage="/images/pinterest-features.png"
+        content={pinterestSEOContent}
       />
 
-      <FAQSection faqs={pinterestFAQs} platform="Pinterest" />
+      <RelatedTools exclude="pinterest" />
     </>
   );
 }

@@ -8,6 +8,8 @@ import ReviewsSection from '@/components/SEO/ReviewsSection';
 
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { dailymotionFAQs, dailymotionReviews, dailymotionStats, dailymotionFeatures, dailymotionSEOContent } from '@/data/dailymotionSEOData';
+import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import RelatedTools from '@/components/common/RelatedTools';
 import { Download, Users, Star, Zap, Shield, Sparkles, Globe, CheckCircle, Video } from 'lucide-react';
 
 const localeToOGLocale: Record<string, string> = {
@@ -194,18 +196,36 @@ export default function DailymotionVideoDownloaderPage() {
 
         {/* FAQ Section */}
         <section className="py-12 bg-slate-900/50 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-slate-300 text-center text-lg mb-12">
-              Everything you need to know about downloading Dailymotion videos
-            </p>
-            <FAQSection
-              faqs={dailymotionFAQs}
-              platform="Dailymotion"
-            />
-          </div>
+          <PlatformContentSection
+            platform="Dailymotion"
+            platformColor="orange"
+            content={{
+              mainTitle: dailymotionSEOContent.whatIsDailymotion.title,
+              intro: dailymotionSEOContent.whatIsDailymotion.content,
+              howItWorks: {
+                title: dailymotionSEOContent.howItWorks.title,
+                content: dailymotionSEOContent.howItWorks.content
+              },
+              benefits: {
+                title: dailymotionSEOContent.benefits.title,
+                content: dailymotionSEOContent.benefits.content
+              },
+              safety: {
+                title: dailymotionSEOContent.safety.title,
+                content: dailymotionSEOContent.safety.content
+              },
+              features: {
+                title: "Key Features",
+                list: dailymotionFeatures.map(f => `${f.title}: ${f.description}`)
+              },
+              faqs: {
+                title: "Frequently Asked Questions",
+                items: dailymotionFAQs
+              }
+            }}
+          />
+
+          <RelatedTools exclude="dailymotion" />
         </section>
 
         {/* Final CTA */}
@@ -215,9 +235,6 @@ export default function DailymotionVideoDownloaderPage() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Start Downloading Dailymotion Videos Now
               </h2>
-              <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
-                Join the community of content creators who trust our platform for fast, reliable, and high-quality Dailymotion video downloads. 100% free, forever.
-              </p>
               <a
                 href="#"
                 className="px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-bold text-lg rounded-xl transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 inline-flex items-center gap-3"
@@ -227,10 +244,10 @@ export default function DailymotionVideoDownloaderPage() {
               </a>
             </div>
           </div>
-        </section>
+        </section >
 
         {/* SEO Content Footer */}
-        <section className="py-12">
+        < section className="py-12" >
           <div className="max-w-6xl mx-auto px-4">
             <div className="prose prose-invert prose-sm max-w-none">
               <h2 className="text-2xl font-bold text-white mb-6">About Dailymotion Video Downloading</h2>

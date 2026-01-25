@@ -1,10 +1,7 @@
 import RedditDownloader from '@/components/home/RedditDownloader'
-import HowToDownload from "@/components/SEO/HowToDownload";
-import InfoSection from "@/components/SEO/InfoSection";
-import FAQSection from "@/components/SEO/FAQSection";
-
+import RelatedTools from "@/components/common/RelatedTools";
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
-import { redditFAQs, redditReviews, redditInfo } from "@/data/redditSEOData";
+import { redditSEOContent } from "@/data/redditSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
 
@@ -68,18 +65,12 @@ const RedditPage = () => {
       </header>
 
       <RedditDownloader />
-      <HowToDownload platform="Reddit" platformColor="orange" />
-
-      <InfoSection
+      <PlatformContentSection
         platform="Reddit"
         platformColor="orange"
-        customTitle={redditInfo.title}
-        customDescription={redditInfo.description}
-        customFeatures={redditInfo.features}
+        content={redditSEOContent}
       />
-
-      <PlatformContentSection platform="reddit" platformColor="orange" />
-      <FAQSection faqs={redditFAQs} platform="Reddit" />
+      <RelatedTools exclude="reddit" />
     </>
   )
 }

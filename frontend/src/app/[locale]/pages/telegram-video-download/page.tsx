@@ -1,7 +1,7 @@
 import TelegramDownloader from '@/components/home/TelegramDownloader'
-import HowToDownload from "@/components/SEO/HowToDownload";
-import InfoSection from "@/components/SEO/InfoSection";
+import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import FAQSection from "@/components/SEO/FAQSection";
+import RelatedTools from '@/components/common/RelatedTools';
 
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { telegramInfo, telegramFAQs, telegramReviews } from "@/data/telegramSEOData";
@@ -75,15 +75,25 @@ const TelegramPage = () => {
       ]} />
 
       <TelegramDownloader />
-      <HowToDownload platform="Telegram" platformColor="blue" />
 
-      <InfoSection
+      <PlatformContentSection
         platform="Telegram"
         platformColor="blue"
-        customTitle={telegramInfo.title}
-        customDescription={telegramInfo.description}
-        customFeatures={telegramInfo.features}
+        content={{
+          mainTitle: telegramInfo.title,
+          intro: Array.isArray(telegramInfo.description) ? telegramInfo.description.join('\n\n') : telegramInfo.description,
+          features: {
+            title: "Key Features",
+            list: Object.values(telegramInfo.features).map(f => `${f.title}: ${f.description}`)
+          },
+          faqs: {
+            title: "Frequently Asked Questions",
+            items: telegramFAQs
+          }
+        }}
       />
+
+      <RelatedTools exclude="telegram" />
 
       <FAQSection faqs={telegramFAQs} platform="Telegram" />
     </>

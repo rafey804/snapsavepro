@@ -102,3 +102,31 @@ export const redditReviews = [
     platform: "Reddit"
   }
 ];
+
+export const redditSEOContent = {
+  mainTitle: redditInfo.title,
+  intro: redditInfo.description.join('\n\n'),
+  whatIs: {
+    title: "What is Reddit Downloader?",
+    content: redditInfo.description.join('\n\n')
+  },
+  howItWorks: {
+    title: "How to Download Reddit Videos",
+    content: `1. Open Reddit and find the post with the video/image.
+2. Click 'Share' and copy the link.
+3. Paste the link into the box above.
+4. Click 'Download' and choose your quality.`
+  },
+  benefits: {
+    title: "Why Use SnapSavePro for Reddit?",
+    content: "We provide the best quality downloads with audio support for v.redd.it links, completely free and anonymous."
+  },
+  features: {
+    title: "Key Features",
+    list: Object.values(redditInfo.features).map(f => `${f.title}: ${f.description}`)
+  },
+  faqs: {
+    title: "Frequently Asked Questions",
+    items: redditFAQs
+  }
+};

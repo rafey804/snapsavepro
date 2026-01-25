@@ -105,3 +105,31 @@ export const pinterestReviews = [
     platform: "Pinterest"
   }
 ];
+
+export const pinterestSEOContent = {
+  mainTitle: pinterestInfo.title,
+  intro: pinterestInfo.description.join('\n\n'),
+  whatIs: {
+    title: "What is Pinterest Downloader?",
+    content: pinterestInfo.description.join('\n\n')
+  },
+  howItWorks: {
+    title: "How to Download Pinterest Videos",
+    content: `1. Copy the Pinterest video/image URL.
+2. Paste the URL into the search box above.
+3. Click the "Download" button.
+4. Choose your desired quality/format and save.`
+  },
+  benefits: {
+    title: "Why Choose Our Pinterest Downloader?",
+    content: "Our tool offers high-speed downloads, supports all media types (video, image, GIF), and is completely free to use without any registration."
+  },
+  features: {
+    title: "Key Features",
+    list: Object.values(pinterestInfo.features).map(f => `${f.title}: ${f.description}`)
+  },
+  faqs: {
+    title: "Frequently Asked Questions",
+    items: pinterestFAQs
+  }
+};

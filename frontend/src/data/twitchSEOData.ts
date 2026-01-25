@@ -106,71 +106,30 @@ export const twitchReviews = [
   }
 ];
 
-export const twitchInfoSections = [
-  {
-    icon: "Zap",
-    title: "Instant Downloads",
-    description: "Get your Twitch clips in seconds with our lightning-fast processing system. No waiting, no delays."
+export const twitchSEOContent = {
+  mainTitle: twitchInfo.title,
+  intro: twitchInfo.description.join('\n\n'),
+  whatIs: {
+    title: "What is Twitch Clip Downloader?",
+    content: twitchInfo.description.join('\n\n')
   },
-  {
-    icon: "Shield",
-    title: "100% Safe & Secure",
-    description: "Your privacy is protected. We don't store clips or track your activity. All downloads are encrypted."
+  howItWorks: {
+    title: "How to Download Twitch Clips",
+    content: `1. Find your desired clip on Twitch and copy the URL.
+2. Paste the Twitch clip URL into our downloader input field.
+3. Click "Download" to fetch the video.
+4. Select your preferred quality/format and save.`
   },
-  {
-    icon: "Sparkles",
-    title: "HD Quality",
-    description: "Download in original quality up to 1080p60fps. No compression, no quality loss, just pure excellence."
+  benefits: {
+    title: "Why Choose Our Twitch Downloader?",
+    content: "We offer instant downloads, 1080p 60fps quality support, and complete anonymity without registration."
   },
-  {
-    icon: "Globe",
-    title: "No Registration",
-    description: "Start downloading immediately. No accounts, no sign-ups, no email required. Completely anonymous."
+  features: {
+    title: "Key Features",
+    list: Object.values(twitchInfo.features).map(f => `${f.title}: ${f.description}`)
+  },
+  faqs: {
+    title: "Frequently Asked Questions",
+    items: twitchFAQs
   }
-];
-
-export const twitchHowToSteps = [
-  {
-    step: 1,
-    title: "Copy Clip URL",
-    description: "Find your desired clip on Twitch and copy the URL from the share button or browser address bar."
-  },
-  {
-    step: 2,
-    title: "Paste URL",
-    description: "Paste the Twitch clip URL into our downloader input field at the top of this page."
-  },
-  {
-    step: 3,
-    title: "Choose Format",
-    description: "Select your preferred quality and format - video or audio-only options available."
-  },
-  {
-    step: 4,
-    title: "Download",
-    description: "Click the download button and your clip will be saved to your device instantly!"
-  }
-];
-
-export const twitchStats = [
-  {
-    icon: "Users",
-    value: "500K+",
-    label: "Happy Users"
-  },
-  {
-    icon: "Download",
-    value: "10M+",
-    label: "Clips Downloaded"
-  },
-  {
-    icon: "Star",
-    value: "4.9/5",
-    label: "User Rating"
-  },
-  {
-    icon: "Zap",
-    value: "<10s",
-    label: "Avg. Speed"
-  }
-];
+};

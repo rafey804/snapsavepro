@@ -4,6 +4,8 @@ import ThreadsDownloader from '@/components/home/ThreadsDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import FAQSection from '@/components/SEO/FAQSection';
 import ReviewsSection from '@/components/SEO/ReviewsSection';
+import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import RelatedTools from '@/components/common/RelatedTools';
 
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { threadsFAQs, threadsReviews, threadsStats, threadsFeatures, threadsSEOContent } from '@/data/threadsSEOData';
@@ -123,60 +125,35 @@ export default function ThreadsVideoDownloaderPage() {
           </div>
         </section>
 
-        {/* Comprehensive Content Section */}
-        <section className="py-12 bg-slate-900/50 backdrop-blur-sm">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="prose prose-invert prose-lg max-w-none">
-              {/* What is Threads Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
-                  {threadsSEOContent.whatIsThreads.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {threadsSEOContent.whatIsThreads.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-
-              {/* How It Works Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
-                  {threadsSEOContent.howItWorks.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {threadsSEOContent.howItWorks.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Benefits Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
-                  {threadsSEOContent.benefits.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {threadsSEOContent.benefits.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Safety Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
-                  {threadsSEOContent.safety.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {threadsSEOContent.safety.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Standardized Content Section */}
+        <PlatformContentSection
+          platform="Threads"
+          platformColor="green"
+          content={{
+            mainTitle: threadsSEOContent.whatIsThreads.title,
+            intro: threadsSEOContent.whatIsThreads.content,
+            howItWorks: {
+              title: threadsSEOContent.howItWorks.title,
+              content: threadsSEOContent.howItWorks.content
+            },
+            benefits: {
+              title: threadsSEOContent.benefits.title,
+              content: threadsSEOContent.benefits.content
+            },
+            safety: {
+              title: threadsSEOContent.safety.title,
+              content: threadsSEOContent.safety.content
+            },
+            features: {
+              title: "Key Features",
+              list: threadsFeatures.map(f => `${f.title}: ${f.description}`)
+            },
+            faqs: {
+              title: "Frequently Asked Questions",
+              items: threadsFAQs
+            }
+          }}
+        />
 
         {/* Reviews Section */}
         <section className="py-12">
@@ -188,22 +165,6 @@ export default function ThreadsVideoDownloaderPage() {
               Join thousands of satisfied users who trust our Threads video downloader
             </p>
             <ReviewsSection reviews={threadsReviews} />
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-12 bg-slate-900/50 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-slate-300 text-center text-lg mb-12">
-              Everything you need to know about downloading Threads videos
-            </p>
-            <FAQSection
-              faqs={threadsFAQs}
-              platform="Threads"
-            />
           </div>
         </section>
 
@@ -228,40 +189,7 @@ export default function ThreadsVideoDownloaderPage() {
           </div>
         </section>
 
-        {/* SEO Content Footer */}
-        <section className="py-12">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="prose prose-invert prose-sm max-w-none">
-              <h2 className="text-2xl font-bold text-white mb-6">About Threads Video Downloading</h2>
-              <div className="grid md:grid-cols-2 gap-8 text-slate-300">
-                <div>
-                  <h3 className="text-lg font-semibold text-green-400 mb-3">Supported Platforms & Devices</h3>
-                  <p className="leading-relaxed mb-4">
-                    Our Threads video downloader works seamlessly across all platforms including Windows, macOS, Linux, iOS, Android, and any device with a modern web browser. Whether you're using Chrome, Firefox, Safari, Edge, or any other browser, you'll enjoy the same fast and reliable download experience on desktop, mobile, and tablet devices.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-teal-400 mb-3">Short & Long Video Support</h3>
-                  <p className="leading-relaxed mb-4">
-                    Unlike many downloaders, we support both Threads's short-form content (15-60 seconds) and long-form videos (several minutes). Download quick comedy clips, extended tutorials, vlogs, music videos, and everything in between with the same high quality and speed.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-green-400 mb-3">Privacy & Security</h3>
-                  <p className="leading-relaxed mb-4">
-                    We prioritize your privacy with no data collection, no user tracking, and no stored downloads. All connections are encrypted using HTTPS, and we never ask for personal information. Your download history stays completely private, and we don't use invasive cookies or analytics trackers.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-teal-400 mb-3">For Content Creators</h3>
-                  <p className="leading-relaxed mb-4">
-                    Perfect for social media managers building content libraries, video editors creating compilations, marketers analyzing trending content, and creators repurposing videos for Instagram Reels, TikTok, YouTube Shorts, and other platforms. Professional quality downloads for professional results.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <RelatedTools exclude="threads" />
       </div>
 
       {/* JSON-LD Schema for SEO */}

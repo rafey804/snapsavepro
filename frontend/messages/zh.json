@@ -599,6 +599,412 @@
         "title": "提示：",
         "description": "复制完整链接。"
       }
+    },
+    "pinterest": {
+      "mainTitle": "Pinterest Video Downloader - Save Pinterest Videos & Pins",
+      "intro": "Our Pinterest Video Downloader is the best free tool to download Pinterest videos and video pins in high quality. Save your favorite Pinterest videos, DIY tutorials, recipes, and creative inspiration directly to your device. Perfect for saving design ideas, cooking videos, crafting tutorials, home improvement guides, and trending pins.",
+      "howTo": {
+        "title": "How to Download Pinterest Videos",
+        "step1": "Copy the Pinterest pin link: Open Pinterest, find the video pin you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the Pinterest link in the input box above",
+        "step3": "Click 'Get Video': Our tool will analyze the pin and fetch the video",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the video to your device"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Pinterest videos in the best available quality",
+        "noWatermark": "Original Quality: All downloads maintain Pinterest's original quality",
+        "multipleFormats": "Multiple Formats: Download videos in MP4 format",
+        "fastSecure": "Fast & Secure: Quick downloads with secure connections",
+        "free": "Free Forever: Completely free with no subscription required",
+        "noRegistration": "No Registration: No Pinterest account needed to download",
+        "allDevices": "All Devices: Works on all devices and platforms",
+        "audioExtraction": "Audio Extraction: Extract audio from Pinterest videos"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Pinterest Video Downloader?",
+        "description": "Our tool provides the easiest way to download Pinterest videos and video pins. Perfect for saving DIY projects, cooking recipes, home decor ideas, fashion inspiration, fitness routines, beauty tutorials, and crafting guides. Pinterest is known for its visual content and creative ideas - save your favorite video pins to reference later, even offline. Great for creators building mood boards and collecting inspiration."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Pinterest videos?",
+          "answer": "Downloading Pinterest videos for personal reference and inspiration is generally acceptable. Always respect copyright and creator rights. Give credit when sharing or using content."
+        },
+        "q2": {
+          "question": "Can I download private Pinterest pins?",
+          "answer": "No, our tool only works with publicly accessible Pinterest pins and boards. Private content cannot be downloaded."
+        },
+        "q3": {
+          "question": "Do I need a Pinterest account?",
+          "answer": "No! Our downloader works without requiring a Pinterest account. Just paste the pin URL and download."
+        },
+        "q4": {
+          "question": "What video quality can I download?",
+          "answer": "We provide the best quality available from Pinterest, which varies based on how the original video was uploaded."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited Pinterest videos completely free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works perfectly on all mobile devices, tablets, and computers."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Pinterest is perfect for collecting inspiration. Download DIY tutorials, recipe videos, and home improvement guides to access them offline. Organize downloads by category (recipes, crafts, fashion, home) for easy reference."
+      }
+    },
+    "reddit": {
+      "mainTitle": "Reddit Video Downloader - Save Reddit Videos & GIFs",
+      "intro": "Our Reddit Video Downloader is the best free tool to download Reddit videos, GIFs, and v.redd.it content in high quality. Save your favorite Reddit content from any subreddit directly to your device. Perfect for downloading funny clips, educational content, gaming highlights, news footage, and viral moments from Reddit.",
+      "howTo": {
+        "title": "How to Download Reddit Videos",
+        "step1": "Copy the Reddit post link: Open Reddit, find the video post you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the Reddit link in the input box above",
+        "step3": "Click 'Get Video': Our tool will analyze the post and fetch the video with audio",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the file to your device"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Reddit videos in the best available quality with audio",
+        "noWatermark": "Original Quality: All downloads maintain original quality including audio",
+        "multipleFormats": "Multiple Formats: Download videos with audio in MP4 format",
+        "fastSecure": "Fast & Secure: Quick downloads with secure encrypted connections",
+        "free": "Free Forever: Completely free with no subscription required",
+        "noRegistration": "No Registration: No Reddit account needed",
+        "allDevices": "All Devices: Works seamlessly on all devices",
+        "audioExtraction": "Audio Support: Downloads include audio when available"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Reddit Video Downloader?",
+        "description": "Our tool provides the fastest and most reliable way to download Reddit videos with audio. Reddit hosts diverse content from educational tutorials to entertainment, gaming clips to news footage. Perfect for saving funny videos from r/funny, educational content from various subreddits, gaming highlights, DIY tutorials, and viral moments. Our downloader handles v.redd.it links and combines video with audio automatically."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Reddit videos?",
+          "answer": "Downloading Reddit videos for personal use is generally acceptable. Always respect copyright and give credit to original posters (OPs) when sharing content."
+        },
+        "q2": {
+          "question": "Can I download videos from private subreddits?",
+          "answer": "No, our tool only works with publicly accessible Reddit posts. Private subreddit content cannot be downloaded."
+        },
+        "q3": {
+          "question": "Does it include audio?",
+          "answer": "Yes! Our downloader automatically combines video and audio for Reddit posts, giving you complete content."
+        },
+        "q4": {
+          "question": "What about v.redd.it links?",
+          "answer": "Yes, we fully support v.redd.it links (Reddit's native video hosting) and automatically merge audio with video."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited Reddit videos completely free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works perfectly on all devices including mobile phones and tablets."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Reddit has specialized content in every niche. Use our downloader to save educational content, tutorials, news clips, and entertainment. Always credit the original poster when sharing downloaded content."
+      }
+    },
+    "snapchat": {
+      "mainTitle": "Snapchat Video Downloader - Save Snapchat Spotlight Videos",
+      "intro": "Our Snapchat Video Downloader helps you save Snapchat Spotlight videos and public stories in high quality. Download your favorite Snapchat content directly to your device. Perfect for saving creative Spotlight videos, trending challenges, entertaining content, and memorable public stories from Snapchat.",
+      "howTo": {
+        "title": "How to Download Snapchat Videos",
+        "step1": "Copy the Snapchat link: Open Snapchat, find the Spotlight video or public story you want, and copy its URL",
+        "step2": "Paste the URL: Paste the Snapchat link in the input box above",
+        "step3": "Click 'Get Video': Our tool will process the content",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the video"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Snapchat videos in original quality",
+        "noWatermark": "Original Quality: Maintains Snapchat's video quality",
+        "multipleFormats": "MP4 Format: Downloads in universally compatible MP4 format",
+        "fastSecure": "Fast & Secure: Quick and secure downloads",
+        "free": "Free Forever: Completely free to use",
+        "noRegistration": "No Registration: No Snapchat account required",
+        "allDevices": "All Devices: Works on all devices",
+        "audioExtraction": "Audio Included: Downloads with audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Snapchat Video Downloader?",
+        "description": "Snapchat Spotlight features creative vertical videos, trending challenges, and entertaining content. Our tool helps you download and save these videos for offline viewing. Perfect for content creators studying trending formats, saving entertaining clips, or archiving memorable Spotlight moments. Snapchat's unique AR filters and creative tools make it a hub for innovative content worth saving."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Snapchat videos?",
+          "answer": "Downloading publicly shared Snapchat Spotlight videos for personal use is generally acceptable. Always respect creator rights and privacy."
+        },
+        "q2": {
+          "question": "Can I download private Snaps?",
+          "answer": "No, our tool only works with publicly accessible Spotlight videos and public stories. Private content is protected."
+        },
+        "q3": {
+          "question": "Do I need a Snapchat account?",
+          "answer": "No! Our downloader works without requiring a Snapchat account."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the best quality available from Snapchat Spotlight videos."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited Snapchat videos free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works perfectly on all mobile devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Snapchat Spotlight showcases creative vertical video content. Download trending videos to study successful content formats and AR filter usage."
+      }
+    },
+    "linkedin": {
+      "mainTitle": "LinkedIn Video Downloader - Save LinkedIn Videos",
+      "intro": "Our LinkedIn Video Downloader is the best tool to download LinkedIn videos in high quality. Save professional content, educational videos, industry insights, and thought leadership content directly from LinkedIn. Perfect for downloading business tutorials, motivational content, career advice, industry news, and professional development videos.",
+      "howTo": {
+        "title": "How to Download LinkedIn Videos",
+        "step1": "Copy the LinkedIn video link: Open LinkedIn, find the video post you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the LinkedIn link in the input box above",
+        "step3": "Click 'Get Video': Our tool will analyze the post and fetch the video",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save to your device"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download LinkedIn videos in original quality",
+        "noWatermark": "Original Quality: Maintains professional video quality",
+        "multipleFormats": "MP4 Format: Standard MP4 format for easy viewing",
+        "fastSecure": "Fast & Secure: Secure professional downloads",
+        "free": "Free Forever: Completely free service",
+        "noRegistration": "No Registration: No extra accounts needed",
+        "allDevices": "All Devices: Works on all professional devices",
+        "audioExtraction": "Full Audio: Complete video with audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our LinkedIn Video Downloader?",
+        "description": "LinkedIn is the premier platform for professional content and business insights. Our downloader helps you save valuable educational videos, industry expert talks, career advice, motivational content, and thought leadership presentations. Perfect for professionals building knowledge libraries, students learning from industry experts, and entrepreneurs studying business strategies. Download webinars, conference talks, and professional development content for offline viewing and reference."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download LinkedIn videos?",
+          "answer": "Downloading LinkedIn videos for personal professional development is generally acceptable. Always respect professional content creator rights and copyright."
+        },
+        "q2": {
+          "question": "Can I download videos from private profiles?",
+          "answer": "No, our tool only works with publicly accessible LinkedIn posts and videos."
+        },
+        "q3": {
+          "question": "Do I need a LinkedIn account?",
+          "answer": "While having a LinkedIn account helps access more content, our downloader doesn't require special permissions."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the best quality available from LinkedIn, typically professional HD quality."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited professional content free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works on all professional devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "LinkedIn hosts valuable professional content from industry experts. Download webinars, conference talks, and educational videos to build your professional knowledge library."
+      }
+    },
+    "telegram": {
+      "mainTitle": "Telegram Video Downloader - Save Telegram Videos",
+      "intro": "Our Telegram Video Downloader helps you download videos from Telegram channels and groups in high quality. Save your favorite Telegram content directly to your device. Perfect for downloading educational content, news clips, entertainment videos, and content from public Telegram channels.",
+      "howTo": {
+        "title": "How to Download Telegram Videos",
+        "step1": "Copy the Telegram video link: Open Telegram, find the video you want to download, and copy its link",
+        "step2": "Paste the URL: Paste the Telegram link in the input box above",
+        "step3": "Click 'Get Video': Our tool will fetch the video from Telegram",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the file"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Telegram videos in original quality",
+        "noWatermark": "Original Quality: Maintains original video quality",
+        "multipleFormats": "MP4 Format: Universal MP4 format",
+        "fastSecure": "Fast & Secure: Encrypted secure downloads",
+        "free": "Free Forever: Completely free service",
+        "noRegistration": "No Registration: No accounts needed",
+        "allDevices": "All Devices: Works on all devices",
+        "audioExtraction": "Audio Included: Full video with audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Telegram Video Downloader?",
+        "description": "Telegram hosts diverse content from news channels to educational groups. Our downloader helps you save videos from public Telegram channels and groups. Perfect for downloading news footage, educational tutorials, entertainment content, and documentary clips. Telegram's large file size support means high-quality videos - save them for offline viewing."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Telegram videos?",
+          "answer": "Downloading publicly shared Telegram videos for personal use is generally acceptable. Always respect copyright and creator rights."
+        },
+        "q2": {
+          "question": "Can I download from private channels?",
+          "answer": "No, our tool only works with publicly accessible Telegram content."
+        },
+        "q3": {
+          "question": "Do I need Telegram installed?",
+          "answer": "No! Our downloader works independently."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the original quality from Telegram, which often includes HD and high-quality videos."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited videos free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works on all devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Telegram channels often share high-quality educational and news content. Download valuable videos for offline access and reference."
+      }
+    },
+    "twitch": {
+      "mainTitle": "Twitch Clip Downloader - Save Twitch Clips & Highlights",
+      "intro": "Our Twitch Clip Downloader is the best tool to download Twitch clips and highlights in high quality. Save your favorite gaming moments, esports highlights, and streaming clips directly to your device. Perfect for downloading epic gaming moments, funny clips, esports highlights, speedrun records, and memorable streaming content from Twitch.",
+      "howTo": {
+        "title": "How to Download Twitch Clips",
+        "step1": "Copy the Twitch clip link: Open Twitch, find the clip or highlight you want to download, and copy its URL",
+        "step2": "Paste the URL: Paste the Twitch link in the input box above",
+        "step3": "Click 'Get Video': Our tool will fetch the clip from Twitch",
+        "step4": "Choose quality: Select your preferred video quality",
+        "step5": "Download: Click the download button and save the clip"
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "High Quality Downloads: Download Twitch clips in original streaming quality",
+        "noWatermark": "Original Quality: Maintains Twitch's video quality",
+        "multipleFormats": "MP4 Format: Standard MP4 format",
+        "fastSecure": "Fast & Secure: Quick secure downloads",
+        "free": "Free Forever: Completely free service",
+        "noRegistration": "No Registration: No Twitch account required",
+        "allDevices": "All Devices: Works on all gaming devices",
+        "audioExtraction": "Audio Included: Full gaming audio"
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Twitch Clip Downloader?",
+        "description": "Twitch is the world's leading live streaming platform for gaming, esports, and creative content. Our downloader helps you save epic gaming moments, esports tournament highlights, funny streaming clips, and memorable broadcasts. Perfect for content creators building highlight reels, gamers saving their best moments, esports fans archiving tournament plays, and streamers collecting clips. Download speedrun records, pro player highlights, and community moments."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "Is it legal to download Twitch clips?",
+          "answer": "Downloading publicly shared Twitch clips for personal use is generally acceptable. Always respect streamer rights and give credit when sharing."
+        },
+        "q2": {
+          "question": "Can I download full VODs?",
+          "answer": "Our tool is optimized for clips. Some tools support full VODs, but clips are the most common format."
+        },
+        "q3": {
+          "question": "Do I need a Twitch account?",
+          "answer": "No! Our downloader works without requiring a Twitch account."
+        },
+        "q4": {
+          "question": "What quality can I download?",
+          "answer": "We provide the original quality from Twitch, typically 1080p for clips and highlights."
+        },
+        "q5": {
+          "question": "Is there a download limit?",
+          "answer": "No limits! Download unlimited clips free."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes! Works on all devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "Twitch clips capture the best gaming moments. Download epic plays, funny moments, and esports highlights to create highlight reels or study pro strategies."
+      }
+    },
+    "videoToMp3": {
+      "mainTitle": "Video to MP3 Converter - Extract High-Quality Audio from Any Video",
+      "intro": "Welcome to the most advanced and user-friendly video to MP3 converter available online. Whether you need to extract audio from a music video, create an audiobook from video lectures, or save podcast audio, our powerful tool makes it effortless. Convert MP4 to MP3, AVI to MP3, MKV to MP3, and virtually any video format to high-quality audio files up to 320kbps bitrate.",
+      "howTo": {
+        "title": "How to Convert Video to MP3",
+        "step1": "Upload Your Video: Select up to 5 video files from your device. Supports all popular formats like MP4, AVI, MKV, and more.",
+        "step2": "Start Conversion: Your videos are automatically converted to high-quality 320kbps MP3 format.",
+        "step3": "Download Audio: Once conversion is complete, click download to save your MP3 file.",
+        "step4": "Choose Quality: Select from 128kbps, 256kbps, or 320kbps audio quality options.",
+        "step5": "Enjoy: Listen to your high-quality MP3 audio offline on any device."
+      },
+      "features": {
+        "title": "Key Features",
+        "highQuality": "Premium Audio: Get studio-quality MP3 audio with 320kbps bitrate.",
+        "noWatermark": "Clean Audio: No watermarks or intro/outro ads added to your audio.",
+        "multipleFormats": "All Formats: Supports MP4, AVI, MKV, MOV, WMV, FLV, and more.",
+        "fastSecure": "Lightning Fast: Convert videos to MP3 in seconds with secure processing.",
+        "free": "100% Free: Unlimited conversions with no hidden fees.",
+        "noRegistration": "No Registration: Start converting immediately without an account.",
+        "allDevices": "Cross-Platform: Works on Windows, Mac, Linux, Android, and iOS.",
+        "audioExtraction": "Audio Extractor: Advanced technology to extract crystal clear audio."
+      },
+      "whyChoose": {
+        "title": "Why Choose Our Video to MP3 Converter?",
+        "description": "Unlike other converters that limit features or require paid subscriptions, our tool offers 100% free unlimited conversions with all premium features included. We support all popular video formats and ensure your privacy by automatically deleting files after conversion. Whether you're a musician, student, or content creator, our tool provides the best audio quality available online."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "q1": {
+          "question": "What formats are supported?",
+          "answer": "We support converting videos from MP4, AVI, MKV, MOV, WMV, FLV, WebM, 3GP, and many more formats."
+        },
+        "q2": {
+          "question": "Can I choose the audio quality?",
+          "answer": "Yes, you can select from various quality options including 320kbps (Best), 256kbps, and 128kbps."
+        },
+        "q3": {
+          "question": "Is it free to use?",
+          "answer": "Yes, our service is completely free and unlimited. Convert as many videos as you want."
+        },
+        "q4": {
+          "question": "Can I convert long videos?",
+          "answer": "Yes, we support converting videos of various lengths, including long podcasts and music mixes."
+        },
+        "q5": {
+          "question": "Is it secure?",
+          "answer": "Absolutely. All files are processed securely and deleted from our servers immediately after conversion."
+        },
+        "q6": {
+          "question": "Does it work on mobile?",
+          "answer": "Yes, our converter works perfectly on iPhone, iPad, and Android devices."
+        }
+      },
+      "proTip": {
+        "title": "Pro Tip:",
+        "description": "For the best audio quality, always select the 320kbps option. This preserves the full range of sound from your original video."
+      }
     }
   },
   "pages": {

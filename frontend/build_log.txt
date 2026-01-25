@@ -1,0 +1,51 @@
+
+> youtube-downloader-frontend@0.1.0 build
+> next build --turbopack
+
+   ▲ Next.js 15.5.1 (Turbopack)
+
+   Creating an optimized production build ...
+ ✓ Finished writing to disk in 280ms
+
+> Build error occurred
+Error: Turbopack build failed with 2 errors:
+./src/app/[locale]/pages/kwai-video-downloader/page.tsx:168:17
+Parsing ecmascript source code failed
+[0m [90m 166 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 167 |[39m
+[31m[1m>[22m[39m[90m 168 |[39m       [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m     |[39m                 [31m[1m^[22m[39m
+[31m[1m>[22m[39m[90m 169 |[39m
+ [90m     |[39m [31m[1m^[22m[39m
+[31m[1m>[22m[39m[90m 170 |[39m       {[90m/* SEO Content Footer */[39m}
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 171 |[39m       [33m<[39m[33msection[39m className[33m=[39m[32m"py-12"[39m[33m>[39m
+ [90m 172 |[39m         [33m<[39m[33mdiv[39m className[33m=[39m[32m"max-w-6xl mx-auto px-4"[39m[33m>[39m
+ [90m 173 |[39m           [33m<[39m[33mdiv[39m className[33m=[39m[32m"prose prose-invert prose-sm max-w-none"[39m[33m>[39m[0m
+
+Expected '</', got 'jsx text (
+
+      )'
+
+
+./src/app/[locale]/pages/kwai-video-downloader/page.tsx:168:17
+Parsing ecmascript source code failed
+[0m [90m 166 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 167 |[39m
+[31m[1m>[22m[39m[90m 168 |[39m       [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m     |[39m                 [31m[1m^[22m[39m
+[31m[1m>[22m[39m[90m 169 |[39m
+ [90m     |[39m [31m[1m^[22m[39m
+[31m[1m>[22m[39m[90m 170 |[39m       {[90m/* SEO Content Footer */[39m}
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 171 |[39m       [33m<[39m[33msection[39m className[33m=[39m[32m"py-12"[39m[33m>[39m
+ [90m 172 |[39m         [33m<[39m[33mdiv[39m className[33m=[39m[32m"max-w-6xl mx-auto px-4"[39m[33m>[39m
+ [90m 173 |[39m           [33m<[39m[33mdiv[39m className[33m=[39m[32m"prose prose-invert prose-sm max-w-none"[39m[33m>[39m[0m
+
+Expected '</', got 'jsx text (
+
+      )'
+
+
+    at <unknown> (./src/app/[locale]/pages/kwai-video-downloader/page.tsx:168:17)
+    at <unknown> (./src/app/[locale]/pages/kwai-video-downloader/page.tsx:168:17)

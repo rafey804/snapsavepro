@@ -4,9 +4,11 @@ import KwaiDownloader from '@/components/home/KwaiDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import FAQSection from '@/components/SEO/FAQSection';
 import ReviewsSection from '@/components/SEO/ReviewsSection';
+import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import RelatedTools from '@/components/common/RelatedTools';
 
 import Breadcrumb from '@/components/layout/Breadcrumb';
-import { kwaiFAQs, kwaiReviews, kwaiStats, kwaiFeatures, kwaiSEOContent } from '@/data/kwaiSEOData';
+import { kwaiFAQs, kwaiReviews, kwaiStats, kwaiFeatures, kwaiSEOContent, kwaiHowToSteps } from '@/data/kwaiSEOData';
 import { Download, Users, Star, Zap, Shield, Sparkles, Globe, CheckCircle, Video } from 'lucide-react';
 
 const localeToOGLocale: Record<string, string> = {
@@ -123,60 +125,35 @@ export default function KwaiVideoDownloaderPage() {
           </div>
         </section>
 
-        {/* Comprehensive Content Section */}
-        <section className="py-12 bg-slate-900/50 backdrop-blur-sm">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="prose prose-invert prose-lg max-w-none">
-              {/* What is Kwai Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-                  {kwaiSEOContent.whatIsKwai.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {kwaiSEOContent.whatIsKwai.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-
-              {/* How It Works Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-                  {kwaiSEOContent.howItWorks.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {kwaiSEOContent.howItWorks.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Benefits Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-                  {kwaiSEOContent.benefits.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {kwaiSEOContent.benefits.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Safety Section */}
-              <div className="mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-                  {kwaiSEOContent.safety.title}
-                </h2>
-                <div className="text-slate-300 leading-relaxed space-y-4">
-                  {kwaiSEOContent.safety.content.split('\n\n').map((para, idx) => (
-                    <p key={idx}>{para}</p>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Standardized Content Section */}
+        <PlatformContentSection
+          platform="Kwai"
+          platformColor="orange"
+          content={{
+            mainTitle: kwaiSEOContent.whatIsKwai.title,
+            intro: kwaiSEOContent.whatIsKwai?.content || '',
+            howItWorks: {
+              title: kwaiHowToSteps.length > 0 ? "How to Download Kwai Videos" : "",
+              content: kwaiSEOContent.howItWorks.content
+            },
+            benefits: {
+              title: kwaiSEOContent.benefits.title,
+              content: kwaiSEOContent.benefits.content
+            },
+            safety: {
+              title: kwaiSEOContent.safety.title,
+              content: kwaiSEOContent.safety.content
+            },
+            features: {
+              title: "Key Features",
+              list: kwaiFeatures.map(f => `${f.title}: ${f.description}`)
+            },
+            faqs: {
+              title: "Frequently Asked Questions",
+              items: kwaiFAQs
+            }
+          }}
+        />
 
         {/* Reviews Section */}
         <section className="py-12">
@@ -184,49 +161,11 @@ export default function KwaiVideoDownloaderPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
               What Our Users Say
             </h2>
-            <p className="text-slate-300 text-center text-lg mb-12 max-w-3xl mx-auto">
-              Join thousands of satisfied users who trust our Kwai video downloader
-            </p>
             <ReviewsSection reviews={kwaiReviews} />
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-12 bg-slate-900/50 backdrop-blur-sm">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-slate-300 text-center text-lg mb-12">
-              Everything you need to know about downloading Kwai videos
-            </p>
-            <FAQSection
-              faqs={kwaiFAQs}
-              platform="Kwai"
-            />
-          </div>
-        </section>
 
-        {/* Final CTA */}
-        <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="bg-gradient-to-r from-orange-600/20 to-yellow-600/20 border-2 border-orange-500/30 rounded-3xl p-8 md:p-12 text-center backdrop-blur-sm">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Start Downloading Kwai Videos Now
-              </h2>
-              <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
-                Join the community of content creators who trust our platform for fast, reliable, and high-quality Kwai video downloads. 100% free, forever.
-              </p>
-              <a
-                href="#"
-                className="px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-bold text-lg rounded-xl transition-all duration-300 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 inline-flex items-center gap-3"
-              >
-                <Download className="w-6 h-6" />
-                Download Your First Video
-              </a>
-            </div>
-          </div>
-        </section>
 
         {/* SEO Content Footer */}
         <section className="py-12">
@@ -291,6 +230,6 @@ export default function KwaiVideoDownloaderPage() {
           })
         }}
       />
-    </div>
+    </div >
   );
 }
