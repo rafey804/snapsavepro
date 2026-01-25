@@ -1,0 +1,179 @@
+
+> youtube-downloader-frontend@0.1.0 build
+> next build --turbopack
+
+   ▲ Next.js 15.5.1 (Turbopack)
+
+   Creating an optimized production build ...
+ ✓ Finished writing to disk in 261ms
+
+> Build error occurred
+Error: Turbopack build failed with 12 errors:
+./src/app/[locale]/pages/dailymotion-video-downloader/page.tsx:190:14
+Parsing ecmascript source code failed
+[0m [90m 188 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 189 |[39m               reviews[33m=[39m{dailymotionReviews}
+[31m[1m>[22m[39m[90m 190 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 191 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 192 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 193 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/dailymotion-video-downloader/page.tsx:190:14
+Parsing ecmascript source code failed
+[0m [90m 188 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 189 |[39m               reviews[33m=[39m{dailymotionReviews}
+[31m[1m>[22m[39m[90m 190 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 191 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 192 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 193 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/instagram-profile-picture-downloader/page.tsx:198:14
+Parsing ecmascript source code failed
+[0m [90m 196 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 197 |[39m               reviews[33m=[39m{instagramProfileReviews}
+[31m[1m>[22m[39m[90m 198 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 199 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 200 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 201 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/instagram-profile-picture-downloader/page.tsx:198:14
+Parsing ecmascript source code failed
+[0m [90m 196 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 197 |[39m               reviews[33m=[39m{instagramProfileReviews}
+[31m[1m>[22m[39m[90m 198 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 199 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 200 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 201 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/kwai-video-downloader/page.tsx:190:14
+Parsing ecmascript source code failed
+[0m [90m 188 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 189 |[39m               reviews[33m=[39m{kwaiReviews}
+[31m[1m>[22m[39m[90m 190 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 191 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 192 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 193 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/kwai-video-downloader/page.tsx:190:14
+Parsing ecmascript source code failed
+[0m [90m 188 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 189 |[39m               reviews[33m=[39m{kwaiReviews}
+[31m[1m>[22m[39m[90m 190 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 191 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 192 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 193 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/profile-picture-downloader/page.tsx:197:14
+Parsing ecmascript source code failed
+[0m [90m 195 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 196 |[39m               reviews[33m=[39m{profilePicReviews}
+[31m[1m>[22m[39m[90m 197 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 198 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 199 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 200 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/profile-picture-downloader/page.tsx:197:14
+Parsing ecmascript source code failed
+[0m [90m 195 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 196 |[39m               reviews[33m=[39m{profilePicReviews}
+[31m[1m>[22m[39m[90m 197 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 198 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 199 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 200 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/threads-video-downloader/page.tsx:190:14
+Parsing ecmascript source code failed
+[0m [90m 188 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 189 |[39m               reviews[33m=[39m{threadsReviews}
+[31m[1m>[22m[39m[90m 190 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 191 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 192 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 193 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/threads-video-downloader/page.tsx:190:14
+Parsing ecmascript source code failed
+[0m [90m 188 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 189 |[39m               reviews[33m=[39m{threadsReviews}
+[31m[1m>[22m[39m[90m 190 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 191 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 192 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 193 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/twitch-clip-downloader/page.tsx:178:14
+Parsing ecmascript source code failed
+[0m [90m 176 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 177 |[39m               reviews[33m=[39m{twitchReviews}
+[31m[1m>[22m[39m[90m 178 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 179 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 180 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 181 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+./src/app/[locale]/pages/twitch-clip-downloader/page.tsx:178:14
+Parsing ecmascript source code failed
+[0m [90m 176 |[39m             [33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 177 |[39m               reviews[33m=[39m{twitchReviews}
+[31m[1m>[22m[39m[90m 178 |[39m             [33m/[39m[33m>[39m
+ [90m     |[39m              [31m[1m^[22m[39m
+ [90m 179 |[39m           [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 180 |[39m         [33m<[39m[33m/[39m[33msection[39m[33m>[39m
+ [90m 181 |[39m[0m
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+
+    at <unknown> (./src/app/[locale]/pages/dailymotion-video-downloader/page.tsx:190:14)
+    at <unknown> (./src/app/[locale]/pages/dailymotion-video-downloader/page.tsx:190:14)
+    at <unknown> (./src/app/[locale]/pages/instagram-profile-picture-downloader/page.tsx:198:14)
+    at <unknown> (./src/app/[locale]/pages/instagram-profile-picture-downloader/page.tsx:198:14)
+    at <unknown> (./src/app/[locale]/pages/kwai-video-downloader/page.tsx:190:14)
+    at <unknown> (./src/app/[locale]/pages/kwai-video-downloader/page.tsx:190:14)
+    at <unknown> (./src/app/[locale]/pages/profile-picture-downloader/page.tsx:197:14)
+    at <unknown> (./src/app/[locale]/pages/profile-picture-downloader/page.tsx:197:14)
+    at <unknown> (./src/app/[locale]/pages/threads-video-downloader/page.tsx:190:14)
+    at <unknown> (./src/app/[locale]/pages/threads-video-downloader/page.tsx:190:14)
+    at <unknown> (./src/app/[locale]/pages/twitch-clip-downloader/page.tsx:178:14)
+    at <unknown> (./src/app/[locale]/pages/twitch-clip-downloader/page.tsx:178:14)

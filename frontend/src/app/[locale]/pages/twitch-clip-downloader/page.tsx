@@ -5,6 +5,7 @@ import HowToDownload from '@/components/SEO/HowToDownload';
 import InfoSection from '@/components/SEO/InfoSection';
 import TwitchContentSection from '@/components/SEO/TwitchContentSection';
 import FAQSection from '@/components/SEO/FAQSection';
+import ReviewsSection from '@/components/SEO/ReviewsSection';
 
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { twitchFAQs, twitchReviews, twitchInfo } from '@/data/twitchSEOData';
@@ -174,8 +175,7 @@ export default function TwitchClipDownloaderPage() {
             <p className="text-slate-300 text-center text-lg mb-12 max-w-3xl mx-auto">
               Join thousands of satisfied users who trust our Twitch clip downloader
             </p>
-              reviews={twitchReviews}
-            />
+            <ReviewsSection reviews={twitchReviews} />
           </div>
         </section>
 

@@ -4,6 +4,7 @@ import ProfilePictureDownloader from '@/components/home/ProfilePictureDownloader
 import HowToDownload from '@/components/SEO/HowToDownload';
 import ProfilePicContentSection from '@/components/SEO/ProfilePicContentSection';
 import FAQSection from '@/components/SEO/FAQSection';
+import ReviewsSection from '@/components/SEO/ReviewsSection';
 
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { profilePicFAQs, profilePicReviews } from '@/data/profilePicSEOData';
@@ -193,8 +194,7 @@ export default function ProfilePictureDownloaderPage() {
             <p className="text-slate-300 text-center text-lg mb-12 max-w-3xl mx-auto">
               Join thousands of satisfied users who trust our profile picture downloader
             </p>
-              reviews={profilePicReviews}
-            />
+            <ReviewsSection reviews={profilePicReviews} />
           </div>
         </section>
 

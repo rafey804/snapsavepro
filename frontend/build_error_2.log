@@ -1,0 +1,24 @@
+
+> youtube-downloader-frontend@0.1.0 build
+> next build --turbopack
+
+   ▲ Next.js 15.5.1 (Turbopack)
+
+   Creating an optimized production build ...
+ ✓ Finished writing to disk in 263ms
+ ✓ Compiled successfully in 9.0s
+   Skipping linting
+   Checking validity of types ...
+Failed to compile.
+
+./src/app/[locale]/pages/x-video-download/page.tsx:74:17
+Type error: Type 'string' is not assignable to type 'string[]'.
+
+[0m [90m 72 |[39m                 platformColor[33m=[39m[32m"blue"[39m
+ [90m 73 |[39m                 customTitle[33m=[39m[32m"X Video Downloader Features"[39m
+[31m[1m>[22m[39m[90m 74 |[39m                 customDescription[33m=[39m[32m"Download any video from X (formerly Twitter) with our powerful free tool. Save video tweets, GIFs, Spaces recordings, and threads instantly."[39m
+ [90m    |[39m                 [31m[1m^[22m[39m
+ [90m 75 |[39m                 customFeatures[33m=[39m{twitterInfo[33m.[39mfeatures}
+ [90m 76 |[39m                 featureImage[33m=[39m[32m"/images/x-features.png"[39m
+ [90m 77 |[39m             [33m/[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: null

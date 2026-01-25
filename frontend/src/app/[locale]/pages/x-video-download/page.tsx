@@ -71,7 +71,7 @@ const XVideoDownloadPage = () => {
                 platform="X"
                 platformColor="blue"
                 customTitle="X Video Downloader Features"
-                customDescription="Download any video from X (formerly Twitter) with our powerful free tool. Save video tweets, GIFs, Spaces recordings, and threads instantly."
+                customDescription={["Download any video from X (formerly Twitter) with our powerful free tool. Save video tweets, GIFs, Spaces recordings, and threads instantly."]}
                 customFeatures={twitterInfo.features}
                 featureImage="/images/x-features.png"
             />
