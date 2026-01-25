@@ -2,7 +2,7 @@ import FacebookDownloader from '@/components/home/FacebookDnwload'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import FacebookUniqueContent from "@/components/SEO/FacebookUniqueContent";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -54,12 +54,12 @@ const FacebookPage = () => {
         customTitle={facebookInfo.title}
         customDescription={facebookInfo.description}
         customFeatures={facebookInfo.features}
+        featureImage="/images/facebook-features.png"
       />
 
       <PlatformContentSection platform="facebook" platformColor="blue" />
       <FacebookUniqueContent />
       <FAQSection faqs={facebookFAQs} platform="Facebook" />
-      <ReviewsSection reviews={facebookReviews} />
     </>
   );
 }

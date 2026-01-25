@@ -1,100 +1,212 @@
 'use client';
 import React from 'react';
-import { CheckCircle, Zap, Shield, Smartphone, Download, Video, Music, Globe, Star, Clock, HardDrive, Users, Image } from 'lucide-react';
+import { CheckCircle, Zap, Shield, Smartphone, Download, Image as ImageIcon, Globe, Heart } from 'lucide-react';
+import Image from 'next/image';
 
 export default function PinterestDownloaderContent() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12 space-y-12"
-    style={{ backgroundColor: '#101828' }}
+      style={{ backgroundColor: '#0a0a0a' }}
     >
 
+      {/* How to Download Pinterest Content - 5 Steps Visual Guide */}
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black">
+        <h2 className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-pink-500 mb-6 text-center">
+          How to Download Pinterest Videos & Images
+        </h2>
+        <p className="text-gray-400 leading-relaxed text-lg mb-8 text-center max-w-2xl mx-auto">
+          Save any Pinterest pin in just 5 simple steps. Works for videos, images, GIFs & Story Pins!
+        </p>
+
+        {/* Steps 1-3: From Pinterest App */}
+        <h3 className="text-lg font-semibold text-red-400 mb-4 text-center">📱 On Pinterest App</h3>
+        <div className="grid md:grid-cols-3 gap-6 mb-10">
+          {/* Step 1 */}
+          <div className="text-center group">
+            <div className="rounded-xl overflow-hidden mb-4 max-w-[260px] mx-auto bg-white/5 border border-gray-700 group-hover:border-red-500/50 transition-all duration-300" style={{ marginBottom: '-10px' }}>
+              <Image
+                src="/images/pinterest-step1.png"
+                alt="Step 1: Tap Share Icon on Pinterest pin"
+                width={260}
+                height={340}
+                className="w-full h-auto max-h-[300px] object-contain group-hover:scale-105 transition-transform duration-300"
+                style={{ marginBottom: '-5%' }}
+              />
+            </div>
+            <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2 mt-6 font-bold">1</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Tap Share Icon</h3>
+            <p className="text-gray-400 text-sm">Open the pin and tap the share button</p>
+          </div>
+
+          {/* Step 2 */}
+          <div className="text-center group">
+            <div className="rounded-xl overflow-hidden mb-4 max-w-[260px] mx-auto bg-white/5 border border-gray-700 group-hover:border-red-500/50 transition-all duration-300" style={{ marginBottom: '-10px' }}>
+              <Image
+                src="/images/pinterest-step2.png"
+                alt="Step 2: Tap Copy Link from Pinterest share menu"
+                width={260}
+                height={340}
+                className="w-full h-auto max-h-[300px] object-contain group-hover:scale-105 transition-transform duration-300"
+                style={{ marginBottom: '-5%' }}
+              />
+            </div>
+            <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2 mt-6 font-bold">2</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Tap "Copy Link"</h3>
+            <p className="text-gray-400 text-sm">Select Copy Link from share menu</p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="text-center group">
+            <div className="rounded-xl overflow-hidden mb-4 max-w-[260px] mx-auto bg-white/5 border border-gray-700 group-hover:border-red-500/50 transition-all duration-300" style={{ marginBottom: '-10px' }}>
+              <Image
+                src="/images/pinterest-step3.png"
+                alt="Step 3: Link copied confirmation on Pinterest"
+                width={260}
+                height={340}
+                className="w-full h-auto max-h-[300px] object-contain group-hover:scale-105 transition-transform duration-300"
+                style={{ marginBottom: '-5%' }}
+              />
+            </div>
+            <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2 mt-6 font-bold">3</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Link Copied!</h3>
+            <p className="text-gray-400 text-sm">You'll see the confirmation message</p>
+          </div>
+        </div>
+
+        {/* Steps 4-5: On Website */}
+        <h3 className="text-lg font-semibold text-pink-400 mb-4 text-center">💻 On SnapSavePro Website</h3>
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {/* Step 4 */}
+          <div className="text-center group">
+            <div className="rounded-xl overflow-hidden mb-4 mx-auto border border-gray-700 group-hover:border-red-500/50 transition-all duration-300 bg-gray-900/30">
+              <Image
+                src="/images/pinterest-step4-website.png"
+                alt="Step 4: Paste Pinterest link on SnapSavePro website"
+                width={450}
+                height={280}
+                className="w-full h-auto max-h-[220px] object-contain group-hover:scale-[1.02] transition-transform duration-300"
+              />
+            </div>
+            <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2 font-bold">4</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Paste Pinterest Link</h3>
+            <p className="text-gray-400 text-sm">Paste the link and click Get Content</p>
+          </div>
+
+          {/* Step 5 */}
+          <div className="text-center group">
+            <div className="rounded-xl overflow-hidden mb-4 mx-auto border border-gray-700 group-hover:border-red-500/50 transition-all duration-300 bg-gray-900/30">
+              <Image
+                src="/images/pinterest-step5-download.png"
+                alt="Step 5: Download Pinterest video or image"
+                width={450}
+                height={280}
+                className="w-full h-auto max-h-[220px] object-contain group-hover:scale-[1.02] transition-transform duration-300"
+              />
+            </div>
+            <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2 font-bold">5</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Download Content</h3>
+            <p className="text-gray-400 text-sm">Click Download to save video or image</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Banner - WATERMARK HIDDEN */}
+      <section className="rounded-2xl overflow-hidden border border-gray-800 hover:border-red-500/50 transition-all duration-500 group" style={{ marginBottom: '-15px' }}>
+        <div className="overflow-hidden">
+          <Image
+            src="/images/pinterest-features.png"
+            alt="Pinterest Video Downloader Features - HD Quality, Fast Download, No Watermark, 100% Free"
+            width={900}
+            height={350}
+            className="w-full h-auto max-h-[300px] object-cover group-hover:scale-105 transition-transform duration-500"
+            style={{ marginBottom: '-6%' }}
+          />
+        </div>
+      </section>
+
+      {/* Content Types - WATERMARK HIDDEN */}
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black hover:border-red-500/30 transition-all duration-300 mt-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 text-center">
+          Download All Pinterest Content Types
+        </h2>
+        <p className="text-gray-400 text-center mb-6 max-w-2xl mx-auto">
+          Save Video Pins, Image Pins, Story Pins, and animated GIFs in original quality.
+        </p>
+        <div className="rounded-xl overflow-hidden max-w-3xl mx-auto group" style={{ marginBottom: '-15px' }}>
+          <Image
+            src="/images/pinterest-content-types.png"
+            alt="Pinterest Content Types - Video Pins, Image Pins, Story Pins, GIF Pins"
+            width={850}
+            height={320}
+            className="w-full h-auto max-h-[280px] object-contain group-hover:scale-[1.02] transition-transform duration-300"
+            style={{ marginBottom: '-5%' }}
+          />
+        </div>
+      </section>
+
       {/* Introduction Section */}
-      <section className="rounded-2xl p-6 sm:p-8 border border-slate-700/50" style={{ backgroundColor: '#1e293b' }}>
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black">
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 flex items-center gap-3">
-          <Video className="h-7 w-7 text-red-400" />
+          <Heart className="h-7 w-7 text-red-500" />
           What is SnapSavePro Pinterest Downloader?
         </h2>
         <div className="space-y-4 text-gray-300 leading-relaxed">
           <p className="text-base sm:text-lg">
-            SnapSavePro is a powerful, free online tool that allows you to download Pinterest videos and images directly to your device without any watermarks. Unlike the official Pinterest app, which makes it challenging to save content for offline viewing, SnapSavePro makes it possible to download your favorite pins in just a few clicks.
+            <strong>SnapSavePro Pinterest Video & Image Downloader</strong> is a free online tool that allows you to download videos, images, GIFs, and Story Pins from Pinterest directly to your device in HD quality. No watermarks, no registration required.
           </p>
           <p className="text-base sm:text-lg">
-            Whether you want to preserve recipe videos, save DIY tutorials, keep inspirational images, or download creative content for offline viewing, SnapSavePro delivers high-quality downloads in original resolution. Our tool works seamlessly across all devices including Android smartphones, iPhones, tablets, and desktop computers without requiring any app installation or account registration.
-          </p>
-          <p className="text-base sm:text-lg">
-            With SnapSavePro, you can download Pinterest content in multiple formats including MP4 for videos, JPG/PNG for images, and MP3 for audio extraction from videos. The tool supports various quality options, allowing you to choose between high-definition downloads for the best viewing experience or smaller file sizes for quick sharing and storage efficiency.
+            Whether you want to save inspiring DIY tutorials, stunning photography, recipe videos, or creative content for offline viewing - our Pinterest downloader makes it simple and fast. Works on all devices including iPhone, Android, Windows, and Mac.
           </p>
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="rounded-2xl p-6 sm:p-8 border border-slate-700/50" style={{ backgroundColor: '#1e293b' }}>
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black">
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
-          Why Choose SnapSavePro for Pinterest?
+          Why Choose Our Pinterest Downloader?
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {[
             {
               icon: <Zap className="h-6 w-6 text-red-400" />,
               title: "Lightning Fast",
-              description: "Download Pinterest videos and images in seconds with our optimized servers and fast processing technology."
+              description: "Download Pinterest pins in seconds with our optimized servers."
             },
             {
-              icon: <Shield className="h-6 w-6 text-emerald-400" />,
+              icon: <Shield className="h-6 w-6 text-green-400" />,
               title: "100% Safe & Secure",
-              description: "We don't store your data or pin links. Your privacy is our top priority with encrypted connections."
+              description: "No data stored. Your privacy is always protected."
             },
             {
-              icon: <Image className="h-6 w-6 text-pink-400" />,
-              title: "HD Quality Support",
-              description: "Download images and videos in crisp high-definition quality in original resolution from Pinterest."
+              icon: <ImageIcon className="h-6 w-6 text-purple-400" />,
+              title: "HD Quality",
+              description: "Download images and videos in original high resolution."
             },
             {
-              icon: <Smartphone className="h-6 w-6 text-purple-400" />,
-              title: "All Devices Supported",
-              description: "Works perfectly on Android, iOS, Windows, Mac, and Linux without any compatibility issues."
+              icon: <Smartphone className="h-6 w-6 text-orange-400" />,
+              title: "All Devices",
+              description: "Works on Android, iOS, Windows, Mac & Linux."
             },
             {
-              icon: <Download className="h-6 w-6 text-amber-400" />,
+              icon: <Download className="h-6 w-6 text-cyan-400" />,
               title: "No Watermarks",
-              description: "Get clean, watermark-free content exactly as it appears on Pinterest without any branding."
+              description: "Clean downloads without any added watermarks."
             },
             {
-              icon: <Globe className="h-6 w-6 text-cyan-400" />,
-              title: "No Registration Required",
-              description: "Start downloading immediately without creating an account or providing any personal information."
-            },
-            {
-              icon: <Music className="h-6 w-6 text-blue-400" />,
-              title: "Audio Extraction",
-              description: "Extract and download audio from Pinterest videos in high-quality MP3 format."
-            },
-            {
-              icon: <HardDrive className="h-6 w-6 text-indigo-400" />,
-              title: "Unlimited Downloads",
-              description: "Download as many Pinterest pins as you want with no daily limits or restrictions on usage."
-            },
-            {
-              icon: <Clock className="h-6 w-6 text-orange-400" />,
-              title: "24/7 Availability",
-              description: "Access our service anytime, anywhere with 99.9% uptime and reliable performance worldwide."
+              icon: <Globe className="h-6 w-6 text-pink-400" />,
+              title: "No Registration",
+              description: "Start downloading instantly. No sign-up needed."
             }
           ].map((feature, index) => (
             <div
               key={index}
-              className="bg-slate-700/30 rounded-xl p-5 border border-slate-600/30 hover:border-red-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-red-500/10"
+              className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-5 border border-gray-700/50 hover:border-red-500/50 hover:bg-gray-800/80 transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  {feature.icon}
-                </div>
+              <div className="flex items-start gap-3">
+                <div className="mt-1">{feature.icon}</div>
                 <div>
-                  <h3 className="text-white font-semibold mb-2 text-base sm:text-lg">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                    {feature.description}
-                  </p>
+                  <h3 className="text-lg font-semibold text-white mb-1">{feature.title}</h3>
+                  <p className="text-sm text-gray-400">{feature.description}</p>
                 </div>
               </div>
             </div>
@@ -102,186 +214,130 @@ export default function PinterestDownloaderContent() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="rounded-2xl p-6 sm:p-8 border border-slate-700/50" style={{ backgroundColor: '#1e293b' }}>
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
-          How to Download Pinterest Videos & Images
+      {/* All Devices - WATERMARK HIDDEN */}
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 text-center">
+          Download Pinterest Pins on Any Device
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <p className="text-gray-400 text-center mb-6 max-w-2xl mx-auto">
+          Access our Pinterest downloader from iPhone, Android, MacBook, Windows PC, or iPad. No app installation required.
+        </p>
+        <div className="rounded-xl overflow-hidden max-w-2xl mx-auto group" style={{ marginBottom: '-15px' }}>
+          <Image
+            src="/images/pinterest-devices.png"
+            alt="Download Pinterest videos on any device - iOS, Android, Mac, Windows PC, iPad"
+            width={800}
+            height={450}
+            className="w-full h-auto max-h-[350px] object-contain group-hover:scale-[1.03] transition-transform duration-500"
+            style={{ marginBottom: '-5%' }}
+          />
+        </div>
+      </section>
+
+      {/* Security Section - WATERMARK HIDDEN */}
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-pink-500/5 opacity-50"></div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 text-center flex items-center justify-center gap-3 relative z-10">
+          <Shield className="h-8 w-8 text-red-400" />
+          Your Privacy is Protected
+        </h2>
+        <p className="text-gray-400 text-center mb-6 max-w-2xl mx-auto relative z-10">
+          100% secure downloads. No login required, no data stored, SSL encrypted connection.
+        </p>
+        <div className="rounded-xl overflow-hidden max-w-2xl mx-auto relative z-10 group" style={{ marginBottom: '-15px' }}>
+          <Image
+            src="/images/pinterest-security.png"
+            alt="Pinterest Downloader Security - 100% Secure, No Login Required, Privacy Protected, SSL Encrypted"
+            width={700}
+            height={400}
+            className="w-full h-auto max-h-[320px] object-contain group-hover:scale-[1.02] transition-transform duration-300"
+            style={{ marginBottom: '-5%' }}
+          />
+        </div>
+      </section>
+
+      {/* Popular Use Cases */}
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
+          What Can You Download from Pinterest?
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            {
-              step: "1",
-              title: "Copy Pinterest URL",
-              description: "Open Pinterest and find the video or image you want to download. Copy the pin URL from your browser's address bar or use the share button to copy the link."
-            },
-            {
-              step: "2",
-              title: "Paste URL",
-              description: "Paste the copied Pinterest URL into the input box above and click the 'Get Content' button. Our system will analyze and fetch all available download options."
-            },
-            {
-              step: "3",
-              title: "Download",
-              description: "Choose your preferred quality and format from the available options, then click the download button. Your content will be saved to your device instantly."
-            }
-          ].map((item, index) => (
+            { icon: "🍳", title: "Recipe Videos" },
+            { icon: "🎨", title: "DIY Tutorials" },
+            { icon: "🏠", title: "Home Decor" },
+            { icon: "👗", title: "Fashion Ideas" },
+            { icon: "💄", title: "Beauty Tips" },
+            { icon: "🏋️", title: "Workout Pins" },
+            { icon: "✈️", title: "Travel Photos" },
+            { icon: "📷", title: "Photography" }
+          ].map((useCase, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-slate-700/30 to-slate-800/30 rounded-xl p-6 border border-red-500/20 text-center hover:border-red-500/50 transition-all duration-300"
+              className="bg-gray-800/50 rounded-xl p-4 text-center border border-gray-700/50 hover:border-red-500/50 hover:bg-gray-800 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
             >
-              <div className="bg-gradient-to-br from-red-500 to-pink-500 text-white w-14 h-14 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-lg">
-                {item.step}
-              </div>
-              <h3 className="text-white font-semibold mb-3 text-lg sm:text-xl">
-                {item.title}
-              </h3>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                {item.description}
-              </p>
+              <div className="text-3xl mb-2 hover:scale-110 transition-transform duration-200">{useCase.icon}</div>
+              <h3 className="text-white font-medium text-sm">{useCase.title}</h3>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Supported Formats */}
-      <section className="rounded-2xl p-6 sm:p-8 border border-slate-700/50" style={{ backgroundColor: '#1e293b' }}>
+      {/* FAQ Section */}
+      <section className="rounded-2xl p-6 sm:p-8 border border-gray-800 bg-gradient-to-br from-gray-900 to-black">
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
-          Supported Pinterest Content Types
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            {
-              icon: <Video className="h-6 w-6 text-red-400" />,
-              title: "Pinterest Videos",
-              description: "Download any Pinterest video including idea pins, recipe videos, DIY tutorials, and more in MP4 format."
-            },
-            {
-              icon: <Image className="h-6 w-6 text-pink-400" />,
-              title: "Pinterest Images",
-              description: "Save high-resolution Pinterest images in original quality as JPG or PNG files."
-            },
-            {
-              icon: <Music className="h-6 w-6 text-blue-400" />,
-              title: "Audio Extraction",
-              description: "Extract audio from Pinterest videos and save as MP3 files for music or voiceovers."
-            },
-            {
-              icon: <Star className="h-6 w-6 text-amber-400" />,
-              title: "All Pin Types",
-              description: "Works with regular pins, idea pins, story pins, and all other Pinterest content formats."
-            }
-          ].map((format, index) => (
-            <div
-              key={index}
-              className="bg-slate-700/30 rounded-xl p-5 border border-slate-600/30 hover:border-red-500/50 transition-all duration-300"
-            >
-              <div className="flex items-center gap-4 mb-3">
-                {format.icon}
-                <h3 className="text-white font-semibold text-base sm:text-lg">
-                  {format.title}
-                </h3>
-              </div>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                {format.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FAQs Preview */}
-      <section className="rounded-2xl p-6 sm:p-8 border border-slate-700/50" style={{ backgroundColor: '#1e293b' }}>
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
-          Common Questions About Pinterest Downloader
+          Frequently Asked Questions
         </h2>
         <div className="space-y-4">
           {[
             {
-              question: "Is it legal to download Pinterest content?",
-              answer: "Downloading Pinterest content for personal use is generally acceptable, but you should respect copyright laws and creator rights. Only download content you have permission to use, and don't redistribute copyrighted material without authorization."
+              question: "Is SnapSavePro Pinterest Downloader free?",
+              answer: "Yes! It's 100% free with no hidden charges or premium subscriptions."
             },
             {
-              question: "Can I download private Pinterest boards?",
-              answer: "No, our tool can only download content from public Pinterest pins. Private boards and pins that require login cannot be downloaded to protect user privacy and respect Pinterest's security settings."
+              question: "Can I download both videos and images?",
+              answer: "Absolutely! Our tool supports Video Pins, Image Pins, Story Pins, and GIFs."
             },
             {
-              question: "What quality options are available?",
-              answer: "We provide the highest quality available from Pinterest, typically in original resolution for images and HD quality for videos. You can choose from multiple quality options depending on the source content."
+              question: "Do I need to create an account?",
+              answer: "No registration needed. Just paste the Pinterest link and download instantly."
+            },
+            {
+              question: "What quality are the downloads?",
+              answer: "We provide original HD quality - the same resolution as on Pinterest."
+            },
+            {
+              question: "Is it safe to use?",
+              answer: "Yes! We don't store any data. Fully encrypted, privacy-protected downloads."
             }
           ].map((faq, index) => (
-            <div
-              key={index}
-              className="bg-slate-700/30 rounded-xl p-5 border border-slate-600/30"
-            >
-              <h3 className="text-white font-semibold mb-2 text-base sm:text-lg flex items-start gap-2">
+            <div key={index} className="bg-gray-800/30 rounded-lg p-5 border border-gray-700/30 hover:border-red-500/30 transition-all duration-200">
+              <h3 className="text-lg font-semibold text-white mb-2 flex items-start gap-2">
                 <CheckCircle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
                 {faq.question}
               </h3>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed ml-7">
-                {faq.answer}
-              </p>
+              <p className="text-gray-400 leading-relaxed text-sm pl-7">{faq.answer}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="rounded-2xl p-6 sm:p-8 border border-red-500/20 bg-gradient-to-br from-red-900/20 to-pink-900/20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
-          Perfect for Content Creators & Enthusiasts
+      {/* Final CTA */}
+      <section className="bg-gradient-to-r from-red-600/20 to-pink-600/20 border border-red-500/30 rounded-2xl p-8 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-pink-500/5 animate-pulse"></div>
+        <h2 className="text-3xl font-bold text-white mb-4 relative z-10">
+          Start Saving Pinterest Pins Now! 📌
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-              <Users className="h-6 w-6 text-red-400" />
-              For Personal Use
-            </h3>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-                <span>Save recipes and cooking tutorials for offline access</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-                <span>Download DIY and craft project ideas</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-                <span>Keep workout and fitness inspiration videos</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
-                <span>Archive home decor and design ideas</span>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-              <Star className="h-6 w-6 text-pink-400" />
-              For Professionals
-            </h3>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-pink-400 flex-shrink-0 mt-0.5" />
-                <span>Create inspiration boards for client presentations</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-pink-400 flex-shrink-0 mt-0.5" />
-                <span>Save educational content for reference</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-pink-400 flex-shrink-0 mt-0.5" />
-                <span>Download marketing and social media examples</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="h-5 w-5 text-pink-400 flex-shrink-0 mt-0.5" />
-                <span>Archive design trends and visual inspiration</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto relative z-10">
+          Join millions of users who use SnapSavePro to download their favorite Pinterest content.
+        </p>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 relative z-10"
+        >
+          Try Pinterest Downloader Now
+        </button>
       </section>
-
     </div>
   );
 }

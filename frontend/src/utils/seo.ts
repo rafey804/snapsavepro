@@ -21,8 +21,11 @@ export function constructMetadata({
   locale: string;
   noIndex?: boolean;
 }): Metadata {
-  // Ensure path starts with /
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  // Ensure path starts with / and remove trailing slash if present (unless it's just /)
+  let cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (cleanPath !== '/' && cleanPath.endsWith('/')) {
+    cleanPath = cleanPath.slice(0, -1);
+  }
 
   // Construct canonical URL for THIS locale
   const canonicalUrl = `${baseUrl}/${locale}${cleanPath === '/' ? '' : cleanPath}`;

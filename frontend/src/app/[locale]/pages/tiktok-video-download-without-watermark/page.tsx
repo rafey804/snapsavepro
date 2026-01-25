@@ -2,7 +2,7 @@ import TikTokDownloader from '@/components/home/TiktokDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import TikTokContentSection from "@/components/SEO/TikTokContentSection";
 import TikTokUniqueContent from "@/components/SEO/TikTokUniqueContent";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -87,12 +87,12 @@ const TikTokPage = () => {
         customTitle={tiktokInfo.title}
         customDescription={tiktokInfo.description}
         customFeatures={tiktokInfo.features}
+        featureImage="/images/tiktok-features.png"
       />
 
       <TikTokContentSection />
       <TikTokUniqueContent />
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />
-      <ReviewsSection reviews={tiktokReviews} />
     </>
   )
 }

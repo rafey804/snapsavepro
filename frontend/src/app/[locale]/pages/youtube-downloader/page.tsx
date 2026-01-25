@@ -2,7 +2,7 @@ import TikTokDownloader from '@/components/home/TiktokDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import YouTubeUniqueContent from "@/components/SEO/YouTubeUniqueContent";
 import { youtubeFAQs, youtubeReviews, youtubeInfo } from "@/data/youtubeSEOData";
 import type { Metadata } from "next";
@@ -166,11 +166,11 @@ const YouTubePage = () => {
         customTitle={youtubeInfo.title}
         customDescription={youtubeInfo.description}
         customFeatures={youtubeInfo.features}
+        featureImage="/images/youtube-features.png"
       />
 
       <YouTubeUniqueContent />
       <FAQSection faqs={youtubeFAQs || []} platform="YouTube" />
-      <ReviewsSection reviews={youtubeReviews || []} />
     </>
   )
 }

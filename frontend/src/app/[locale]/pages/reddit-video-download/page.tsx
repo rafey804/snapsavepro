@@ -2,7 +2,7 @@ import RedditDownloader from '@/components/home/RedditDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import PlatformContentSection from "@/components/SEO/PlatformContentSection";
 import { redditFAQs, redditReviews, redditInfo } from "@/data/redditSEOData";
 import type { Metadata } from "next";
@@ -80,7 +80,6 @@ const RedditPage = () => {
 
       <PlatformContentSection platform="reddit" platformColor="orange" />
       <FAQSection faqs={redditFAQs} platform="Reddit" />
-      <ReviewsSection reviews={redditReviews} />
     </>
   )
 }

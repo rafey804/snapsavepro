@@ -2,7 +2,7 @@ import TelegramDownloader from '@/components/home/TelegramDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { telegramInfo, telegramFAQs, telegramReviews } from "@/data/telegramSEOData";
 import type { Metadata } from "next";
@@ -86,7 +86,6 @@ const TelegramPage = () => {
       />
 
       <FAQSection faqs={telegramFAQs} platform="Telegram" />
-      <ReviewsSection reviews={telegramReviews} />
     </>
   );
 };

@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Sparkles, TrendingUp, Users, Video, Music, Share2, Heart, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
 
 export default function TikTokContentSection() {
   const t = useTranslations('seo.tiktokContent');
@@ -19,9 +20,17 @@ export default function TikTokContentSection() {
             <p className="text-gray-300 leading-relaxed text-lg mb-4">
               {t('introduction.para1')}
             </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('introduction.para2')}
-            </p>
+
+            {/* Quality Options Image */}
+            <div className="my-8 rounded-xl overflow-hidden border border-slate-600/50">
+              <Image
+                src="/images/tiktok-quality.png"
+                alt="TikTok Video Quality Options - 1080p, 720p, 480p, 360p"
+                width={1200}
+                height={600}
+                className="w-full h-auto"
+              />
+            </div>
           </section>
 
           {/* Why Choose Section */}
@@ -70,172 +79,123 @@ export default function TikTokContentSection() {
             </div>
           </section>
 
-          {/* How It Works Section */}
+          {/* Cross-Platform Repurpose Section */}
           <section className="mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-              {t('howItWorks.title')}
+              Share TikTok Videos Across All Platforms
             </h2>
             <p className="text-gray-300 leading-relaxed text-lg mb-6">
-              {t('howItWorks.description')}
+              Download TikTok videos without watermark and share them on Instagram Reels, YouTube Shorts, Pinterest, and more.
+              Remove the TikTok logo to create professional content for all your social media channels.
             </p>
-            <div className="space-y-4 mb-6">
-              <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-6 rounded-xl border border-pink-500/20">
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-pink-500 text-white font-bold mr-3">1</span>
-                  {t('howItWorks.step1.title')}
-                </h3>
-                <p className="text-gray-300 ml-11">
-                  {t('howItWorks.step1.description')}
+
+            {/* Repurpose Graphic */}
+            <div className="my-8 rounded-xl overflow-hidden">
+              <Image
+                src="/images/tiktok-repurpose.png"
+                alt="Share TikTok videos on Instagram Reels, YouTube Shorts, Pinterest"
+                width={1000}
+                height={600}
+                className="w-full h-auto max-w-2xl mx-auto"
+              />
+            </div>
+          </section>
+
+          {/* Device Compatibility */}
+          <section className="mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+              Works on All Devices
+            </h2>
+            <p className="text-gray-300 leading-relaxed text-lg mb-6">
+              Download TikTok videos on any device - iPhone, Android, Windows PC, Mac, or tablet.
+              No app installation required. Works directly in your browser.
+            </p>
+
+            {/* Devices Image */}
+            <div className="my-8 rounded-xl overflow-hidden">
+              <Image
+                src="/images/tiktok-devices.png"
+                alt="TikTok Downloader works on iPhone, Android, Windows, Mac"
+                width={1000}
+                height={600}
+                className="w-full h-auto max-w-2xl mx-auto"
+              />
+            </div>
+          </section>
+
+          {/* Security Section */}
+          <section className="mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+              Safe & Secure Downloads
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <p className="text-gray-300 leading-relaxed text-lg mb-4">
+                  Your privacy is our priority. We don't store any personal data or downloaded videos on our servers.
                 </p>
+                <ul className="space-y-3 text-gray-300">
+                  <li className="flex items-start gap-3">
+                    <Share2 className="w-5 h-5 text-green-500 flex-shrink-0 mt-1" />
+                    <span>No login or registration required</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Heart className="w-5 h-5 text-green-500 flex-shrink-0 mt-1" />
+                    <span>SSL encrypted connections</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <MessageCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-1" />
+                    <span>No malware or viruses</span>
+                  </li>
+                </ul>
               </div>
-              <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-6 rounded-xl border border-purple-500/20">
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-500 text-white font-bold mr-3">2</span>
-                  {t('howItWorks.step2.title')}
-                </h3>
-                <p className="text-gray-300 ml-11">
-                  {t('howItWorks.step2.description')}
-                </p>
-              </div>
-              <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-6 rounded-xl border border-pink-500/20">
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-pink-500 text-white font-bold mr-3">3</span>
-                  {t('howItWorks.step3.title')}
-                </h3>
-                <p className="text-gray-300 ml-11">
-                  {t('howItWorks.step3.description')}
-                </p>
+              <div className="rounded-xl overflow-hidden">
+                <Image
+                  src="/images/tiktok-security.png"
+                  alt="100% Secure TikTok Downloads - Privacy Protected"
+                  width={500}
+                  height={400}
+                  className="w-full h-auto"
+                />
               </div>
             </div>
           </section>
 
-          {/* Features Deep Dive */}
+          {/* Features List - Compact */}
           <section className="mb-12">
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
               {t('advancedFeatures.title')}
             </h2>
-            <p className="text-gray-300 leading-relaxed text-lg mb-6">
-              {t('advancedFeatures.description')}
-            </p>
-            <ul className="space-y-4 text-gray-300">
-              <li className="flex items-start gap-3">
-                <Share2 className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
-                <div>
-                  {t('advancedFeatures.unlimited')}
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <Heart className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
-                <div>
-                  {t('advancedFeatures.mobileFriendly')}
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <MessageCircle className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
-                <div>
-                  {t('advancedFeatures.fastProcessing')}
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <Video className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
-                <div>
-                  {t('advancedFeatures.batchDownload')}
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
-                <Music className="w-6 h-6 text-pink-500 flex-shrink-0 mt-1" />
-                <div>
-                  {t('advancedFeatures.formatConversion')}
-                </div>
-              </li>
-            </ul>
-          </section>
-
-          {/* SEO Content Section */}
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-              {t('benefits.title')}
-            </h2>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('benefits.description')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('benefits.contentCreation')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('benefits.offlineViewing')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('benefits.backup')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('benefits.educational')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('benefits.marketing')}
-            </p>
-          </section>
-
-          {/* Safety & Privacy Section */}
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-              {t('safetyPrivacy.title')}
-            </h2>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('safetyPrivacy.safety')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('safetyPrivacy.privacy')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('safetyPrivacy.legal')}
-            </p>
-          </section>
-
-          {/* Tips & Best Practices */}
-          <section className="mb-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
-              {t('proTips.title')}
-            </h2>
-            <div className="bg-gradient-to-br from-pink-500/10 to-purple-500/10 p-6 rounded-xl border border-pink-500/20">
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-3">
-                  <span className="text-pink-500 font-bold">•</span>
-                  <span>{t('proTips.tip1')}</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-pink-500 font-bold">•</span>
-                  <span>{t('proTips.tip2')}</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-pink-500 font-bold">•</span>
-                  <span>{t('proTips.tip3')}</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-pink-500 font-bold">•</span>
-                  <span>{t('proTips.tip4')}</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-pink-500 font-bold">•</span>
-                  <span>{t('proTips.tip5')}</span>
-                </li>
-              </ul>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-4 rounded-xl border border-pink-500/20 flex items-center gap-3">
+                <Share2 className="w-6 h-6 text-pink-500 flex-shrink-0" />
+                <span className="text-gray-300">{t('advancedFeatures.unlimited')}</span>
+              </div>
+              <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-4 rounded-xl border border-pink-500/20 flex items-center gap-3">
+                <Heart className="w-6 h-6 text-pink-500 flex-shrink-0" />
+                <span className="text-gray-300">{t('advancedFeatures.mobileFriendly')}</span>
+              </div>
+              <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-4 rounded-xl border border-pink-500/20 flex items-center gap-3">
+                <MessageCircle className="w-6 h-6 text-pink-500 flex-shrink-0" />
+                <span className="text-gray-300">{t('advancedFeatures.fastProcessing')}</span>
+              </div>
+              <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-4 rounded-xl border border-pink-500/20 flex items-center gap-3">
+                <Video className="w-6 h-6 text-pink-500 flex-shrink-0" />
+                <span className="text-gray-300">{t('advancedFeatures.batchDownload')}</span>
+              </div>
+              <div className="bg-gradient-to-r from-pink-500/10 to-purple-500/10 p-4 rounded-xl border border-pink-500/20 flex items-center gap-3">
+                <Music className="w-6 h-6 text-pink-500 flex-shrink-0" />
+                <span className="text-gray-300">{t('advancedFeatures.formatConversion')}</span>
+              </div>
             </div>
           </section>
 
-          {/* Closing Section */}
+          {/* Closing Section - Compact */}
           <section>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
               {t('closing.title')}
             </h2>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('closing.para1')}
-            </p>
-            <p className="text-gray-300 leading-relaxed text-lg mb-4">
-              {t('closing.para2')}
-            </p>
             <p className="text-gray-300 leading-relaxed text-lg">
-              {t('closing.para3')}
+              {t('closing.para1')} Start downloading TikTok videos now - it's fast, free, and easy!
             </p>
           </section>
 

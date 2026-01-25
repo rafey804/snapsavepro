@@ -97,6 +97,7 @@ export default function InstagramVideoDownloaderPage() {
                 customTitle={generalInstagramInfo.title}
                 customDescription={generalInstagramInfo.description}
                 customFeatures={generalInstagramInfo.features}
+                featureImage="/images/instagram-features.png"
             />
 
             <InstagramUniqueContent />

@@ -4,7 +4,7 @@ import { constructMetadata } from "@/utils/seo";
 import ShortsDownloader from '@/components/home/ShortsDownloader';
 import InfoSection from '@/components/SEO/InfoSection';
 import FAQSection from '@/components/SEO/FAQSection';
-import ReviewsSection from '@/components/SEO/ReviewsSection';
+
 import HowToDownload from '@/components/SEO/HowToDownload';
 import { youtubeShortsInfo, youtubeShortsFAQs, youtubeShortsReviews } from '@/data/youtubeShortsSEOData';
 import { getTranslations } from 'next-intl/server';
@@ -106,7 +106,6 @@ export default function ShortsDownloaderPage() {
         />
 
         <FAQSection faqs={youtubeShortsFAQs} platform="YouTube Shorts" />
-        <ReviewsSection reviews={youtubeShortsReviews} />
       </main>
     </>
   );

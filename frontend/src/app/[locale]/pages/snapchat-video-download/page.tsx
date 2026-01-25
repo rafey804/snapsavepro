@@ -3,9 +3,11 @@ import type { Metadata } from 'next';
 import { constructMetadata } from "@/utils/seo";
 import InfoSection from "@/components/SEO/InfoSection";
 import SnapchatDownloader from '@/components/home/SnapchatDownloader';
+import SnapchatDownloaderContent from '@/components/details/SnapchatDownloaderContent';
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import { snapchatInfo, snapchatFAQs, snapchatReviews } from '@/data/snapchatSEOData';
+
 
 export async function generateMetadata({
   params,
@@ -66,6 +68,9 @@ export default function SnapchatDownloaderPage() {
       <main className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-zinc-900">
         <SnapchatDownloader />
 
+        {/* New Visual Content Sections with Images */}
+        <SnapchatDownloaderContent />
+
         <InfoSection
           platform="Snapchat"
           platformColor="yellow"
@@ -75,7 +80,6 @@ export default function SnapchatDownloaderPage() {
         />
 
         <FAQSection faqs={snapchatFAQs} platform="Snapchat" />
-        <ReviewsSection reviews={snapchatReviews} />
       </main>
     </>
   );

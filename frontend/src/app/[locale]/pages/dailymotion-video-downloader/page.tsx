@@ -3,7 +3,7 @@ import { constructMetadata } from "@/utils/seo";
 import DailymotionDownloader from '@/components/home/DailymotionDownloader';
 import HowToDownload from '@/components/SEO/HowToDownload';
 import FAQSection from '@/components/SEO/FAQSection';
-import ReviewsSection from '@/components/SEO/ReviewsSection';
+
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { dailymotionFAQs, dailymotionReviews, dailymotionStats, dailymotionFeatures, dailymotionSEOContent } from '@/data/dailymotionSEOData';
 import { Download, Users, Star, Zap, Shield, Sparkles, Globe, CheckCircle, Video } from 'lucide-react';
@@ -186,7 +186,6 @@ export default function DailymotionVideoDownloaderPage() {
             <p className="text-slate-300 text-center text-lg mb-12 max-w-3xl mx-auto">
               Join thousands of satisfied users who trust our Dailymotion video downloader
             </p>
-            <ReviewsSection
               reviews={dailymotionReviews}
             />
           </div>

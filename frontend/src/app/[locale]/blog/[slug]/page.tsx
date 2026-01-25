@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
 import { getBlogBySlug } from '@/data/blogs';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowLeft, ExternalLink, Tag } from 'lucide-react';
@@ -10,16 +10,7 @@ export default function BlogDetailPage() {
   const blog = getBlogBySlug(params.slug as string);
 
   if (!blog) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 pt-20 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Blog Not Found</h1>
-          <Link href="/blog" className="text-cyan-400 hover:text-cyan-300">
-            ← Back to Blogs
-          </Link>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   // Generate BlogPosting Schema

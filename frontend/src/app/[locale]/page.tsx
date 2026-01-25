@@ -2,7 +2,7 @@ import TikTokDownloader from '@/components/home/TiktokDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import { tiktokFAQs, tiktokReviews } from "@/data/tiktokSEOData";
 import { homePageSEO } from "@/data/comprehensiveSEOData";
 import TikTokContentSection from '@/components/SEO/TikTokContentSection';
@@ -72,7 +72,6 @@ export default function HomePage() {
       <InfoSection platform="TikTok" platformColor="pink" />
       <TikTokContentSection />
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />
-      <ReviewsSection reviews={tiktokReviews} />
     </>
   );
 }

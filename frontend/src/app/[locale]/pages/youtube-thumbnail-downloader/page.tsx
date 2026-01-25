@@ -3,7 +3,7 @@ import { constructMetadata } from "@/utils/seo";
 import YouTubeThumbnailDownloader from '@/components/home/YouTubeThumbnailDownloader';
 import InfoSection from '@/components/SEO/InfoSection';
 import FAQSection from '@/components/SEO/FAQSection';
-import ReviewsSection from '@/components/SEO/ReviewsSection';
+
 import HowToDownload from '@/components/SEO/HowToDownload';
 import { youtubeThumbnailInfo, youtubeThumbnailFAQs, youtubeThumbnailReviews } from '@/data/youtubeThumbnailSEOData';
 import Breadcrumb from '@/components/layout/Breadcrumb';
@@ -89,7 +89,6 @@ export default function YouTubeThumbnailDownloaderPage() {
       />
 
       <FAQSection faqs={youtubeThumbnailFAQs} platform="YouTube Thumbnail" />
-      <ReviewsSection reviews={youtubeThumbnailReviews} />
     </div>
   );
 }

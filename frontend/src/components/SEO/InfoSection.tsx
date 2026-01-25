@@ -2,6 +2,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { CheckCircle, Shield, Zap, Download } from 'lucide-react';
+import Image from 'next/image';
 
 interface InfoSectionProps {
   platform: string;
@@ -14,6 +15,7 @@ interface InfoSectionProps {
     security?: { title: string; description: string };
     noWatermark?: { title: string; description: string };
   };
+  featureImage?: string;
 }
 
 export default function InfoSection({
@@ -21,7 +23,8 @@ export default function InfoSection({
   platformColor = 'pink',
   customTitle,
   customDescription,
-  customFeatures
+  customFeatures,
+  featureImage
 }: InfoSectionProps) {
   const t = useTranslations('seo.infoSection');
   const colorClasses = {
@@ -43,6 +46,20 @@ export default function InfoSection({
           <h2 className={`text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${gradientClass} mb-6`}>
             {customTitle || t('title', { platform })}
           </h2>
+
+          {/* Feature Image Banner - WATERMARK HIDDEN */}
+          {featureImage && (
+            <div className="mb-8 rounded-xl overflow-hidden" style={{ marginBottom: '8px' }}>
+              <Image
+                src={featureImage}
+                alt={`${platform} downloader features`}
+                width={1200}
+                height={400}
+                className="w-full h-auto object-cover"
+                style={{ marginBottom: '-7%' }}
+              />
+            </div>
+          )}
 
           <div className="prose prose-invert max-w-none">
             {customDescription ? (

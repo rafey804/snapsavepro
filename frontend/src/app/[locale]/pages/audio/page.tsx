@@ -2,7 +2,7 @@ import AudioDownloader from '@/components/home/Audio'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import AudioContentSection from "@/components/SEO/AudioContentSection";
 import { audioInfo, audioFAQs, audioReviews } from "@/data/audioSEOData";
 import { audioPageSEO } from "@/data/comprehensiveSEOData";
@@ -44,7 +44,6 @@ const AudioPage = () => {
 
       <AudioContentSection />
       <FAQSection faqs={audioFAQs} platform="Audio" />
-      <ReviewsSection reviews={audioReviews} />
     </>
   );
 }

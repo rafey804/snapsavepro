@@ -1,49 +1,46 @@
 import TwitterDownloader from '@/components/home/TwitterDownloader'
-import HowToDownload from "@/components/SEO/HowToDownload";
+import XDownloaderContent from '@/components/details/XDownloaderContent';
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
-import PlatformContentSection from "@/components/SEO/PlatformContentSection";
-import { twitterFAQs, twitterReviews, twitterInfo } from "@/data/twitterSEOData";
+import { twitterFAQs, twitterInfo } from "@/data/twitterSEOData";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
 
-// Dynamic SEO Metadata for Twitter/X Downloader Page
+// Dynamic SEO Metadata for X Video Downloader Page
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata.twitter' });
 
   return constructMetadata({
-    title: t('title'),
-    description: t('description'),
-    keywords: t('keywords'),
+    title: 'X Video Downloader - Download Twitter/X Videos in HD | Free Online',
+    description: 'Download X (Twitter) videos, GIFs, and Spaces in HD quality. Fast, free X video downloader. No watermark, no login required. Save tweets instantly.',
+    keywords: 'x video downloader, twitter video download, download x videos, save twitter videos, x gif downloader, twitter to mp4, x spaces download, download tweets, twitter video saver, x downloader free',
     path: '/pages/twitter-video-download',
     locale,
     image: 'https://snapsavepro.com/og-twitter.png',
   });
 }
 
-const TwitterPage = () => {
+const XVideoDownloaderPage = () => {
   return (
     <>
-      {/* Schema.org structured data for Twitter/X Downloader */}
+      {/* Schema.org structured data for X Video Downloader */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Twitter/X Video Downloader",
-            "description": "Download Twitter and X videos in HD quality. Fast, free, and easy video downloader.",
+            "name": "X Video Downloader - Download Twitter Videos in HD",
+            "description": "Download X (Twitter) videos, GIFs, and Spaces in HD quality. Fast, free, and easy-to-use X video downloader.",
             "url": "https://snapsavepro.com/pages/twitter-video-download",
             "mainEntity": {
               "@type": "SoftwareApplication",
-              "name": "Twitter/X Video Downloader",
+              "name": "X Video Downloader",
               "applicationCategory": "MultimediaApplication",
               "offers": {
                 "@type": "Offer",
@@ -52,8 +49,8 @@ const TwitterPage = () => {
               },
               "aggregateRating": {
                 "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "reviewCount": "5432"
+                "ratingValue": "4.9",
+                "reviewCount": "8721"
               }
             }
           })
@@ -62,25 +59,27 @@ const TwitterPage = () => {
 
       {/* Main H1 Heading for SEO */}
       <header className="sr-only">
-        <h1>Twitter/X Video Downloader - Download Videos in HD Quality</h1>
+        <h1>X Video Downloader - Download Twitter/X Videos in HD Quality Free</h1>
       </header>
 
       <TwitterDownloader />
-      <HowToDownload platform="Twitter/X" platformColor="blue" />
+
+      {/* New Visual Content with Images & Animations */}
+      <XDownloaderContent />
 
       <InfoSection
-        platform="Twitter/X"
+        platform="X"
         platformColor="blue"
         customTitle={twitterInfo.title}
         customDescription={twitterInfo.description}
         customFeatures={twitterInfo.features}
+        featureImage="/images/x-features.png"
       />
 
-      <PlatformContentSection platform="twitter" platformColor="blue" />
-      <FAQSection faqs={twitterFAQs} platform="Twitter/X" />
-      <ReviewsSection reviews={twitterReviews} />
+      <FAQSection faqs={twitterFAQs} platform="X" />
     </>
   )
 }
 
-export default TwitterPage
+export default XVideoDownloaderPage
+

@@ -86,6 +86,39 @@ export default function HowToDownload({ platform, platformColor = 'pink' }: HowT
           ))}
         </div>
 
+        {/* Step-by-Step Images for TikTok */}
+        {platform === 'TikTok' && (
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">📸 Visual Step-by-Step Guide</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 hover:scale-105">
+                <img
+                  src="/images/tiktok-step1.png"
+                  alt="Step 1: Copy TikTok Video Link"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 hover:scale-105">
+                <img
+                  src="/images/tiktok-step2.png"
+                  alt="Step 2: Paste Link on SnapSavePro"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 hover:scale-105">
+                <img
+                  src="/images/tiktok-step3.png"
+                  alt="Step 3: Click Download"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Additional Info */}
         <div className="mt-12 bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
           <h3 className="text-2xl font-bold text-white mb-4">{t('whyChoose', { platform })}</h3>

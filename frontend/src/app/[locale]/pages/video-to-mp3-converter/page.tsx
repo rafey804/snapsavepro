@@ -2,7 +2,7 @@ import VideoToMP3Converter from '@/components/home/VideoToMP3Converter'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-import ReviewsSection from "@/components/SEO/ReviewsSection";
+
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
 import { Music, FileVideo, Download, Settings, CheckCircle, Globe, Shield, Zap } from 'lucide-react';
@@ -427,7 +427,6 @@ const VideoToMP3Page = async ({ params }: PageProps) => {
       <FAQSection faqs={videoToMp3FAQs} platform="Video to MP3 Converter" />
 
       {/* Reviews Section */}
-      <ReviewsSection reviews={videoToMp3Reviews} />
     </div>
   );
 }
