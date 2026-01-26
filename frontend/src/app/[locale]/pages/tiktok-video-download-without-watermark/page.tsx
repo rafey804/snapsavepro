@@ -2,7 +2,7 @@ import TikTokDownloader from '@/components/home/TiktokDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-
+import RelatedTools from "@/components/common/RelatedTools";
 import TikTokContentSection from "@/components/SEO/TikTokContentSection";
 import TikTokUniqueContent from "@/components/SEO/TikTokUniqueContent";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -93,6 +93,7 @@ const TikTokPage = () => {
       <TikTokContentSection />
       <TikTokUniqueContent />
       <FAQSection faqs={tiktokFAQs} platform="TikTok" />
+      <RelatedTools exclude="tiktok" />
     </>
   )
 }

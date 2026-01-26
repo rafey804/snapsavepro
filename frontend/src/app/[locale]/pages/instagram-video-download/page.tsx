@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import InstagramDownloader from '@/components/home/InstagramDownloader';
 import InfoSection from '@/components/SEO/InfoSection';
 import InstagramUniqueContent from '@/components/SEO/InstagramUniqueContent';
+import RelatedTools from '@/components/common/RelatedTools';
 import { constructMetadata } from '@/utils/seo';
 import { instagramPageSEO } from '@/data/comprehensiveSEOData';
 import { instagramInfo } from '@/data/instagramSEOData';
@@ -101,6 +102,7 @@ export default function InstagramVideoDownloaderPage() {
             />
 
             <InstagramUniqueContent />
+            <RelatedTools exclude="instagram" />
         </>
     );
 }

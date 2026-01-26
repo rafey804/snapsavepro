@@ -2,6 +2,7 @@ import TwitterDownloader from '@/components/home/TwitterDownloader'
 import XDownloaderContent from '@/components/details/XDownloaderContent';
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
+import RelatedTools from "@/components/common/RelatedTools";
 import { twitterFAQs, twitterInfo } from "@/data/twitterSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
@@ -77,6 +78,7 @@ const XVideoDownloadPage = () => {
             />
 
             <FAQSection faqs={twitterFAQs} platform="X" />
+            <RelatedTools exclude="twitter" />
         </>
     )
 }

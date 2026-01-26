@@ -119,6 +119,108 @@ export default function HowToDownload({ platform, platformColor = 'pink' }: HowT
           </div>
         )}
 
+        {/* Step-by-Step Images for Facebook */}
+        {platform === 'Facebook' && (
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">📸 Visual Step-by-Step Guide</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105">
+                <img
+                  src="/images/facebook-step1.png"
+                  alt="Step 1: Find Facebook Video"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105">
+                <img
+                  src="/images/facebook-step2.png"
+                  alt="Step 2: Copy Link"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105">
+                <img
+                  src="/images/facebook-step3.png"
+                  alt="Step 3: Paste and Download"
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step-by-Step Images for LinkedIn - Cropped to hide watermarks */}
+        {platform === 'LinkedIn' && (
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">📸 Visual Step-by-Step Guide</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105" style={{ height: '280px' }}>
+                <img
+                  src="/images/linkedin-step1.png"
+                  alt="Step 1: Find LinkedIn Video"
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105" style={{ height: '280px' }}>
+                <img
+                  src="/images/linkedin-step2.png"
+                  alt="Step 2: Copy Link"
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105" style={{ height: '280px' }}>
+                <img
+                  src="/images/linkedin-step3.png"
+                  alt="Step 3: Paste and Download"
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step-by-Step Images for Reddit - Custom Aspect Ratios to crop watermark */}
+        {platform === 'Reddit' && (
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-white text-center mb-8">📸 Visual Step-by-Step Guide</h3>
+            <div className="grid md:grid-cols-3 gap-6 items-start">
+              {/* Step 1: Wide Image (3168x1344) - AR ~2.56 to crop bottom */}
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-orange-500/50 transition-all duration-300 hover:scale-105" style={{ aspectRatio: '2.56/1' }}>
+                <img
+                  src="/images/reddit-step1.png"
+                  alt="Step 1: Find Reddit Video"
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
+              {/* Step 2: Square Image (2048x2048) - AR ~1.09 to crop bottom */}
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-orange-500/50 transition-all duration-300 hover:scale-105" style={{ aspectRatio: '1.09/1' }}>
+                <img
+                  src="/images/reddit-step2.png"
+                  alt="Step 2: Copy Link"
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
+              {/* Step 3: Square Image (2048x2048) - AR ~1.09 to crop bottom */}
+              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-orange-500/50 transition-all duration-300 hover:scale-105" style={{ aspectRatio: '1.09/1' }}>
+                <img
+                  src="/images/reddit-step3.png"
+                  alt="Step 3: Paste and Download"
+                  className="w-full h-full object-cover object-top"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Additional Info */}
         <div className="mt-12 bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
           <h3 className="text-2xl font-bold text-white mb-4">{t('whyChoose', { platform })}</h3>

@@ -64,6 +64,32 @@ export const linkedinFeatures = [
     }
 ];
 
+export const linkedinInfo = {
+    title: "Why Choose Our LinkedIn Video Downloader?",
+    description: [
+        "LinkedIn is the world's leading professional network with 900+ million users. Our LinkedIn Video Downloader helps you save valuable business content, educational videos, webinars, and professional insights in HD quality.",
+        "Download professional development videos, industry expert talks, business presentations, and career advice for offline viewing. Perfect for building knowledge libraries and continuous learning."
+    ],
+    features: {
+        quality: {
+            title: "Professional HD Quality",
+            description: "Download LinkedIn videos in 1080p Full HD, 720p HD, and 480p SD quality options."
+        },
+        speed: {
+            title: "Lightning Fast Downloads",
+            description: "Get your professional videos downloaded in seconds with our optimized servers."
+        },
+        security: {
+            title: "Secure & Private",
+            description: "Your downloads are processed securely with encrypted connections. We never store your data."
+        },
+        noWatermark: {
+            title: "Original Quality",
+            description: "Maintain the original LinkedIn video quality without any compression or watermarks."
+        }
+    }
+};
+
 export const linkedinSEOContent = {
     whatIs: {
         title: "LinkedIn Video Downloader - Save LinkedIn Videos Professionally",

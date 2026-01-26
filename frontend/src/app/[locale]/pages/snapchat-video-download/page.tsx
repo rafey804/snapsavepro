@@ -5,7 +5,7 @@ import InfoSection from "@/components/SEO/InfoSection";
 import SnapchatDownloader from '@/components/home/SnapchatDownloader';
 import SnapchatDownloaderContent from '@/components/details/SnapchatDownloaderContent';
 import FAQSection from "@/components/SEO/FAQSection";
-
+import RelatedTools from "@/components/common/RelatedTools";
 import { snapchatInfo, snapchatFAQs, snapchatReviews } from '@/data/snapchatSEOData';
 
 
@@ -80,6 +80,7 @@ export default function SnapchatDownloaderPage() {
         />
 
         <FAQSection faqs={snapchatFAQs} platform="Snapchat" />
+        <RelatedTools exclude="snapchat" />
       </main>
     </>
   );

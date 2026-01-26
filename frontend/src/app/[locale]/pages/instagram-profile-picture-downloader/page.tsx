@@ -5,6 +5,7 @@ import HowToDownload from '@/components/SEO/HowToDownload';
 import InstagramProfileContentSection from '@/components/SEO/InstagramProfileContentSection';
 import FAQSection from '@/components/SEO/FAQSection';
 import ReviewsSection from '@/components/SEO/ReviewsSection';
+import RelatedTools from '@/components/common/RelatedTools';
 
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { instagramProfileFAQs, instagramProfileReviews } from '@/data/instagramProfileSEOData';
@@ -311,6 +312,9 @@ export default function InstagramProfilePictureDownloaderPage() {
           })
         }}
       />
+
+      {/* Related Tools */}
+      <RelatedTools exclude="instagramProfile" />
     </div>
   );
 }

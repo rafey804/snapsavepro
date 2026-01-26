@@ -82,6 +82,10 @@
       "name": "YouTube थंबनेल डाउनलोडर",
       "description": "YouTube थंबनेल डाउनलोड करें"
     },
+    "kwai": {
+      "name": "Kwai वीडियो डाउनलोडर",
+      "description": "HD गुणवत्ता में Kwai वीडियो डाउनलोड करें"
+    },
     "dailymotion": {
       "name": "Dailymotion वीडियो डाउनलोडर",
       "description": "Dailymotion वीडियो HD क्वालिटी में डाउनलोड करें"

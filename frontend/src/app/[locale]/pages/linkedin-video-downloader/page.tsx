@@ -2,9 +2,14 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { constructMetadata } from "@/utils/seo";
 import LinkedInDownloader from '@/components/home/LinkedInDownloader';
+import HowToDownload from '@/components/SEO/HowToDownload';
+import InfoSection from '@/components/SEO/InfoSection';
 import PlatformContentSection from '@/components/SEO/PlatformContentSection';
+import LinkedInUniqueContent from '@/components/SEO/LinkedInUniqueContent';
+import FAQSection from '@/components/SEO/FAQSection';
 import RelatedTools from '@/components/common/RelatedTools';
-import { linkedinFAQs, linkedinFeatures, linkedinSEOContent } from '@/data/linkedinSEOData';
+import Breadcrumb from '@/components/layout/Breadcrumb';
+import { linkedinFAQs, linkedinFeatures, linkedinSEOContent, linkedinInfo } from '@/data/linkedinSEOData';
 
 const localeToOGLocale: Record<string, string> = {
   en: 'en_US',
@@ -84,33 +89,30 @@ export default function LinkedInDownloaderPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <main className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-zinc-900">
+        {/* Breadcrumb */}
+        <Breadcrumb items={[{ label: "LinkedIn Video Downloader" }]} />
+
         {/* Main Downloader Component */}
         <LinkedInDownloader />
 
-        <PlatformContentSection
+        {/* How to Download Section with Step Images */}
+        <HowToDownload platform="LinkedIn" platformColor="blue" />
+
+        {/* Info Section with Features */}
+        <InfoSection
           platform="LinkedIn"
           platformColor="blue"
-          content={{
-            mainTitle: linkedinSEOContent.whatIs.title,
-            intro: linkedinSEOContent.whatIs.content,
-            howItWorks: {
-              title: "How to Download LinkedIn Videos",
-              content: linkedinSEOContent.howItWorks.content
-            },
-            benefits: {
-              title: linkedinSEOContent.benefits.title,
-              content: linkedinSEOContent.benefits.content
-            },
-            features: {
-              title: linkedinSEOContent.features.title,
-              list: linkedinFeatures.map(f => `${f.title}: ${f.description}`)
-            },
-            faqs: {
-              title: linkedinSEOContent.faqs.title,
-              items: linkedinFAQs
-            }
-          }}
+          customTitle={linkedinInfo?.title}
+          customDescription={linkedinInfo?.description}
+          customFeatures={linkedinInfo?.features}
+          featureImage="/images/linkedin-features.png"
         />
+
+        {/* LinkedIn Unique Content with Images */}
+        <LinkedInUniqueContent />
+
+        {/* FAQ Section */}
+        <FAQSection faqs={linkedinFAQs} platform="LinkedIn" />
 
         <RelatedTools exclude="linkedin" />
       </main>

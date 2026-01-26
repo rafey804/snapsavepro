@@ -2,7 +2,7 @@ import TikTokDownloader from '@/components/home/TiktokDownloader'
 import HowToDownload from "@/components/SEO/HowToDownload";
 import InfoSection from "@/components/SEO/InfoSection";
 import FAQSection from "@/components/SEO/FAQSection";
-
+import RelatedTools from "@/components/common/RelatedTools";
 import YouTubeUniqueContent from "@/components/SEO/YouTubeUniqueContent";
 import { youtubeFAQs, youtubeReviews, youtubeInfo } from "@/data/youtubeSEOData";
 import type { Metadata } from "next";
@@ -171,6 +171,7 @@ const YouTubePage = () => {
 
       <YouTubeUniqueContent />
       <FAQSection faqs={youtubeFAQs || []} platform="YouTube" />
+      <RelatedTools exclude="youtube" />
     </>
   )
 }

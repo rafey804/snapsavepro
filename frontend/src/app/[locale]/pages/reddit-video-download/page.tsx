@@ -1,9 +1,15 @@
 import RedditDownloader from '@/components/home/RedditDownloader'
+import HowToDownload from "@/components/SEO/HowToDownload";
+import InfoSection from "@/components/SEO/InfoSection";
+import FAQSection from "@/components/SEO/FAQSection";
 import RelatedTools from "@/components/common/RelatedTools";
-import PlatformContentSection from "@/components/SEO/PlatformContentSection";
-import { redditSEOContent } from "@/data/redditSEOData";
+import RedditUniqueContent from "@/components/SEO/RedditUniqueContent";
+import Breadcrumb from "@/components/layout/Breadcrumb";
+import { redditSEOContent, redditFAQs, redditInfo } from "@/data/redditSEOData";
 import type { Metadata } from "next";
 import { constructMetadata } from "@/utils/seo";
+
+import { redditPageSEO } from "@/data/comprehensiveSEOData";
 
 const localeToOGLocale: Record<string, string> = {
   en: 'en_US',
@@ -20,12 +26,12 @@ export async function generateMetadata({
   const { locale } = await params;
 
   return constructMetadata({
-    title: "Reddit Video & Image Downloader - Download Reddit Posts | Snap Save Pro",
-    description: "Download Reddit videos and images in HD quality. Fast, free Reddit downloader. Supports v.redd.it, i.redd.it and all Reddit post formats.",
-    keywords: "reddit video downloader, reddit image downloader, download reddit videos, v.redd.it downloader, reddit downloader, save reddit videos, reddit post downloader, reddit video saver, i.redd.it downloader, download reddit posts, reddit video download hd, reddit gif downloader, reddit media downloader, free reddit downloader, reddit content downloader",
+    title: redditPageSEO.title,
+    description: redditPageSEO.description,
+    keywords: redditPageSEO.keywords,
     path: '/pages/reddit-video-download',
     locale,
-    image: 'https://snapsavepro.com/og-reddit.png',
+    image: redditPageSEO.ogImage,
   });
 }
 
@@ -38,9 +44,9 @@ const RedditPage = () => {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Reddit Video & Image Downloader",
-            "description": "Download Reddit videos and images in HD quality.",
-            "url": "https://snapsavepro.com/pages/reddit-video-download",
+            "name": redditPageSEO.h1,
+            "description": redditPageSEO.description,
+            "url": redditPageSEO.canonicalUrl,
             "mainEntity": {
               "@type": "SoftwareApplication",
               "name": "Reddit Downloader",
@@ -61,18 +67,29 @@ const RedditPage = () => {
       />
 
       <header className="sr-only">
-        <h1>Reddit Video & Image Downloader - Download Reddit Posts in HD Quality</h1>
+        <h1>{redditPageSEO.h1}</h1>
       </header>
 
+      <Breadcrumb items={[{ label: "Reddit Video Downloader" }]} />
+
       <RedditDownloader />
-      <PlatformContentSection
+      <HowToDownload platform="Reddit" platformColor="orange" />
+
+      <InfoSection
         platform="Reddit"
         platformColor="orange"
-        content={redditSEOContent}
+        customTitle={redditInfo?.title}
+        customDescription={redditInfo?.description}
+        customFeatures={redditInfo?.features}
+        featureImage="/images/reddit-features.png"
       />
+
+      <RedditUniqueContent />
+      <FAQSection faqs={redditFAQs || []} platform="Reddit" />
       <RelatedTools exclude="reddit" />
     </>
   )
 }
 
 export default RedditPage
+

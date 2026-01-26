@@ -697,12 +697,101 @@ export const termsOfServicePageSEO: PageSEO = {
   ogImage: "/og-terms.png"
 };
 
+// Reddit Downloader Page SEO
+export const redditPageSEO: PageSEO = {
+  title: "Reddit Video Downloader - Download Reddit Videos & GIFs with Audio Free HD | Snap Save Pro",
+  description: "Download Reddit videos, GIFs & images in HD quality with audio for FREE! Save v.redd.it videos to your phone or PC. Support audio merged. Fast, anonymous, no login required.",
+  keywords: [
+    // Short-tail keywords
+    "reddit downloader",
+    "download reddit videos",
+    "reddit video download",
+    "save reddit video",
+    "reddit saver",
+    "reddit gif downloader",
+    "reddit to mp4",
+    "reddit audio downloader",
+    "reddit image downloader",
+    "reddit mp4",
+
+    // Long-tail keywords
+    "download reddit videos with audio",
+    "how to download reddit videos to iphone",
+    "reddit video downloader with sound",
+    "save video from reddit app",
+    "download v.redd.it videos",
+    "reddit video downloader online free",
+    "download reddit gifs as mp4",
+    "reddit video downloader best quality",
+    "download reddit videos to gallery",
+    "save reddit videos to camera roll",
+    "reddit video downloader chrome",
+    "reddit video downloader shortcut",
+    "reddit video downloader bot",
+    "download multiple images from reddit",
+    "reddit gallery downloader",
+
+    // Alternative tools
+    "redditsave alternative",
+    "viddit alternative",
+    "redditdownloader alternative",
+    "savemp4 alternative",
+    "reddit video dl alternative",
+
+    // Feature-specific
+    "reddit audio extractor",
+    "download nsfw reddit videos",
+    "reddit 1080p downloader",
+    "reddit 4k video downloader",
+    "anonymous reddit downloader",
+    "reddit private video downloader"
+  ],
+  h1: "Reddit Video Downloader - Save Videos & GIFs with Audio",
+  h2: [
+    "Download Reddit Videos with Sound in HD Quality",
+    "Why Use SnapSavePro for Reddit?",
+    "How to Download Videos from Reddit",
+    "Best Features of Our Reddit Downloader",
+    "Save Reddit GIFs and Images Easily"
+  ],
+  h3: [
+    "Fast & Free Reddit Downloads",
+    "Download v.redd.it Videos with Audio",
+    "Save Reddit GIFs as MP4",
+    "Download Original Quality Images",
+    "Step 1: Copy Reddit Post Link",
+    "Step 2: Paste URL in Downloader",
+    "Step 3: Download Video or GIF",
+    "Works on Mobile (iOS/Android) & Desktop",
+    "100% Anonymous & Secure"
+  ],
+  h4: [
+    "HD Video Support (1080p, 720p)",
+    "Merged Audio Tracks",
+    "No Watermark Downloads",
+    "Unlimited Daily Downloads",
+    "Batch Image Downloading",
+    "No Registration Needed",
+    "Fast Processing Speed"
+  ],
+  h5: [
+    "Original Quality Preserved",
+    "Instant Downloads",
+    "No Software Indexing",
+    "Always Free Service",
+    "Private & Secure"
+  ],
+  canonicalUrl: "https://snapsavepro.com/pages/reddit-video-download",
+  ogImage: "/og-reddit-downloader.png"
+};
+
 // Export all SEO data
 export const allPagesSEO = {
   home: homePageSEO,
   youtube: youtubePageSEO,
   instagram: instagramPageSEO,
   facebook: facebookPageSEO,
+  reddit: redditPageSEO, // Added Reddit
   audio: audioPageSEO,
   contact: contactPageSEO,
   faq: faqPageSEO,
