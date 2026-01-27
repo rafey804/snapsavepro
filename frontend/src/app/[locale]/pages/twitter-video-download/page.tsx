@@ -1,4 +1,5 @@
 import TwitterDownloader from '@/components/home/TwitterDownloader'
+import XDownloaderContent from '@/components/details/XDownloaderContent';
 import PlatformContentSection from '@/components/SEO/PlatformContentSection';
 import RelatedTools from '@/components/common/RelatedTools';
 import { twitterSEOContent } from "@/data/twitterSEOData";
@@ -62,6 +63,8 @@ const XVideoDownloaderPage = () => {
       </header>
 
       <TwitterDownloader />
+
+      <XDownloaderContent />
 
       <PlatformContentSection
         platform="X"

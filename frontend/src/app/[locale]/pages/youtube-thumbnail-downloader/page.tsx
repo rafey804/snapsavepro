@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
 import { constructMetadata } from "@/utils/seo";
 import YouTubeThumbnailDownloader from '@/components/home/YouTubeThumbnailDownloader';
-import InfoSection from '@/components/SEO/InfoSection';
+import YouTubeThumbnailContent from '@/components/details/YouTubeThumbnailContent';
 import FAQSection from '@/components/SEO/FAQSection';
-
-import HowToDownload from '@/components/SEO/HowToDownload';
-import { youtubeThumbnailInfo, youtubeThumbnailFAQs, youtubeThumbnailReviews } from '@/data/youtubeThumbnailSEOData';
+import { youtubeThumbnailFAQs } from '@/data/youtubeThumbnailSEOData';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 
 export async function generateMetadata({
@@ -28,8 +26,8 @@ export default function YouTubeThumbnailDownloaderPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": youtubeThumbnailInfo.title,
-    "description": youtubeThumbnailInfo.description[0],
+    "name": "YouTube Thumbnail Downloader",
+    "description": "Download YouTube thumbnails in all qualities (HD, 4K, 1080p, 720p). Free YouTube thumbnail grabber tool.",
     "url": "https://snapsavepro.com/pages/youtube-thumbnail-downloader",
     "applicationCategory": "MultimediaApplication",
     "offers": {
@@ -42,8 +40,7 @@ export default function YouTubeThumbnailDownloaderPage() {
       "ratingValue": "4.8",
       "reviewCount": "1250"
     },
-    "operatingSystem": "Windows, MacOS, Linux, Android, iOS",
-    "featureList": Object.values(youtubeThumbnailInfo.features).map(f => f.title)
+    "operatingSystem": "Windows, MacOS, Linux, Android, iOS"
   };
 
   const faqLd = {
@@ -78,15 +75,7 @@ export default function YouTubeThumbnailDownloaderPage() {
 
       <YouTubeThumbnailDownloader />
 
-      <HowToDownload platform="YouTube Thumbnail" platformColor="red" />
-
-      <InfoSection
-        platform="YouTube Thumbnail"
-        platformColor="red"
-        customTitle={youtubeThumbnailInfo.title}
-        customDescription={youtubeThumbnailInfo.description}
-        customFeatures={youtubeThumbnailInfo.features}
-      />
+      <YouTubeThumbnailContent />
 
       <FAQSection faqs={youtubeThumbnailFAQs} platform="YouTube Thumbnail" />
     </div>
