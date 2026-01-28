@@ -50,14 +50,16 @@ interface ProcessingStatus {
   percent: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 export default function AudioDownloader() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [audioInfo, setAudioInfo] = useState<AudioInfo | null>(null);
   const [error, setError] = useState('');
-  const [downloadProgress, setDownloadProgress] = useState<{[key: string]: DownloadProgress}>({});
+  const [downloadProgress, setDownloadProgress] = useState<{ [key: string]: DownloadProgress }>({});
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null);
 
   const audioInfoRef = useRef<HTMLDivElement>(null);
@@ -150,12 +152,12 @@ export default function AudioDownloader() {
     ];
 
     let currentStage = 0;
-    
+
     const updateStage = () => {
       if (currentStage < stages.length) {
         setProcessingStatus(stages[currentStage]);
         currentStage++;
-        
+
         if (currentStage < stages.length) {
           const delay = currentStage === 3 ? 1200 : 800;
           setTimeout(updateStage, delay);
@@ -185,7 +187,7 @@ export default function AudioDownloader() {
       // Generic media URLs
       /^https?:\/\/.*\.(mp3|wav|m4a|aac|ogg|flac|wma)/i
     ];
-    
+
     return audioPatterns.some(pattern => pattern.test(url.toLowerCase()));
   };
 
@@ -227,7 +229,7 @@ export default function AudioDownloader() {
       console.log('Audio data received:', data);
       setAudioInfo(data);
       setProcessingStatus({ stage: 'complete', message: 'Audio ready to download!', percent: 100 });
-      
+
       setTimeout(() => {
         setProcessingStatus(null);
       }, 2000);
@@ -241,7 +243,7 @@ export default function AudioDownloader() {
 
   const handleDownload = async (format: AudioFormat) => {
     const downloadKey = `${format.format_id}_${Date.now()}`;
-    
+
     try {
       setDownloadProgress(prev => ({
         ...prev,
@@ -292,7 +294,7 @@ export default function AudioDownloader() {
             setTimeout(() => {
               try {
                 const downloadUrl = `${API_BASE_URL}/download-direct/${downloadId}`;
-                
+
                 const link = document.createElement('a');
                 link.href = downloadUrl;
                 link.download = '';
@@ -301,12 +303,12 @@ export default function AudioDownloader() {
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
+
                 setDownloadProgress(prev => ({
                   ...prev,
                   [downloadKey]: { ...progressData, status: 'downloaded' }
                 }));
-                
+
               } catch (downloadError) {
                 console.error('Download error:', downloadError);
                 try {
@@ -314,16 +316,16 @@ export default function AudioDownloader() {
                 } catch (fallbackError) {
                   setDownloadProgress(prev => ({
                     ...prev,
-                    [downloadKey]: { 
-                      ...progressData, 
-                      status: 'error', 
-                      error: 'Failed to download file. Please try again.' 
+                    [downloadKey]: {
+                      ...progressData,
+                      status: 'error',
+                      error: 'Failed to download file. Please try again.'
                     }
                   }));
                 }
               }
             }, 1000);
-            
+
             setTimeout(() => {
               setDownloadProgress(prev => {
                 const newProgress = { ...prev };
@@ -357,10 +359,10 @@ export default function AudioDownloader() {
     } catch (err) {
       setDownloadProgress(prev => ({
         ...prev,
-        [downloadKey]: { 
-          status: 'error', 
-          percent: 0, 
-          error: err instanceof Error ? err.message : 'Download failed' 
+        [downloadKey]: {
+          status: 'error',
+          percent: 0,
+          error: err instanceof Error ? err.message : 'Download failed'
         }
       }));
     }
@@ -368,7 +370,7 @@ export default function AudioDownloader() {
 
   const getButtonText = (progress: DownloadProgress | null): string => {
     if (!progress) return 'Download MP3';
-    
+
     switch (progress.status) {
       case 'downloaded': return 'Downloaded';
       case 'completed': return 'Starting Download...';
@@ -385,11 +387,10 @@ export default function AudioDownloader() {
   const ProgressBar = ({ progress }: { progress: DownloadProgress }) => (
     <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
       <div
-        className={`h-2 rounded-full transition-all duration-300 ${
-          progress.status === 'error' ? 'bg-red-500' : 
-          progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' : 
-          progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-gradient-to-r from-purple-500 to-pink-500'
-        }`}
+        className={`h-2 rounded-full transition-all duration-300 ${progress.status === 'error' ? 'bg-red-500' :
+            progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
+              progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-gradient-to-r from-purple-500 to-pink-500'
+          }`}
         style={{ width: `${progress.percent}%` }}
       />
     </div>
@@ -406,16 +407,15 @@ export default function AudioDownloader() {
           )}
           <span className="text-base sm:text-lg font-medium text-white">{status.message}</span>
         </div>
-        
+
         <div className="w-full bg-slate-700 rounded-full h-2 sm:h-3 mb-2">
           <div
-            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${
-              status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-purple-500 to-pink-500'
-            }`}
+            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-purple-500 to-pink-500'
+              }`}
             style={{ width: `${status.percent}%` }}
           />
         </div>
-        
+
         <div className="flex justify-between text-xs sm:text-sm text-gray-300">
           <span>Processing audio content...</span>
           <span>{status.percent}%</span>
@@ -428,7 +428,7 @@ export default function AudioDownloader() {
     <div className="min-h-screen pt-4 sm:pt-20 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 via-pink-600/5 to-orange-600/10" />
       <div className="relative z-10 container mx-auto px-4 py-4 sm:py-8">
-        
+
         {/* Header */}
         <div className="text-center mb-6 sm:mb-12">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
@@ -460,7 +460,7 @@ export default function AudioDownloader() {
         {/* Input Section - Mobile Responsive */}
         <div className="max-w-4xl mx-auto mb-6 sm:mb-8">
           <div className="relative">
-            
+
             {/* Mobile Layout */}
             <div className="block md:hidden">
               <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
@@ -493,7 +493,7 @@ export default function AudioDownloader() {
                       Paste
                     </button>
                   </div>
-                  
+
                   <button
                     onClick={handleSubmit}
                     disabled={loading || !url.trim()}
@@ -554,12 +554,12 @@ export default function AudioDownloader() {
             </div>
           </div>
         )}
-     
+
         {audioInfo && (
           <div ref={audioInfoRef} className="max-w-6xl mx-auto px-4 sm:px-0">
             <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
               <div className="p-4 sm:p-6 md:p-8">
-                
+
                 {/* Audio Info */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                   <div className="md:col-span-1">
@@ -638,7 +638,7 @@ export default function AudioDownloader() {
                     </div>
                   </div>
                 </div>
-                  
+
                 {/* Download Options */}
                 <div className="space-y-4 sm:space-y-6">
                   <div>
@@ -652,7 +652,7 @@ export default function AudioDownloader() {
                     {audioInfo.formats?.audio_formats && audioInfo.formats.audio_formats.length > 0 ? (
                       <div className="grid gap-3 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                         {audioInfo.formats.audio_formats.map((format, index) => {
-                          const downloadKey = Object.keys(downloadProgress).find(key => 
+                          const downloadKey = Object.keys(downloadProgress).find(key =>
                             key.startsWith(format.format_id)
                           );
                           const progress = downloadKey ? downloadProgress[downloadKey] : null;
@@ -678,7 +678,7 @@ export default function AudioDownloader() {
                                   {formatFileSize(format.filesize)}
                                 </span>
                               </div>
-                              
+
                               {progress && (
                                 <div className="mb-3">
                                   <ProgressBar progress={progress} />
@@ -693,7 +693,7 @@ export default function AudioDownloader() {
                                   )}
                                 </div>
                               )}
-                              
+
                               <button
                                 onClick={() => handleDownload(format)}
                                 disabled={!!progress && !['error', 'downloaded'].includes(progress.status)}
@@ -718,7 +718,7 @@ export default function AudioDownloader() {
             </div>
           </div>
         )}
-         
+
         {/* Footer */}
         <div className="text-center mt-8 sm:mt-12 text-gray-400 px-4 sm:px-0">
           <p className="text-sm sm:text-base">© 2025 Audio Downloader. Convert any media to high-quality MP3.</p>

@@ -46,7 +46,9 @@ interface DownloadProgress {
 
 type ProcessingStatus = 'idle' | 'validating' | 'connecting' | 'extracting' | 'analyzing' | 'finalizing' | 'complete';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 const ShortsDownloader: React.FC = () => {
   const [url, setUrl] = useState('');
@@ -561,22 +563,20 @@ const ShortsDownloader: React.FC = () => {
             <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
               <button
                 onClick={() => setDownloadMode('video')}
-                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${
-                  downloadMode === 'video'
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${downloadMode === 'video'
                     ? 'bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg'
                     : 'bg-slate-700/50 text-gray-300 hover:bg-slate-700'
-                }`}
+                  }`}
               >
                 <FiVideo className="text-sm sm:text-base" />
                 Video
               </button>
               <button
                 onClick={() => setDownloadMode('audio')}
-                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${
-                  downloadMode === 'audio'
+                className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base ${downloadMode === 'audio'
                     ? 'bg-gradient-to-r from-red-500 to-pink-600 text-white shadow-lg'
                     : 'bg-slate-700/50 text-gray-300 hover:bg-slate-700'
-                }`}
+                  }`}
               >
                 <FiMusic className="text-sm sm:text-base" />
                 Audio
@@ -599,87 +599,87 @@ const ShortsDownloader: React.FC = () => {
                         return format.ext === 'mp4' && format.format_id.includes('96');
                       })
                       .map((format, index) => {
-                      const progressKey = getProgressKey(format);
-                      const progress = progressKey ? downloadProgress[progressKey] : null;
+                        const progressKey = getProgressKey(format);
+                        const progress = progressKey ? downloadProgress[progressKey] : null;
 
-                      return (
-                        <div
-                          key={index}
-                          className="bg-slate-900/60 rounded-xl p-4 border border-slate-700/30 hover:border-red-500/30 transition-all"
-                        >
-                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                            <div className="flex-1">
-                              <div className="flex items-center flex-wrap gap-2 sm:gap-3 mb-2">
-                                <span className="text-white font-semibold text-sm sm:text-base">{format.quality}</span>
-                                <span className="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full font-medium">
-                                  {format.ext.toUpperCase()}
-                                </span>
-                                {format.has_audio && (
-                                  <span className="text-xs px-2 py-1 bg-green-500/20 text-green-400 rounded-full font-medium flex items-center gap-1">
-                                    <FiMusic className="text-xs" />
-                                    Audio
+                        return (
+                          <div
+                            key={index}
+                            className="bg-slate-900/60 rounded-xl p-4 border border-slate-700/30 hover:border-red-500/30 transition-all"
+                          >
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                              <div className="flex-1">
+                                <div className="flex items-center flex-wrap gap-2 sm:gap-3 mb-2">
+                                  <span className="text-white font-semibold text-sm sm:text-base">{format.quality}</span>
+                                  <span className="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded-full font-medium">
+                                    {format.ext.toUpperCase()}
                                   </span>
+                                  {format.has_audio && (
+                                    <span className="text-xs px-2 py-1 bg-green-500/20 text-green-400 rounded-full font-medium flex items-center gap-1">
+                                      <FiMusic className="text-xs" />
+                                      Audio
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400">
+                                  {format.width && format.height && (
+                                    <span>{format.width}x{format.height}</span>
+                                  )}
+                                  {format.fps && <span>{format.fps}fps</span>}
+                                  <span>{formatFileSize(format.filesize)}</span>
+                                </div>
+                              </div>
+
+                              <div className="flex flex-col w-full sm:w-auto sm:items-end gap-2">
+                                <button
+                                  onClick={() => handleDownload(format)}
+                                  disabled={!!(progress && (progress.status === 'downloading' || progress.status === 'processing'))}
+                                  className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                                >
+                                  <FiDownload />
+                                  Download
+                                </button>
+
+                                {progress && progress.status === 'downloading' && (
+                                  <div className="w-full sm:min-w-[200px]">
+                                    <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+                                      <span>Downloading</span>
+                                      <span>{progress.percent}%</span>
+                                    </div>
+                                    <div className="w-full bg-slate-700/50 rounded-full h-1.5">
+                                      <div
+                                        className="h-full bg-gradient-to-r from-red-500 to-pink-600 rounded-full transition-all duration-300"
+                                        style={{ width: `${progress.percent}%` }}
+                                      />
+                                    </div>
+                                  </div>
+                                )}
+
+                                {progress && progress.status === 'processing' && (
+                                  <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
+                                    <FiRefreshCw className="animate-spin" />
+                                    <span>Processing...</span>
+                                  </div>
+                                )}
+
+                                {progress && progress.status === 'completed' && (
+                                  <div className="flex items-center justify-center sm:justify-end gap-2 text-green-400 text-sm">
+                                    <FiCheck />
+                                    <span className="font-medium">Downloaded!</span>
+                                  </div>
+                                )}
+
+                                {progress && progress.status === 'error' && (
+                                  <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
+                                    <FiAlertCircle />
+                                    <span>Failed</span>
+                                  </div>
                                 )}
                               </div>
-                              <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-gray-400">
-                                {format.width && format.height && (
-                                  <span>{format.width}x{format.height}</span>
-                                )}
-                                {format.fps && <span>{format.fps}fps</span>}
-                                <span>{formatFileSize(format.filesize)}</span>
-                              </div>
-                            </div>
-
-                            <div className="flex flex-col w-full sm:w-auto sm:items-end gap-2">
-                              <button
-                                onClick={() => handleDownload(format)}
-                                disabled={!!(progress && (progress.status === 'downloading' || progress.status === 'processing'))}
-                                className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-                              >
-                                <FiDownload />
-                                Download
-                              </button>
-
-                              {progress && progress.status === 'downloading' && (
-                                <div className="w-full sm:min-w-[200px]">
-                                  <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
-                                    <span>Downloading</span>
-                                    <span>{progress.percent}%</span>
-                                  </div>
-                                  <div className="w-full bg-slate-700/50 rounded-full h-1.5">
-                                    <div
-                                      className="h-full bg-gradient-to-r from-red-500 to-pink-600 rounded-full transition-all duration-300"
-                                      style={{ width: `${progress.percent}%` }}
-                                    />
-                                  </div>
-                                </div>
-                              )}
-
-                              {progress && progress.status === 'processing' && (
-                                <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
-                                  <FiRefreshCw className="animate-spin" />
-                                  <span>Processing...</span>
-                                </div>
-                              )}
-
-                              {progress && progress.status === 'completed' && (
-                                <div className="flex items-center justify-center sm:justify-end gap-2 text-green-400 text-sm">
-                                  <FiCheck />
-                                  <span className="font-medium">Downloaded!</span>
-                                </div>
-                              )}
-
-                              {progress && progress.status === 'error' && (
-                                <div className="flex items-center justify-center sm:justify-end gap-2 text-red-400 text-sm">
-                                  <FiAlertCircle />
-                                  <span>Failed</span>
-                                </div>
-                              )}
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })}
                   </div>
                 </>
               )}

@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { Download, AlertCircle, CheckCircle, Copy, Sparkles, Video, Music, Clock, Eye, Heart, User, Calendar } from 'lucide-react';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 interface VideoFormat {
   format_id: string;
@@ -412,22 +414,20 @@ const TwitchDownloader: React.FC = () => {
               <div className="flex gap-2 mb-6">
                 <button
                   onClick={() => setDownloadMode('video')}
-                  className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base ${
-                    downloadMode === 'video'
+                  className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base ${downloadMode === 'video'
                       ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/30'
                       : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
-                  }`}
+                    }`}
                 >
                   <Video className="w-4 h-4" />
                   Video
                 </button>
                 <button
                   onClick={() => setDownloadMode('audio')}
-                  className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base ${
-                    downloadMode === 'audio'
+                  className={`flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base ${downloadMode === 'audio'
                       ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/30'
                       : 'bg-slate-700/50 text-slate-300 hover:bg-slate-700'
-                  }`}
+                    }`}
                 >
                   <Music className="w-4 h-4" />
                   Audio
@@ -454,7 +454,7 @@ const TwitchDownloader: React.FC = () => {
                     } else {
                       // Show audio formats (those with audio codec but no video)
                       return (!format.vcodec || format.vcodec === 'none' || format.vcodec === null) &&
-                             format.acodec && format.acodec !== 'none' && format.acodec !== null;
+                        format.acodec && format.acodec !== 'none' && format.acodec !== null;
                     }
                   });
 
@@ -515,13 +515,12 @@ const TwitchDownloader: React.FC = () => {
                             </div>
                             <div className="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
                               <div
-                                className={`h-full transition-all duration-300 ${
-                                  progress.status === 'error'
+                                className={`h-full transition-all duration-300 ${progress.status === 'error'
                                     ? 'bg-red-500'
                                     : progress.status === 'completed'
-                                    ? 'bg-green-500'
-                                    : 'bg-gradient-to-r from-purple-500 to-pink-500'
-                                }`}
+                                      ? 'bg-green-500'
+                                      : 'bg-gradient-to-r from-purple-500 to-pink-500'
+                                  }`}
                                 style={{ width: `${progress.percent}%` }}
                               ></div>
                             </div>

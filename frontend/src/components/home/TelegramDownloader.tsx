@@ -28,14 +28,16 @@ interface DownloadProgress {
   filename?: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 export default function TelegramDownloader() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [mediaInfo, setMediaInfo] = useState<TelegramMediaInfo | null>(null);
   const [error, setError] = useState('');
-  const [downloadProgress, setDownloadProgress] = useState<{[key: string]: DownloadProgress}>({});
+  const [downloadProgress, setDownloadProgress] = useState<{ [key: string]: DownloadProgress }>({});
 
   const mediaInfoRef = useRef<HTMLDivElement>(null);
 

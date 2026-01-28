@@ -46,7 +46,9 @@ interface DownloadProgress {
 
 type ProcessingStatus = 'idle' | 'validating' | 'connecting' | 'extracting' | 'analyzing' | 'finalizing' | 'complete';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 const InstagramDownloader: React.FC = () => {
   const [url, setUrl] = useState('');
@@ -224,9 +226,9 @@ const InstagramDownloader: React.FC = () => {
             ...prev,
             [downloadKey]: {
               status: progressData.status === 'completed' ? 'completed' :
-                     progressData.status === 'error' ? 'error' :
-                     progressData.status === 'retrying' ? 'retrying' :
-                     progressData.status === 'processing' ? 'processing' : 'downloading',
+                progressData.status === 'error' ? 'error' :
+                  progressData.status === 'retrying' ? 'retrying' :
+                    progressData.status === 'processing' ? 'processing' : 'downloading',
               percent: progressData.percent || 0,
               speed: progressData.speed,
               eta: progressData.eta,
@@ -501,22 +503,20 @@ const InstagramDownloader: React.FC = () => {
           <div className="flex justify-center gap-3">
             <button
               onClick={() => setDownloadMode('video')}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${
-                downloadMode === 'video'
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${downloadMode === 'video'
                   ? 'bg-gradient-to-r from-teal-500 to-blue-600 text-white shadow-lg scale-105'
                   : 'bg-slate-800/80 text-gray-400 hover:text-white border border-slate-700/50'
-              }`}
+                }`}
             >
               <FiVideo />
               Video Formats
             </button>
             <button
               onClick={() => setDownloadMode('audio')}
-              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${
-                downloadMode === 'audio'
+              className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 flex items-center gap-2 ${downloadMode === 'audio'
                   ? 'bg-gradient-to-r from-blue-500 to-cyan-600 text-white shadow-lg scale-105'
                   : 'bg-slate-800/80 text-gray-400 hover:text-white border border-slate-700/50'
-              }`}
+                }`}
             >
               <FiMusic />
               Audio Formats
@@ -651,34 +651,31 @@ const InstagramDownloader: React.FC = () => {
                     {progress && progress.status !== 'idle' && (
                       <div className="mb-4">
                         <div className="flex items-center justify-between mb-2">
-                          <span className={`text-xs font-medium ${
-                            progress.status === 'error' ? 'text-red-400' :
-                            progress.status === 'completed' ? 'text-green-400' :
-                            progress.status === 'retrying' ? 'text-amber-400' :
-                            'text-teal-400'
-                          }`}>
+                          <span className={`text-xs font-medium ${progress.status === 'error' ? 'text-red-400' :
+                              progress.status === 'completed' ? 'text-green-400' :
+                                progress.status === 'retrying' ? 'text-amber-400' :
+                                  'text-teal-400'
+                            }`}>
                             {progress.status === 'error' ? 'Failed' :
-                             progress.status === 'completed' ? 'Completed' :
-                             progress.status === 'retrying' ? 'Retrying...' :
-                             progress.status === 'processing' ? 'Processing...' :
-                             'Downloading...'}
+                              progress.status === 'completed' ? 'Completed' :
+                                progress.status === 'retrying' ? 'Retrying...' :
+                                  progress.status === 'processing' ? 'Processing...' :
+                                    'Downloading...'}
                           </span>
-                          <span className={`text-xs font-bold ${
-                            progress.status === 'error' ? 'text-red-400' :
-                            progress.status === 'completed' ? 'text-green-400' :
-                            'text-teal-400'
-                          }`}>
+                          <span className={`text-xs font-bold ${progress.status === 'error' ? 'text-red-400' :
+                              progress.status === 'completed' ? 'text-green-400' :
+                                'text-teal-400'
+                            }`}>
                             {progress.percent}%
                           </span>
                         </div>
                         <div className="w-full bg-slate-700/50 rounded-full h-2 overflow-hidden">
                           <div
-                            className={`h-full rounded-full transition-all duration-300 ${
-                              progress.status === 'error' ? 'bg-red-500' :
-                              progress.status === 'completed' ? 'bg-green-500' :
-                              progress.status === 'retrying' ? 'bg-amber-500 animate-pulse' :
-                              'bg-gradient-to-r from-teal-500 to-blue-600'
-                            }`}
+                            className={`h-full rounded-full transition-all duration-300 ${progress.status === 'error' ? 'bg-red-500' :
+                                progress.status === 'completed' ? 'bg-green-500' :
+                                  progress.status === 'retrying' ? 'bg-amber-500 animate-pulse' :
+                                    'bg-gradient-to-r from-teal-500 to-blue-600'
+                              }`}
                             style={{ width: `${progress.percent}%` }}
                           ></div>
                         </div>

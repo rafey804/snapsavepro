@@ -55,14 +55,16 @@ interface ProcessingStatus {
   percent: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 export default function PinterestDownloader() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
   const [error, setError] = useState('');
-  const [downloadProgress, setDownloadProgress] = useState<{[key: string]: DownloadProgress}>({});
+  const [downloadProgress, setDownloadProgress] = useState<{ [key: string]: DownloadProgress }>({});
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null);
   const [downloadMode, setDownloadMode] = useState<'video' | 'audio' | 'image'>('video');
 
@@ -310,11 +312,10 @@ export default function PinterestDownloader() {
   const ProgressBar = ({ progress }: { progress: DownloadProgress }) => (
     <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
       <div
-        className={`h-2 rounded-full transition-all duration-300 ${
-          progress.status === 'error' ? 'bg-red-500' :
-          progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
-          progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-red-500'
-        }`}
+        className={`h-2 rounded-full transition-all duration-300 ${progress.status === 'error' ? 'bg-red-500' :
+            progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
+              progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-red-500'
+          }`}
         style={{ width: `${progress.percent}%` }}
       />
     </div>
@@ -334,9 +335,8 @@ export default function PinterestDownloader() {
 
         <div className="w-full bg-slate-700 rounded-full h-2 sm:h-3 mb-2">
           <div
-            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${
-              status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-red-500 to-pink-500'
-            }`}
+            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-red-500 to-pink-500'
+              }`}
             style={{ width: `${status.percent}%` }}
           />
         </div>
@@ -463,11 +463,10 @@ export default function PinterestDownloader() {
                 {videoInfo.content_type !== 'image' && (
                   <button
                     onClick={() => setDownloadMode('video')}
-                    className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${
-                      downloadMode === 'video'
+                    className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${downloadMode === 'video'
                         ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg'
                         : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
-                    }`}
+                      }`}
                   >
                     <FileVideo className="h-3 w-3 sm:h-5 sm:w-5" />
                     <span className="hidden sm:inline">Video</span>
@@ -477,11 +476,10 @@ export default function PinterestDownloader() {
                 {videoInfo.content_type !== 'image' && (
                   <button
                     onClick={() => setDownloadMode('audio')}
-                    className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${
-                      downloadMode === 'audio'
+                    className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${downloadMode === 'audio'
                         ? 'bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-lg'
                         : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
-                    }`}
+                      }`}
                   >
                     <Music className="h-3 w-3 sm:h-5 sm:w-5" />
                     <span className="hidden sm:inline">Audio (MP3)</span>
@@ -491,11 +489,10 @@ export default function PinterestDownloader() {
                 {videoInfo.formats.image_formats && videoInfo.formats.image_formats.length > 0 && (
                   <button
                     onClick={() => setDownloadMode('image')}
-                    className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${
-                      downloadMode === 'image'
+                    className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${downloadMode === 'image'
                         ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-lg'
                         : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
-                    }`}
+                      }`}
                   >
                     <Image className="h-3 w-3 sm:h-5 sm:w-5" />
                     <span className="hidden sm:inline">Images</span>
@@ -519,7 +516,7 @@ export default function PinterestDownloader() {
           </div>
         )}
 
-        
+
 
         {/* Content Info and Download Section */}
         {videoInfo && (

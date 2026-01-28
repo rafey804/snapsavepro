@@ -47,7 +47,9 @@ interface DownloadProgress {
 
 type ProcessingStatus = 'idle' | 'validating' | 'connecting' | 'extracting' | 'analyzing' | 'finalizing' | 'complete';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 const LinkedInDownloader: React.FC = () => {
   const [url, setUrl] = useState('');
@@ -219,9 +221,9 @@ const LinkedInDownloader: React.FC = () => {
             ...prev,
             [downloadKey]: {
               status: progressData.status === 'completed' ? 'completed' :
-                     progressData.status === 'error' ? 'error' :
-                     progressData.status === 'retrying' ? 'retrying' :
-                     progressData.status === 'processing' ? 'processing' : 'downloading',
+                progressData.status === 'error' ? 'error' :
+                  progressData.status === 'retrying' ? 'retrying' :
+                    progressData.status === 'processing' ? 'processing' : 'downloading',
               percent: progressData.percent || 0,
               speed: progressData.speed,
               eta: progressData.eta,
@@ -341,8 +343,8 @@ const LinkedInDownloader: React.FC = () => {
   const currentFormats = downloadMode === 'video'
     ? videoInfo?.formats.video_formats || []
     : downloadMode === 'audio'
-    ? videoInfo?.formats.audio_formats || []
-    : videoInfo?.formats.image_formats || [];
+      ? videoInfo?.formats.audio_formats || []
+      : videoInfo?.formats.image_formats || [];
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -547,11 +549,10 @@ const LinkedInDownloader: React.FC = () => {
               {videoInfo.formats.video_formats && videoInfo.formats.video_formats.length > 0 && (
                 <button
                   onClick={() => setDownloadMode('video')}
-                  className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
-                    downloadMode === 'video'
+                  className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${downloadMode === 'video'
                       ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg'
                       : 'bg-slate-700/50 text-gray-400 hover:bg-slate-700'
-                  }`}
+                    }`}
                 >
                   <FiVideo />
                   Video
@@ -560,11 +561,10 @@ const LinkedInDownloader: React.FC = () => {
               {videoInfo.formats.audio_formats && videoInfo.formats.audio_formats.length > 0 && (
                 <button
                   onClick={() => setDownloadMode('audio')}
-                  className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
-                    downloadMode === 'audio'
+                  className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${downloadMode === 'audio'
                       ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg'
                       : 'bg-slate-700/50 text-gray-400 hover:bg-slate-700'
-                  }`}
+                    }`}
                 >
                   <FiMusic />
                   Audio
@@ -573,11 +573,10 @@ const LinkedInDownloader: React.FC = () => {
               {videoInfo.formats.image_formats && videoInfo.formats.image_formats.length > 0 && (
                 <button
                   onClick={() => setDownloadMode('image')}
-                  className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${
-                    downloadMode === 'image'
+                  className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2 ${downloadMode === 'image'
                       ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg'
                       : 'bg-slate-700/50 text-gray-400 hover:bg-slate-700'
-                  }`}
+                    }`}
                 >
                   <FiImage />
                   Image

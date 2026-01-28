@@ -58,7 +58,9 @@ interface ProcessingStatus {
   percent: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 export default function TikTokDownloader() {
   const t = useTranslations('home');
@@ -66,7 +68,7 @@ export default function TikTokDownloader() {
   const [loading, setLoading] = useState(false);
   const [videoInfo, setVideoInfo] = useState<VideoInfo | null>(null);
   const [error, setError] = useState('');
-  const [downloadProgress, setDownloadProgress] = useState<{[key: string]: DownloadProgress}>({});
+  const [downloadProgress, setDownloadProgress] = useState<{ [key: string]: DownloadProgress }>({});
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null);
   const [downloadMode, setDownloadMode] = useState<'video' | 'audio'>('video');
 
@@ -131,12 +133,12 @@ export default function TikTokDownloader() {
     ];
 
     let currentStage = 0;
-    
+
     const updateStage = () => {
       if (currentStage < stages.length) {
         setProcessingStatus(stages[currentStage]);
         currentStage++;
-        
+
         if (currentStage < stages.length) {
           const delay = currentStage === 2 ? 1000 : currentStage === 3 ? 1200 : 700;
           setTimeout(updateStage, delay);
@@ -154,7 +156,7 @@ export default function TikTokDownloader() {
       /(?:https?:\/\/)?(?:www\.)?tiktok\.com\/t\/[\w.-]+/,
       /(?:https?:\/\/)?m\.tiktok\.com\/v\/\d+/,
     ];
-    
+
     return tiktokPatterns.some(pattern => pattern.test(url.toLowerCase()));
   };
 
@@ -195,7 +197,7 @@ export default function TikTokDownloader() {
 
       setVideoInfo(data);
       setProcessingStatus({ stage: 'complete', message: 'TikTok video ready!', percent: 100 });
-      
+
       setTimeout(() => {
         setProcessingStatus(null);
       }, 2000);
@@ -209,7 +211,7 @@ export default function TikTokDownloader() {
 
   const handleDownload = async (format: VideoFormat) => {
     const downloadKey = `${format.format_id}_${Date.now()}`;
-    
+
     try {
       setDownloadProgress(prev => ({
         ...prev,
@@ -254,7 +256,7 @@ export default function TikTokDownloader() {
             setTimeout(() => {
               try {
                 const downloadUrl = `${API_BASE_URL}/download-direct/${downloadId}`;
-                
+
                 const link = document.createElement('a');
                 link.href = downloadUrl;
                 link.download = '';
@@ -263,12 +265,12 @@ export default function TikTokDownloader() {
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-                
+
                 setDownloadProgress(prev => ({
                   ...prev,
                   [downloadKey]: { ...progressData, status: 'downloaded' }
                 }));
-                
+
               } catch (downloadError) {
                 console.error('Download error:', downloadError);
                 try {
@@ -276,16 +278,16 @@ export default function TikTokDownloader() {
                 } catch (fallbackError) {
                   setDownloadProgress(prev => ({
                     ...prev,
-                    [downloadKey]: { 
-                      ...progressData, 
-                      status: 'error', 
-                      error: 'Failed to download file. Please try again.' 
+                    [downloadKey]: {
+                      ...progressData,
+                      status: 'error',
+                      error: 'Failed to download file. Please try again.'
                     }
                   }));
                 }
               }
             }, 1000);
-            
+
             setTimeout(() => {
               setDownloadProgress(prev => {
                 const newProgress = { ...prev };
@@ -319,10 +321,10 @@ export default function TikTokDownloader() {
     } catch (err) {
       setDownloadProgress(prev => ({
         ...prev,
-        [downloadKey]: { 
-          status: 'error', 
-          percent: 0, 
-          error: err instanceof Error ? err.message : 'Download failed' 
+        [downloadKey]: {
+          status: 'error',
+          percent: 0,
+          error: err instanceof Error ? err.message : 'Download failed'
         }
       }));
     }
@@ -330,7 +332,7 @@ export default function TikTokDownloader() {
 
   const getButtonText = (progress: DownloadProgress | null): string => {
     if (!progress) return 'Download';
-    
+
     switch (progress.status) {
       case 'downloaded': return 'Downloaded';
       case 'completed': return 'Starting Download...';
@@ -347,11 +349,10 @@ export default function TikTokDownloader() {
   const ProgressBar = ({ progress }: { progress: DownloadProgress }) => (
     <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
       <div
-        className={`h-2 rounded-full transition-all duration-300 ${
-          progress.status === 'error' ? 'bg-red-500' :
-          progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
-          progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-pink-500'
-        }`}
+        className={`h-2 rounded-full transition-all duration-300 ${progress.status === 'error' ? 'bg-red-500' :
+            progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
+              progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-pink-500'
+          }`}
         style={{ width: `${progress.percent}%` }}
       />
     </div>
@@ -371,9 +372,8 @@ export default function TikTokDownloader() {
 
         <div className="w-full bg-gray-700 rounded-full h-2 sm:h-3 mb-2">
           <div
-            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${
-              status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-pink-500 to-purple-500'
-            }`}
+            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-pink-500 to-purple-500'
+              }`}
             style={{ width: `${status.percent}%` }}
           />
         </div>
@@ -390,7 +390,7 @@ export default function TikTokDownloader() {
     <div className="min-h-screen pt-4 sm:pt-20 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900">
       <div className="absolute inset-0 bg-gradient-to-br from-pink-600/10 via-purple-600/5 to-blue-600/10" />
       <div className="relative z-10 container mx-auto px-4 py-4 sm:py-8">
-        
+
         {/* Mobile Responsive Header */}
         <div className="text-center mb-6 sm:mb-12">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
@@ -409,7 +409,7 @@ export default function TikTokDownloader() {
         {/* MOBILE RESPONSIVE INPUT SECTION */}
         <div className="max-w-4xl mx-auto mb-6 sm:mb-8">
           <div className="relative">
-            
+
             {/* Mobile Layout - Input with Paste button inside, Get Video button below */}
             <div className="block md:hidden">
               <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
@@ -443,7 +443,7 @@ export default function TikTokDownloader() {
                       {t('paste')}
                     </button>
                   </div>
-                  
+
                   {/* Get Video Button Below Input - Mobile Only */}
                   <button
                     onClick={handleSubmit}
@@ -501,11 +501,10 @@ export default function TikTokDownloader() {
               <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 p-1 sm:p-2 flex gap-1 sm:gap-2 w-full sm:w-auto">
                 <button
                   onClick={() => setDownloadMode('video')}
-                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${
-                    downloadMode === 'video'
+                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${downloadMode === 'video'
                       ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
                       : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
-                  }`}
+                    }`}
                 >
                   <FileVideo className="h-3 w-3 sm:h-5 sm:w-5" />
                   <span className="hidden sm:inline">Video Downloads</span>
@@ -513,11 +512,10 @@ export default function TikTokDownloader() {
                 </button>
                 <button
                   onClick={() => setDownloadMode('audio')}
-                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${
-                    downloadMode === 'audio'
+                  className={`px-3 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-1 sm:gap-2 text-xs sm:text-base flex-1 sm:flex-none justify-center ${downloadMode === 'audio'
                       ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg'
                       : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
-                  }`}
+                    }`}
                 >
                   <Music className="h-3 w-3 sm:h-5 sm:w-5" />
                   <span className="hidden sm:inline">Audio Only (MP3)</span>
@@ -539,13 +537,13 @@ export default function TikTokDownloader() {
             </div>
           </div>
         )}
-   
+
         {/* Video Info and Download Section - Mobile Responsive */}
         {videoInfo && (
           <div ref={videoInfoRef} className="max-w-6xl mx-auto px-4 sm:px-0">
             <div className="bg-slate-800/80 backdrop-blur-lg rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl">
               <div className="p-4 sm:p-6 md:p-8">
-                
+
                 {/* Mobile Responsive Video Info Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                   <div className="md:col-span-1">
@@ -617,7 +615,7 @@ export default function TikTokDownloader() {
                       {videoInfo.formats?.video_formats && videoInfo.formats.video_formats.length > 0 ? (
                         <div className="grid gap-3 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                           {videoInfo.formats.video_formats.map((format, index) => {
-                            const downloadKey = Object.keys(downloadProgress).find(key => 
+                            const downloadKey = Object.keys(downloadProgress).find(key =>
                               key.startsWith(format.format_id)
                             );
                             const progress = downloadKey ? downloadProgress[downloadKey] : null;
@@ -647,7 +645,7 @@ export default function TikTokDownloader() {
                                     {formatFileSize(format.filesize)}
                                   </span>
                                 </div>
-                                
+
                                 {progress && (
                                   <div className="mb-3">
                                     <ProgressBar progress={progress} />
@@ -662,7 +660,7 @@ export default function TikTokDownloader() {
                                     )}
                                   </div>
                                 )}
-                                
+
                                 <button
                                   onClick={() => handleDownload(format)}
                                   disabled={!!progress && !['error', 'downloaded'].includes(progress.status)}
@@ -693,7 +691,7 @@ export default function TikTokDownloader() {
                       {videoInfo.formats?.audio_formats && videoInfo.formats.audio_formats.length > 0 ? (
                         <div className="grid gap-3 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                           {videoInfo.formats.audio_formats.map((format, index) => {
-                            const downloadKey = Object.keys(downloadProgress).find(key => 
+                            const downloadKey = Object.keys(downloadProgress).find(key =>
                               key.startsWith(format.format_id)
                             );
                             const progress = downloadKey ? downloadProgress[downloadKey] : null;
@@ -718,7 +716,7 @@ export default function TikTokDownloader() {
                                     {formatFileSize(format.filesize)}
                                   </span>
                                 </div>
-                                
+
                                 {progress && (
                                   <div className="mb-3">
                                     <ProgressBar progress={progress} />
@@ -733,7 +731,7 @@ export default function TikTokDownloader() {
                                     )}
                                   </div>
                                 )}
-                                
+
                                 <button
                                   onClick={() => handleDownload(format)}
                                   disabled={!!progress && !['error', 'downloaded'].includes(progress.status)}

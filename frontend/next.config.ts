@@ -20,7 +20,17 @@ const nextConfig: NextConfig = {
         hostname: '**',
       },
     ],
-  }
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: process.env.BACKEND_URL
+          ? `${process.env.BACKEND_URL}/:path*`
+          : 'http://localhost:5002/api/:path*',
+      },
+    ];
+  },
 }
 
 export default withNextIntl(nextConfig);

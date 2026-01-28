@@ -50,14 +50,16 @@ interface ProcessingStatus {
   percent: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api';
+import { getApiBaseUrl } from '@/utils/apiConfig';
+
+const API_BASE_URL = getApiBaseUrl();
 
 export default function YouTubeMp3Downloader() {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [audioInfo, setAudioInfo] = useState<AudioInfo | null>(null);
   const [error, setError] = useState('');
-  const [downloadProgress, setDownloadProgress] = useState<{[key: string]: DownloadProgress}>({});
+  const [downloadProgress, setDownloadProgress] = useState<{ [key: string]: DownloadProgress }>({});
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | null>(null);
 
   const audioInfoRef = useRef<HTMLDivElement>(null);
@@ -342,11 +344,10 @@ export default function YouTubeMp3Downloader() {
   const ProgressBar = ({ progress }: { progress: DownloadProgress }) => (
     <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
       <div
-        className={`h-2 rounded-full transition-all duration-300 ${
-          progress.status === 'error' ? 'bg-red-500' :
-          progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
-          progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-gradient-to-r from-red-500 to-red-600'
-        }`}
+        className={`h-2 rounded-full transition-all duration-300 ${progress.status === 'error' ? 'bg-red-500' :
+            progress.status === 'completed' || progress.status === 'downloaded' ? 'bg-emerald-500' :
+              progress.status.includes('retrying') ? 'bg-amber-500' : 'bg-gradient-to-r from-red-500 to-red-600'
+          }`}
         style={{ width: `${progress.percent}%` }}
       />
     </div>
@@ -366,9 +367,8 @@ export default function YouTubeMp3Downloader() {
 
         <div className="w-full bg-slate-700 rounded-full h-2 sm:h-3 mb-2">
           <div
-            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${
-              status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-red-500 to-red-600'
-            }`}
+            className={`h-2 sm:h-3 rounded-full transition-all duration-500 ${status.stage === 'complete' ? 'bg-emerald-500' : 'bg-gradient-to-r from-red-500 to-red-600'
+              }`}
             style={{ width: `${status.percent}%` }}
           />
         </div>
