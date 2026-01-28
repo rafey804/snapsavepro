@@ -43,7 +43,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key-change-this')
 
 # CORS Configuration
 ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS',
-    'http://localhost:3000,http://localhost:3001,http://localhost:3003'
+    'http://localhost:3000,http://localhost:3001,http://localhost:3003,https://snapsavepro.com,https://www.snapsavepro.com'
 ).split(',')
 
 # Strip whitespace from origins
