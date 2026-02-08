@@ -2,15 +2,30 @@ import yt_dlp
 import time
 import re
 import logging
+import os
 import requests
 from flask import jsonify
+from dotenv import load_dotenv
 from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
+
+# Load environment variables
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
 class InstagramDownloader:
     def __init__(self):
         self.platform = 'instagram'
+        # Load Instagram credentials from environment
+        self.username = os.getenv('INSTAGRAM_USERNAME', '')
+        self.password = os.getenv('INSTAGRAM_PASSWORD', '')
+        self.has_credentials = bool(self.username and self.password and 
+                                     self.username != 'your_instagram_username' and
+                                     self.password != 'your_instagram_password')
+        if self.has_credentials:
+            logger.info(f"Instagram credentials loaded for user: {self.username}")
+        else:
+            logger.info("No Instagram credentials configured - using anonymous mode")
     
     def get_robust_instagram_opts(self, base_opts=None, attempt=0):
         """Robust Instagram options for yt-dlp"""
@@ -79,6 +94,12 @@ class InstagramDownloader:
                 }
             },
         }
+        
+        # Add credentials if available
+        if self.has_credentials:
+            instagram_opts['username'] = self.username
+            instagram_opts['password'] = self.password
+            logger.info(f"Using Instagram credentials for authentication")
 
         # Merge production options
         production_opts = get_production_download_opts()
