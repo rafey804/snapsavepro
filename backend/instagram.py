@@ -13,6 +13,15 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 
+# Try to import instagrapi for authentication support
+try:
+    from instagrapi import Client as InstagrapiClient
+    INSTAGRAPI_AVAILABLE = True
+    logger.info("instagrapi library available for Instagram authentication")
+except ImportError:
+    INSTAGRAPI_AVAILABLE = False
+    logger.warning("instagrapi not installed - Instagram auth may be limited")
+
 class InstagramDownloader:
     def __init__(self):
         self.platform = 'instagram'
@@ -23,28 +32,46 @@ class InstagramDownloader:
                                      self.username != 'your_instagram_username' and
                                      self.password != 'your_instagram_password')
         
-        # Cookie file path (Netscape format cookies.txt)
-        self.cookie_file = os.getenv('INSTAGRAM_COOKIE_FILE', '')
-        if not self.cookie_file:
-            # Check default locations
-            possible_paths = [
-                '/var/www/snapsavepro/backend/instagram_cookies.txt',
-                './instagram_cookies.txt',
-                os.path.join(os.path.dirname(__file__), 'instagram_cookies.txt'),
-            ]
-            for path in possible_paths:
-                if os.path.exists(path):
-                    self.cookie_file = path
-                    break
+        # Initialize instagrapi client if available and credentials exist
+        self.insta_client = None
+        self.client_logged_in = False
         
-        self.has_cookies = bool(self.cookie_file and os.path.exists(self.cookie_file))
-        
-        if self.has_cookies:
-            logger.info(f"Instagram cookies loaded from: {self.cookie_file}")
-        elif self.has_credentials:
+        if self.has_credentials:
             logger.info(f"Instagram credentials loaded for user: {self.username}")
+            if INSTAGRAPI_AVAILABLE:
+                self._init_instagrapi_client()
         else:
-            logger.info("No Instagram credentials/cookies configured - using anonymous mode")
+            logger.info("No Instagram credentials configured - using anonymous mode")
+    
+    def _init_instagrapi_client(self):
+        """Initialize and login to Instagram via instagrapi"""
+        try:
+            self.insta_client = InstagrapiClient()
+            self.insta_client.delay_range = [1, 3]
+            
+            # Try to load existing session
+            session_file = os.path.join(os.path.dirname(__file__), 'instagram_session.json')
+            
+            if os.path.exists(session_file):
+                try:
+                    self.insta_client.load_settings(session_file)
+                    self.insta_client.login(self.username, self.password)
+                    self.client_logged_in = True
+                    logger.info(f"Instagram session loaded successfully for: {self.username}")
+                    return
+                except Exception as e:
+                    logger.warning(f"Session load failed, trying fresh login: {str(e)}")
+                    os.remove(session_file)
+            
+            # Fresh login
+            self.insta_client.login(self.username, self.password)
+            self.insta_client.dump_settings(session_file)
+            self.client_logged_in = True
+            logger.info(f"Instagram fresh login successful for: {self.username}")
+            
+        except Exception as e:
+            logger.error(f"Instagram login failed: {str(e)}")
+            self.client_logged_in = False
     
     def get_robust_instagram_opts(self, base_opts=None, attempt=0):
         """Robust Instagram options for yt-dlp"""
@@ -114,14 +141,10 @@ class InstagramDownloader:
             },
         }
         
-        # Prioritize cookies over username/password (more reliable for Instagram)
-        if self.has_cookies:
-            instagram_opts['cookiefile'] = self.cookie_file
-            logger.info(f"Using Instagram cookies for authentication")
-        elif self.has_credentials:
+        # Add credentials if available (may not work with yt-dlp but try anyway)
+        if self.has_credentials:
             instagram_opts['username'] = self.username
             instagram_opts['password'] = self.password
-            logger.info(f"Using Instagram username/password for authentication")
 
         # Merge production options
         production_opts = get_production_download_opts()
@@ -142,55 +165,83 @@ class InstagramDownloader:
                 return match.group(1)
         return None
     
-    def try_external_api(self, url, shortcode):
-        """Try external API services as fallback when yt-dlp fails"""
-        logger.info(f"Trying external API for Instagram shortcode: {shortcode}")
+    def get_video_via_instagrapi(self, shortcode):
+        """Get video info via instagrapi (authenticated)"""
+        if not self.client_logged_in or not self.insta_client:
+            return None
         
-        # Try multiple free Instagram API services
-        apis = [
-            # API 1: saveig.app style API
-            {
-                'url': f'https://api.saveig.app/api/v1/media/{shortcode}',
-                'headers': {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Accept': 'application/json',
+        try:
+            logger.info(f"Trying instagrapi for shortcode: {shortcode}")
+            
+            # Get media info by shortcode
+            media_pk = self.insta_client.media_pk_from_code(shortcode)
+            media_info = self.insta_client.media_info(media_pk)
+            
+            if not media_info:
+                return None
+            
+            # Extract video URL
+            video_url = None
+            thumbnail_url = None
+            
+            if media_info.media_type == 2:  # Video
+                video_url = str(media_info.video_url)
+                thumbnail_url = str(media_info.thumbnail_url) if media_info.thumbnail_url else ''
+            elif media_info.media_type == 1:  # Photo
+                return None  # Not a video
+            elif media_info.media_type == 8:  # Carousel
+                # Get first video from carousel
+                for resource in media_info.resources:
+                    if resource.media_type == 2:
+                        video_url = str(resource.video_url)
+                        thumbnail_url = str(resource.thumbnail_url) if resource.thumbnail_url else ''
+                        break
+            
+            if not video_url:
+                return None
+            
+            # Build video info response
+            uploader = media_info.user.username if media_info.user else 'Unknown'
+            title = media_info.caption_text[:100] if media_info.caption_text else f'{uploader} - Instagram Video'
+            
+            video_info = {
+                'title': title,
+                'duration': media_info.video_duration or 0,
+                'view_count': media_info.view_count or 0,
+                'uploader': uploader,
+                'uploader_id': str(media_info.user.pk) if media_info.user else '',
+                'thumbnail': thumbnail_url,
+                'description': media_info.caption_text[:200] if media_info.caption_text else '',
+                'upload_date': media_info.taken_at.strftime('%Y%m%d') if media_info.taken_at else '',
+                'like_count': media_info.like_count or 0,
+                'comment_count': media_info.comment_count or 0,
+                'platform': 'instagram',
+                'formats': {
+                    'video_formats': [{
+                        'quality': 'Best Available',
+                        'type': 'video',
+                        'format_id': 'instagrapi_best',
+                        'ext': 'mp4',
+                        'filesize': 0,
+                        'direct_url': video_url,
+                        'width': media_info.video_width or 0,
+                        'height': media_info.video_height or 0,
+                        'has_audio': True,
+                        'platform': 'instagram',
+                        'watermark_free': True,
+                        'duration': media_info.video_duration or 0,
+                        'resolution': 'HD'
+                    }],
+                    'audio_formats': []
                 }
-            },
-            # API 2: igram style
-            {
-                'url': 'https://api.igram.io/api/convert',
-                'method': 'POST',
-                'data': {'url': url},
-                'headers': {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                }
-            },
-        ]
-        
-        for api in apis:
-            try:
-                if api.get('method') == 'POST':
-                    response = requests.post(
-                        api['url'], 
-                        data=api.get('data', {}),
-                        headers=api['headers'],
-                        timeout=30
-                    )
-                else:
-                    response = requests.get(api['url'], headers=api['headers'], timeout=30)
-                
-                if response.status_code == 200:
-                    data = response.json()
-                    # Parse response based on API format
-                    if 'video_url' in data or 'url' in data or 'media' in data:
-                        logger.info(f"External API success")
-                        return data
-            except Exception as e:
-                logger.warning(f"External API failed: {str(e)}")
-                continue
-        
-        return None
+            }
+            
+            logger.info(f"instagrapi success for {shortcode}")
+            return video_info
+            
+        except Exception as e:
+            logger.warning(f"instagrapi failed for {shortcode}: {str(e)}")
+            return None
     
     def try_webpage_scraping(self, url, shortcode):
         """Try to scrape Instagram webpage directly for video URL"""
@@ -252,7 +303,12 @@ class InstagramDownloader:
         return None
     
     def get_video_info(self, url, return_json=True):
-        """Extract Instagram video/reel information using yt-dlp with fallbacks
+        """Extract Instagram video/reel information using multiple methods
+        
+        Priority order:
+        1. instagrapi (authenticated) - most reliable with login
+        2. yt-dlp (may work for some public content)
+        3. webpage scraping (fallback)
         
         Args:
             url: Instagram URL
@@ -269,7 +325,15 @@ class InstagramDownloader:
             else:
                 raise Exception('Invalid Instagram URL. Please provide a valid Instagram post/reel URL.')
         
-        # Try yt-dlp first
+        # Method 1: Try instagrapi first (authenticated)
+        if self.client_logged_in and INSTAGRAPI_AVAILABLE:
+            video_info = self.get_video_via_instagrapi(shortcode)
+            if video_info:
+                if return_json:
+                    return jsonify(video_info)
+                return video_info
+        
+        # Method 2: Try yt-dlp
         for attempt in range(max_attempts):
             try:
                 logger.info(f"Instagram yt-dlp attempt {attempt + 1}/{max_attempts} for shortcode: {shortcode}")
@@ -465,10 +529,8 @@ class InstagramDownloader:
                     time.sleep(2 + attempt)
                     continue
         
-        # yt-dlp failed, try fallback methods
-        logger.info("yt-dlp failed, trying fallback methods...")
-        
-        # Try webpage scraping
+        # Method 3: Try webpage scraping as last resort
+        logger.info("yt-dlp failed, trying webpage scraping...")
         scraped_data = self.try_webpage_scraping(url, shortcode)
         if scraped_data and scraped_data.get('video_url'):
             video_info = {
