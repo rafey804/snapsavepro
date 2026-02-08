@@ -22,10 +22,29 @@ class InstagramDownloader:
         self.has_credentials = bool(self.username and self.password and 
                                      self.username != 'your_instagram_username' and
                                      self.password != 'your_instagram_password')
-        if self.has_credentials:
+        
+        # Cookie file path (Netscape format cookies.txt)
+        self.cookie_file = os.getenv('INSTAGRAM_COOKIE_FILE', '')
+        if not self.cookie_file:
+            # Check default locations
+            possible_paths = [
+                '/var/www/snapsavepro/backend/instagram_cookies.txt',
+                './instagram_cookies.txt',
+                os.path.join(os.path.dirname(__file__), 'instagram_cookies.txt'),
+            ]
+            for path in possible_paths:
+                if os.path.exists(path):
+                    self.cookie_file = path
+                    break
+        
+        self.has_cookies = bool(self.cookie_file and os.path.exists(self.cookie_file))
+        
+        if self.has_cookies:
+            logger.info(f"Instagram cookies loaded from: {self.cookie_file}")
+        elif self.has_credentials:
             logger.info(f"Instagram credentials loaded for user: {self.username}")
         else:
-            logger.info("No Instagram credentials configured - using anonymous mode")
+            logger.info("No Instagram credentials/cookies configured - using anonymous mode")
     
     def get_robust_instagram_opts(self, base_opts=None, attempt=0):
         """Robust Instagram options for yt-dlp"""
@@ -95,11 +114,14 @@ class InstagramDownloader:
             },
         }
         
-        # Add credentials if available
-        if self.has_credentials:
+        # Prioritize cookies over username/password (more reliable for Instagram)
+        if self.has_cookies:
+            instagram_opts['cookiefile'] = self.cookie_file
+            logger.info(f"Using Instagram cookies for authentication")
+        elif self.has_credentials:
             instagram_opts['username'] = self.username
             instagram_opts['password'] = self.password
-            logger.info(f"Using Instagram credentials for authentication")
+            logger.info(f"Using Instagram username/password for authentication")
 
         # Merge production options
         production_opts = get_production_download_opts()
