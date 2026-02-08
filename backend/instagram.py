@@ -1,79 +1,84 @@
-from instagrapi import Client
-from instagrapi.exceptions import LoginRequired, ClientError
+import yt_dlp
+import time
 import re
 import logging
-import os
-import time
+from flask import jsonify
+from utils import get_best_thumbnail, detect_audio_in_format, get_production_download_opts
 
 logger = logging.getLogger(__name__)
 
 class InstagramDownloader:
-    # Instagram login credentials (your account)
-    INSTAGRAM_USERNAME = os.getenv('INSTAGRAM_USERNAME', 'flip.filex')
-    INSTAGRAM_PASSWORD = os.getenv('INSTAGRAM_PASSWORD', 'Malik30277$$$')
-    SESSION_FILE = 'instagram_session.json'
+    def __init__(self):
+        self.platform = 'instagram'
+    
+    def get_robust_instagram_opts(self, base_opts=None, attempt=0):
+        """Robust Instagram options for yt-dlp"""
+        if base_opts is None:
+            base_opts = {}
 
-    # Reuse client instance for better performance
-    _client = None
-    _last_login_time = 0
-    _login_timeout = 3600  # Re-login after 1 hour
+        user_agents = [
+            'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
+            'Mozilla/5.0 (Linux; Android 13; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2.1 Safari/605.1.15',
+        ]
 
-    @classmethod
-    def get_client(cls):
-        """Get or create Instagram client with login"""
-        current_time = time.time()
+        current_ua = user_agents[attempt % len(user_agents)]
+        
+        instagram_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'extract_flat': False,
+            'socket_timeout': 60,
+            'retries': 5,
+            'fragment_retries': 5,
+            'file_access_retries': 3,
+            'extractor_retries': 5,
+            'skip_unavailable_fragments': True,
+            'ignoreerrors': False,
+            'no_color': True,
+            'user_agent': current_ua,
+            'format_sort': ['res', 'ext:mp4:m4a'],
+            'format_sort_force': True,
+            'http_chunk_size': 5242880,
+            'concurrent_fragment_downloads': 1,
+            
+            # Enhanced headers for Instagram
+            'http_headers': {
+                'User-Agent': current_ua,
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Referer': 'https://www.instagram.com/',
+                'Origin': 'https://www.instagram.com',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-Site': 'same-origin',
+                'Sec-Fetch-Dest': 'document',
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache',
+                'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120"',
+                'sec-ch-ua-mobile': '?1',
+                'sec-ch-ua-platform': '"Android"',
+            },
+            
+            # Geo bypass for Instagram
+            'geo_bypass': True,
+            'geo_bypass_country': 'US',
+            
+            # Instagram-specific extractor args
+            'extractor_args': {
+                'instagram': {
+                    'direct': True,
+                }
+            },
+        }
 
-        # Create new client or re-login if timeout
-        if cls._client is None or (current_time - cls._last_login_time) > cls._login_timeout:
-            max_retries = 3
-            retry_delay = 2  # seconds
-
-            for attempt in range(max_retries):
-                try:
-                    logger.info(f"Initializing Instagram client (attempt {attempt + 1}/{max_retries})...")
-                    cls._client = Client()
-
-                    # Try to load existing session first
-                    if os.path.exists(cls.SESSION_FILE):
-                        try:
-                            logger.info("Loading saved Instagram session...")
-                            cls._client.load_settings(cls.SESSION_FILE)
-                            cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
-                            logger.info("Successfully loaded Instagram session")
-                        except Exception as e:
-                            logger.warning(f"Failed to load session: {str(e)}, logging in fresh...")
-                            cls._client = Client()
-                            cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
-                            cls._client.dump_settings(cls.SESSION_FILE)
-                            logger.info("Saved new Instagram session")
-                    else:
-                        logger.info("Logging into Instagram for the first time...")
-                        cls._client.login(cls.INSTAGRAM_USERNAME, cls.INSTAGRAM_PASSWORD)
-                        cls._client.dump_settings(cls.SESSION_FILE)
-                        logger.info("Successfully logged in and saved session")
-
-                    cls._last_login_time = current_time
-                    return cls._client  # Success - return immediately
-
-                except Exception as e:
-                    error_msg = str(e).lower()
-                    logger.warning(f"Login attempt {attempt + 1} failed: {str(e)}")
-
-                    # If it's the last attempt, raise the error
-                    if attempt == max_retries - 1:
-                        logger.error(f"Instagram login failed after {max_retries} attempts")
-                        # Check if it's a temporary block
-                        if 'blacklist' in error_msg or 'ip' in error_msg or 'rate' in error_msg:
-                            raise Exception("Instagram temporarily blocked this request. Please try again in a few seconds.")
-                        else:
-                            raise Exception("Instagram authentication failed. Please try again later.")
-
-                    # Wait before retrying
-                    logger.info(f"Waiting {retry_delay} seconds before retry...")
-                    time.sleep(retry_delay)
-
-        return cls._client
-
+        # Merge production options
+        production_opts = get_production_download_opts()
+        instagram_opts.update(production_opts)
+        instagram_opts.update(base_opts)
+        return instagram_opts
+    
     @staticmethod
     def extract_shortcode(url):
         """Extract shortcode from Instagram URL"""
@@ -86,197 +91,274 @@ class InstagramDownloader:
             if match:
                 return match.group(1)
         return None
-
-    @staticmethod
-    def get_video_info(url):
+    
+    def get_video_info(self, url, return_json=True):
+        """Extract Instagram video/reel information using yt-dlp
+        
+        Args:
+            url: Instagram URL
+            return_json: If True, return Flask jsonify response. If False, return plain dict.
         """
-        Extract Instagram video/reel information using instagrapi
-        """
-        try:
-            # Extract shortcode
-            shortcode = InstagramDownloader.extract_shortcode(url)
-            if not shortcode:
-                raise Exception("Invalid Instagram URL. Please provide a valid Instagram post/reel URL.")
-
-            logger.info(f"Processing Instagram shortcode: {shortcode}")
-
-            # Get authenticated client
-            client = InstagramDownloader.get_client()
-
-            # Get media PK from URL
-            media_pk = client.media_pk_from_url(url)
-            logger.info(f"Got media PK: {media_pk}")
-
-            # Try to get media info using multiple methods
-            media_data = None
-
-            # Method 1: Try using media_info (recommended method)
-            try:
-                logger.info("Attempting to get media info using media_info method...")
-                media = client.media_info(media_pk)
-                # Convert to dict and handle Pydantic types
-                import json
-                media_data = json.loads(media.json())  # This converts HttpUrl to strings
-                logger.info("Successfully retrieved media info using media_info")
-            except Exception as e:
-                logger.warning(f"media_info method failed: {str(e)}")
-
-            # Method 2: Fallback to private_request if media_info fails
-            if not media_data:
-                try:
-                    logger.info("Attempting to get media info using private_request...")
-                    result = client.private_request(f"media/{media_pk}/info/")
-                    media_data = result.get('items', [{}])[0]
-                    logger.info("Successfully retrieved media info using private_request")
-                except Exception as e:
-                    logger.error(f"private_request method failed: {str(e)}")
-
-            # If both methods failed
-            if not media_data:
-                raise Exception("Could not retrieve Instagram post information. The post may be private or unavailable.")
-
-            # Check if it's a video
-            media_type = media_data.get('media_type')
-            if media_type != 2:  # 2 = Video/Reel
-                raise Exception("This Instagram post is not a video. Please provide a video or reel URL.")
-
-            # Extract video URL - handle both response formats
-            video_url = None
-
-            # Try video_versions first (private_request format)
-            video_versions = media_data.get('video_versions', [])
-            if video_versions:
-                video_url = video_versions[0].get('url')
-
-            # Fallback to video_url (media_info format)
-            if not video_url:
-                video_url = media_data.get('video_url')
-
-            # Convert to string if it's not already
-            if video_url:
-                video_url = str(video_url)
-
-            if not video_url:
-                raise Exception("Could not extract video URL from Instagram post.")
-
-            # Get thumbnail - handle both formats
-            thumbnail_url = None
-
-            # Try image_versions2 (private_request format)
-            image_versions = media_data.get('image_versions2', {})
-            if isinstance(image_versions, dict):
-                candidates = image_versions.get('candidates', [])
-                if candidates:
-                    thumbnail_url = candidates[0].get('url')
-
-            # Fallback to thumbnail_url (media_info format)
-            if not thumbnail_url:
-                thumbnail_url = media_data.get('thumbnail_url')
-
-            # Convert to string if it exists
-            if thumbnail_url:
-                thumbnail_url = str(thumbnail_url)
-
-            # Get caption/title - handle both formats
-            caption = ""
-            caption_obj = media_data.get('caption')
-
-            if isinstance(caption_obj, dict):
-                caption = caption_obj.get('text', '')
-            elif isinstance(caption_obj, str):
-                caption = caption_obj
-
-            title = caption[:100] + "..." if len(caption) > 100 else (caption if caption else "Instagram Video")
-
-            # Get stats
-            likes = media_data.get('like_count', 0)
-            views = media_data.get('play_count', 0) or media_data.get('view_count', 0)
-            comments = media_data.get('comment_count', 0)
-
-            # Get uploader - handle both formats
-            user_data = media_data.get('user', {})
-            if isinstance(user_data, dict):
-                uploader = user_data.get('username', 'Unknown')
+        max_attempts = 4
+        last_error = None
+        
+        # Validate URL first
+        shortcode = self.extract_shortcode(url)
+        if not shortcode:
+            if return_json:
+                return jsonify({'error': 'Invalid Instagram URL. Please provide a valid Instagram post/reel URL.'}), 400
             else:
-                uploader = str(user_data) if user_data else 'Unknown'
-
-            logger.info(f"Successfully extracted Instagram video: {title[:50]}")
-
-            return {
-                'title': title,
-                'thumbnail': thumbnail_url,
-                'duration': None,  # Instagram API doesn't provide duration
-                'uploader': uploader,
-                'view_count': views,
-                'like_count': likes,
-                'comment_count': comments,
-                'formats': {
-                    'video_formats': [
-                        {
-                            'quality': 'Best Available',
-                            'format_id': 'best',
-                            'ext': 'mp4',
-                            'direct_url': video_url,
-                            'filesize': None,
-                            'resolution': 'HD',
+                raise Exception('Invalid Instagram URL. Please provide a valid Instagram post/reel URL.')
+        
+        for attempt in range(max_attempts):
+            try:
+                logger.info(f"Instagram attempt {attempt + 1}/{max_attempts} for shortcode: {shortcode}")
+                
+                ydl_opts = self.get_robust_instagram_opts({
+                    'noplaylist': True,
+                    'extract_flat': False,
+                }, attempt)
+                
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                    
+                    if not info:
+                        raise Exception('Could not extract video information')
+                    
+                    duration = info.get('duration', 0) or 0
+                    logger.info(f"Instagram extraction successful - Duration: {duration}s")
+                    
+                    # Better thumbnail handling
+                    thumbnail_url = get_best_thumbnail(info)
+                    
+                    # Enhanced title handling
+                    title = info.get('title', '') or info.get('fulltitle', '') or info.get('description', '')[:100] or 'Instagram Video'
+                    if not title or title == 'NA':
+                        uploader = info.get('uploader', '') or info.get('creator', '') or info.get('uploader_id', '')
+                        title = f"{uploader} - Instagram Video" if uploader else "Instagram Video"
+                    
+                    # Truncate title if too long
+                    if len(title) > 100:
+                        title = title[:100] + "..."
+                    
+                    video_info = {
+                        'title': title,
+                        'duration': duration,
+                        'view_count': info.get('view_count', 0) or 0,
+                        'uploader': info.get('uploader', '') or info.get('creator', '') or info.get('uploader_id', 'Unknown'),
+                        'uploader_id': info.get('uploader_id', ''),
+                        'thumbnail': thumbnail_url,
+                        'description': (info.get('description', '')[:200] + '...') if info.get('description', '') else '',
+                        'upload_date': info.get('upload_date', ''),
+                        'like_count': info.get('like_count', 0) or 0,
+                        'comment_count': info.get('comment_count', 0) or 0,
+                        'platform': 'instagram',
+                        'formats': []
+                    }
+                    
+                    # Process formats
+                    formats = info.get('formats', [])
+                    if not formats:
+                        # Try to get URL directly for single format
+                        direct_url = info.get('url')
+                        if direct_url:
+                            video_info['formats'] = {
+                                'video_formats': [{
+                                    'quality': 'Best Available',
+                                    'type': 'video',
+                                    'format_id': 'best',
+                                    'ext': 'mp4',
+                                    'filesize': 0,
+                                    'direct_url': direct_url,
+                                    'width': info.get('width', 0),
+                                    'height': info.get('height', 0),
+                                    'has_audio': True,
+                                    'platform': 'instagram',
+                                    'watermark_free': True,
+                                    'duration': duration,
+                                    'resolution': 'HD'
+                                }],
+                                'audio_formats': []
+                            }
+                            logger.info("Instagram success - Single format extracted")
+                            if return_json:
+                                return jsonify(video_info)
+                            return video_info
+                        else:
+                            raise Exception('No formats available')
+                    
+                    video_formats = []
+                    audio_formats = []
+                    
+                    for fmt in formats:
+                        if not fmt.get('format_id'):
+                            continue
+                            
+                        vcodec = fmt.get('vcodec', 'none')
+                        acodec = fmt.get('acodec', 'none')
+                        height = fmt.get('height') or 0
+                        ext = fmt.get('ext', '')
+                        
+                        if ext not in ['mp4', 'm4a', 'webm', 'mp3']:
+                            continue
+                        
+                        if vcodec != 'none' and height > 0:
+                            video_formats.append(fmt)
+                        elif acodec != 'none':
+                            audio_formats.append(fmt)
+                    
+                    # Process video formats
+                    processed_video = []
+                    for fmt in sorted(video_formats, key=lambda x: x.get('height') or 0, reverse=True):
+                        height = fmt.get('height') or 0
+                        if height < 144:
+                            continue
+                            
+                        quality = f"{height}p"
+                        ext = fmt.get('ext', 'mp4')
+                        has_audio = detect_audio_in_format(fmt)
+                        
+                        format_data = {
+                            'quality': quality,
+                            'type': 'video',
+                            'format_id': fmt['format_id'],
+                            'ext': ext,
+                            'filesize': fmt.get('filesize', 0) or 0,
+                            'fps': fmt.get('fps', 30),
+                            'width': fmt.get('width', 0),
+                            'height': height,
+                            'has_audio': has_audio,
+                            'platform': 'instagram',
+                            'watermark_free': True,
+                            'duration': duration,
+                            'audio_description': 'With Audio' if has_audio else 'Video Only',
+                            'direct_url': fmt.get('url', '')  # Direct download URL from yt-dlp
                         }
-                    ],
-                    'audio_formats': []
-                }
-            }
-
-        except LoginRequired as e:
-            logger.error(f"Instagram login required: {str(e)}")
-            raise Exception("Instagram authentication failed. Please try again later.")
-
-        except ClientError as e:
-            logger.error(f"Instagram client error: {str(e)}")
-            raise Exception("Instagram download failed. The post may be private or deleted.")
-
-        except Exception as e:
-            logger.error(f"Instagram download error: {str(e)}")
-            raise Exception(f"Instagram download failed: {str(e)}")
+                        processed_video.append(format_data)
+                    
+                    # If no video formats found, create a default one
+                    if not processed_video:
+                        direct_url = info.get('url') or (formats[0].get('url') if formats else None)
+                        if direct_url or formats:
+                            best_fmt = formats[0] if formats else {}
+                            processed_video.append({
+                                'quality': 'Best Available',
+                                'type': 'video',
+                                'format_id': best_fmt.get('format_id', 'best'),
+                                'ext': 'mp4',
+                                'filesize': best_fmt.get('filesize', 0) or 0,
+                                'direct_url': direct_url or best_fmt.get('url', ''),
+                                'width': info.get('width', 0),
+                                'height': info.get('height', 0),
+                                'has_audio': True,
+                                'platform': 'instagram',
+                                'watermark_free': True,
+                                'duration': duration,
+                                'resolution': 'HD'
+                            })
+                    
+                    # Process audio formats
+                    processed_audio = []
+                    for fmt in sorted(audio_formats, key=lambda x: x.get('abr') or 0, reverse=True):
+                        abr = fmt.get('abr') or 128
+                        quality_level = f"{int(abr)}kbps"
+                        
+                        format_data = {
+                            'quality': quality_level,
+                            'type': 'audio',
+                            'format_id': fmt['format_id'],
+                            'ext': 'mp3',
+                            'filesize': fmt.get('filesize', 0) or 0,
+                            'abr': abr,
+                            'platform': 'instagram',
+                            'description': f"Audio ({quality_level})"
+                        }
+                        processed_audio.append(format_data)
+                    
+                    video_info['formats'] = {
+                        'video_formats': processed_video[:8],
+                        'audio_formats': processed_audio[:6]
+                    }
+                    
+                    logger.info(f"Instagram success - Video: {len(processed_video)}, Audio: {len(processed_audio)}")
+                    if return_json:
+                        return jsonify(video_info)
+                    return video_info
+                    
+            except yt_dlp.DownloadError as e:
+                last_error = e
+                error_msg = str(e).lower()
+                logger.warning(f"Instagram attempt {attempt + 1} failed: {error_msg}")
+                
+                if 'private' in error_msg or 'login' in error_msg or 'not found' in error_msg:
+                    break
+                
+                if attempt < max_attempts - 1:
+                    time.sleep(2 + attempt)
+                    continue
+                else:
+                    raise e
+                    
+            except Exception as e:
+                last_error = e
+                logger.warning(f"Instagram attempt {attempt + 1} exception: {str(e)}")
+                if attempt < max_attempts - 1:
+                    time.sleep(2 + attempt)
+                    continue
+                else:
+                    raise e
+        
+        # Handle final error
+        if last_error:
+            error_msg = str(last_error).lower()
+            logger.error(f"Instagram final error: {error_msg}")
+            
+            if 'private' in error_msg or 'login' in error_msg:
+                if return_json:
+                    return jsonify({'error': 'This Instagram video is private. Only public videos can be downloaded.'}), 400
+                raise Exception('This Instagram video is private. Only public videos can be downloaded.')
+            elif 'not found' in error_msg or '404' in error_msg:
+                if return_json:
+                    return jsonify({'error': 'Instagram video not found. It may have been deleted.'}), 400
+                raise Exception('Instagram video not found. It may have been deleted.')
+            elif 'rate' in error_msg or 'limit' in error_msg:
+                if return_json:
+                    return jsonify({'error': 'Instagram rate limit reached. Please try again in a few minutes.'}), 429
+                raise Exception('Instagram rate limit reached. Please try again in a few minutes.')
+            else:
+                if return_json:
+                    return jsonify({'error': 'Instagram video could not be processed. Please check the URL and try again.'}), 400
+                raise Exception('Instagram video could not be processed. Please check the URL and try again.')
+        
+        if return_json:
+            return jsonify({'error': 'Failed to process Instagram video.'}), 400
+        raise Exception('Failed to process Instagram video.')
 
     @staticmethod
     def download_video(url, format_id='best', output_path='downloads'):
         """
-        Download Instagram video
+        Download Instagram video - now uses yt-dlp
         """
         try:
-            # Get video info first
-            video_info = InstagramDownloader.get_video_info(url)
-
-            # Find the video format
-            video_formats = video_info['formats']['video_formats']
-            if not video_formats:
-                raise Exception("No video formats available")
-
-            # Get direct URL
-            direct_url = video_formats[0]['direct_url']
-
+            import os
+            
             # Create output directory
             os.makedirs(output_path, exist_ok=True)
-
-            # Generate filename
-            safe_title = re.sub(r'[^\w\s-]', '', video_info['title'])[:50]
-            filename = f"{safe_title}.mp4"
-            output_file = os.path.join(output_path, filename)
-
-            logger.info(f"Downloading Instagram video to: {output_file}")
-
-            # Download using requests
-            import requests
-            response = requests.get(direct_url, stream=True, timeout=30)
-            response.raise_for_status()
-
-            with open(output_file, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-
-            logger.info(f"Successfully downloaded: {output_file}")
-            return output_file
-
+            
+            ydl_opts = {
+                'format': format_id if format_id != 'best' else 'best',
+                'outtmpl': os.path.join(output_path, '%(title)s.%(ext)s'),
+                'quiet': True,
+                'no_warnings': True,
+                'geo_bypass': True,
+            }
+            
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=True)
+                filename = ydl.prepare_filename(info)
+                logger.info(f"Successfully downloaded: {filename}")
+                return filename
+                
         except Exception as e:
             logger.error(f"Download failed: {str(e)}")
             raise Exception(f"Download failed: {str(e)}")

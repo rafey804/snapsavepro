@@ -13,8 +13,6 @@ import {
     FaPinterest,
     FaTelegram,
     FaTwitch,
-    FaYoutube,
-    FaImage,
     FaUserCircle
 } from 'react-icons/fa';
 import { FaLinkedin, FaThreads } from 'react-icons/fa6';
@@ -162,33 +160,6 @@ export default function RelatedTools({ exclude }: RelatedToolProps) {
             iconColor: 'text-orange-400',
             bgGradient: 'from-orange-500/20 to-yellow-500/20',
             borderColor: 'border-orange-400/30 hover:border-orange-400'
-        },
-        {
-            id: 'youtubeShorts',
-            name: t('youtubeShorts.name'),
-            path: '/pages/youtube-shorts-downloader',
-            icon: <FaYoutube className="text-3xl mb-3" />,
-            iconColor: 'text-red-500',
-            bgGradient: 'from-red-600/20 to-red-800/20',
-            borderColor: 'border-red-500/30 hover:border-red-500'
-        },
-        {
-            id: 'youtubeThumbnail',
-            name: t('youtubeThumbnail.name'),
-            path: '/pages/youtube-thumbnail-downloader',
-            icon: <FaImage className="text-3xl mb-3" />,
-            iconColor: 'text-red-400',
-            bgGradient: 'from-red-500/20 to-orange-500/20',
-            borderColor: 'border-red-400/30 hover:border-red-400'
-        },
-        {
-            id: 'youtubeToMp3',
-            name: t('youtubeToMp3.name'),
-            path: '/pages/youtube-to-mp3',
-            icon: <FaMusic className="text-3xl mb-3" />,
-            iconColor: 'text-red-500',
-            bgGradient: 'from-red-600/20 to-pink-600/20',
-            borderColor: 'border-red-500/30 hover:border-red-500'
         },
         {
             id: 'videoToMp3',

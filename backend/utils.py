@@ -392,9 +392,13 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
                 'no_warnings': True,
             }
         elif platform == 'instagram':
-            # Instagram uses instagrapi (not yt-dlp), so we handle it separately
-            # Set dummy base_opts to avoid variable errors (not used for Instagram)
-            base_opts = {}
+            # Instagram now uses yt-dlp for proper video+audio merging
+            from instagram import InstagramDownloader
+            downloader = InstagramDownloader()
+            base_opts = downloader.get_robust_instagram_opts({
+                'progress_hooks': [ProgressHook(download_id, download_progress)],
+                'keepvideo': False,
+            })
         elif platform == 'linkedin':
             from linkedin import LinkedInDownloader
             downloader = LinkedInDownloader()
@@ -496,24 +500,16 @@ def download_worker(download_id, url, format_id, download_type, original_ext='mp
         max_attempts = 3
         last_error = None
 
-        # Special handling for Instagram, LinkedIn scraped videos, and Threads (use direct URL, not yt-dlp)
-        if platform == 'instagram' or platform == 'threads' or (platform == 'linkedin' and format_id == 'scraped_video'):
+        # Special handling for Threads and LinkedIn scraped videos (use direct URL, not yt-dlp)
+        # Note: Instagram now uses yt-dlp below for proper video+audio merging
+        if platform == 'threads' or (platform == 'linkedin' and format_id == 'scraped_video'):
             try:
                 print(f"[DEBUG] Starting direct download for {platform} - {download_id}")
 
                 # Get direct URL based on platform
                 direct_video_url = None
 
-                if platform == 'instagram':
-                    from instagram import InstagramDownloader
-                    downloader = InstagramDownloader()
-                    video_info = downloader.get_video_info(url)
-                    video_formats = video_info.get('formats', {}).get('video_formats', [])
-                    if not video_formats:
-                        raise Exception("No video formats available for Instagram download")
-                    direct_video_url = video_formats[0].get('direct_url')
-
-                elif platform == 'threads':
+                if platform == 'threads':
                     # Check if direct_video_url was passed from frontend (faster, avoids re-scraping)
                     if direct_video_url:
                         print(f"[DEBUG] Using direct video URL from frontend for Threads")

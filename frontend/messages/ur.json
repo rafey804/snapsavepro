@@ -97,6 +97,22 @@
     "threads": {
       "name": "Threads ویڈیو ڈاؤن لوڈر",
       "description": "HD کوالٹی میں Threads ویڈیوز ڈاؤن لوڈ کریں"
+    },
+    "instagramReels": {
+      "name": "Instagram Reels ڈاؤن لوڈر",
+      "description": "HD معیار میں Instagram Reels ڈاؤن لوڈ کریں"
+    },
+    "youtubeShorts": {
+      "name": "YouTube Shorts ڈاؤن لوڈر",
+      "description": "YouTube Shorts ویڈیوز ڈاؤن لوڈ کریں"
+    },
+    "youtubeToMp3": {
+      "name": "YouTube سے MP3 کنورٹر",
+      "description": "YouTube ویڈیوز کو MP3 آڈیو میں تبدیل کریں"
+    },
+    "profilePicture": {
+      "name": "پروفائل تصویر ڈاؤن لوڈر",
+      "description": "سوشل میڈیا سے پروفائل تصاویر ڈاؤن لوڈ کریں"
     }
   },
   "home": {

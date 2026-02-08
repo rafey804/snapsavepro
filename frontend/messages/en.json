@@ -97,6 +97,22 @@
     "threads": {
       "name": "Threads Video Downloader",
       "description": "Download Threads videos in HD quality"
+    },
+    "instagramReels": {
+      "name": "Instagram Reels Downloader",
+      "description": "Download Instagram Reels in HD quality"
+    },
+    "youtubeShorts": {
+      "name": "YouTube Shorts Downloader",
+      "description": "Download YouTube Shorts videos"
+    },
+    "youtubeToMp3": {
+      "name": "YouTube to MP3 Converter",
+      "description": "Convert YouTube videos to MP3 audio"
+    },
+    "profilePicture": {
+      "name": "Profile Picture Downloader",
+      "description": "Download profile pictures from social media"
     }
   },
   "home": {
