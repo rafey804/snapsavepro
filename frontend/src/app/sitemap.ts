@@ -5,7 +5,7 @@ import { getAllBlogs } from '@/data/blogs';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://snapsavepro.com';
   const currentDate = new Date().toISOString().split('T')[0];
-  const locales = ['en', 'hi', 'zh', 'ur'];
+  const locales = ['en'];
   const blogs = getAllBlogs();
 
   // Define all pages with their priorities and change frequencies
@@ -60,9 +60,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: {
             en: `${baseUrl}/en${page.path}`,
-            hi: `${baseUrl}/hi${page.path}`,
-            zh: `${baseUrl}/zh${page.path}`,
-            ur: `${baseUrl}/ur${page.path}`,
           }
         }
       });
@@ -80,9 +77,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: {
             en: `${baseUrl}/en/blog/${blog.slug}`,
-            hi: `${baseUrl}/hi/blog/${blog.slug}`,
-            zh: `${baseUrl}/zh/blog/${blog.slug}`,
-            ur: `${baseUrl}/ur/blog/${blog.slug}`,
           }
         }
       });

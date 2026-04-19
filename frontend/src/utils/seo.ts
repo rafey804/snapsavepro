@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://snapsavepro.com';
 
-export const locales = ['en', 'hi', 'zh', 'ur'];
+export const locales = ['en'];
 
 export function constructMetadata({
   title,

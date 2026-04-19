@@ -44,7 +44,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
-      <head />
+      <head>
+        <meta name="msvalidate.01" content="DD2808B3DE3ED9BBDE14483A464278E2" />
+        <meta name="google-site-verification" content="xjiCGcMml5ZC_vYg9emsUrFfDQ4gyKb7ErLdYcVv4gs" />
+      </head>
       <body className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-zinc-900" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <Analytics />
